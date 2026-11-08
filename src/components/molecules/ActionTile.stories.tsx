@@ -22,3 +22,6 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 export const Pair: Story = { render: function R() { const [a, setA] = useArgs(); return <div className="w-[345px]"><X.ActionTiles added={!!a.pressed} onAdd={() => setA({ pressed: !a.pressed })} /></div>; } };
+
+/** 컴파운드로 바꿔 조립: 캘린더 대신 공유 타일 */
+export const Composed: Story = { render: function R() { const [a, setA] = useArgs(); return <div className="w-[345px]"><X.ActionTiles added={!!a.pressed} onAdd={() => setA({ pressed: !a.pressed })}><X.ActionTiles.Add /><X.ActionTile icon="share" label="공유" /></X.ActionTiles></div>; } };

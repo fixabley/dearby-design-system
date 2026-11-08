@@ -39,7 +39,7 @@ function Host() {
 /** 활동 이름(두 줄까지) */
 function Title({ children }: { children?: ReactNode }) {
   const { a } = useActivityRow('Title');
-  return <Text variant="rowTitle" lines={2} block className="mt-[3px]">{children ?? a.title}</Text>;
+  return <Text variant="rowTitle" lines={2} className="mt-[3px]">{children ?? a.title}</Text>;
 }
 
 /** 날짜·장소 메타 줄들 */

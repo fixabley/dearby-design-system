@@ -56,5 +56,5 @@ export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & Varia
 
 export function Text({ as, variant, tone, weight, truncate, lines, tabular, nowrap, pre, block, className, ...props }: TextProps) {
   const Comp = as ?? TAG[variant ?? 'body'];
-  return <Comp data-slot="text" className={cn(textVariants({ variant, tone, weight, truncate, lines, tabular, nowrap, pre }), block && 'block', className)} {...props} />;
+  return <Comp data-slot="text" className={cn(textVariants({ variant, tone, weight, truncate, lines, tabular, nowrap, pre }), block && !lines && 'block', className)} {...props} />;
 }

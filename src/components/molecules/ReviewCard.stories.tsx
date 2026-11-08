@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 평가와 글을 먼저, 쓴 사람은 아래(인증 배지 없이) */
+export const Composed: Story = { render: (args: Record<string, any>) => <X.ReviewCard {...(args as any)}><X.ReviewCard.Rating className="mt-0" /><X.ReviewCard.Body /><X.ReviewCard.Header className="mt-3"><X.ReviewCard.Author /></X.ReviewCard.Header></X.ReviewCard> };

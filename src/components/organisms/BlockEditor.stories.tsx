@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 쉬는 시간처럼 이름 · 시각 · 설명만 */
+export const Composed: Story = { render: (args: Record<string, any>) => <X.BlockEditor key={JSON.stringify(args)} {...(args as any)}><X.BlockEditor.Name /><X.BlockEditor.Time /><X.BlockEditor.Description /></X.BlockEditor> };

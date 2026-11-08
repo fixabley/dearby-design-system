@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import type { IconName } from '@/icons';
+import { Text } from '@/components/atoms/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
@@ -8,23 +9,68 @@ import { cn } from '@/lib/utils';
 export function ListGroup({ title, children, className }: { title?: string; children: ReactNode; className?: string }) {
   return (
     <section className={className}>
-      {title && <h4 className="mb-1.5 mt-5 px-4 text-caption text-muted-foreground">{title}</h4>}
+      {title && <Text as="h4" variant="caption" tone="muted" className="mb-1.5 mt-5 px-4">{title}</Text>}
       <ItemGroup>{children}</ItemGroup>
     </section>
   );
 }
 
-/** 묶음 목록의 행(shadcn Item): 아이콘 또는 앞 요소 · 제목/보조 줄 · 오른쪽 값·스위치·라디오 */
-export function ListRow({ icon, title, subtitle, trailing, add, selected, onClick, className, children }: {
-  icon?: IconName; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; add?: boolean; selected?: boolean; onClick?: () => void; className?: string; children?: ReactNode;
-}) {
-  const body = (
-    <>
-      {icon && <ItemMedia variant="icon"><Icon name={icon} /></ItemMedia>}
-      {children && <ItemMedia>{children}</ItemMedia>}
-      <ItemContent><ItemTitle className={cn(add && 'text-accent-foreground')}>{title}</ItemTitle>{subtitle && <ItemDescription>{subtitle}</ItemDescription>}</ItemContent>
-      {trailing != null && <ItemActions>{trailing}</ItemActions>}
-    </>
-  );
-  return onClick ? <Item asChild selected={selected} className={className}><button type="button" onClick={onClick}>{body}</button></Item> : <Item selected={selected} className={className}>{body}</Item>;
+type ListRowContextValue = { icon?: IconName; media?: ReactNode; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; add?: boolean };
+const ListRowContext = createContext<ListRowContextValue | null>(null);
+
+function useListRow(part: string) {
+  const ctx = useContext(ListRowContext);
+  if (!ctx) throw new Error(`ListRow.${part}는 <ListRow> 안에서 쓴다`);
+  return ctx;
 }
+
+/** 앞 요소: media로 준 요소(아바타 등), 없으면 청록 아이콘 */
+function Media({ className, children }: { className?: string; children?: ReactNode }) {
+  const { icon, media } = useListRow('Media');
+  const node = children ?? media;
+  if (node) return <ItemMedia className={className}>{node}</ItemMedia>;
+  return icon ? <ItemMedia variant="icon" className={className}><Icon name={icon} /></ItemMedia> : null;
+}
+
+/** 제목(추가 행이면 청록) */
+function Title({ className, children }: { className?: string; children?: ReactNode }) {
+  const { title, add } = useListRow('Title');
+  return <ItemTitle className={cn(add && 'text-accent-foreground', className)}>{children ?? title}</ItemTitle>;
+}
+
+/** 보조 줄 */
+function Subtitle({ className, children }: { className?: string; children?: ReactNode }) {
+  const { subtitle } = useListRow('Subtitle');
+  const node = children ?? subtitle;
+  return node ? <ItemDescription className={className}>{node}</ItemDescription> : null;
+}
+
+/** 글 열: 제목 · 보조 줄. children을 주면 그 조립으로 바꾼다 */
+function Body({ className, children }: { className?: string; children?: ReactNode }) {
+  return <ItemContent className={className}>{children ?? <><Title /><Subtitle /></>}</ItemContent>;
+}
+
+/** 오른쪽 값 · 스위치 · 라디오 */
+function Trailing({ className, children }: { className?: string; children?: ReactNode }) {
+  const { trailing } = useListRow('Trailing');
+  const node = children ?? trailing;
+  return node != null ? <ItemActions className={className}>{node}</ItemActions> : null;
+}
+
+function ListRowRoot({ icon, media, title, subtitle, trailing, add, selected, onClick, className, children }: {
+  icon?: IconName; media?: ReactNode; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; add?: boolean; selected?: boolean; onClick?: () => void; className?: string; children?: ReactNode;
+}) {
+  const body = children ?? <><Media /><Body /><Trailing /></>;
+  return (
+    <ListRowContext.Provider value={{ icon, media, title, subtitle, trailing, add }}>
+      {onClick ? <Item asChild selected={selected} className={className}><button type="button" onClick={onClick}>{body}</button></Item> : <Item selected={selected} className={className}>{body}</Item>}
+    </ListRowContext.Provider>
+  );
+}
+
+/**
+ * 묶음 목록의 행(shadcn Item, 컴파운드): Media(아이콘 또는 media로 준 앞 요소) · Body(Title · Subtitle) · Trailing(오른쪽 값·스위치·라디오).
+ * 기본 조립은 `<ListRow icon="calendar" title="시작" trailing="11월 30일 (월)" />`. 바꿔 조립하려면 부품을 직접 놓는다:
+ * `<ListRow title="한유진" subtitle="멘토"><ListRow.Body><ListRow.Subtitle /><ListRow.Title /></ListRow.Body><ListRow.Trailing /></ListRow>`
+ */
+export const ListRow = Object.assign(ListRowRoot, { Media, Body, Title, Subtitle, Trailing });

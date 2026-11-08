@@ -22,3 +22,15 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 앞 요소는 아바타, 보조 줄을 제목 위로 */
+export const Composed: Story = {
+  render: () => (
+    <X.ListGroup title="주도하는 사람">
+      <X.ListRow title="한유진" subtitle="멘토 · @yujin" media={<X.Avatar fallback="한" />} trailing="수업">
+        <X.ListRow.Media />
+        <X.ListRow.Body><X.ListRow.Subtitle /><X.ListRow.Title /></X.ListRow.Body>
+        <X.ListRow.Trailing />
+      </X.ListRow>
+    </X.ListGroup>
+  ),
+};

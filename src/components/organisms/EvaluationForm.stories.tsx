@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 피드백 없이 제출 PR · 통과 여부 · 보내기 */
+export const Composed: Story = { render: (args: Record<string, any>) => <X.EvaluationForm {...(args as any)}><X.EvaluationForm.Submission /><X.EvaluationForm.Verdict /><X.EvaluationForm.Submit /></X.EvaluationForm> };

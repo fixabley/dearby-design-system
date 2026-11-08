@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 알림 목록처럼 제목과 쓴 사람만 */
+export const Composed: Story = { render: (args: Record<string, any>) => <X.Notice {...(args as any)}><X.Notice.Title /><X.Notice.Byline className="mt-0.5" /></X.Notice> };

@@ -24,3 +24,12 @@ export const Playground: Story = {};
 
 /** 내 시간표: 찜한 세션만 시간순 한 열. 하트를 끄면 바로 빠진다 */
 export const Mine: Story = { args: { view: 'mine' } };
+
+/** 컴파운드로 바꿔 조립: 내 시간표와 전체를 나란히. 찜 상태를 함께 써서 전체에서 하트를 누르면 왼쪽에 바로 담긴다 */
+export const Composed: Story = {
+  render: (args: Record<string, any>) => (
+    <X.ConferenceTimetable tracks={args.tracks} slots={args.slots} onSavedChange={args.onSavedChange}>
+      <div className="grid grid-cols-[300px_minmax(0,1fr)] items-start gap-6"><X.ConferenceTimetable.Mine /><X.ConferenceTimetable.All /></div>
+    </X.ConferenceTimetable>
+  ),
+};

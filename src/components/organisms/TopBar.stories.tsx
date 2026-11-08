@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 제목 옆에 개수 배지, 가운데 전환 없이 */
+export const Composed: Story = { render: ({ unread }: Record<string, any>) => <X.TopBar right={<X.GlassGroup unread={unread} />}><X.TopBar.Title>공지 <X.Badge variant="mint" className="align-middle">3</X.Badge></X.TopBar.Title><X.TopBar.Actions /></X.TopBar> };

@@ -21,3 +21,17 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 디스코드 없이 제목·내용 · 알림 · 올리기 */
+export const Composed: Story = {
+  render: function Render(args: Record<string, any>) {
+    const [, update] = useArgs();
+    return (
+      <div className="grid w-[960px] grid-cols-2 gap-12">
+        <X.NoticeForm {...(args as any)} onTitle={(v) => { args.onTitle?.(v); update({ title: v }); }} onBody={(v) => { args.onBody?.(v); update({ body: v }); }}>
+          <X.NoticeForm.Fields /><X.ListGroup><X.NoticeForm.Notify /></X.ListGroup><X.NoticeForm.Submit />
+        </X.NoticeForm>
+        <X.NoticePreview title={args.title} body={args.body} />
+      </div>
+    );
+  },
+};

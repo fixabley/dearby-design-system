@@ -21,3 +21,5 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 컴파운드로 바꿔 조립: 커버 없이 글과 화살표만 */
+export const Composed: Story = { render: (args: Record<string, any>) => <X.QueueCard {...(args as any)}><X.QueueCard.Text /><X.QueueCard.Chevron /></X.QueueCard> };

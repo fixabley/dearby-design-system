@@ -22,6 +22,7 @@
   --secondary: #E2F1F0;
   --secondary-foreground: #007F80;
   --muted: #F1F1F4;              /* 채움 */
+  --switch-off: #E5E5EA;         /* 꺼진 스위치 바탕 */
   --muted-foreground: #86868B;
   --border: #D8D8DC;
   --input: #F1F1F4;
@@ -49,6 +50,7 @@
   --secondary: rgba(47, 179, 180, .16);
   --secondary-foreground: #2FB3B4;
   --muted: #1A1D1F;
+  --switch-off: #39393D;         /* 묶음 행 배경(muted)과 구분되게 밝게 */
   --muted-foreground: #9AA3A8;
   --border: rgba(255, 255, 255, .08);
   --input: #1A1D1F;
@@ -74,6 +76,7 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
+  --color-switch-off: var(--switch-off);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-input: var(--input);

@@ -2,9 +2,12 @@ import type { ReactNode } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
-/** 따로 스크롤되는 칸(shadcn ScrollArea) */
+/**
+ * 따로 스크롤되는 칸(shadcn ScrollArea). 주어진 높이(격자 칸 · flex-1)를 채우고 넘치는 내용은 칸 안에서 스크롤한다.
+ * contain-size: 내용 높이가 부모(WebShell.Main 등)의 높이를 늘리지 않게 한다. 그래서 칸의 폭·높이는 늘 부모가 정한다.
+ */
 export function Pane({ children, className }: { children: ReactNode; className?: string }) {
-  return <ScrollArea className={cn('h-full min-h-0', className)}>{children}</ScrollArea>;
+  return <ScrollArea className={cn('h-full min-h-0 contain-size', className)}>{children}</ScrollArea>;
 }
 
 /** 칸 아래 CTA 영역(위로 바탕색 그러데이션) */

@@ -11,15 +11,8 @@ function Main({ className, children }: { className?: string; children: ReactNode
   return <main className={cn('relative flex min-w-0 flex-col', className)}>{children}</main>;
 }
 
-function WebShellRoot({ sidebar, height = 820, children }: {
-  /** @deprecated WebShell.Sidebar · WebShell.Main 부품을 쓴다. 주면 children을 Main에 담는다(Atoms/Pane 스토리가 아직 쓴다) */
-  sidebar?: ReactNode; height?: number; children: ReactNode;
-}) {
-  return (
-    <div className="grid w-[1280px] grid-cols-[220px_minmax(0,1fr)] overflow-hidden bg-background text-foreground" style={{ height }}>
-      {sidebar === undefined ? children : <>{sidebar}<Main>{children}</Main></>}
-    </div>
-  );
+function WebShellRoot({ height = 820, children }: { height?: number; children: ReactNode }) {
+  return <div className="grid w-[1280px] grid-cols-[220px_minmax(0,1fr)] overflow-hidden bg-background text-foreground" style={{ height }}>{children}</div>;
 }
 
 /**

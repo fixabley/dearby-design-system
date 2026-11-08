@@ -11,10 +11,10 @@ const meta: Meta = {
   component: X.DateTimeField,
   args: { start: '2026-11-16T20:00', end: '2026-11-16T22:00', allDay: false, today: '2026-11-03', onStartChange: fn(), onEndChange: fn(), onAllDayChange: fn() },
   argTypes: {
-    start: content('시작(YYYY-MM-DDTHH:mm)'),
-    end: content('끝(YYYY-MM-DDTHH:mm, 비우면 끝 행이 없다)'),
+    start: { control: 'text', ...content('시작(YYYY-MM-DDTHH:mm)') },
+    end: { control: 'text', ...content('끝(YYYY-MM-DDTHH:mm, 비우면 끝 행이 없다)') },
     allDay: state('하루 종일(켜면 시각 칸이 빠진다)'),
-    today: state('기준일: 연도를 붙일지와 달력의 오늘 표시(시안 기준일 11월 3일)'),
+    today: { control: 'text', ...state('기준일: 연도를 붙일지와 달력의 오늘 표시(시안 기준일 11월 3일)') },
     onStartChange: event(),
     onEndChange: event(),
     onAllDayChange: event(),

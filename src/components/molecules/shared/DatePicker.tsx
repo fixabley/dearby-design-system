@@ -10,9 +10,9 @@ import { formatDate } from '@/lib/date';
  * min · max 밖의 날과 disabledDates는 고를 수 없고, 달 넘김도 min · max 안에서만 된다. 고르면 바로 닫힌다.
  * label은 화면 읽기용 칸 이름(보이지 않음)이고 고른 값과 함께 읽힌다.
  */
-export function DatePicker({ value, onChange, placeholder = '선택', min, max, disabledDates = [], today, label = '날짜', open, onOpenChange, className }: {
-  value?: Date; onChange?: (date: Date) => void; placeholder?: string; min?: Date; max?: Date; disabledDates?: Date[]; today?: Date; label?: string;
-  open?: boolean; onOpenChange?: (open: boolean) => void; className?: string;
+export function DatePicker({ value, placeholder = '선택', label = '날짜', min, max, disabledDates = [], today, open, onChange, onOpenChange, className }: {
+  value?: Date; placeholder?: string; label?: string; min?: Date; max?: Date; disabledDates?: Date[]; today?: Date; open?: boolean;
+  onChange?: (date: Date) => void; onOpenChange?: (open: boolean) => void; className?: string;
 }) {
   const [innerOpen, setInnerOpen] = useState(false);
   const isOpen = open ?? innerOpen;

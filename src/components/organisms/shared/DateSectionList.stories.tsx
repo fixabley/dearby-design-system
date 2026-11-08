@@ -32,7 +32,7 @@ const meta: Meta = {
   argTypes: {
     items: content('행 데이터. getDate로 날짜를 읽어 묶고, 묶음 안 행은 renderItem으로 그린다(여기서는 ActivityRow)'),
     pickable: look('맨 위 고정 머리(보이는 맨 위 묶음의 날짜, 누르면 날짜 고르기). 끄면 머리 없이 묶음만'),
-    today: state('기준일: 처음 보이는 묶음(이날, 없으면 다음 묶음)과 연도 표시(시안 기준일 11월 3일)'),
+    today: { control: 'text', ...state('기준일: 처음 보이는 묶음(이날, 없으면 다음 묶음)과 연도 표시(시안 기준일 11월 3일)') },
     getDate: { table: { disable: true } },
     renderItem: { table: { disable: true } },
     className: { table: { disable: true } },

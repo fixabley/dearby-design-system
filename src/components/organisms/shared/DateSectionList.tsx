@@ -55,8 +55,8 @@ function Sections() {
   return <>{groups.map(([k, list]) => <Section key={k} date={fromDayKey(k)}>{list.map((it, i) => <Fragment key={i}>{renderItem(it)}</Fragment>)}</Section>)}</>;
 }
 
-function DateSectionListRoot<T>({ items = [], getDate, renderItem, today = new Date(), pickable = false, className, children }: {
-  items?: T[]; getDate?: (item: T) => Date; renderItem?: (item: T) => ReactNode; today?: Date; pickable?: boolean; className?: string; children?: ReactNode;
+function DateSectionListRoot<T>({ items = [], getDate, renderItem, pickable = false, today = new Date(), className, children }: {
+  items?: T[]; getDate?: (item: T) => Date; renderItem?: (item: T) => ReactNode; pickable?: boolean; today?: Date; className?: string; children?: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const placed = useRef<string>(undefined);

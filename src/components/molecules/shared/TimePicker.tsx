@@ -18,8 +18,8 @@ const settled = (t: string) => /^(\d{1,2}|\d{4}|\d{1,2}:\d{2})$/.test(t);
  * 칸을 누르거나 ↓ · ↑로 목록을 열면 지금 값 근처가 가운데 보인다. ↓ · ↑는 칸 글자를 목록 값으로 바꾸고, Enter나 칸 밖으로 나가면 확정, Esc는 되돌린다.
  * 직접 입력은 '9' → 09:00, '930' → 09:30, '2130' → 21:30처럼 맞추고, 맞지 않으면 앞 값으로 되돌린다. label은 화면 읽기용 칸 이름(보이지 않음).
  */
-export function TimePicker({ value = '', onChange, placeholder = '선택', label = '시간', open, onOpenChange, className }: {
-  value?: string; onChange?: (time: string) => void; placeholder?: string; label?: string; open?: boolean; onOpenChange?: (open: boolean) => void; className?: string;
+export function TimePicker({ value = '', placeholder = '선택', label = '시간', open, onChange, onOpenChange, className }: {
+  value?: string; placeholder?: string; label?: string; open?: boolean; onChange?: (time: string) => void; onOpenChange?: (open: boolean) => void; className?: string;
 }) {
   const listId = useId();
   const [text, setText] = useState(value);

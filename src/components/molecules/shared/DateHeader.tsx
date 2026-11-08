@@ -32,8 +32,8 @@ function Chevron() {
   return <Icon name="chevronDown" className="size-[18px] shrink-0 text-muted-foreground transition-transform group-data-[state=open]/date-header:rotate-180" />;
 }
 
-function DateHeaderRoot({ date, today, sticky = false, pickable = false, open, onOpenChange, onSelect, className, children }: {
-  date: Date; today?: Date; sticky?: boolean; pickable?: boolean; open?: boolean; onOpenChange?: (open: boolean) => void; onSelect?: (date: Date) => void; className?: string; children?: ReactNode;
+function DateHeaderRoot({ date, pickable = false, sticky = false, today, open, onSelect, onOpenChange, className, children }: {
+  date: Date; pickable?: boolean; sticky?: boolean; today?: Date; open?: boolean; onSelect?: (date: Date) => void; onOpenChange?: (open: boolean) => void; className?: string; children?: ReactNode;
 }) {
   const [innerOpen, setInnerOpen] = useState(false);
   const isOpen = open ?? innerOpen;

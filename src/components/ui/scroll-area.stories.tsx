@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/ScrollArea',
+  title: 'Atoms/ScrollArea',
+  id: 'ui-shadcn-scrollarea',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.ScrollArea,
   args: { height: 240, width: 480 },
   argTypes: { height: { control: { type: 'range', min: 120, max: 600, step: 20 } }, width: { control: { type: 'range', min: 320, max: 600, step: 10 } } },

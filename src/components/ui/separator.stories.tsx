@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Separator',
+  title: 'Atoms/Separator',
+  id: 'ui-shadcn-separator',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Separator,
   args: { orientation: 'horizontal', className: 'my-3' },
   argTypes: { orientation: { control: "inline-radio", options: ["horizontal", "vertical"] } },

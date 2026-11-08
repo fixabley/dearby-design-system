@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Button',
+  title: 'Atoms/Button',
+  id: 'ui-shadcn-button',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Button,
   args: { children: '신청하러 가기', variant: 'default', size: 'lg', block: false, disabled: false, onClick: fn() },
   argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "ghost", "destructive", "glass"] }, size: { control: "inline-radio", options: ["lg", "default", "sm", "icon"] }, asChild: { table: { disable: true } } },

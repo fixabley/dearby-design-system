@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Badge',
+  title: 'Atoms/Badge',
+  id: 'ui-shadcn-badge',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Badge,
   args: { children: 'D-6', variant: 'default', size: 'default' },
   argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "muted", "destructive"] }, size: { control: "inline-radio", options: ["default", "sm"] }, asChild: { table: { disable: true } } },

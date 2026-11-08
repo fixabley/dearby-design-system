@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Card',
+  title: 'Molecules/Card',
+  id: 'ui-shadcn-card',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Card,
   args: { title: '소개', body: '서류 통과한 17기끼리 모의 면접을 돌려요. 매주 월·목 저녁 온라인으로 만나요.' },
   

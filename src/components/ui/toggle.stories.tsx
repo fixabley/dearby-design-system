@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Toggle',
+  title: 'Atoms/Toggle',
+  id: 'ui-shadcn-toggle',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Toggle,
   args: { children: '지원 가능', pressed: true, disabled: false, onPressedChange: fn() },
   

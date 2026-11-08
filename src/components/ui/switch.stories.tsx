@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Switch',
+  title: 'Atoms/Switch',
+  id: 'ui-shadcn-switch',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Switch,
   args: { checked: true, disabled: false, 'aria-label': '알림', onCheckedChange: fn() },
   

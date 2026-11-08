@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Avatar',
+  title: 'Atoms/Avatar',
+  id: 'ui-shadcn-avatar',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Avatar,
   args: { fallback: '김', size: 'md', src: '' },
   argTypes: { size: { control: "inline-radio", options: ["mark", "dot", "sm", "md", "lg"] }, src: { control: "select", options: ["", "img/logo-13.png", "img/logo-22.png", "img/logo-pytorch.png"] } },

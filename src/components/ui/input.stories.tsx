@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Input',
+  title: 'Atoms/Input',
+  id: 'ui-shadcn-input',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Input,
   args: { label: '제목', defaultValue: '목요일 모임은 21:00에 시작해요', placeholder: '선택', multiline: false, disabled: false },
   

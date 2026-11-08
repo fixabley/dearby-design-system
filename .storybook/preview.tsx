@@ -20,7 +20,7 @@ const preview: Preview = {
     layout: 'padded',
     controls: { expanded: true },
     backgrounds: { disable: true },
-    options: { storySort: { order: ['Introduction', 'Foundations', 'UI (shadcn)', 'Atoms', 'Molecules', 'Organisms', 'Templates'] } },
+    options: { storySort: { order: ['Introduction', 'Foundations', 'Atoms', 'Molecules', 'Organisms', 'Templates'] } },
   },
 };
 export default preview;

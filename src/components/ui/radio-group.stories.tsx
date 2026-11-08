@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/RadioGroup',
+  title: 'Molecules/RadioGroup',
+  id: 'ui-shadcn-radiogroup',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.RadioGroup,
   args: { value: '서울', options: ['서울', '대전', '광주'], disabled: false, onValueChange: fn() },
   

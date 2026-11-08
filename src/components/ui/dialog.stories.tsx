@@ -6,7 +6,9 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'UI (shadcn)/Dialog',
+  title: 'Molecules/Dialog',
+  id: 'ui-shadcn-dialog',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  tags: ['shadcn'],
   component: X.Dialog,
   args: { open: false, title: '파이토치 데이 코리아 2026 · 오후 세션', description: '11월 21일 (토) 13:30 ~ 17:30 · 코엑스 그랜드볼룸', showClose: true, onOpenChange: fn() },
   

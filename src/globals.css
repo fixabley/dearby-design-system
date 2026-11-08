@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* 빌드 결과에서 assets/ 기준 ../fonts 로 찾는다(Pages 하위 경로에서도 동작) */
+@font-face { font-family: "Pretendard Variable"; font-weight: 45 920; font-style: normal; font-display: swap; src: url("../fonts/PretendardVariable.ttf") format("truetype"); }
+
+/* 다크는 시스템 설정을 따르는 .dk(앱 시안과 같은 이름) */
+@custom-variant dark (&:is(.dk *, .dk));
+
+/* ── Dearby 토큰(시안 11월 3일 체계)을 shadcn 이름에 덮어씌움 ── */
+:root {
+  --background: #FFFFFF;
+  --foreground: #111113;
+  --card: #FFFFFF;
+  --card-foreground: #111113;
+  --popover: #FFFFFF;
+  --popover-foreground: #111113;
+  --primary: #007F80;            /* 청록 채움 면: 두 모드 모두 #007F80 + 흰 글자 */
+  --primary-foreground: #FFFFFF;
+  --accent: #E2F1F0;             /* 민트 */
+  --accent-foreground: #007F80;
+  --secondary: #E2F1F0;
+  --secondary-foreground: #007F80;
+  --muted: #F1F1F4;              /* 채움 */
+  --muted-foreground: #86868B;
+  --border: #D8D8DC;
+  --input: #F1F1F4;
+  --ring: #007F80;
+  --destructive: #D93025;        /* 탈락·오류 전용 */
+  --amber: #9A5B00;              /* 상태 캡션(선발 중)만 */
+  --success: #34C759;            /* iOS 스위치 켬 */
+  --radius: 12px;
+  --shadow-control: 0 2px 14px rgba(20, 32, 31, .08), 0 0 0 .5px rgba(0, 0, 0, .03);
+  --shadow-primary: 0 4px 16px rgba(0, 127, 128, .25);
+  --ease-spring: cubic-bezier(.3, 1.25, .45, 1);
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+}
+.dk {
+  --background: #0F1112;
+  --foreground: #F2F4F5;
+  --card: #202427;
+  --card-foreground: #F2F4F5;
+  --popover: #202427;
+  --popover-foreground: #F2F4F5;
+  --accent: rgba(47, 179, 180, .16);
+  --accent-foreground: #2FB3B4;
+  --secondary: rgba(47, 179, 180, .16);
+  --secondary-foreground: #2FB3B4;
+  --muted: #1A1D1F;
+  --muted-foreground: #9AA3A8;
+  --border: rgba(255, 255, 255, .08);
+  --input: #1A1D1F;
+  --ring: #2FB3B4;
+  --destructive: #FF6B5F;
+  --amber: #F0B44C;
+  --shadow-control: 0 0 0 .5px rgba(255, 255, 255, .06);   /* 다크는 그림자 대신 가는 테두리 */
+  --shadow-primary: none;
+}
+
+@theme inline {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-amber: var(--amber);
+  --color-success: var(--success);
+  --radius-sm: 6px;   /* 작은 마크 */
+  --radius-md: 12px;  /* 썸네일·버튼·메뉴 */
+  --radius-lg: 16px;  /* 섹션 카드 */
+  --radius-xl: 20px;  /* 커버·카드 */
+  --shadow-control: var(--shadow-control);
+  --shadow-primary: var(--shadow-primary);
+  /* 글자 계층 열 가지 */
+  --text-title: 26px;  --text-title--font-weight: 700;
+  --text-section: 22px; --text-section--font-weight: 700;
+  --text-headline: 17px; --text-headline--font-weight: 600;
+  --text-body: 15px;
+  --text-caption: 13px;
+  --text-badge: 12px;  --text-badge--font-weight: 700;
+  --text-micro: 11px;
+  --ease-spring: var(--ease-spring);
+  --ease-out-soft: var(--ease-out);
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans; word-break: keep-all; }
+}
+
+@keyframes ds-eq { 0%, 100% { transform: scaleY(.4) } 50% { transform: scaleY(1) } }
+@keyframes ds-pop { 0% { transform: scale(.6) } 60% { transform: scale(1.18) } 100% { transform: scale(1) } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }

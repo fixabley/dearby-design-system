@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Dearby Design System
+
+시안 아티팩트(홈·상세 리뉴얼, Loopers 참고 적용, 웹 시안)의 화면 요소를 **shadcn/ui** 위에 다시 만든 디자인 시스템입니다. 실제 서비스 코드와는 별개입니다.
+
+**만든 순서**
+1. 화면 요소마다 바꿔 쓸 수 있는 shadcn·Radix 컴포넌트를 골랐습니다(`UI (shadcn)`).
+2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 계층 10개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
+3. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
+
+| 시안 요소 | shadcn / Radix |
+| --- | --- |
+| CTA·작은 버튼·글래스 원형 버튼 | Button(variant default·mint·outline·ghost·destructive·glass, size lg·default·sm·icon) |
+| D-day·모집 상태·추천 비율·태그 | Badge |
+| 알림 켜기 | Switch |
+| 서버 고르기 | RadioGroup |
+| 활동 \| 팔로우 \| 프로젝트 같은 분할 전환 | ToggleGroup(single) + 미끄러지는 면 |
+| 요일 고르기 | ToggleGroup(multiple) |
+| 필터 칩·찜·LIVE | Toggle |
+| 기수·캠퍼스 고르기 | DropdownMenu(RadioGroup) |
+| 시간표 모달 | Dialog |
+| 필터·후기 시트 | Sheet |
+| 섹션 카드 | Card |
+| 사람·조직 로고 | Avatar |
+| 입력 칸 | Input · Textarea · Label |
+| 칸마다 스크롤 | ScrollArea |
+| 구분선 | Separator |
+
+- 이름: 코드는 영문(아이콘·종류는 계약의 코드 `calendar`, `BOOTCAMP`), 화면 글자만 한국어.
+- 툴바 **Theme**로 라이트·다크. 다크는 문서 루트의 `.dk`라 모달·메뉴·시트까지 이어집니다.
+- 디스코드 클라이언트 화면은 넣지 않았습니다. 앱 안의 디스코드 연결 설정(서버 고르기·채널 양식)만 있습니다.

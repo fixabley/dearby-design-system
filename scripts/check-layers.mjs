@@ -1,34 +1,64 @@
-// 디자인 시스템 층 규칙 검사.
-// 1) 참조 방향: 위 층 참조 금지. 아톰·분자·템플릿은 같은 층도 금지, 유기체는 다른 유기체를 품을 수 있되 순환은 금지.
-//    기반 층(foundations · ui(shadcn 키트) · lib · icons · types · data)은 어느 층에서든 참조할 수 있다.
-// 2) 글자 스타일: 글자 크기·굵기·줄 높이·자간 클래스는 기반 층과 아톰에서만 쓴다. 분자 이상은 Text 아톰으로.
+// 디자인 시스템 층 규칙 검사(규칙 B).
+// 1) 참조 방향: 기반 0 < 아톰 1 < 분자 2 < 유기체 3 < 템플릿 4. 위 층은 참조하지 않는다.
+//    같은 층에서는 shadcn 원본만 감싸 쓸 수 있다. 유기체는 다른 유기체를 품을 수 있되 순환은 금지.
+//    shadcn 키트(components/ui) 파일의 층은 옆 스토리 제목(Atoms/… · Molecules/…)으로 정한다.
+//    components 밖(lib · icons · types · data)은 층이 없는 재료라 검사하지 않는다.
+// 2) 글자 스타일: 분자 이상(shadcn 원본 제외)은 글자 크기·굵기·줄 높이·자간 클래스를 쓰지 않고 Text 아톰으로.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { join, dirname, basename } from 'node:path';
+import { join, dirname, resolve, relative } from 'node:path';
 
 const ROOT = new URL('../src/components/', import.meta.url).pathname;
-const RANK = { foundations: 0, ui: 0, atoms: 1, molecules: 2, organisms: 3, templates: 4 };
+const LAYERS = ['foundations', 'ui', 'atoms', 'molecules', 'organisms', 'templates'];
+const RANK = { foundations: 0, atoms: 1, molecules: 2, organisms: 3, templates: 4 };
+const KIT_RANK = { Atoms: 1, Molecules: 2 };
 const NAME = { 0: '기반', 1: '아톰', 2: '분자', 3: '유기체', 4: '템플릿' };
 const TYPO = /(?<![\w-])(text-(?:title|section|headline|body-lg|body|caption|badge|micro)|text-\[\d+(?:\.\d+)?(?:px|rem)\]|font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)|leading-[\w.[\]-]+|tracking-[\w.[\]-]+)(?![\w-])/g;
 
-const files = Object.keys(RANK).flatMap((d) => (existsSync(join(ROOT, d)) ? readdirSync(join(ROOT, d)) : [])
-  .filter((f) => f.endsWith('.tsx') && !f.endsWith('.stories.tsx')).map((f) => join(ROOT, d, f)));
-const layerOf = (p) => basename(dirname(p));
-const short = (p) => p.slice(ROOT.length);
+const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
+const files = LAYERS.flatMap((l) => (existsSync(join(ROOT, l)) ? walk(join(ROOT, l)) : []))
+  .filter((f) => f.endsWith('.tsx') && !f.endsWith('.stories.tsx'));
+const short = (p) => relative(ROOT, p);
+const layerOf = (p) => short(p).split('/')[0];
+const isKit = (p) => layerOf(p) === 'ui';
 const errors = [];
-const orgEdges = new Map();
 
+// shadcn 원본의 층: 옆 스토리 제목의 첫 칸
+const kitRank = new Map();
+for (const f of files.filter(isKit)) {
+  const story = f.replace(/\.tsx$/, '.stories.tsx');
+  if (!existsSync(story)) { errors.push(`shadcn 층  ${short(f)}  옆 스토리(${short(story)})가 없어 층을 정할 수 없다`); continue; }
+  const title = /title:\s*'([^']+)'/.exec(readFileSync(story, 'utf8'))?.[1];
+  const rank = KIT_RANK[title?.split('/')[0]];
+  if (rank === undefined) { errors.push(`shadcn 층  ${short(f)}  스토리 제목 '${title ?? '없음'}'이 Atoms/… 도 Molecules/… 도 아니다`); continue; }
+  kitRank.set(f, rank);
+}
+const rankOf = (p) => (isKit(p) ? kitRank.get(p) : RANK[layerOf(p)]);
+const label = (p) => `${NAME[rankOf(p)]}${isKit(p) ? ' · shadcn' : ''}`;
+
+// import 대상: '@/components/…', './x', '../x'. components 밖이면 null
+const target = (from, spec) => {
+  const base = spec.startsWith('@/components/') ? join(ROOT, spec.slice('@/components/'.length))
+    : spec.startsWith('.') ? resolve(dirname(from), spec) : null;
+  if (!base || !base.startsWith(ROOT)) return null;
+  return ['.tsx', '.ts', '/index.tsx', '/index.ts'].map((x) => base + x).find(existsSync) ?? base;
+};
+
+const orgEdges = new Map();
 for (const f of files) {
+  const me = rankOf(f);
+  if (me === undefined) continue; // 층을 못 정한 shadcn 파일(위에서 알렸다)
   const src = readFileSync(f, 'utf8');
-  const me = RANK[layerOf(f)];
-  for (const m of src.matchAll(/from '(?:@\/components\/([\w-]+)\/([\w-]+)|\.\/([\w-]+))'/g)) {
-    const target = m[1] ? join(ROOT, m[1], `${m[2]}.tsx`) : join(dirname(f), `${m[3]}.tsx`);
-    const t = RANK[layerOf(target)];
+  for (const [, spec] of src.matchAll(/from ['"]([^'"]+)['"]/g)) {
+    const to = target(f, spec);
+    if (!to || to === f) continue;
+    const t = rankOf(to);
     if (t === undefined) continue;
-    if (t > me) errors.push(`위 층 참조  ${short(f)} (${NAME[me]}) → ${short(target)} (${NAME[t]})`);
-    else if (t === me && me !== 0 && me !== 3) errors.push(`같은 층 참조  ${short(f)} → ${short(target)} (${NAME[me]})`);
-    else if (t === me && me === 3) orgEdges.set(f, [...(orgEdges.get(f) ?? []), target]);
+    if (t > me) errors.push(`위 층 참조  ${short(f)} (${label(f)}) → ${short(to)} (${label(to)})`);
+    else if (t < me || isKit(to)) continue;
+    else if (me === 3) orgEdges.set(f, [...(orgEdges.get(f) ?? []), to]);
+    else errors.push(`같은 층 참조  ${short(f)} → ${short(to)} (${label(f)} → ${label(to)}, 같은 층은 shadcn 원본만)`);
   }
-  if (me >= 2) {
+  if (me >= 2 && !isKit(f)) {
     src.split('\n').forEach((line, i) => {
       if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
       const hits = [...line.matchAll(TYPO)].map((x) => x[1]);
@@ -54,4 +84,4 @@ if (errors.length) {
   console.log(`\n위반 ${errors.length}건`);
   process.exit(1);
 }
-console.log(`층 규칙 통과: 컴포넌트 ${files.length}개`);
+console.log(`층 규칙 통과: 컴포넌트 ${files.length}개(shadcn 원본 ${kitRank.size}개 포함)`);

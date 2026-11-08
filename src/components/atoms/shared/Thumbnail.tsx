@@ -1,13 +1,18 @@
 import type { Thumb } from '@/types';
-import { AvatarFallback, AvatarImage, AvatarRoot, avatarVariants } from '@/components/ui/avatar';
+import { AvatarFallback, AvatarImage, AvatarRoot } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
-type Size = 'sm' | 'md' | 'lg' | 'xl';
-const SIZE = { sm: 'thumb-sm', md: 'thumb', lg: 'thumb-lg', xl: 'thumb-xl' } as const;
+/** 썸네일 네모 크기: 56 · 64 · 76 · 96 */
+const SIZE = {
+  sm: 'size-14 rounded-md text-[16px]',
+  md: 'size-16 rounded-md text-[18px]',
+  lg: 'size-[76px] rounded-md text-[20px]',
+  xl: 'size-24 rounded-lg text-[24px]',
+} as const;
 
 /** 행·상세의 썸네일(shadcn Avatar 네모): 커버 사진, 없으면 브랜드색 그러데이션 위 흰 로고 상자 */
-export function Thumbnail({ thumb: t, size = 'md', className }: { thumb: Thumb; size?: Size; className?: string }) {
-  const root = cn(avatarVariants({ size: SIZE[size] }), className);
+export function Thumbnail({ thumb: t, size = 'md', className }: { thumb: Thumb; size?: keyof typeof SIZE; className?: string }) {
+  const root = cn('relative flex shrink-0 overflow-hidden', SIZE[size], className);
   if ('cover' in t) {
     return <AvatarRoot className={root}><AvatarImage src={t.cover} alt="" className="size-full object-cover" /><AvatarFallback className="size-full bg-muted" /></AvatarRoot>;
   }

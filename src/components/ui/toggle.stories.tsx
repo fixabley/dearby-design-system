@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/Toggle' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/Toggle',
+  component: X.Toggle,
+  args: { children: '지원 가능', pressed: true, disabled: false, onPressedChange: fn() },
+  
+  render: controlled(X.Toggle, 'pressed', 'onPressedChange'),
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Chip: S = { render: () => <div className="flex flex-wrap gap-2"><X.Toggle defaultPressed>지원 가능<small className="text-caption font-normal text-muted-foreground">7</small></X.Toggle><X.Toggle>진행·예정<small className="text-caption font-normal text-muted-foreground">12</small></X.Toggle><X.Toggle disabled>해커톤<small className="text-caption font-normal text-muted-foreground">0</small></X.Toggle></div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

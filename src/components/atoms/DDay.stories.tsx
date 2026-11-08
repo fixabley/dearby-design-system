@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Atoms/DDay' } satisfies Meta;
+const meta: Meta = {
+  title: 'Atoms/DDay',
+  component: X.DDay,
+  args: { children: 'D-6', past: false },
+  
+  
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: () => <p className="flex gap-4 text-caption"><X.DDay>D-6</X.DDay><X.DDay past>8월 29일 (토)</X.DDay></p> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

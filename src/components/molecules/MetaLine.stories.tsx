@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Molecules/MetaLine' } satisfies Meta;
+const meta: Meta = {
+  title: 'Molecules/MetaLine',
+  component: X.MetaLine,
+  args: { icon: 'calendar', label: '모집', value: '11월 9일 (월) 17:00 마감', dday: '', wrap: false },
+  argTypes: { icon: { control: 'select', options: Object.keys(X.ICONS) } },
+  
+  parameters: { width: 300 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: () => <div className="flex w-[300px] flex-col gap-1.5"><X.MetaLine label="모집" value="11월 9일 (월) 17:00 마감" /><X.MetaLine label="마감" dday="D-6" /><X.MetaLine icon="place" label="장소" value="서울 관악구" /></div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

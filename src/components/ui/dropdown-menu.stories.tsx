@@ -1,11 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/DropdownMenu' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/DropdownMenu',
+  component: X.DropdownMenu,
+  args: { value: '전체 기수', options: ['전체 기수', '7기', '6기', '5기'], subs: ['후기 16개 · 추천 75%', '후기 9개 · 추천 78%', '후기 4개 · 추천 75%', '후기 2개'], onValueChange: fn() },
+  
+  render: function Render({ value, options, subs, ...args }: Record<string, any>) { const [, update] = useArgs(); return <X.DropdownMenu><X.DropdownMenuTrigger asChild><X.TrackPicker value={value} /></X.DropdownMenuTrigger>
+  <X.DropdownMenuContent align="start"><X.DropdownMenuRadioGroup value={value} onValueChange={(v) => { args.onValueChange?.(v); update({ value: v }); }}>{(options as string[]).map((o, i) => <X.DropdownMenuRadioItem key={o} value={o} sub={(subs as string[])[i]}>{o}</X.DropdownMenuRadioItem>)}</X.DropdownMenuRadioGroup></X.DropdownMenuContent></X.DropdownMenu>; },
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: function R() { const [v, setV] = useState('all'); return <X.DropdownMenu><X.DropdownMenuTrigger asChild><X.TrackPicker value={{ all: '전체 기수', '7': '7기', '6': '6기' }[v]} /></X.DropdownMenuTrigger>
-  <X.DropdownMenuContent align="start"><X.DropdownMenuRadioGroup value={v} onValueChange={setV}><X.DropdownMenuRadioItem value="all" sub="후기 16개 · 추천 75%">전체 기수</X.DropdownMenuRadioItem><X.DropdownMenuSeparator />
-  <X.DropdownMenuRadioItem value="7" sub="후기 9개 · 추천 78%">7기</X.DropdownMenuRadioItem><X.DropdownMenuRadioItem value="6" sub="후기 2개">6기</X.DropdownMenuRadioItem></X.DropdownMenuRadioGroup></X.DropdownMenuContent></X.DropdownMenu>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

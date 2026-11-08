@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Molecules/ReviewCard' } satisfies Meta;
+const meta: Meta = {
+  title: 'Molecules/ReviewCard',
+  component: X.ReviewCard,
+  args: { initial: '박', name: '박서준', meta: '7기 · 2026년 9월', rating: 'recommend', verified: true, body: '매주 코드 리뷰를 주고받으면서 PR 쓰는 법이 많이 늘었어요. 기수 안에서 사이드 프로젝트 팀이 꾸려져서 끝나고도 같이 만들고 있어요.' },
+  argTypes: { rating: { control: "inline-radio", options: ["recommend", "neutral", "disappointed"] } },
+  
+  parameters: { width: 393 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: () => <div className="w-[393px] divide-y divide-border">{D.MOGAKCO.reviews!.items.map((r) => <X.ReviewCard key={r.name} {...r} />)}</div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

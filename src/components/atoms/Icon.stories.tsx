@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Atoms/Icon' } satisfies Meta;
+const meta: Meta = {
+  title: 'Atoms/Icon',
+  component: X.Icon,
+  args: { name: 'calendar', size: 24, label: '' },
+  argTypes: { name: { control: 'select', options: Object.keys(X.ICONS) }, size: { control: 'inline-radio', options: X.ICON_SIZES } },
+  
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: StoryObj<{ name: X.IconName; size: X.IconSize }> = { args: { name: 'calendar', size: 24 }, argTypes: { name: { control: 'select', options: Object.keys(X.ICONS) }, size: { control: 'inline-radio', options: X.ICON_SIZES } }, render: (a) => <X.Icon {...a} /> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

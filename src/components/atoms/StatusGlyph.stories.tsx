@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Atoms/StatusGlyph' } satisfies Meta;
+const meta: Meta = {
+  title: 'Atoms/StatusGlyph',
+  component: X.StatusGlyph,
+  args: { status: 'participating' },
+  argTypes: { status: { control: 'select', options: Object.keys(X.STATUS) } },
+  
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const All: S = { render: () => <div className="flex flex-col items-start gap-2">{(Object.keys(X.STATUS) as X.StatusKind[]).map((k) => <X.StatusGlyph key={k} status={k} />)}</div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

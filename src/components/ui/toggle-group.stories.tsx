@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/ToggleGroup' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/ToggleGroup',
+  component: X.ToggleGroup,
+  args: { value: '활동', options: ['활동', '팔로우', '프로젝트'], onValueChange: fn() },
+  
+  render: function Render({ options, value, ...args }: Record<string, any>) { const [, update] = useArgs(); const o = options as string[]; return <div className="w-[345px]"><X.ToggleGroup type="single" value={value} count={o.length} index={Math.max(0, o.indexOf(value))} onValueChange={(v: string) => { if (!v) return; args.onValueChange?.(v); update({ value: v }); }}>{o.map((x) => <X.ToggleGroupItem key={x} value={x}>{x}</X.ToggleGroupItem>)}</X.ToggleGroup></div>; },
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Segmented: S = { render: function R() { const items = ['activity', 'follow', 'projects']; const [v, setV] = useState('activity'); return <div className="w-[345px]"><X.ToggleGroup type="single" value={v} onValueChange={(x) => x && setV(x)} count={3} index={items.indexOf(v)}>{items.map((i) => <X.ToggleGroupItem key={i} value={i}>{{ activity: '활동', follow: '팔로우', projects: '프로젝트' }[i]}</X.ToggleGroupItem>)}</X.ToggleGroup></div>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

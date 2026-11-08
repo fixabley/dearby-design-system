@@ -1,10 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/Sheet' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/Sheet',
+  component: X.Sheet,
+  args: { open: false, title: '후기 남기기', floating: false, onOpenChange: fn() },
+  
+  render: function Render({ title, floating, ...args }: Record<string, any>) { const [, update] = useArgs(); return <X.Sheet open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }}><X.SheetTrigger asChild><X.Button variant="mint">시트 열기</X.Button></X.SheetTrigger><X.SheetContent floating={floating}><X.SheetHeader title={title} /><p className="py-4 text-body text-muted-foreground">내용</p></X.SheetContent></X.Sheet>; },
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Bottom: S = { render: () => <X.Sheet><X.SheetTrigger asChild><X.Button variant="mint">시트 열기</X.Button></X.SheetTrigger><X.SheetContent><X.SheetHeader title="후기 남기기" /><p className="py-4 text-body text-muted-foreground">내용</p></X.SheetContent></X.Sheet> };
-export const Floating: S = { render: () => <X.Sheet><X.SheetTrigger asChild><X.Button variant="mint">떠 있는 시트 열기(넓은 화면)</X.Button></X.SheetTrigger><X.SheetContent floating><X.SheetHeader title="필터" /><p className="py-4 text-body text-muted-foreground">내용</p></X.SheetContent></X.Sheet> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

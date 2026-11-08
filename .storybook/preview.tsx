@@ -12,7 +12,8 @@ const preview: Preview = {
       const dark = ctx.globals.theme === 'dark';
       // 포털(모달·메뉴·시트)까지 테마가 이어지도록 문서 루트에 붙인다
       useEffect(() => { document.documentElement.classList.toggle('dk', dark); }, [dark]);
-      return <div className={ctx.parameters.layout === 'fullscreen' ? '' : 'p-6'}><Story /></div>;
+      const w = ctx.parameters.width as number | undefined;
+      return <div className={ctx.parameters.layout === 'fullscreen' ? '' : 'p-6'}><div style={w ? { width: w } : undefined}><Story /></div></div>;
     },
   ],
   parameters: {

@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Molecules/ProgressTrack' } satisfies Meta;
+const meta: Meta = {
+  title: 'Molecules/ProgressTrack',
+  component: X.ProgressTrack,
+  args: { steps: [{ name: '지원', state: 'past' }, { name: '면접', state: 'past' }, { name: 'OT', state: 'past' }, { name: '활동', state: 'cur' }], more: 1 },
+  
+  
+  parameters: { width: 280 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: () => <div className="w-[280px]"><X.ProgressTrack steps={[{ name: '지원', state: 'past' }, { name: '면접', state: 'past' }, { name: 'OT', state: 'past' }, { name: '활동', state: 'cur' }]} more={1} /></div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

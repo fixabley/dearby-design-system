@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/Switch' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/Switch',
+  component: X.Switch,
+  args: { checked: true, disabled: false, 'aria-label': '알림', onCheckedChange: fn() },
+  
+  render: controlled(X.Switch, 'checked', 'onCheckedChange'),
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: function R() { const [v, setV] = useState(true); return <div className="flex gap-3"><X.Switch checked={v} onCheckedChange={setV} aria-label="알림" /><X.Switch checked={!v} onCheckedChange={(x) => setV(!x)} aria-label="저장" /><X.Switch disabled aria-label="꺼짐" /></div>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

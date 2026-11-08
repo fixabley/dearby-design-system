@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/RadioGroup' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/RadioGroup',
+  component: X.RadioGroup,
+  args: { value: '서울', options: ['서울', '대전', '광주'], disabled: false, onValueChange: fn() },
+  
+  render: function Render({ options, ...args }: Record<string, any>) { const [, update] = useArgs(); return <X.RadioGroup {...args} onValueChange={(v) => { args.onValueChange?.(v); update({ value: v }); }} className="flex gap-4">{(options as string[]).map((o) => <label key={o} className="flex items-center gap-2 text-body"><X.RadioGroupItem value={o} />{o}</label>)}</X.RadioGroup>; },
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: function R() { const [v, setV] = useState('a'); return <X.RadioGroup value={v} onValueChange={setV} className="flex gap-3"><X.RadioGroupItem value="a" aria-label="가" /><X.RadioGroupItem value="b" aria-label="나" /><X.RadioGroupItem value="c" aria-label="다" /></X.RadioGroup>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

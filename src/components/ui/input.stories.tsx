@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/Input' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/Input',
+  component: X.Input,
+  args: { label: '제목', defaultValue: '목요일 모임은 21:00에 시작해요', placeholder: '선택', multiline: false, disabled: false },
+  
+  render: ({ label, multiline, ...args }: Record<string, any>) => <X.ListGroup><div className="px-4 py-2.5"><X.Label>{label}</X.Label>{multiline ? <X.Textarea key="t" {...args} /> : <X.Input key={String(args.defaultValue)} {...args} />}</div></X.ListGroup>,
+  parameters: { width: 345 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const InGroup: S = { render: () => <div className="w-[345px]"><X.ListGroup><X.Field label="제목" value="목요일 모임은 21:00에 시작해요" /><X.Field label="얻어 가는 것" /><X.Field label="내용" multiline value="11월 19일 (목)만 **한 시간 늦게** 시작해요." /></X.ListGroup></div> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Organisms/WeeklyTimetable' } satisfies Meta;
+const meta: Meta = {
+  title: 'Organisms/WeeklyTimetable',
+  component: X.WeeklyTimetable,
+  args: { blocks: D.BLOCKS, hourHeight: 52, from: 10, to: 17, selected: 14, onSelect: fn() },
+  argTypes: { hourHeight: { control: { type: 'range', min: 32, max: 80 } }, selected: { control: { type: 'number', min: 0 } } },
+  render: controlled(X.WeeklyTimetable, 'selected', 'onSelect'),
+  parameters: { width: 560 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: function R() { const [s, setS] = useState(14); return <div className="w-[560px]"><X.WeeklyTimetable blocks={D.BLOCKS} selected={s} onSelect={setS} hourHeight={52} /></div>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

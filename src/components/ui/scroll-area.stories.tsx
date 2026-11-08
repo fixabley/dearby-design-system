@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'UI (shadcn)/ScrollArea' } satisfies Meta;
+const meta: Meta = {
+  title: 'UI (shadcn)/ScrollArea',
+  component: X.ScrollArea,
+  args: { height: 240, width: 480 },
+  argTypes: { height: { control: { type: 'range', min: 120, max: 600, step: 20 } }, width: { control: { type: 'range', min: 320, max: 600, step: 10 } } },
+  render: ({ height, width }: Record<string, any>) => <X.ScrollArea style={{ height, width }}><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.ScrollArea>,
+  
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: () => <X.ScrollArea className="h-[240px] w-[393px]"><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.ScrollArea> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

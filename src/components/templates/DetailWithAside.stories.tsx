@@ -1,13 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Templates/DetailWithAside', parameters: { layout: 'fullscreen' } } satisfies Meta;
+const meta: Meta = {
+  title: 'Templates/DetailWithAside',
+  component: X.DetailWithAside,
+  args: { screenTitle: '', height: 600, main: 'Body', aside: 'Sticky card 340' },
+  
+  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600} sidebar={<X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} />}><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.DetailWithAside main={<Ph t={args.main} h={900} />} aside={<Ph t={args.aside} h={260} />} /></X.WebShell>; },
+  parameters: { layout: 'fullscreen' },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-const Ph = ({ t, h = 120 }: { t: string; h?: number }) => <div className="grid place-items-center rounded-lg border-[1.5px] border-dashed border-border text-caption font-semibold text-muted-foreground" style={{ height: h }}>{t}</div>;
-const Shell = ({ children, title = 'Title' }: { children: React.ReactNode; title?: string }) => (
-  <X.WebShell height={600} sidebar={<div className="p-3"><Ph t="Sidebar 220" h={576} /></div>}><X.TopBar title={title} right={<div className="w-[120px]"><Ph t="GlassGroup" h={44} /></div>} />{children}</X.WebShell>
-);
-export const Default: S = { render: () => <Shell><X.DetailWithAside main={<Ph t="Body" h={900} />} aside={<Ph t="Sticky card 340" h={260} />} /></Shell> };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+function Ph({ t, h = 120 }: { t: string; h?: number }) { return <div className="grid place-items-center rounded-lg border-[1.5px] border-dashed border-border text-caption font-semibold text-muted-foreground" style={{ height: h }}>{t}</div>; }

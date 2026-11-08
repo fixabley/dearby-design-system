@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Atoms/Segmented' } satisfies Meta;
+const meta: Meta = {
+  title: 'Atoms/Segmented',
+  component: X.Segmented,
+  args: { items: ['activity', 'follow', 'projects'], labels: { activity: '활동', follow: '팔로우', projects: '프로젝트' }, value: 'activity', label: '프로필 탭', onChange: fn() },
+  
+  render: controlled(X.Segmented, 'value', 'onChange'),
+  parameters: { width: 345 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: StoryObj<{ items: string }> = { args: { items: '활동,팔로우,프로젝트' }, render: function R({ items }) { const list = items.split(','); const [v, setV] = useState(list[0]); return <div className="w-[345px]"><X.Segmented items={list} value={list.includes(v) ? v : list[0]} onChange={setV} /></div>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

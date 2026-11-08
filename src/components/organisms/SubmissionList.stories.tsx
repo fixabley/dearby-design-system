@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { fn } from 'storybook/test';
+import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
+import { controlled } from '@/stories/controlled';
 
-type S = StoryObj;
-export default { title: 'Organisms/SubmissionList' } satisfies Meta;
+const meta: Meta = {
+  title: 'Organisms/SubmissionList',
+  component: X.SubmissionList,
+  args: { items: D.SUBMISSIONS, selected: 0, onSelect: fn() },
+  
+  render: controlled(X.SubmissionList, 'selected', 'onSelect'),
+  parameters: { width: 420 },
+};
+export default meta;
+type Story = StoryObj<typeof meta>;
+// useArgs·fn는 일부 스토리에서만 쓴다
+void useArgs; void fn; void controlled; void D;
 
-export const Default: S = { render: function R() { const [s, setS] = useState(0); return <div className="w-[420px]"><X.SubmissionList items={D.SUBMISSIONS} selected={s} onSelect={setS} /></div>; } };
+/** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
+export const Playground: Story = {};
+

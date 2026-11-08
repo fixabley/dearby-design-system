@@ -16,7 +16,6 @@ const meta: Meta = {
     open: state('30분 단위 목록 말풍선 열림'),
     onChange: event('시각 확정(Enter · 목록 고름 · 칸 밖으로 나감)'),
     onOpenChange: event(),
-    id: { table: { disable: true } },
     className: { table: { disable: true } },
   },
   render: function Render({ onChange, onOpenChange, ...args }: Record<string, any>) {

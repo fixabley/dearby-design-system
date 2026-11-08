@@ -1,4 +1,4 @@
-import { createContext, Fragment, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createContext, Fragment, useContext, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { DateHeader } from '@/components/molecules/shared/DateHeader';
 import { dayKey, fromDayKey } from '@/lib/date';
 import { cn } from '@/lib/utils';
@@ -22,10 +22,8 @@ const topOf = (box: HTMLElement, el: HTMLElement) => el.getBoundingClientRect().
 /** 그 날짜의 묶음, 없으면 다음 묶음, 그것도 없으면 마지막(가장 늦은) 묶음 */
 function sectionFor(box: HTMLElement, d: Date) {
   const key = dayKey(d);
-  const all = sectionsOf(box);
-  const later = all.filter((s) => s.dataset.date! >= key);
-  const pick = (list: HTMLElement[], first: boolean) => list.reduce<HTMLElement | undefined>((a, s) => (!a || (first ? s.dataset.date! < a.dataset.date! : s.dataset.date! > a.dataset.date!) ? s : a), undefined);
-  return later.length ? pick(later, true) : pick(all, false);
+  const all = sectionsOf(box).sort((a, b) => a.dataset.date!.localeCompare(b.dataset.date!));
+  return all.find((s) => s.dataset.date! >= key) ?? all.at(-1);
 }
 
 /** 고정 머리(⑧-0): 보이는 맨 위 묶음의 날짜(스크롤에 따라 바뀜). 누르면 말풍선 달력, 고르면 그 날짜 묶음으로 */
@@ -61,6 +59,7 @@ function DateSectionListRoot<T>({ items = [], getDate, renderItem, today = new D
   items?: T[]; getDate?: (item: T) => Date; renderItem?: (item: T) => ReactNode; today?: Date; pickable?: boolean; className?: string; children?: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const placed = useRef<string>(undefined);
   const [current, setCurrent] = useState<string>();
   const todayKey = dayKey(today);
 
@@ -85,13 +84,16 @@ function DateSectionListRoot<T>({ items = [], getDate, renderItem, today = new D
   // 키보드로 고른 뒤 Tab이 그 묶음에서 이어지도록 초점도 옮긴다(DateHeader는 초점이 옮겨졌으면 머리로 되돌리지 않는다)
   const jump = (d: Date) => scrollTo(d)?.focus({ preventScroll: true });
 
-  // 처음에는 오늘(없으면 다음) 묶음이 보이게. 글꼴이 늦게 와서 높이가 바뀌면 사용자가 스크롤하기 전까지 다시 맞춘다
+  // 처음에는 오늘(없으면 다음) 묶음이 보이게: 묶음이 생긴 뒤(행이 늦게 와도) 기준일마다 한 번. 그 밖에는 지금 날짜만 맞춘다.
+  // 글꼴이 늦게 와서 높이가 바뀌면 사용자가 스크롤하기 전까지 한 번 더 맞춘다
   useLayoutEffect(() => {
+    const box = ref.current;
+    if (!box || placed.current === todayKey || !sectionsOf(box).length) return sync();
+    placed.current = todayKey;
     scrollTo(today, 'instant');
-    const at = ref.current?.scrollTop;
-    document.fonts?.ready.then(() => { if (ref.current?.scrollTop === at) scrollTo(today, 'instant'); });
-  }, [todayKey]); // eslint-disable-line react-hooks/exhaustive-deps -- 기준일이 바뀔 때만
-  useEffect(sync, [items]); // eslint-disable-line react-hooks/exhaustive-deps
+    const at = box.scrollTop;
+    document.fonts?.ready.then(() => { if (box.scrollTop === at) scrollTo(today, 'instant'); });
+  });
 
   return (
     <DateSectionListContext.Provider value={{ today, current, jump, items, getDate: getDate as ((item: unknown) => Date) | undefined, renderItem: renderItem as ((item: unknown) => ReactNode) | undefined }}>

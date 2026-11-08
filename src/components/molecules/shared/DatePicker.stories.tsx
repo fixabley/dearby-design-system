@@ -24,7 +24,6 @@ const meta: Meta = {
     open: state('달력 말풍선 열림'),
     onChange: event('날짜 고름(고르면 바로 닫힌다)'),
     onOpenChange: event(),
-    id: { table: { disable: true } },
     className: { table: { disable: true } },
   },
   render: function Render({ value, min, max, disabledDates, today, onChange, onOpenChange, ...args }: Record<string, any>) {

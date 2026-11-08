@@ -29,13 +29,13 @@ function AllDay() {
   return <ListRow title="하루 종일" trailing={<Switch checked={allDay} onCheckedChange={onAllDayChange} aria-label="하루 종일" />} />;
 }
 
-/** 이름 + 날짜(DatePicker) + 시각(TimePicker, 하루 종일이면 없음) 행. 값이 없으면 base(시작)의 날짜·시각에 맞춰 채운다 */
-function Row({ icon, title, value, base, min, onChange }: { icon: IconName; title: string; value?: Date; base: Date; min?: Date; onChange?: (d: Date) => void }) {
+/** 이름 + 날짜(DatePicker) + 시각(TimePicker, 하루 종일이면 없음) 행 */
+function Row({ icon, title, value, min, onChange }: { icon: IconName; title: string; value: Date; min?: Date; onChange?: (d: Date) => void }) {
   const { allDay, today } = useDateTimeField('Row');
   return (
     <ListRow icon={icon} title={title} className="py-1.5" trailing={<>
-      <DatePicker value={value} min={min} today={today} label={`${title} 날짜`} onChange={(d) => onChange?.(withDate(value ?? base, d))} />
-      {!allDay && <TimePicker value={value ? formatTime(value) : ''} label={`${title} 시간`} onChange={(t) => onChange?.(withTime(value ?? base, t))} />}
+      <DatePicker value={value} min={min} today={today} label={`${title} 날짜`} onChange={(d) => onChange?.(withDate(value, d))} />
+      {!allDay && <TimePicker value={formatTime(value)} label={`${title} 시간`} onChange={(t) => onChange?.(withTime(value, t))} />}
     </>} />
   );
 }
@@ -44,13 +44,13 @@ function Row({ icon, title, value, base, min, onChange }: { icon: IconName; titl
 function Start() {
   const { start, end, onStartChange, onEndChange } = useDateTimeField('Start');
   const change = (d: Date) => { onStartChange?.(d); if (end) onEndChange?.(new Date(end.getTime() + d.getTime() - start.getTime())); };
-  return <Row icon="calendar" title="시작" value={start} base={start} onChange={change} />;
+  return <Row icon="calendar" title="시작" value={start} onChange={change} />;
 }
 
-/** 끝 행(시계 아이콘). 시작 전 날은 고를 수 없다 */
+/** 끝 행(시계 아이콘, end가 있을 때만). 시작 전 날은 고를 수 없다 */
 function End() {
   const { start, end, onEndChange } = useDateTimeField('End');
-  return <Row icon="clock" title="끝" value={end} base={start} min={start} onChange={onEndChange} />;
+  return end ? <Row icon="clock" title="끝" value={end} min={start} onChange={onEndChange} /> : null;
 }
 
 function DateTimeFieldRoot({ start, end, allDay = false, today, onStartChange, onEndChange, onAllDayChange, className, children }: {
@@ -59,7 +59,7 @@ function DateTimeFieldRoot({ start, end, allDay = false, today, onStartChange, o
 }) {
   return (
     <DateTimeFieldContext.Provider value={{ start, end, allDay, today, onStartChange, onEndChange, onAllDayChange }}>
-      <ListGroup className={className}>{children ?? <><AllDay /><Start />{end && <End />}</>}</ListGroup>
+      <ListGroup className={className}>{children ?? <><AllDay /><Start /><End /></>}</ListGroup>
     </DateTimeFieldContext.Provider>
   );
 }

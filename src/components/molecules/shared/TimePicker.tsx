@@ -18,20 +18,19 @@ const settled = (t: string) => /^(\d{1,2}|\d{4}|\d{1,2}:\d{2})$/.test(t);
  * 칸을 누르거나 ↓ · ↑로 목록을 열면 지금 값 근처가 가운데 보인다. ↓ · ↑는 칸 글자를 목록 값으로 바꾸고, Enter나 칸 밖으로 나가면 확정, Esc는 되돌린다.
  * 직접 입력은 '9' → 09:00, '930' → 09:30, '2130' → 21:30처럼 맞추고, 맞지 않으면 앞 값으로 되돌린다. label은 화면 읽기용 칸 이름(보이지 않음).
  */
-export function TimePicker({ value = '', onChange, placeholder = '선택', label = '시간', open, onOpenChange, id, className }: {
-  value?: string; onChange?: (time: string) => void; placeholder?: string; label?: string; open?: boolean; onOpenChange?: (open: boolean) => void; id?: string; className?: string;
+export function TimePicker({ value = '', onChange, placeholder = '선택', label = '시간', open, onOpenChange, className }: {
+  value?: string; onChange?: (time: string) => void; placeholder?: string; label?: string; open?: boolean; onOpenChange?: (open: boolean) => void; className?: string;
 }) {
   const listId = useId();
   const [text, setText] = useState(value);
   const [innerOpen, setInnerOpen] = useState(false);
   const [active, setActive] = useState(-1);
-  const [committed, setCommitted] = useState(value);
   const anchorRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const isOpen = open ?? innerOpen;
   const setOpen = (o: boolean) => { if (o !== isOpen) { setInnerOpen(o); onOpenChange?.(o); } };
 
-  useEffect(() => { setCommitted(value); setText(value); }, [value]);
+  useEffect(() => setText(value), [value]);
 
   /** 목록 칸 i가 보이게. center면 가운데로 */
   const reveal = (i: number, center = false) => {
@@ -39,16 +38,15 @@ export function TimePicker({ value = '', onChange, placeholder = '선택', label
     const el = list?.children[i] as HTMLElement | undefined;
     if (!list || !el) return;
     if (center) list.scrollTop = el.offsetTop - (list.clientHeight - el.offsetHeight) / 2;
-    else if (el.offsetTop < list.scrollTop) list.scrollTop = el.offsetTop;
-    else if (el.offsetTop + el.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = el.offsetTop + el.offsetHeight - list.clientHeight;
+    else list.scrollTop = Math.min(el.offsetTop, Math.max(list.scrollTop, el.offsetTop + el.offsetHeight - list.clientHeight));
   };
   const point = (i: number, center = false) => { setActive(i); reveal(i, center); };
 
   const commit = (t: string) => {
     const p = parseTime(t);
-    if (!p) return setText(committed);
+    if (!p) return setText(value);
     setText(p);
-    if (p !== committed) { setCommitted(p); onChange?.(p); }
+    if (p !== value) onChange?.(p);
   };
   const choose = (t: string) => { commit(t); setOpen(false); };
   const move = (d: 1 | -1) => {
@@ -72,7 +70,7 @@ export function TimePicker({ value = '', onChange, placeholder = '선택', label
     <Popover open={isOpen} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
         <InputGroup ref={anchorRef} className={cn('w-20 bg-background px-3 text-foreground shadow-control', className)}>
-          <InputGroupInput id={id} value={text} placeholder={placeholder} inputMode="numeric" autoComplete="off" maxLength={5}
+          <InputGroupInput value={text} placeholder={placeholder} inputMode="numeric" autoComplete="off" maxLength={5}
             role="combobox" aria-label={label} aria-expanded={isOpen} aria-controls={isOpen ? listId : undefined}
             aria-activedescendant={isOpen && active >= 0 ? `${listId}-${active}` : undefined}
             className="text-center tabular-nums"
@@ -88,16 +86,16 @@ export function TimePicker({ value = '', onChange, placeholder = '선택', label
       {/* 초점은 늘 칸에 둔다(목록 칸은 aria-activedescendant로 가리키고, 목록을 눌러도 초점이 칸을 떠나지 않는다). 목록이 붙은 뒤(onOpenAutoFocus)
           지금 값 근처를 가운데로. 칸을 눌러도 닫혔다 다시 열리지 않게 칸은 바깥으로 치지 않는다 */}
       <PopoverContent align="start" className="w-auto p-1"
-        onOpenAutoFocus={(e) => { e.preventDefault(); const t = parseTime(text) ?? (committed || null); if (t) point(nearest(t), true); else setActive(-1); }}
-        onCloseAutoFocus={(e) => e.preventDefault()} onEscapeKeyDown={() => setText(committed)}
+        onOpenAutoFocus={(e) => { e.preventDefault(); const t = parseTime(text) ?? (value || null); if (t) point(nearest(t), true); else setActive(-1); }}
+        onCloseAutoFocus={(e) => e.preventDefault()} onEscapeKeyDown={() => setText(value)}
         onInteractOutside={(e) => { if (anchorRef.current?.contains(e.target as Node)) e.preventDefault(); }}>
         <div ref={listRef} id={listId} role="listbox" aria-label={label} className="relative max-h-60 w-28 overflow-y-auto" onMouseDown={(e) => e.preventDefault()}>
           {SLOTS.map((t, i) => (
             <div key={t} id={`${listId}-${i}`} role="option" aria-selected={i === active} data-active={i === active || undefined}
               className="flex min-h-11 cursor-default select-none items-center justify-between rounded-[10px] px-3 hover:bg-muted data-[active]:bg-muted"
               onClick={() => choose(t)}>
-              <Text as="span" variant="body" tabular weight={t === committed ? 'semibold' : 'regular'} tone={t === committed ? 'accent' : 'inherit'}>{t}</Text>
-              {t === committed && <Icon name="check" size={16} className="text-accent-foreground" />}
+              <Text as="span" variant="body" tabular weight={t === value ? 'semibold' : 'regular'} tone={t === value ? 'accent' : 'inherit'}>{t}</Text>
+              {t === value && <Icon name="check" size={16} className="text-accent-foreground" />}
             </div>
           ))}
         </div>

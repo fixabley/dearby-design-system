@@ -1,32 +1,99 @@
+import { createContext, useContext, type ReactNode } from 'react';
 import type { Activity } from '@/types';
+import { HostLine } from '@/components/atoms/HostLine';
 import { KindLabel } from '@/components/atoms/KindLabel';
 import { StatusGlyph } from '@/components/atoms/StatusGlyph';
+import { Text } from '@/components/atoms/Text';
 import { Thumbnail } from '@/components/atoms/Thumbnail';
 import { Item, ItemActions, ItemContent, ItemMedia } from '@/components/ui/item';
-import { HostLine } from '@/components/atoms/HostLine';
 import { MetaLine } from '@/components/molecules/MetaLine';
 import { ProgressTrack } from '@/components/molecules/ProgressTrack';
 import { TimetableButton } from '@/components/molecules/TimetableButton';
 import { cn } from '@/lib/utils';
 
-/** 홈·내 활동 행(shadcn Item 링크): 왼쪽 열(종류·썸네일·상태) + 조직 줄·제목·메타·진행 트랙 + 시간표. 고르면 민트 면 */
-export function ActivityRow({ a, selected, onSelect, onTimetable }: { a: Activity; selected?: boolean; onSelect?: (a: Activity) => void; onTimetable?: () => void }) {
+type ActivityRowContextValue = { a: Activity; selected?: boolean; onTimetable?: () => void };
+const ActivityRowContext = createContext<ActivityRowContextValue | null>(null);
+
+function useActivityRow(part: string) {
+  const ctx = useContext(ActivityRowContext);
+  if (!ctx) throw new Error(`ActivityRow.${part}는 <ActivityRow> 안에서 쓴다`);
+  return ctx;
+}
+
+/** 왼쪽 열: 종류 · 썸네일 · 상태 */
+function Media({ className }: { className?: string }) {
+  const { a } = useActivityRow('Media');
   return (
-    <Item asChild size="row" selected={selected} className={cn(selected && '-mx-3 w-[calc(100%+24px)] px-3')}>
-      <a href={`/activities/${a.id}`} aria-current={selected || undefined} onClick={(e) => { e.preventDefault(); onSelect?.(a); }}>
-        <ItemMedia className="w-16 flex-col gap-[5px]"><KindLabel kind={a.kind} /><Thumbnail thumb={a.thumb} />{a.status && <StatusGlyph status={a.status} />}</ItemMedia>
-        <ItemContent>
-          <div className="flex items-center gap-2.5">
-            <div className="min-w-0 flex-1">
-              <HostLine {...a.host} />
-              <div className="mt-[3px] line-clamp-2 text-headline leading-tight">{a.title}</div>
-              <div className="mt-1 flex flex-col gap-[3px]">{a.metas.map((m) => <MetaLine key={m.label} {...m} />)}</div>
-            </div>
-            {a.timetable && <ItemActions><TimetableButton onClick={onTimetable} /></ItemActions>}
-          </div>
-          {a.steps && <ProgressTrack steps={a.steps} more={a.more} className="mt-2" />}
-        </ItemContent>
-      </a>
-    </Item>
+    <ItemMedia className={cn('w-16 flex-col gap-[5px]', className)}>
+      <KindLabel kind={a.kind} /><Thumbnail thumb={a.thumb} />{a.status && <StatusGlyph status={a.status} />}
+    </ItemMedia>
   );
 }
+
+/** 조직 · 프로그램 줄 */
+function Host() {
+  const { a } = useActivityRow('Host');
+  return <HostLine {...a.host} />;
+}
+
+/** 활동 이름(두 줄까지) */
+function Title({ children }: { children?: ReactNode }) {
+  const { a } = useActivityRow('Title');
+  return <Text variant="rowTitle" lines={2} block className="mt-[3px]">{children ?? a.title}</Text>;
+}
+
+/** 날짜·장소 메타 줄들 */
+function Metas() {
+  const { a } = useActivityRow('Metas');
+  return <div className="mt-1 flex flex-col gap-[3px]">{a.metas.map((m) => <MetaLine key={m.label} {...m} />)}</div>;
+}
+
+/** 시간표 버튼(컨퍼런스·시간표 기간만) */
+function Timetable() {
+  const { a, onTimetable } = useActivityRow('Timetable');
+  return a.timetable ? <ItemActions><TimetableButton onClick={onTimetable} /></ItemActions> : null;
+}
+
+/** 진행 단계 트랙 */
+function Track({ className }: { className?: string }) {
+  const { a } = useActivityRow('Track');
+  return a.steps ? <ProgressTrack steps={a.steps} more={a.more} className={cn('mt-2', className)} /> : null;
+}
+
+/** 글 열: 조직 줄 · 이름 · 메타 | 시간표, 아래 트랙. children을 주면 그 조립으로 바꾼다 */
+function Body({ children }: { children?: ReactNode }) {
+  return (
+    <ItemContent>
+      {children ?? (
+        <>
+          <div className="flex items-center gap-2.5">
+            <div className="min-w-0 flex-1"><Host /><Title /><Metas /></div>
+            <Timetable />
+          </div>
+          <Track />
+        </>
+      )}
+    </ItemContent>
+  );
+}
+
+function ActivityRowRoot({ a, selected, onSelect, onTimetable, children }: {
+  a: Activity; selected?: boolean; onSelect?: (a: Activity) => void; onTimetable?: () => void; children?: ReactNode;
+}) {
+  return (
+    <ActivityRowContext.Provider value={{ a, selected, onTimetable }}>
+      <Item asChild size="row" selected={selected} className={cn(selected && '-mx-3 w-[calc(100%+24px)] px-3')}>
+        <a href={`/activities/${a.id}`} aria-current={selected || undefined} onClick={(e) => { e.preventDefault(); onSelect?.(a); }}>
+          {children ?? <><Media /><Body /></>}
+        </a>
+      </Item>
+    </ActivityRowContext.Provider>
+  );
+}
+
+/**
+ * 홈·내 활동 행(컴파운드): 왼쪽 열(Media) + 글 열(Body = Host · Title · Metas | Timetable, Track). 고르면 민트 면.
+ * 기본 조립은 `<ActivityRow a={a} />`. 바꿔 조립하려면 부품을 직접 놓는다:
+ * `<ActivityRow a={a}><ActivityRow.Media /><ActivityRow.Body><ActivityRow.Title /><ActivityRow.Track /></ActivityRow.Body></ActivityRow>`
+ */
+export const ActivityRow = Object.assign(ActivityRowRoot, { Media, Body, Host, Title, Metas, Timetable, Track });

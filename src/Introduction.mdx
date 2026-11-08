@@ -12,6 +12,21 @@ import { Meta } from '@storybook/addon-docs/blocks';
 3. Radix를 직접 쓰는 곳은 `ui/` 안뿐이고, 나머지 컴포넌트는 모두 shadcn 컴포넌트를 조립합니다.
 4. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
 
+## 층 규칙
+
+아톰부터 정하고, 나머지는 아래 층을 조립해서 만듭니다. `npm run check`가 이 규칙을 검사합니다.
+
+| 층 | 참조할 수 있는 것 |
+| --- | --- |
+| 기반 | 토큰(색·글자 계층·모서리·그림자·움직임), `Icon`, shadcn 키트(`components/ui`, 키트 안끼리는 자유) |
+| Atoms | 기반만 |
+| Molecules | 기반 + Atoms |
+| Organisms | 기반 + Atoms + Molecules + 다른 Organism(순환 금지, 원래 Atomic Design 정의대로) |
+| Templates | 그 아래 전부 |
+
+- **글자는 `Text` 아톰으로만.** 글자 크기·굵기·줄 높이 클래스는 기반 층과 아톰에서만 씁니다. 글자 계층은 11가지(`Atoms › Text › Scale`), 계층 밖 크기는 쓰지 않습니다.
+- **분자 이상은 컴파운드 컴포넌트.** 루트가 데이터·상태를 쥐고 부품(`ActivityRow.Media`, `ActivityRow.Title` …)이 그것을 꺼내 씁니다. 루트에 children을 주지 않으면 기본 조립으로 그려지고, 부품을 직접 놓으면 순서를 바꾸거나 뺄 수 있습니다(각 컴포넌트의 `Composed` 스토리). 하나의 shadcn 컴포넌트를 미리 맞춘 얇은 부품(TimetableButton, LiveToggle, TrackPicker, ChannelSelect, WeekdayPicker, TextField, ActionTile, ReviewSummary)은 나눌 부품이 없어 그대로 둡니다.
+
 | 시안 요소 | shadcn / Radix | 단계 |
 | --- | --- | --- |
 | CTA·작은 버튼·글래스 원형 버튼 | Button(variant default·mint·outline·ghost·destructive·glass, size lg·default·sm·icon) | Atoms |

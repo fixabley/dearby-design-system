@@ -8,6 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/Notice/NoticeComposer',
   id: 'organisms-noticecomposer',
+  tags: ['manage'],
   component: X.NoticeForm,
   args: { title: '목요일 모임은 21:00에 시작해요', body: '11월 19일 (목)만 **한 시간 늦게** 시작해요. 회의 링크는 [Google Meet](https://meet.google.com/abc-defg-hij)\n• 질문은 https://forms.gle/dearby-study 에 남겨 주세요\n• ~~20:00~~ → *21:00*', channels: D.CHANNELS, defaultChannel: '자유 대화', onTitle: fn(), onBody: fn(), onSubmit: fn() },
   argTypes: { defaultChannel: { control: 'select', options: D.CHANNELS.filter((c) => c.type !== 'voice').map((c) => c.name) } },

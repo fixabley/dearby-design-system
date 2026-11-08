@@ -8,6 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/Discord/ChannelTemplate',
   id: 'organisms-channeltemplate',
+  tags: ['manage'],
   component: X.ChannelTemplate,
   args: { channels: D.CHANNELS },
   

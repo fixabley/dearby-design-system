@@ -8,6 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/Team/TeamBoard',
   id: 'organisms-teamboard',
+  tags: ['manage'],
   component: X.TeamBoard,
   args: { teams: D.TEAMS, unassigned: D.UNASSIGNED },
   

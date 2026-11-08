@@ -140,11 +140,7 @@ function ThreeColumnEditorRoot({ children }: { children: ReactNode }) {
  */
 export const ThreeColumnEditor = Object.assign(ThreeColumnEditorRoot, { Left: ThreeColumnEditorLeft, Center: ThreeColumnEditorCenter, Right: ThreeColumnEditorRight });
 
-export const MANAGE_TABS = ['participants', 'assignments', 'teams', 'notices', 'timetable', 'discord'] as const;
-export type ManageTab = (typeof MANAGE_TABS)[number];
-export const MANAGE_TAB_LABEL: Record<ManageTab, string> = { participants: '참여자', assignments: '과제', teams: '팀', notices: '공지', timetable: '시간표', discord: '디스코드' };
-
-type ManageLayoutContextValue = { tab: ManageTab; onTab?: (t: ManageTab) => void };
+type ManageLayoutContextValue = { tabs: readonly string[]; labels?: Partial<Record<string, string>>; tab: string; onTab?: (t: string) => void };
 const ManageLayoutContext = createContext<ManageLayoutContextValue | null>(null);
 
 function useManageLayout(part: string) {
@@ -155,8 +151,8 @@ function useManageLayout(part: string) {
 
 /** 관리 탭(분할 전환) */
 function ManageLayoutTabs({ className }: { className?: string }) {
-  const { tab, onTab } = useManageLayout('Tabs');
-  return <div className={cn('max-w-[620px] px-6 pb-4', className)}><Segmented items={MANAGE_TABS} labels={MANAGE_TAB_LABEL} value={tab} onChange={onTab} label="관리 탭" /></div>;
+  const { tabs, labels, tab, onTab } = useManageLayout('Tabs');
+  return <div className={cn('max-w-[620px] px-6 pb-4', className)}><Segmented items={tabs} labels={labels} value={tab} onChange={onTab} label="관리 탭" /></div>;
 }
 
 /** 탭 내용(탭을 바꾸면 페이드) */
@@ -165,12 +161,18 @@ function ManageLayoutContent({ className, children }: SlotProps) {
   return <div key={tab} className={cn('flex min-h-0 flex-1 flex-col animate-in fade-in-0 duration-300', className)}>{children}</div>;
 }
 
-function ManageLayoutRoot({ tab, onTab, children }: { tab: ManageTab; onTab?: (t: ManageTab) => void; children: ReactNode }) {
-  return <ManageLayoutContext.Provider value={{ tab, onTab }}>{children}</ManageLayoutContext.Provider>;
+function ManageLayoutRoot<T extends string>({ tabs, labels, tab, onTab, children }: {
+  /** 탭 값(영문 키) 순서. 활동 관리는 MANAGE_TABS */
+  tabs: readonly T[];
+  /** 탭 화면 글자. 활동 관리는 MANAGE_TAB_LABEL */
+  labels?: Partial<Record<T, string>>;
+  tab: T; onTab?: (t: T) => void; children: ReactNode;
+}) {
+  return <ManageLayoutContext.Provider value={{ tabs, labels, tab, onTab: onTab as ((t: string) => void) | undefined }}>{children}</ManageLayoutContext.Provider>;
 }
 
 /**
- * 개설자 관리(컴파운드): Tabs(관리 탭) + Content(탭 내용, 탭을 바꾸면 페이드). 탭 값은 루트가 쥔다.
- * `<ManageLayout tab={tab} onTab={setTab}><ManageLayout.Tabs /><ManageLayout.Content><TwoPane>…</TwoPane></ManageLayout.Content></ManageLayout>`
+ * 개설자 관리(컴파운드): Tabs(관리 탭) + Content(탭 내용, 탭을 바꾸면 페이드). 탭 목록·이름·값은 루트가 받는다.
+ * `<ManageLayout tabs={MANAGE_TABS} labels={MANAGE_TAB_LABEL} tab={tab} onTab={setTab}><ManageLayout.Tabs /><ManageLayout.Content><TwoPane>…</TwoPane></ManageLayout.Content></ManageLayout>`
  */
 export const ManageLayout = Object.assign(ManageLayoutRoot, { Tabs: ManageLayoutTabs, Content: ManageLayoutContent });

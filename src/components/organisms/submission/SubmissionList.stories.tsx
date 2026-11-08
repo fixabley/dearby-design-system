@@ -8,6 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/Submission/SubmissionList',
   id: 'organisms-submissionlist',
+  tags: ['manage'],
   component: X.SubmissionList,
   args: { items: D.SUBMISSIONS, selected: 0, onSelect: fn() },
   

@@ -8,6 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/Discord/ServerPicker',
   id: 'organisms-serverpicker',
+  tags: ['manage'],
   component: X.ServerPicker,
   args: { servers: D.SERVERS, value: D.SERVERS[0].name, onChange: fn() },
   

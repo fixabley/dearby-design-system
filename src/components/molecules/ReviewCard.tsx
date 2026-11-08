@@ -1,5 +1,4 @@
 import type { Rating } from '@/types';
-import { Icon } from '@/components/atoms/Icon';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
@@ -14,7 +13,7 @@ export function ReviewCard({ initial, name, meta, rating, body, verified }: { in
       <Item className="min-h-0 p-0">
         <ItemMedia><Avatar fallback={initial} /></ItemMedia>
         <ItemContent><ItemTitle className="text-body font-semibold">{name}</ItemTitle><ItemDescription>{meta}</ItemDescription></ItemContent>
-        {verified && <ItemActions><Badge variant="mint" size="sm"><Icon name="check" />참여 인증</Badge></ItemActions>}
+        {verified && <ItemActions><Badge variant="mint" size="sm" icon="check">참여 인증</Badge></ItemActions>}
       </Item>
       <p className={cn('mt-2 text-caption font-semibold', rating === 'recommend' ? 'text-accent-foreground' : 'text-muted-foreground')}>{RATING_LABEL[rating]}</p>
       {body && <p className="mt-1 line-clamp-3 text-[14px] leading-relaxed">{body}</p>}

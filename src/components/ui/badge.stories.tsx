@@ -4,14 +4,15 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
+import { iconArgType } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Atoms/Badge',
   id: 'ui-shadcn-badge',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.Badge,
-  args: { children: 'D-6', variant: 'default', size: 'default' },
-  argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "muted", "destructive"] }, size: { control: "inline-radio", options: ["default", "sm"] }, asChild: { table: { disable: true } } },
+  args: { children: '확인됨', icon: 'none', variant: 'mint', size: 'default' },
+  argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "muted", "destructive", "count"] }, size: { control: "inline-radio", options: ["default", "sm", "dot"] }, icon: iconArgType(), asChild: { table: { disable: true } } },
   
   
 };
@@ -23,4 +24,4 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 export const All: Story = { render: () => <div className="flex flex-col gap-3"><div className="flex gap-2"><X.Badge>D-6</X.Badge><X.Badge variant="mint">추천 75%</X.Badge><X.Badge variant="outline">다시 해 보기</X.Badge><X.Badge variant="muted">모집 중</X.Badge><X.Badge variant="destructive">오류</X.Badge></div>
-  <div className="flex gap-2"><X.Badge size="sm">D-6</X.Badge><X.Badge variant="mint" size="sm"><X.Icon name="check" />확인됨</X.Badge><X.Badge variant="outline" size="sm">발표자</X.Badge></div></div> };
+  <div className="flex gap-2"><X.Badge size="sm">D-6</X.Badge><X.Badge variant="mint" size="sm" icon="check">확인됨</X.Badge><X.Badge variant="mint" icon="github">평가 전</X.Badge><X.Badge icon="calendar">D-6</X.Badge><X.Badge variant="outline" size="sm">발표자</X.Badge></div></div> };

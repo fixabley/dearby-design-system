@@ -7,7 +7,7 @@ export function SearchBar({ placeholder = '프로그램·활동·태그 검색',
   return (
     <div className="flex items-center gap-2">
       <InputGroup variant="glass"><InputGroupAddon><Icon name="search" /></InputGroupAddon><InputGroupInput placeholder={placeholder} aria-label="검색" /></InputGroup>
-      <Button variant="glass" size="icon" aria-label="필터" onClick={onFilter} className="text-accent-foreground"><Icon name="filter" /></Button>
+      <Button variant="glass" size="icon" aria-label="필터" onClick={onFilter} icon="filter" className="text-accent-foreground" />
     </div>
   );
 }

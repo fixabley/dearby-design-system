@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { ProgramDetailData } from '@/types';
 import { KindLabel } from '@/components/atoms/KindLabel';
-import { Icon } from '@/components/atoms/Icon';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Toggle } from '@/components/ui/toggle';
@@ -20,7 +19,7 @@ export function ProgramDetail({ p }: { p: ProgramDetailData }) {
         <div className="h-[180px] rounded-xl bg-cover bg-center" style={{ backgroundImage: p.cover ? `url(${p.cover})` : 'linear-gradient(135deg,#0E5E66,#2FB3B4)' }} />
         <div className="-mt-10 flex items-end justify-between px-4">
           <Avatar size="lg" src={p.host.logo} fallback={p.host.initial ?? ''} className="rounded-[18px] border-4 border-background" />
-          <Toggle variant="follow" size="auto" pressed={follow} onPressedChange={setFollow}><Icon name={follow ? 'check' : 'add'} />{follow ? '팔로우 중' : '팔로우'}</Toggle>
+          <Toggle variant="follow" size="auto" pressed={follow} onPressedChange={setFollow} icon={follow ? 'check' : 'add'}>{follow ? '팔로우 중' : '팔로우'}</Toggle>
         </div>
         <h2 className="mt-3 text-title">{p.title}</h2>
         <HostLine text={p.host.text} className="mt-1" />

@@ -1,5 +1,4 @@
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
@@ -11,8 +10,7 @@ function GlassButton({ a, badge }: { a: GlassAction; badge?: number }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="plain" size="icon-sm" aria-label={a.label} onClick={a.onClick} className="relative">
-          <Icon name={a.icon} />
+        <Button variant="plain" size="icon-sm" aria-label={a.label} onClick={a.onClick} className="relative" icon={a.icon}>
           {!!badge && <Badge variant="count" size="dot" className="absolute right-0.5 top-0.5">{badge}</Badge>}
         </Button>
       </TooltipTrigger>

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { IconName } from '@/icons';
+import { Icon } from '@/components/atoms/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Toggle: 필터 칩. 켜면 민트 면 + 청록 2px 테두리
@@ -22,8 +24,9 @@ const toggleVariants = cva(
   },
 );
 
-function Toggle({ className, variant, size, ...props }: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>) {
-  return <TogglePrimitive.Root data-slot="toggle" className={cn(toggleVariants({ variant, size, className }))} {...props} />;
+/** icon: 글자 앞 아이콘(필터 칩의 종류·상태 아이콘, 찜 하트 등) */
+function Toggle({ className, variant, size, icon, children, ...props }: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants> & { icon?: IconName }) {
+  return <TogglePrimitive.Root data-slot="toggle" className={cn(toggleVariants({ variant, size, className }))} {...props}>{icon && <Icon name={icon} />}{children}</TogglePrimitive.Root>;
 }
 
 export { Toggle, toggleVariants };

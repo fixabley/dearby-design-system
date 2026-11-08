@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { IconName } from '@/icons';
+import { Icon } from '@/components/atoms/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아짐
@@ -38,10 +40,11 @@ const buttonVariants = cva(
   },
 );
 
-function Button({ className, variant, size, block, asChild = false, ...props }:
-  React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
+/** icon: 글자 앞 아이콘(크기는 size를 따른다). asChild면 자식 요소 안 맨 앞에 들어간다 */
+function Button({ className, variant, size, block, asChild = false, icon, children, ...props }:
+  React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean; icon?: IconName }) {
   const Comp = asChild ? Slot : 'button';
-  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, block, className }))} {...props} />;
+  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, block, className }))} {...props}>{icon && <Icon name={icon} />}<Slottable>{children}</Slottable></Comp>;
 }
 
 export { Button, buttonVariants };

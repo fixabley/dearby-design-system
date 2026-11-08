@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Session, TimeSlot, Track } from '@/types';
 import { STATUS } from '@/icons';
-import { Icon, Svg } from '@/components/atoms/Icon';
+import { Svg } from '@/components/atoms/Icon';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
@@ -15,7 +15,7 @@ function SessionCard({ s, track }: { s: Session; track: Track }) {
       <div className="flex flex-wrap gap-1">{s.tags.map((t) => <Badge key={t} variant="mint" size="sm">{t}</Badge>)}</div>
       <b className="pr-6 text-body font-semibold leading-snug">{s.title}</b>
       <small className="text-[12px] text-muted-foreground">{s.who}</small>
-      <Toggle variant="icon" size="auto" pressed={saved} onPressedChange={setSaved} aria-label="찜" className="absolute right-2 top-2"><Icon name={saved ? 'heartFill' : 'heart'} /></Toggle>
+      <Toggle variant="icon" size="auto" pressed={saved} onPressedChange={setSaved} aria-label="찜" className="absolute right-2 top-2" icon={saved ? 'heartFill' : 'heart'} />
     </Card>
   );
 }

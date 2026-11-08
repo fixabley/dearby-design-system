@@ -21,7 +21,7 @@ export function ProfileHeader({ p }: { p: Person }) {
       <ButtonGroup className="mt-3">
         {SOCIAL.map((s) => (
           <Tooltip key={s.icon}>
-            <TooltipTrigger asChild><Button variant="outline" size="icon" aria-label={s.label} className="size-9 bg-muted shadow-none [&_svg]:size-[18px]"><Icon name={s.icon} /></Button></TooltipTrigger>
+            <TooltipTrigger asChild><Button variant="outline" size="icon" aria-label={s.label} className="size-9 bg-muted shadow-none [&_svg]:size-[18px]" icon={s.icon} /></TooltipTrigger>
             <TooltipContent>{s.label}</TooltipContent>
           </Tooltip>
         ))}

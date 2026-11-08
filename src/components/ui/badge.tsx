@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { IconName } from '@/icons';
+import { Icon } from '@/components/atoms/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Badge + Dearby: 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만(빨강은 오류 전용, 회색 채움 없음)
@@ -26,9 +28,10 @@ const badgeVariants = cva(
   },
 );
 
-function Badge({ className, variant, size, asChild = false, ...props }: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+/** icon: 글자 앞 아이콘(크기는 size를 따른다). 아이콘을 children에 직접 넣어도 된다 */
+function Badge({ className, variant, size, asChild = false, icon, children, ...props }: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean; icon?: IconName }) {
   const Comp = asChild ? Slot : 'span';
-  return <Comp data-slot="badge" className={cn(badgeVariants({ variant, size }), className)} {...props} />;
+  return <Comp data-slot="badge" className={cn(badgeVariants({ variant, size }), className)} {...props}>{icon && <Icon name={icon} />}<Slottable>{children}</Slottable></Comp>;
 }
 
 export { Badge, badgeVariants };

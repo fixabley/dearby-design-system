@@ -71,7 +71,7 @@ export function TimePicker({ value = '', onChange, placeholder = '선택', label
   return (
     <Popover open={isOpen} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
-        <InputGroup ref={anchorRef} className={cn('w-20 bg-background px-3 shadow-control', className)}>
+        <InputGroup ref={anchorRef} className={cn('w-20 bg-background px-3 text-foreground shadow-control', className)}>
           <InputGroupInput id={id} value={text} placeholder={placeholder} inputMode="numeric" autoComplete="off" maxLength={5}
             role="combobox" aria-label={label} aria-expanded={isOpen} aria-controls={isOpen ? listId : undefined}
             aria-activedescendant={isOpen && active >= 0 ? `${listId}-${active}` : undefined}

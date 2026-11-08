@@ -2,6 +2,7 @@ export * from './shared/FilterSheet';
 export * from './shared/Sidebar';
 export * from './shared/TabBar';
 export * from './shared/TopBar';
+export * from './shared/DateTimeField';
 export * from './activity/ActivityRow';
 export * from './activity/ActivityDetail';
 export * from './activity/DetailHeader';

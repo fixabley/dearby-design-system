@@ -23,3 +23,4 @@ export * from './checkbox';
 export * from './alert';
 export * from './empty';
 export * from './calendar';
+export * from './popover';

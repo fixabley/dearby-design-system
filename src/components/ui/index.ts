@@ -24,3 +24,4 @@ export * from './alert';
 export * from './empty';
 export * from './calendar';
 export * from './popover';
+export * from './context-menu';

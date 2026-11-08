@@ -10,6 +10,7 @@ export * from './shared/Segmented';
 export * from './shared/SocialLinks';
 export * from './shared/DateHeader';
 export * from './shared/DatePicker';
+export * from './shared/TimePicker';
 export * from './activity/ActionTile';
 export * from './activity/ProgressTrack';
 export * from './activity/LiveToggle';

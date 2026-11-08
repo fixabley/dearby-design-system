@@ -20,3 +20,4 @@ export * from './input-group';
 export * from './tooltip';
 export * from './select';
 export * from './checkbox';
+export * from './alert';

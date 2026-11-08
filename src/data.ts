@@ -88,7 +88,7 @@ export const BLOCKS: Block[] = [
   ...[0, 1, 2, 3, 4].map((d): Block => ({ day: d, from: 12, to: 13, name: '점심', shape: 'rest' })),
   ...[0, 1, 3].map((d): Block => ({ day: d, from: 13, to: 17, name: '실습', shape: 'class', ...LAB })),
   { day: 2, from: 13, to: 15, name: '실습', shape: 'class', ...LAB },
-  { day: 2, from: 15, to: 17, name: '특강', shape: 'special', who: '한유진', leaders: [{ initial: '한', name: '한유진', role: '멘토 · @yujin' }], desc: '현업 iOS 개발자에게 앱을 출시하며 겪은 일을 들어요. 질문은 미리 모아 둘게요.' },
+  { day: 2, from: 15, to: 17, name: '특강', shape: 'special', who: '한유진', leaders: [{ initial: '한', name: '한유진', role: '멘토 · @yujin' }], desc: '현업 iOS 개발자에게 앱을 출시하며 겪은 일을 들어요.\n• 질문은 [여기](https://forms.gle/dearby-special)에 미리 남겨 주세요' },
   { day: 4, from: 13, to: 16, name: '실습', shape: 'class', ...LAB },
   { day: 4, from: 16, to: 17, name: '회고', shape: 'class' },
 ];

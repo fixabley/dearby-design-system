@@ -18,3 +18,4 @@ export * from './field';
 export * from './button-group';
 export * from './input-group';
 export * from './tooltip';
+export * from './select';

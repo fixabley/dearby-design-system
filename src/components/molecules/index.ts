@@ -12,6 +12,7 @@ export * from './ReviewSummary';
 export * from './Notice';
 export * from './Timeline';
 export * from './ListGroup';
+export * from './ChannelSelect';
 export * from './TextField';
 export * from './WeekdayPicker';
 export * from './QueueCard';

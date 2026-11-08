@@ -8,7 +8,7 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Molecules/Notice',
   component: X.Notice,
-  args: { title: '목요일 모임은 21:00에 시작해요', body: '11월 19일 (목)만 **한 시간 늦게** 시작해요. 회의 링크는 `meet.google.com/abc`', byline: '김도윤 · 11월 18일 (수) 14:20' },
+  args: { title: '목요일 모임은 21:00에 시작해요', body: '11월 19일 (목)만 **한 시간 늦게** 시작해요. 회의 링크는 [Google Meet](https://meet.google.com/abc-defg-hij)\n• 질문은 https://forms.gle/dearby-study 에 남겨 주세요\n• ~~20:00~~ → *21:00*', byline: '김도윤 · 11월 18일 (수) 14:20' },
   
   
   parameters: { width: 393 },

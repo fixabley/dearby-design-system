@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ICONS, ICON_SIZES, Icon, type IconName } from '@/index';
+import { ICONS, ICON_SIZES, Icon, renderLite, type IconName } from '@/index';
 
 export default { title: 'Foundations' } satisfies Meta;
 type S = StoryObj;
@@ -19,3 +19,16 @@ export const Icons: StoryObj<{ size: 12 | 16 | 20 | 24 | 32 }> = { args: { size:
 export const IconSizes: S = { name: 'Icon sizes', render: () => <div className="flex flex-col gap-4">{(['home', 'calendar', 'timetable', 'filter'] as IconName[]).map((n) => <div key={n} className="flex items-end gap-6">{ICON_SIZES.map((s) => <div key={s} className="flex flex-col items-center gap-2 text-[12px] text-muted-foreground"><Icon name={n} size={s} />{s}</div>)}</div>)}</div> };
 
 export const Motion: S = { render: () => <table className="text-caption"><tbody>{[['duration-150', '눌림·색 바뀜'], ['duration-200~300 ease-spring', '스위치·라디오·분할 전환 미끄러짐'], ['animate-in fade-in slide-in-from-bottom', '칸 바뀜·모달·시트 떠오름'], ['data-[state=closed]:animate-out', '닫힐 때 짧게 가라앉음(Radix가 끝날 때까지 기다림)'], ['ds-pop / ds-eq', '찜 튀어 오름 · LIVE 막대'], ['prefers-reduced-motion', '모두 끔']].map(([a, b]) => <tr key={a} className="border-b border-border"><td className="py-2 pr-6"><code>{a}</code></td><td className="text-muted-foreground">{b}</td></tr>)}</tbody></table> };
+
+/** 줄인 마크다운: 공지·상세 설명이 쓰는 글 규칙. 디스코드에도 같은 원본을 보낸다 */
+export const LiteMarkdown: StoryObj<{ source: string }> = {
+  name: 'Lite markdown',
+  args: { source: '**굵게** · *기울임* · _기울임_ · ~~취소선~~ · `코드`\n[Google Meet](https://meet.google.com/abc-defg-hij) · https://forms.gle/dearby-study\n• 목록은 • 로 시작\n• user_name 같은 단어 속 밑줄은 그대로\n• javascript:alert(1) 같은 주소는 링크가 되지 않아요' },
+  argTypes: { source: { control: 'text' } },
+  render: ({ source }) => (
+    <div className="grid max-w-[900px] grid-cols-2 gap-8">
+      <pre className="whitespace-pre-wrap rounded-md bg-muted p-4 text-caption">{source}</pre>
+      <p className="whitespace-pre-line text-body leading-relaxed">{renderLite(source)}</p>
+    </div>
+  ),
+};

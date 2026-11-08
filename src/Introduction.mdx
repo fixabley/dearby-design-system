@@ -16,7 +16,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 
 `npm run check`가 이 규칙을 검사합니다.
 
-{/* MDX는 GFM 표를 그리지 않아 Markdown 블록(markdown-to-jsx)으로 그린다 */}
+{/* MDX는 GFM 표를 그리지 않아 Markdown 블록으로 그린다 */}
 <Markdown>{`
 | 층 | 참조할 수 있는 것 |
 | --- | --- |
@@ -41,10 +41,10 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 <Markdown>{`
 | 층 | 도메인 | 컴포넌트 |
 | --- | --- | --- |
-| Atoms | shadcn | Avatar · Badge · Button · Input · Label · ScrollArea · Separator · Switch · Toggle |
+| Atoms | shadcn | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Switch · Toggle |
 | Atoms | Shared | Text · Wordmark · DDay · Thumbnail · RowList · Pane |
 | Atoms | Activity | KindLabel · StatusGlyph |
-| Molecules | shadcn | ButtonGroup · Card · Dialog · DropdownMenu · Field · InputGroup · Item · RadioGroup · Select · Sheet · ToggleGroup · Tooltip |
+| Molecules | shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
 | Molecules | Shared | ListGroup · TextField · Timeline · MetaLine · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented |
 | Molecules | Activity | ActionTile · ProgressTrack · LiveToggle |
 | Molecules | Program | HostLine |
@@ -101,6 +101,14 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 | 팔로우·찜·LIVE·행동 타일 켜기 | Toggle(follow·icon·live·tile) | Atoms › shadcn |
 | 시간표 블록 고르기 | ToggleGroup(plain) | Molecules › shadcn |
 | 디스코드 채널·캠퍼스 고르기 | Select | Molecules › shadcn |
+| 단계 통과 인증·명함 필수 항목 고르기 | Checkbox | Atoms › shadcn |
+| 알림이 꺼져 있을 때 같은 안내 상자 | Alert | Molecules › shadcn |
+| 알림·참여자 목록이 비었을 때 | Empty | Molecules › shadcn |
+| 날짜 피커·건너뛸 날 고르기 | Calendar(\`react-day-picker\`) | Molecules › shadcn |
+| 날짜 머리를 누르면 뜨는 날짜 피커 말풍선 | Popover | Molecules › shadcn |
+| 참여자 오른쪽 클릭·길게 누르기 메뉴(신고·차단) | ContextMenu | Molecules › shadcn |
+| 기록 뒤 되돌리기 토스트 | Sonner | Molecules › shadcn |
+| 자격 키 검색·연관 프로그램 고르기 | Command(cmdk) | Molecules › shadcn |
 `}</Markdown>
 
 - 이름: 코드는 영문(아이콘·종류는 계약의 코드 `calendar`, `BOOTCAMP`), 화면 글자만 한국어.

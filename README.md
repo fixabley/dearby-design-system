@@ -28,8 +28,8 @@ src/
 
 | 경로 | 컴포넌트 |
 | --- | --- |
-| `ui/` · Atoms › shadcn | Avatar · Badge · Button · Input · Label · ScrollArea · Separator · Switch · Toggle |
-| `ui/` · Molecules › shadcn | ButtonGroup · Card · Dialog · DropdownMenu · Field · InputGroup · Item · RadioGroup · Select · Sheet · ToggleGroup · Tooltip |
+| `ui/` · Atoms › shadcn | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Switch · Toggle |
+| `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
 | `atoms/shared/` | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) |
 | `atoms/activity/` | KindLabel · StatusGlyph |
 | `molecules/shared/` | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented |

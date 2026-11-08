@@ -9,7 +9,7 @@ const toDate = (s?: string) => { if (!s) return undefined; const [y, m, d] = s.s
 const toIso = (d?: Date) => (d ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` : '');
 
 const meta: Meta = {
-  title: 'Molecules/Calendar',
+  title: 'Molecules/shadcn/Calendar',
   id: 'ui-shadcn-calendar',
   tags: ['shadcn'],
   component: X.Calendar,

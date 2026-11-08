@@ -9,7 +9,7 @@ const toIso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padSta
 const header = (d: Date) => `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${'일월화수목금토'[d.getDay()]})`;
 
 const meta: Meta = {
-  title: 'Molecules/Popover',
+  title: 'Molecules/shadcn/Popover',
   id: 'ui-shadcn-popover',
   tags: ['shadcn'],
   component: X.Popover,

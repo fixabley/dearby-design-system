@@ -7,7 +7,7 @@ import { content, event, state } from '@/stories/argTypes';
 type MenuItem = { label: string; variant?: 'default' | 'destructive' };
 
 const meta: Meta = {
-  title: 'Molecules/ContextMenu',
+  title: 'Molecules/shadcn/ContextMenu',
   id: 'ui-shadcn-contextmenu',
   tags: ['shadcn'],
   component: X.ContextMenu,

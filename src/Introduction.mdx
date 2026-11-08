@@ -30,7 +30,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 - **같은 층에서는 shadcn 원본만 감싸 쓸 수 있습니다.** 위 층은 참조하지 않습니다. shadcn 원본의 층은 스토리 제목(`Atoms/shadcn/…`, `Molecules/shadcn/…`)으로 정합니다.
 - **부품을 조합할 때만 한 층 올라갑니다.** Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
 - **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기·굵기·줄 높이·자간 클래스를 쓰지 않습니다. shadcn 원본은 예외입니다. 글자 토큰 8개(`Foundations › Typography`)는 Text의 역할 11가지(`Atoms › Shared › Text › Scale`)로 쓰고, 계층 밖 크기는 쓰지 않습니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
-- **분자 이상은 컴파운드 컴포넌트.** 루트가 데이터·상태를 쥐고 부품(`ActivityRow.Media`, `ActivityRow.Title` …)이 그것을 꺼내 씁니다. 루트에 children을 주지 않으면 기본 조립으로 그려지고, 부품을 직접 놓으면 순서를 바꾸거나 뺄 수 있습니다(각 컴포넌트의 `Composed` 스토리). 하나의 shadcn 컴포넌트를 미리 맞춘 얇은 부품(TimetableButton, LiveToggle, TrackPicker, ChannelSelect, WeekdayPicker, TextField, ActionTile, ReviewSummary)은 나눌 부품이 없어 그대로 둡니다.
+- **분자 이상은 컴파운드 컴포넌트.** 루트가 데이터·상태를 쥐고 부품(`ActivityRow.Media`, `ActivityRow.Title` …)이 그것을 꺼내 씁니다. 루트에 children을 주지 않으면 기본 조립으로 그려지고, 부품을 직접 놓으면 순서를 바꾸거나 뺄 수 있습니다(각 컴포넌트의 `Composed` 스토리). 하나의 shadcn 컴포넌트를 미리 맞춘 얇은 부품(TimetableButton, LiveToggle, TrackPicker, ChannelSelect, WeekdayPicker, TextField, ActionTile, ReviewSummary, DatePicker, TimePicker)은 나눌 부품이 없어 그대로 둡니다.
 
 ## 폴더와 도메인
 
@@ -45,7 +45,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 | Atoms | Shared | Text · Wordmark · DDay · Thumbnail · RowList · Pane |
 | Atoms | Activity | KindLabel · StatusGlyph |
 | Molecules | shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| Molecules | Shared | ListGroup · TextField · Timeline · MetaLine · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented |
+| Molecules | Shared | ListGroup · TextField · Timeline · MetaLine · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker |
 | Molecules | Activity | ActionTile · ProgressTrack · LiveToggle |
 | Molecules | Program | HostLine |
 | Molecules | Review | ReviewCard · ReviewSummary |
@@ -54,7 +54,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 | Molecules | Notice | Notice |
 | Molecules | Discord | ChannelSelect |
 | Molecules | Team | TeamColumn |
-| Organisms | Shared | FilterSheet · Sidebar · TabBar · TopBar |
+| Organisms | Shared | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList |
 | Organisms | Activity | ActivityRow · ActivityDetail · DetailHeader · ApplyCard · ScheduleCard |
 | Organisms | Program | ProgramDetail · ProgramRow |
 | Organisms | Review | ReviewSection |
@@ -106,6 +106,8 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 | 알림·참여자 목록이 비었을 때 | Empty | Molecules › shadcn |
 | 날짜 피커·건너뛸 날 고르기 | Calendar(\`react-day-picker\`) | Molecules › shadcn |
 | 날짜 머리를 누르면 뜨는 날짜 피커 말풍선 | Popover | Molecules › shadcn |
+| 날짜 고르기 버튼 | Button + Popover + Calendar | Molecules › shadcn(감싼 것은 Molecules › Shared › DatePicker) |
+| 시각 직접 입력과 30분 단위 목록 | InputGroup + Popover | Molecules › shadcn(감싼 것은 Molecules › Shared › TimePicker) |
 | 참여자 오른쪽 클릭·길게 누르기 메뉴(신고·차단) | ContextMenu | Molecules › shadcn |
 | 기록 뒤 되돌리기 토스트 | Sonner | Molecules › shadcn |
 | 자격 키 검색·연관 프로그램 고르기 | Command(cmdk) | Molecules › shadcn |

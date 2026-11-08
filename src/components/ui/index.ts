@@ -26,3 +26,4 @@ export * from './calendar';
 export * from './popover';
 export * from './context-menu';
 export * from './sonner';
+export * from './command';

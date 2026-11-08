@@ -13,7 +13,7 @@ const meta: Meta = {
   id: 'ui-shadcn-popover',
   tags: ['shadcn'],
   component: X.Popover,
-  args: { date: '2026-11-08', open: false, side: 'bottom', align: 'start', sideOffset: 6, onOpenChange: fn(), onSelect: fn() },
+  args: { date: '2026-11-08', side: 'bottom', align: 'start', sideOffset: 6, open: false, onOpenChange: fn(), onSelect: fn() },
   argTypes: {
     date: content('고른 날(트리거 글자와 달력에 함께 보인다)'),
     side: { control: 'inline-radio', options: ['top', 'right', 'bottom', 'left'], ...look('트리거의 어느 쪽에 뜰지') },

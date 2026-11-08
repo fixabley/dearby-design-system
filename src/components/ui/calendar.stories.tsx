@@ -14,8 +14,8 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Calendar,
   args: {
-    mode: 'single', selected: '2026-11-08', dates: [], range: { from: '', to: '' }, month: '2026-11-01', today: '2026-11-03', enabledDates: [],
-    showOutsideDays: true, numberOfMonths: 1, onSelect: fn(), onMonthChange: fn(),
+    selected: '2026-11-08', dates: [], range: { from: '', to: '' }, mode: 'single', showOutsideDays: true, numberOfMonths: 1,
+    month: '2026-11-01', today: '2026-11-03', enabledDates: [], onSelect: fn(), onMonthChange: fn(),
   },
   argTypes: {
     selected: content('mode single: 고른 날'),

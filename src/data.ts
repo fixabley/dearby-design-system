@@ -55,18 +55,18 @@ export const MOGAKCO: ProgramDetailData = {
 export const TRACKS: Track[] = [{ name: '트랙 A', color: '#2F6FED' }, { name: '트랙 B', color: '#E0862A' }, { name: '트랙 C', color: '#8E5BD7' }];
 export const SLOTS: TimeSlot[] = [
   { from: '13:30', to: '14:10', sessions: [
-    { track: 0, title: 'PyTorch 2.x 컴파일러, 무엇이 빨라졌나', who: '김하늘 · 메타', tags: ['데이터·AI'], saved: true },
-    { track: 1, title: 'LLM 파인튜닝을 하루 만에 끝내기', who: '박서준 · 업스테이지', tags: ['데이터·AI', '실무'] },
+    { track: 0, title: 'PyTorch 2.x 컴파일러, 무엇이 빨라졌나', who: '김하늘 · 메타', tags: ['데이터·AI'], saved: true, desc: 'torch.compile이 그래프를 잡고 연산을 합치는 과정을 따라가며, 2.x에서 빨라진 지점을 사례로 봐요.' },
+    { track: 1, title: 'LLM 파인튜닝을 하루 만에 끝내기', who: '박서준 · 업스테이지', tags: ['데이터·AI', '실무'], desc: 'LoRA와 양자화로 **GPU 한 장**에서 하루 안에 파인튜닝을 끝낸 과정을 나눠요.\n• 데이터 준비\n• 학습 설정\n• 평가' },
     { track: 2, title: '온디바이스 추론 최적화 실전', who: '이도윤 · 삼성리서치', tags: ['모바일'] }] },
   { from: '', to: '', gap: '10분' },
   { from: '14:20', to: '15:00', now: true, sessions: [
-    { track: 0, title: 'torch.compile 내부 들여다보기', who: '정민재 · 네이버', tags: ['데이터·AI'] },
+    { track: 0, title: 'torch.compile 내부 들여다보기', who: '정민재 · 네이버', tags: ['데이터·AI'], desc: 'Dynamo와 Inductor가 각각 무엇을 하는지, 그래프가 끊기는 원인을 찾는 방법을 봐요.' },
     { track: 1, title: 'RAG 파이프라인 평가 방법론', who: '최유진 · 카카오', tags: ['데이터·AI'], saved: true }, null] },
   { from: '15:00', to: '15:20', band: '쉬는시간' },
   { from: '15:20', to: '16:00', sessions: [
-    { track: 0, title: '분산 학습 FSDP2 적용기', who: '한지우 · 서울대', tags: ['데이터·AI', '연구'] },
+    { track: 0, title: '분산 학습 FSDP2 적용기', who: '한지우 · 서울대', tags: ['데이터·AI', '연구'], desc: '연구실 클러스터에 FSDP2를 적용하며 메모리를 줄인 방법을 공유해요.' },
     { track: 1, title: 'GPU 비용 절반으로 줄인 스케줄링', who: '오세훈 · 토스', tags: ['클라우드'] },
-    { track: 2, title: 'ExecuTorch로 iOS 앱에 모델 싣기', who: '서하은 · 당근', tags: ['모바일', '데이터·AI'], saved: true }] },
+    { track: 2, title: 'ExecuTorch로 iOS 앱에 모델 싣기', who: '서하은 · 당근', tags: ['모바일', '데이터·AI'], saved: true, desc: '모델을 내보내고 iOS 앱에서 돌리기까지, 용량과 속도를 맞춘 과정을 봐요.' }] },
 ];
 
 export const SEOYEON: Person = { initial: '이', name: '이서연', handle: 'seoyeon', job: '프론트엔드 개발자', bio: '웹 접근성과 디자인 시스템에 관심이 많아요.', joined: '2026년 10월' };
@@ -80,13 +80,16 @@ export const SUBMISSIONS: Submission[] = [
   { initial: '정', name: '정하은', sub: '11월 30일 (월) 23:30 마감', state: 'none' },
 ];
 
+const LECTURE = { who: '김도윤', leaders: [{ initial: '김', name: '김도윤', role: '강사 · @doyun' }], desc: 'SwiftUI 레이아웃과 상태 관리를 다뤄요. 노트북에 **Xcode 16**을 미리 설치해 오세요.' };
+const LAB = { who: '이서연 외 1', leaders: [{ initial: '이', name: '이서연', role: '멘토 · @seoyeon' }, { initial: '박', name: '박지후', role: '조교' }],
+  desc: '오전 강의 내용으로 **화면 하나**를 직접 만들어요.\n• 막히면 멘토에게 바로 질문\n• 16:30부터 코드 리뷰' };
 export const BLOCKS: Block[] = [
-  ...[0, 1, 2, 3, 4].map((d): Block => ({ day: d, from: 10, to: 12, name: '강의', shape: 'class', who: '김도윤', desc: true })),
+  ...[0, 1, 2, 3, 4].map((d): Block => ({ day: d, from: 10, to: 12, name: '강의', shape: 'class', ...LECTURE })),
   ...[0, 1, 2, 3, 4].map((d): Block => ({ day: d, from: 12, to: 13, name: '점심', shape: 'rest' })),
-  ...[0, 1, 3].map((d): Block => ({ day: d, from: 13, to: 17, name: '실습', shape: 'class', who: '이서연 외 1', desc: true })),
-  { day: 2, from: 13, to: 15, name: '실습', shape: 'class', who: '이서연 외 1', desc: true },
-  { day: 2, from: 15, to: 17, name: '특강', shape: 'special', who: '한유진', desc: true },
-  { day: 4, from: 13, to: 16, name: '실습', shape: 'class', who: '이서연 외 1', desc: true },
+  ...[0, 1, 3].map((d): Block => ({ day: d, from: 13, to: 17, name: '실습', shape: 'class', ...LAB })),
+  { day: 2, from: 13, to: 15, name: '실습', shape: 'class', ...LAB },
+  { day: 2, from: 15, to: 17, name: '특강', shape: 'special', who: '한유진', leaders: [{ initial: '한', name: '한유진', role: '멘토 · @yujin' }], desc: '현업 iOS 개발자에게 앱을 출시하며 겪은 일을 들어요. 질문은 미리 모아 둘게요.' },
+  { day: 4, from: 13, to: 16, name: '실습', shape: 'class', ...LAB },
   { day: 4, from: 16, to: 17, name: '회고', shape: 'class' },
 ];
 

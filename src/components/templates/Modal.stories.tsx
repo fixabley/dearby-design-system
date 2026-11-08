@@ -8,9 +8,9 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Templates/Modal',
   component: X.Modal,
-  args: { screenTitle: '홈', height: 600, open: true, title: '파이토치 데이 코리아 2026 · 오후 세션', sub: '11월 21일 (토) 13:30 ~ 17:30 · 코엑스 그랜드볼룸', withFooter: true, onOpenChange: fn() },
-  
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600} sidebar={<X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} />}><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><div className="p-6"><X.Button variant="mint" onClick={() => update({ open: true })}>시간표 열기</X.Button></div><X.Modal open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }} title={args.title} sub={args.sub} footer={args.withFooter ? <div className="w-[240px]"><X.Segmented items={['all', 'mine'] as const} labels={{ all: '전체', mine: '내 시간표' }} value="all" /></div> : undefined}><X.ConferenceTimetable tracks={D.TRACKS} slots={D.SLOTS} /></X.Modal></X.WebShell>; },
+  args: { screenTitle: '홈', height: 600, open: true, title: '파이토치 데이 코리아 2026 · 오후 세션', sub: '11월 21일 (토) 13:30 ~ 17:30 · 코엑스 그랜드볼룸', withFooter: true, view: 'all', onOpenChange: fn() },
+  argTypes: { view: { control: 'inline-radio', options: ['all', 'mine'] } },
+  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600} sidebar={<X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} />}><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><div className="p-6"><X.Button variant="mint" onClick={() => update({ open: true })}>시간표 열기</X.Button></div><X.Modal open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }} title={args.title} sub={args.sub} footer={args.withFooter ? <div className="w-[240px]"><X.Segmented items={['all', 'mine'] as const} labels={{ all: '전체', mine: '내 시간표' }} value={args.view} onChange={(v) => update({ view: v })} /></div> : undefined}><X.ConferenceTimetable tracks={D.TRACKS} slots={D.SLOTS} view={args.view} onViewAll={() => update({ view: 'all' })} /></X.Modal></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;

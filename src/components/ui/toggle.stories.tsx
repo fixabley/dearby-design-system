@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { iconArgType } from '@/stories/argTypes';
+import { content, event, iconArgType, look, state } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Atoms/Toggle',
@@ -12,7 +12,14 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Toggle,
   args: { children: '부트캠프', icon: 'none', variant: 'chip', pressed: true, disabled: false, onPressedChange: fn() },
-  argTypes: { icon: iconArgType(), variant: { control: 'select', options: ['chip', 'tile', 'tileMint', 'icon', 'live', 'follow'] } },
+  argTypes: {
+    children: content('글자'),
+    icon: iconArgType(),
+    variant: { control: 'select', options: ['chip', 'tile', 'tileMint', 'icon', 'live', 'follow'], ...look('chip 필터 칩 · tile·tileMint 행동 타일 · icon 아이콘만(찜 하트) · live LIVE 캡슐 · follow 팔로우 캡슐') },
+    pressed: { ...state('켜짐') },
+    disabled: { ...state() },
+    onPressedChange: { ...event() },
+  },
   
   render: controlled(X.Toggle, 'pressed', 'onPressedChange'),
   

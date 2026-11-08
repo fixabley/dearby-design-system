@@ -8,8 +8,8 @@ import { controlled } from '@/stories/controlled';
 const meta: Meta = {
   title: 'Organisms/WeeklyTimetable',
   component: X.WeeklyTimetable,
-  args: { blocks: D.BLOCKS, hourHeight: 52, from: 10, to: 17, selected: 14, onSelect: fn() },
-  argTypes: { hourHeight: { control: { type: 'range', min: 32, max: 80 } }, selected: { control: { type: 'number', min: 0 } } },
+  args: { blocks: D.BLOCKS, hourHeight: 52, from: 10, to: 17, mode: 'view', selected: 14, onSelect: fn() },
+  argTypes: { mode: { control: 'inline-radio', options: ['view', 'edit'] }, hourHeight: { control: { type: 'range', min: 32, max: 80 } }, selected: { control: { type: 'number', min: 0 }, if: { arg: 'mode', eq: 'edit' } } },
   render: controlled(X.WeeklyTimetable, 'selected', 'onSelect'),
   parameters: { width: 560 },
 };
@@ -21,3 +21,6 @@ void useArgs; void fn; void controlled; void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+
+/** 개설자 편집: 모든 블록을 골라 BlockEditor로 고친다 */
+export const Edit: Story = { args: { mode: 'edit' } };

@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { iconArgType } from '@/stories/argTypes';
+import { content, event, iconArgType, look, state } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Atoms/Badge',
@@ -12,7 +12,13 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Badge,
   args: { children: '확인됨', icon: 'none', variant: 'mint', size: 'default' },
-  argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "muted", "destructive", "count"] }, size: { control: "inline-radio", options: ["default", "sm", "dot"] }, icon: iconArgType(), asChild: { table: { disable: true } } },
+  argTypes: {
+    children: content('배지 글자'),
+    icon: iconArgType(),
+    variant: { control: 'select', options: ['default', 'mint', 'outline', 'muted', 'destructive', 'count'], ...look('default 청록 채움(D-day) · mint 민트(추천 비율·통과) · outline 흰 바탕 테두리 · muted 모집 상태 · destructive 오류 · count 알림 개수') },
+    size: { control: 'inline-radio', options: ['default', 'sm', 'dot'], ...look('default 24 · sm 20 · dot 16(알림 개수)') },
+    asChild: { table: { disable: true } },
+  },
   
   
 };

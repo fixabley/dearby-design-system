@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { iconArgType } from '@/stories/argTypes';
+import { content, event, iconArgType, look, state } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Atoms/Button',
@@ -12,7 +12,16 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Button,
   args: { children: '캘린더 구독', icon: 'calendarAdd', variant: 'default', size: 'lg', block: false, disabled: false, onClick: fn() },
-  argTypes: { variant: { control: "select", options: ["default", "mint", "outline", "ghost", "destructive", "glass", "link", "plain", "tile"] }, size: { control: "select", options: ["lg", "default", "sm", "icon", "icon-sm", "tile", "tile-sm", "auto"] }, icon: iconArgType(), asChild: { table: { disable: true } } },
+  argTypes: {
+    children: content('버튼 글자'),
+    icon: iconArgType(),
+    variant: { control: 'select', options: ['default', 'mint', 'outline', 'ghost', 'destructive', 'glass', 'link', 'plain', 'tile'], ...look('default 청록 채움 · mint 민트 · outline 흰 면 · ghost 글자 · destructive 빨강 글자 · glass 글래스 · link 글자 링크 · plain 겉모양 없음 · tile 큰 타일 면') },
+    size: { control: 'select', options: ['lg', 'default', 'sm', 'icon', 'icon-sm', 'tile', 'tile-sm', 'auto'], ...look('lg 52(고정 CTA) · default 44 · sm 32 · icon·icon-sm 아이콘만 있는 정사각 버튼(44·40) · tile 행동 타일 · tile-sm 시간표 버튼 · auto 글자 높이') },
+    block: { ...look('칸 너비를 꽉 채움') },
+    disabled: { ...state() },
+    onClick: { ...event() },
+    asChild: { table: { disable: true } },
+  },
   
   
 };

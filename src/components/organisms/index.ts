@@ -8,6 +8,7 @@ export * from './ApplyCard';
 export * from './EvaluationForm';
 export * from './WeeklyTimetable';
 export * from './ConferenceTimetable';
+export * from './ScheduleItemDialog';
 export * from './ProfileHeader';
 export * from './SubmissionList';
 export * from './TeamBoard';

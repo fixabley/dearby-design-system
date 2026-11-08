@@ -22,7 +22,11 @@ export type ActivityDetailData = {
   picker?: boolean; metas: ActivityMeta[]; schedule: TimelineGroup[]; note?: string;
 };
 
-export type Block = { day: number; from: number; to: number; name: string; shape: 'class' | 'rest' | 'special'; who?: string; desc?: boolean };
+/** 블록·세션을 주도하는 사람 */
+export type Leader = { initial: string; name: string; role?: string };
+
+/** 주간 시간표 블록. desc(상세 설명)가 있으면 참여자가 눌러 볼 수 있다 */
+export type Block = { day: number; from: number; to: number; name: string; shape: 'class' | 'rest' | 'special'; who?: string; leaders?: Leader[]; desc?: string };
 
 export type Person = { initial: string; name: string; handle: string; job: string; bio?: string; joined: string };
 
@@ -36,7 +40,8 @@ export type Channel = { name: string; type: ChannelType };
 
 export type Track = { name: string; color: string };
 
-export type Session = { track: number; title: string; who: string; tags: string[]; saved?: boolean };
+/** 컨퍼런스 세션. who는 `이름 · 소속`, desc(상세 설명)가 있으면 눌러 볼 수 있다 */
+export type Session = { track: number; title: string; who: string; tags: string[]; saved?: boolean; desc?: string };
 
 export type TimeSlot = { from: string; to: string; now?: boolean } & ({ sessions: (Session | null)[] } | { band: string } | { gap: string });
 

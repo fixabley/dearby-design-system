@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아짐
@@ -22,7 +22,7 @@ const buttonVariants = cva(
         glass: 'border border-black/10 bg-white/75 text-foreground shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-xl backdrop-saturate-150 dark:border-white/10 dark:bg-[rgba(32,36,39,.74)]',
       },
       size: {
-        lg: 'h-13 rounded-[14px] px-6 text-[17px] [&_svg]:size-5',
+        lg: 'h-13 rounded-[14px] px-6 text-headline [&_svg]:size-5',  // 고정 CTA 17/600
         default: 'h-11 rounded-md px-4.5 text-body [&_svg]:size-5',
         sm: 'h-8 rounded-full px-3.5 text-caption [&_svg]:size-4',
         icon: 'size-11 rounded-full [&_svg]:size-5.5',

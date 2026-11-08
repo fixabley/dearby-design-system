@@ -1,6 +1,6 @@
 import { STATUS, type StatusKind } from '@/icons';
 import { cn } from '@/lib/utils';
-import { Svg } from './Icon';
+import { Svg } from '@/components/foundations/Icon';
 
 const TONE: Record<StatusKind, string> = {
   participating: 'text-accent-foreground', waiting: 'text-accent-foreground', selecting: 'text-amber', applying: 'text-[#8E8E93]', ended: 'text-[#8E8E93]',

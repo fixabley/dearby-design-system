@@ -6,7 +6,8 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Templates/Pane',
+  title: 'Atoms/Pane',
+  id: 'templates-pane',  // 예전 링크 고정
   component: X.FloatingBar,
   args: { screenTitle: '발견', height: 600, align: 'center' },
   argTypes: { align: { control: "inline-radio", options: ["center", "left-pane"] } },

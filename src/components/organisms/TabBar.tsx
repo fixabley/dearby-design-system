@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
-import { NAV, type NavKey } from './Sidebar';
+import { NAV, type NavKey } from '@/lib/nav';
 
 /** 모바일 탭 막대(shadcn ButtonGroup 글래스 + Button) */
 export function TabBar({ active, onNavigate }: { active: NavKey; onNavigate?: (k: NavKey) => void }) {

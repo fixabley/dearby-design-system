@@ -1,4 +1,4 @@
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 

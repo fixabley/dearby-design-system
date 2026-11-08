@@ -1,4 +1,3 @@
-export * from './HostLine';
 export * from './MetaLine';
 export * from './ProgressTrack';
 export * from './ActionTile';
@@ -18,3 +17,4 @@ export * from './WeekdayPicker';
 export * from './QueueCard';
 export * from './SubmissionRow';
 export * from './TeamColumn';
+export * from './ProgramRow';

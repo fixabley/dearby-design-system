@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 

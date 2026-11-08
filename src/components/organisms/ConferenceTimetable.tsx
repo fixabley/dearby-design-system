@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Session, TimeSlot, Track } from '@/types';
 import { STATUS } from '@/icons';
-import { Icon, Svg } from '@/components/atoms/Icon';
+import { Icon, Svg } from '@/components/foundations/Icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

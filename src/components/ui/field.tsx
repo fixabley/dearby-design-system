@@ -25,17 +25,17 @@ function FieldContent({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="field-content" className={cn('flex flex-1 flex-col', className)} {...props} />;
 }
 function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
-  return <Label data-slot="field-label" className={cn('group-data-[orientation=horizontal]/field:text-[17px] group-data-[orientation=horizontal]/field:text-foreground', className)} {...props} />;
+  return <Label data-slot="field-label" className={cn('group-data-[orientation=horizontal]/field:text-body-lg group-data-[orientation=horizontal]/field:text-foreground', className)} {...props} />;
 }
 function FieldTitle({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="field-title" className={cn('text-[17px]', className)} {...props} />;
+  return <div data-slot="field-title" className={cn('text-body-lg', className)} {...props} />;
 }
 function FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {
-  return <p data-slot="field-description" className={cn('text-[12px] text-muted-foreground', className)} {...props} />;
+  return <p data-slot="field-description" className={cn('text-caption text-muted-foreground', className)} {...props} />;
 }
 function FieldError({ className, children, ...props }: React.ComponentProps<'div'>) {
   if (!children) return null;
-  return <div role="alert" data-slot="field-error" className={cn('text-[12px] text-destructive', className)} {...props}>{children}</div>;
+  return <div role="alert" data-slot="field-error" className={cn('text-caption text-destructive', className)} {...props}>{children}</div>;
 }
 
 export { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet, FieldTitle };

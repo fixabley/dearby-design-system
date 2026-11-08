@@ -2,7 +2,7 @@ import type { ActivityDetailData as ActivityDetail } from '@/types';
 import { KindLabel } from '@/components/atoms/KindLabel';
 import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { HostLine } from '@/components/molecules/HostLine';
+import { HostLine } from '@/components/atoms/HostLine';
 import { TrackPicker } from '@/components/molecules/TrackPicker';
 import { useState } from 'react';
 

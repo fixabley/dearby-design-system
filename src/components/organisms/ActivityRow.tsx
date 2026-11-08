@@ -3,7 +3,7 @@ import { KindLabel } from '@/components/atoms/KindLabel';
 import { StatusGlyph } from '@/components/atoms/StatusGlyph';
 import { Thumbnail } from '@/components/atoms/Thumbnail';
 import { Item, ItemActions, ItemContent, ItemMedia } from '@/components/ui/item';
-import { HostLine } from '@/components/molecules/HostLine';
+import { HostLine } from '@/components/atoms/HostLine';
 import { MetaLine } from '@/components/molecules/MetaLine';
 import { ProgressTrack } from '@/components/molecules/ProgressTrack';
 import { TimetableButton } from '@/components/molecules/TimetableButton';

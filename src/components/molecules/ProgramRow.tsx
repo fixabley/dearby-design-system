@@ -2,7 +2,7 @@ import type { Program } from '@/types';
 import { KindLabel } from '@/components/atoms/KindLabel';
 import { Thumbnail } from '@/components/atoms/Thumbnail';
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
-import { HostLine } from '@/components/molecules/HostLine';
+import { HostLine } from '@/components/atoms/HostLine';
 import { cn } from '@/lib/utils';
 
 /** 발견의 프로그램 행(shadcn Item 링크) */

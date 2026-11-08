@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Segmented } from '@/components/atoms/Segmented';
-import { Pane, PaneFooter } from './Pane';
+import { Pane, PaneFooter } from '@/components/atoms/Pane';
 
 /** 목록·상세 두 칸(목록 5 : 상세 7, 칸 사이 48, 경계는 여백만) */
 export function TwoPane({ list, detail, footer, detailKey }: { list: ReactNode; detail: ReactNode; footer?: ReactNode; detailKey?: string }) {

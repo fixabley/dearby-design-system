@@ -14,7 +14,7 @@ function TooltipContent({ className, sideOffset = 6, ...props }: React.Component
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content data-slot="tooltip-content" sideOffset={sideOffset} className={cn(
-        'z-50 origin-(--radix-tooltip-content-transform-origin) rounded-md bg-foreground px-2.5 py-1.5 text-[12px] font-semibold text-background',
+        'z-50 origin-(--radix-tooltip-content-transform-origin) rounded-md bg-foreground px-2.5 py-1.5 text-caption font-semibold text-background',
         'animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95', className)} {...props} />
     </TooltipPrimitive.Portal>
   );

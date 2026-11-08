@@ -1,4 +1,4 @@
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Card } from '@/components/ui/card';
 
 /** 오늘의 맞춤 대기열 진입 카드(shadcn Card를 버튼으로) */

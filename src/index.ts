@@ -1,3 +1,4 @@
+export * from './components/foundations';
 export * from './components/ui';
 export * from './components/atoms';
 export * from './components/molecules';

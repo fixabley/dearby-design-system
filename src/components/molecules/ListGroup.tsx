@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 

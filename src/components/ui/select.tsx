@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Select + Dearby: iOS 메뉴 모양 목록. 고른 항목은 앞에 체크, 열릴 때 누른 자리에서 커진다
@@ -15,7 +15,7 @@ const selectTriggerVariants = cva(
   {
     variants: {
       variant: {
-        default: 'h-11 w-full rounded-md bg-muted px-4 text-[17px] [&_svg]:size-[18px]',
+        default: 'h-11 w-full rounded-md bg-muted px-4 text-body-lg [&_svg]:size-[18px]',
         inline: 'h-auto rounded-sm bg-transparent p-0 text-body text-muted-foreground [&_svg]:size-4',  // 묶음 목록 행 오른쪽 값
       },
     },
@@ -47,7 +47,7 @@ function SelectContent({ className, children, position = 'popper', ...props }: R
 }
 
 function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) {
-  return <SelectPrimitive.Label data-slot="select-label" className={cn('px-3 pb-1 pt-2 text-[12px] text-muted-foreground', className)} {...props} />;
+  return <SelectPrimitive.Label data-slot="select-label" className={cn('px-3 pb-1 pt-2 text-caption text-muted-foreground', className)} {...props} />;
 }
 
 /** icon은 글자 앞(트리거에도 함께 보인다), sub는 보조 줄(목록에만 보인다) */
@@ -59,7 +59,7 @@ function SelectItem({ className, children, icon, sub, ...props }: React.Componen
         <SelectPrimitive.ItemIndicator><Icon name="check" /></SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText><span className="flex items-center gap-1.5 text-body [&_svg]:size-4 [&_svg]:text-accent-foreground">{icon && <Icon name={icon} />}{children}</span></SelectPrimitive.ItemText>
-      {sub && <span className="text-[12px] text-muted-foreground">{sub}</span>}
+      {sub && <span className="text-caption text-muted-foreground">{sub}</span>}
     </SelectPrimitive.Item>
   );
 }

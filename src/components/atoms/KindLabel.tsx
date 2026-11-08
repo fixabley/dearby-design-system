@@ -1,6 +1,6 @@
 import { KINDS, type ActivityKind } from '@/icons';
 import { cn } from '@/lib/utils';
-import { Svg } from './Icon';
+import { Svg } from '@/components/foundations/Icon';
 
 /** 활동 종류 라벨(아이콘 + 이름) */
 export function KindLabel({ kind, className }: { kind: ActivityKind; className?: string }) {

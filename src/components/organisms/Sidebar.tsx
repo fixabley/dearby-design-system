@@ -1,13 +1,10 @@
 import type { ReactNode } from 'react';
-import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { NAV } from '@/lib/nav';
+export { NAV, type NavKey } from '@/lib/nav';
 
-export type NavKey = 'home' | 'discover' | 'cards' | 'profile';
-export const NAV: { key: NavKey; icon: IconName; label: string }[] = [
-  { key: 'home', icon: 'home', label: '홈' }, { key: 'discover', icon: 'explore', label: '발견' }, { key: 'cards', icon: 'card', label: '명함' }, { key: 'profile', icon: 'profile', label: '내 프로필' },
-];
 
 function NavItem({ active, small, onClick, children }: { active?: boolean; small?: boolean; onClick?: () => void; children: ReactNode }) {
   return (

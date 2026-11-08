@@ -6,12 +6,13 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Atoms/Icon',
-  component: X.Icon,
-  args: { name: 'calendar', size: 24, label: '' },
-  argTypes: { name: { control: 'select', options: Object.keys(X.ICONS) }, size: { control: 'inline-radio', options: X.ICON_SIZES } },
+  title: 'Molecules/ProgramRow',
+  id: 'organisms-programrow',  // 예전 링크 고정
+  component: X.ProgramRow,
+  args: { p: D.PROGRAMS[0], selected: false, onSelect: fn() },
   
   
+  parameters: { width: 480 },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Badge + Dearby: 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만(빨강은 오류 전용, 회색 채움 없음)
@@ -21,7 +21,7 @@ const badgeVariants = cva(
       size: {
         default: 'h-6 px-2.5 text-badge [&>svg]:size-3.5',
         sm: 'h-5 px-2 text-micro [&>svg]:size-3',
-        dot: 'h-4 min-w-4 px-1 text-[10px]',
+        dot: 'h-4 min-w-4 px-1 text-micro font-bold leading-none',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },

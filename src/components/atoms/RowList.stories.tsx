@@ -3,7 +3,8 @@ import * as X from '@/index';
 import * as D from '@/data';
 
 const meta: Meta = {
-  title: 'Organisms/RowList',
+  title: 'Atoms/RowList',
+  id: 'organisms-rowlist',  // 예전 링크 고정
   component: X.RowList,
   args: { inset: 78, columns: undefined, count: 4 },
   argTypes: { columns: { control: 'inline-radio', options: [undefined, 2] }, count: { control: { type: 'range', min: 1, max: 5 } } },

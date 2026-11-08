@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { IconName } from '@/icons';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
 // shadcn Toggle: 필터 칩. 켜면 민트 면 + 청록 2px 테두리

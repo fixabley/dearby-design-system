@@ -86,13 +86,15 @@
   --shadow-control: var(--shadow-control);
   --shadow-primary: var(--shadow-primary);
   /* 글자 계층 열 가지 */
-  --text-title: 26px;  --text-title--font-weight: 700;
-  --text-section: 22px; --text-section--font-weight: 700;
-  --text-headline: 17px; --text-headline--font-weight: 600;
-  --text-body: 15px;
-  --text-caption: 13px;
-  --text-badge: 12px;  --text-badge--font-weight: 700;
-  --text-micro: 11px;
+  /* 글자 계층(2026-11-08 확정): 크기·줄 높이·기본 굵기. 이 값을 쓰는 곳은 Text 아톰과 shadcn 키트뿐 */
+  --text-title: 26px;    --text-title--line-height: 1.22;   --text-title--font-weight: 700;     /* 화면 제목 */
+  --text-section: 22px;  --text-section--line-height: 1.25; --text-section--font-weight: 700;   /* 섹션 제목 */
+  --text-headline: 17px; --text-headline--line-height: 1.28; --text-headline--font-weight: 600; /* 소제목·행 제목·고정 CTA */
+  --text-body-lg: 17px;  --text-body-lg--line-height: 1.4;                                      /* 입력·목록 행(플랫폼 기본 폼) */
+  --text-body: 15px;     --text-body--line-height: 1.6;                                         /* 본문(행 안 제목은 600) */
+  --text-caption: 13px;  --text-caption--line-height: 1.4;                                      /* 보조(컨트롤은 600) */
+  --text-badge: 12px;    --text-badge--line-height: 1;      --text-badge--font-weight: 700;     /* 배지 */
+  --text-micro: 11px;    --text-micro--line-height: 1.2;                                        /* 마이크로 */
   --ease-spring: var(--ease-spring);
   --ease-out-soft: var(--ease-out);
 }

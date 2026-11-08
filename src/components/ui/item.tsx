@@ -40,10 +40,10 @@ function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="item-content" className={cn('flex min-w-0 flex-1 flex-col', className)} {...props} />;
 }
 function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="item-title" className={cn('truncate text-[17px] leading-snug', className)} {...props} />;
+  return <div data-slot="item-title" className={cn('truncate text-body-lg', className)} {...props} />;
 }
 function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
-  return <p data-slot="item-description" className={cn('truncate text-[12px] text-muted-foreground', className)} {...props} />;
+  return <p data-slot="item-description" className={cn('truncate text-caption text-muted-foreground', className)} {...props} />;
 }
 function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="item-actions" className={cn('flex shrink-0 items-center gap-2 text-body text-muted-foreground', className)} {...props} />;

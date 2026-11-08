@@ -5,10 +5,10 @@ import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Toggle } from '@/components/ui/toggle';
 import { Card, CardTitle } from '@/components/ui/card';
-import { HostLine } from '@/components/molecules/HostLine';
+import { HostLine } from '@/components/atoms/HostLine';
 import { ActivityRow } from './ActivityRow';
 import { ReviewSection } from './ReviewSection';
-import { RowList } from './RowList';
+import { RowList } from '@/components/atoms/RowList';
 
 /** 프로그램 화면: 배너 · 로고 + 팔로우 · 이름 · 조직 · 종류 · 태그 · 개수 · 모집 중 · 지난 활동 · 후기 */
 export function ProgramDetail({ p }: { p: ProgramDetailData }) {

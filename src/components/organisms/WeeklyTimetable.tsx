@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Block } from '@/types';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';

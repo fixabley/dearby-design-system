@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { cn } from '@/lib/utils';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 
 // shadcn DropdownMenu + iOS 메뉴 모양. 누른 자리에서 커지며 열린다(transform-origin은 Radix가 넘겨준다)
 const DropdownMenu = DropdownMenuPrimitive.Root;
@@ -27,7 +27,7 @@ function DropdownMenuRadioItem({ className, children, sub, ...props }: React.Com
         <DropdownMenuPrimitive.ItemIndicator><Icon name="check" /></DropdownMenuPrimitive.ItemIndicator>
       </span>
       <span className="text-body">{children}</span>
-      {sub && <span className="text-[12px] text-muted-foreground">{sub}</span>}
+      {sub && <span className="text-caption text-muted-foreground">{sub}</span>}
     </DropdownMenuPrimitive.RadioItem>
   );
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 
 // shadcn Dialog + Dearby: 큰 모달(왼쪽 위 제목, 오른쪽 위 글래스 닫기). 열 때 살짝 떠오르고 닫을 때 가라앉는다
 const Dialog = DialogPrimitive.Root;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Channel } from '@/types';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { FieldGroup } from '@/components/ui/field';

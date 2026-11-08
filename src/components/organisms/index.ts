@@ -1,6 +1,4 @@
 export * from './ActivityRow';
-export * from './ProgramRow';
-export * from './RowList';
 export * from './DetailHeader';
 export * from './ScheduleCard';
 export * from './ActivityDetail';

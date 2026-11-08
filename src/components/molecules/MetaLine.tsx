@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { DDay } from '@/components/atoms/DDay';
-import { Icon } from '@/components/atoms/Icon';
+import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
 /** 아이콘 + 굵은 라벨 + 값. 날짜는 M월 d일 (요일) HH:mm, `오늘` 같은 상대 표기 없음 */

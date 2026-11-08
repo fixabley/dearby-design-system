@@ -32,7 +32,7 @@ src/
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
 | `atoms/shared/` | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) |
 | `atoms/activity/` | KindLabel · StatusGlyph |
-| `molecules/shared/` | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented |
+| `molecules/shared/` | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker |
 | `molecules/activity/` | ActionTile(ActionTiles) · ProgressTrack · LiveToggle |
 | `molecules/program/` | HostLine |
 | `molecules/review/` | ReviewCard · ReviewSummary |
@@ -41,7 +41,7 @@ src/
 | `molecules/notice/` | Notice |
 | `molecules/discord/` | ChannelSelect |
 | `molecules/team/` | TeamColumn |
-| `organisms/shared/` | FilterSheet · Sidebar · TabBar · TopBar |
+| `organisms/shared/` | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList |
 | `organisms/activity/` | ActivityRow · ActivityDetail · DetailHeader · ApplyCard · ScheduleCard, 관리 탭 상수(`constants.ts`) |
 | `organisms/program/` | ProgramDetail · ProgramRow |
 | `organisms/review/` | ReviewSection |
@@ -94,7 +94,7 @@ npm run build-storybook  # dist/
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
 - 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 8개(`text-title` … `text-micro`), 화면에서는 `Text` 역할 11가지로 씁니다.
-- 날짜는 `M월 d일 (요일)`, 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다.
+- 날짜는 `M월 d일 (요일)`(올해가 아니면 앞에 `yyyy년`), 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다. 표기 도우미는 `lib/date`에 있습니다.
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.
 

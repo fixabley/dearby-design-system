@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 
 const meta: Meta = {
-  title: 'Atoms/Label',
+  title: 'Atoms/shadcn/Label',
   id: 'ui-shadcn-label',
   tags: ['shadcn'],
   component: X.Label,

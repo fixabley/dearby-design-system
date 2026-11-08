@@ -7,7 +7,7 @@ import { controlled } from '@/stories/controlled';
 import { content, event, iconArgType, look, state } from '@/stories/argTypes';
 
 const meta: Meta = {
-  title: 'Atoms/Badge',
+  title: 'Atoms/shadcn/Badge',
   id: 'ui-shadcn-badge',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.Badge,

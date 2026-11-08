@@ -20,7 +20,8 @@ const preview: Preview = {
     layout: 'padded',
     controls: { expanded: true },
     backgrounds: { disable: true },
-    options: { storySort: { order: ['Introduction', 'Foundations', 'Atoms', 'Molecules', 'Organisms', 'Templates'] } },
+    // 층마다 shadcn 원본 → 도메인 없는 Shared → 나머지 도메인
+    options: { storySort: { order: ['Introduction', 'Foundations', 'Atoms', ['shadcn', 'Shared', '*'], 'Molecules', ['shadcn', 'Shared', '*'], 'Organisms', ['Shared', '*'], 'Templates'] } },
   },
 };
 export default preview;

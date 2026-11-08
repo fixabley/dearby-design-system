@@ -6,7 +6,7 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Atoms/Switch',
+  title: 'Atoms/shadcn/Switch',
   id: 'ui-shadcn-switch',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.Switch,

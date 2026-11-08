@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 
 const meta: Meta = {
-  title: 'Molecules/ButtonGroup',
+  title: 'Molecules/shadcn/ButtonGroup',
   id: 'ui-shadcn-buttongroup',
   tags: ['shadcn'],
   component: X.ButtonGroup,

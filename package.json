@@ -1,7 +1,28 @@
 {
   "name": "@dearby/design-system",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./data": {
+      "types": "./dist/data.d.ts",
+      "default": "./dist/data.js"
+    },
+    "./styles.css": "./src/styles.css",
+    "./fonts/*": "./static/fonts/*"
+  },
+  "files": [
+    "dist",
+    "src/styles.css",
+    "static/fonts"
+  ],
   "scripts": {
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build --quiet",

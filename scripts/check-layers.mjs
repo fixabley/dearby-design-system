@@ -40,7 +40,7 @@ const target = (from, spec) => {
   const base = spec.startsWith('@/components/') ? join(ROOT, spec.slice('@/components/'.length))
     : spec.startsWith('.') ? resolve(dirname(from), spec) : null;
   if (!base || !base.startsWith(ROOT)) return null;
-  return ['.tsx', '.ts', '/index.tsx', '/index.ts'].map((x) => base + x).find(existsSync) ?? base;
+  return existsSync(`${base}.tsx`) ? `${base}.tsx` : base; // .tsx가 아니면 경로 앞부분만으로 층을 정한다
 };
 
 const orgEdges = new Map();
@@ -50,7 +50,7 @@ for (const f of files) {
   const src = readFileSync(f, 'utf8');
   for (const [, spec] of src.matchAll(/from ['"]([^'"]+)['"]/g)) {
     const to = target(f, spec);
-    if (!to || to === f) continue;
+    if (!to) continue;
     const t = rankOf(to);
     if (t === undefined) continue;
     if (t > me) errors.push(`위 층 참조  ${short(f)} (${label(f)}) → ${short(to)} (${label(to)})`);

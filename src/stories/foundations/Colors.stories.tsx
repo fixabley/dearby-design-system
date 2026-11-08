@@ -8,4 +8,4 @@ const COLORS = [['primary', '청록 채움 · 두 모드 모두 #007F80'], ['acc
   ['toast', '토스트 캡슐 · 두 모드 모두 검정 85%'], ['toast-action', '토스트 행동 · 밝은 청록']];
 
 /** 색 토큰(globals.css): shadcn 이름에 Dearby 값을 덮어씌웠다 */
-export const Colors: StoryObj = { render: () => <div className="grid grid-cols-5 gap-3">{COLORS.map(([v, d]) => <div key={v} className="overflow-hidden rounded-xl ring-1 ring-border"><i className="block h-16" style={{ background: `var(--${v === 'amber' ? 'amber' : v})` }} /><p className="p-2.5 text-[12px] text-muted-foreground"><b className="block text-caption font-semibold text-foreground">{v}</b>{d}</p></div>)}</div> };
+export const Colors: StoryObj = { render: () => <div className="grid grid-cols-5 gap-3">{COLORS.map(([v, d]) => <div key={v} className="overflow-hidden rounded-xl ring-1 ring-border"><i className="block h-16" style={{ background: `var(--${v})` }} /><p className="p-2.5 text-[12px] text-muted-foreground"><b className="block text-caption font-semibold text-foreground">{v}</b>{d}</p></div>)}</div> };

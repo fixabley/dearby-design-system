@@ -55,6 +55,11 @@ type Story = StoryObj<typeof meta>;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다(⑧-0b 날짜 피커: 11월 8일을 고른 상태) */
 export const Playground: Story = {};
 
+/** 오늘(11월 3일)을 고르면 민트 대신 청록 채움 + 흰 글자로 오늘 표시와 구분된다 */
+export const TodaySelected: Story = {
+  args: { selected: '2026-11-03' },
+};
+
 /** ㉙-c6 건너뛸 날: 매주 월·목 반복(11월 16일 ~ 30일) 중 고를 날만 열고, 11월 19일 (목)을 고른 상태 */
 export const SkipDates: Story = {
   args: { mode: 'multiple', dates: ['2026-11-19'], enabledDates: ['2026-11-16', '2026-11-19', '2026-11-23', '2026-11-26', '2026-11-30'] },

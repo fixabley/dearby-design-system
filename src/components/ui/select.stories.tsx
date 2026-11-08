@@ -5,7 +5,7 @@ import * as X from '@/index';
 import { content, event, look } from '@/stories/argTypes';
 
 const meta: Meta = {
-  title: 'Molecules/Select',
+  title: 'Molecules/shadcn/Select',
   id: 'ui-shadcn-select',
   tags: ['shadcn'],
   component: X.Select,

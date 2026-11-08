@@ -5,7 +5,7 @@ import * as X from '@/index';
 import { content, event, state } from '@/stories/argTypes';
 
 const meta: Meta = {
-  title: 'Atoms/Checkbox',
+  title: 'Atoms/shadcn/Checkbox',
   id: 'ui-shadcn-checkbox',
   tags: ['shadcn'],
   component: X.Checkbox,

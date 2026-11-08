@@ -6,7 +6,7 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Atoms/Separator',
+  title: 'Atoms/shadcn/Separator',
   id: 'ui-shadcn-separator',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.Separator,

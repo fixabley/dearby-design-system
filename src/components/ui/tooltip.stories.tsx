@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 
 const meta: Meta = {
-  title: 'Molecules/Tooltip',
+  title: 'Molecules/shadcn/Tooltip',
   id: 'ui-shadcn-tooltip',
   tags: ['shadcn'],
   component: X.Tooltip,

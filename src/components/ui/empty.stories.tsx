@@ -4,7 +4,7 @@ import * as X from '@/index';
 import { content, event, iconArgType, look } from '@/stories/argTypes';
 
 const meta: Meta = {
-  title: 'Molecules/Empty',
+  title: 'Molecules/shadcn/Empty',
   id: 'ui-shadcn-empty',
   tags: ['shadcn'],
   component: X.Empty,

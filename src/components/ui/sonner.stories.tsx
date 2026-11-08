@@ -4,7 +4,7 @@ import * as X from '@/index';
 import { content, event, look, state } from '@/stories/argTypes';
 
 const meta: Meta = {
-  title: 'Molecules/Sonner',
+  title: 'Molecules/shadcn/Sonner',
   id: 'ui-shadcn-sonner',
   tags: ['shadcn'],
   component: X.Toaster,

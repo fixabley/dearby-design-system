@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 
 const meta: Meta = {
-  title: 'Molecules/Field',
+  title: 'Molecules/shadcn/Field',
   id: 'ui-shadcn-field',
   tags: ['shadcn'],
   component: X.Field,

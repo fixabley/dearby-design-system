@@ -18,7 +18,7 @@ const PROGRAMS = [
 ];
 
 const meta: Meta = {
-  title: 'Molecules/Command',
+  title: 'Molecules/shadcn/Command',
   id: 'ui-shadcn-command',
   tags: ['shadcn'],
   component: X.Command,

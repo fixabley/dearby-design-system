@@ -1,28 +1,34 @@
 import type { IconName } from '@/icons';
 import { Icon } from '@/components/atoms/Icon';
-import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export type GlassAction = { icon: IconName; label: string; onClick?: () => void };
-const glass = 'border border-black/10 bg-white/75 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-xl backdrop-saturate-150 dark:border-white/10 dark:bg-[rgba(32,36,39,.74)]';
 
 function GlassButton({ a, badge }: { a: GlassAction; badge?: number }) {
   return (
-    <button type="button" aria-label={a.label} onClick={a.onClick} className="relative grid size-10 place-items-center rounded-full outline-none transition-transform active:scale-90 focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-[22px]">
-      <Icon name={a.icon} />
-      {!!badge && <b className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-[#FF3B30] px-1 text-[10px] font-bold text-white">{badge}</b>}
-    </button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="plain" size="icon-sm" aria-label={a.label} onClick={a.onClick} className="relative">
+          <Icon name={a.icon} />
+          {!!badge && <Badge variant="count" size="dot" className="absolute right-0.5 top-0.5">{badge}</Badge>}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{a.label}</TooltipContent>
+    </Tooltip>
   );
 }
 
-/** 우상단 그룹: 화면 액션 | 설정·알림(설정·알림은 늘 보인다) */
+/** 우상단 그룹(shadcn ButtonGroup 글래스): 화면 액션 | 설정·알림(늘 보임) */
 export function GlassGroup({ actions = [], unread = 0 }: { actions?: GlassAction[]; unread?: number }) {
   return (
-    <div className={`inline-flex h-11 items-center rounded-full px-1 ${glass}`}>
+    <ButtonGroup variant="glass">
       {actions.map((a) => <GlassButton key={a.label} a={a} />)}
-      {actions.length > 0 && <Separator orientation="vertical" className="mx-[3px] !h-[22px] bg-current opacity-20" />}
+      {actions.length > 0 && <ButtonGroupSeparator />}
       <GlassButton a={{ icon: 'settings', label: '설정' }} />
       <GlassButton a={{ icon: 'bell', label: '알림' }} badge={unread} />
-    </div>
+    </ButtonGroup>
   );
 }
-export { glass };

@@ -1,18 +1,21 @@
-import { cva, type VariantProps } from 'class-variance-authority';
 import type { Thumb } from '@/types';
+import { AvatarFallback, AvatarImage, AvatarRoot, avatarVariants } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
-const thumb = cva('relative grid shrink-0 place-items-center overflow-hidden bg-cover bg-center', {
-  variants: { size: { lg: 'size-[76px] rounded-md', md: 'size-16 rounded-md', sm: 'size-14 rounded-md', xl: 'size-24 rounded-lg' } },
-  defaultVariants: { size: 'md' },
-});
-/** 행·상세의 썸네일: 커버 사진, 없으면 브랜드색 그러데이션 위 흰 로고 상자 */
-export function Thumbnail({ thumb: t, size, className }: { thumb: Thumb } & VariantProps<typeof thumb> & { className?: string }) {
-  if ('cover' in t) return <div className={cn(thumb({ size }), className)} style={{ backgroundImage: `url(${t.cover})` }} />;
+type Size = 'sm' | 'md' | 'lg' | 'xl';
+const SIZE = { sm: 'thumb-sm', md: 'thumb', lg: 'thumb-lg', xl: 'thumb-xl' } as const;
+
+/** 행·상세의 썸네일(shadcn Avatar 네모): 커버 사진, 없으면 브랜드색 그러데이션 위 흰 로고 상자 */
+export function Thumbnail({ thumb: t, size = 'md', className }: { thumb: Thumb; size?: Size; className?: string }) {
+  const root = cn(avatarVariants({ size: SIZE[size] }), className);
+  if ('cover' in t) {
+    return <AvatarRoot className={root}><AvatarImage src={t.cover} alt="" className="size-full object-cover" /><AvatarFallback className="size-full bg-muted" /></AvatarRoot>;
+  }
   return (
-    <div className={cn(thumb({ size }), className)} style={{ background: `linear-gradient(140deg,${t.color},${t.color}AA)` }}>
-      <i className="grid size-[58%] place-items-center rounded-[10px] bg-white bg-[length:74%] bg-center bg-no-repeat text-[18px] font-bold not-italic text-[#0E5E66] dark:bg-[#2A2E31] dark:text-white"
-        style={t.logo ? { backgroundImage: `url(${t.logo})` } : undefined}>{t.logo ? null : t.letter}</i>
-    </div>
+    <AvatarRoot className={cn(root, 'grid place-items-center')} style={{ background: `linear-gradient(140deg,${t.color},${t.color}AA)` }}>
+      <span className="grid size-[58%] place-items-center overflow-hidden rounded-[10px] bg-white text-[18px] font-bold text-[#0E5E66] dark:bg-[#2A2E31] dark:text-white">
+        {t.logo ? <AvatarImage src={t.logo} alt="" className="size-[74%] object-contain" /> : t.letter}
+      </span>
+    </AvatarRoot>
   );
 }

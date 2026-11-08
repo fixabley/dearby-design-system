@@ -9,7 +9,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 **만든 순서**
 1. 화면 요소마다 바꿔 쓸 수 있는 shadcn·Radix 컴포넌트를 골랐습니다. 코드는 `components/ui/`(shadcn 기본 위치)에 두고, Storybook에서는 `shadcn` 태그를 단 채 Atoms·Molecules에 넣었습니다.
 2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 계층 10개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
-3. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
+3. Radix를 직접 쓰는 곳은 `ui/` 안뿐이고, 나머지 컴포넌트는 모두 shadcn 컴포넌트를 조립합니다.
+4. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
 
 | 시안 요소 | shadcn / Radix | 단계 |
 | --- | --- | --- |
@@ -28,6 +29,15 @@ import { Meta } from '@storybook/addon-docs/blocks';
 | 입력 칸 | Input · Textarea · Label | Atoms |
 | 칸마다 스크롤 | ScrollArea | Atoms |
 | 구분선 | Separator | Atoms |
+| 묶음 목록 행(설정·서버·채널·팀원), 활동·프로그램 행 | Item · ItemGroup | Molecules |
+| 입력 칸 묶음 | Field · FieldGroup | Molecules |
+| 우상단 글래스 그룹·탭 막대·소셜 버튼 | ButtonGroup | Molecules |
+| 검색 캡슐 | InputGroup | Molecules |
+| 아이콘 버튼 이름 | Tooltip | Molecules |
+| 썸네일 | Avatar(네모) | Atoms |
+| 행동 타일·시간표 버튼·구분 고르기·사이드바 항목 | Button(tile·tile-sm·link·plain) | Atoms |
+| 팔로우·찜·LIVE·행동 타일 켜기 | Toggle(follow·icon·live·tile) | Atoms |
+| 시간표 블록 고르기 | ToggleGroup(plain) | Molecules |
 
 - 이름: 코드는 영문(아이콘·종류는 계약의 코드 `calendar`, `BOOTCAMP`), 화면 글자만 한국어.
 - 툴바 **Theme**로 라이트·다크. 다크는 문서 루트의 `.dk`라 모달·메뉴·시트까지 이어집니다.

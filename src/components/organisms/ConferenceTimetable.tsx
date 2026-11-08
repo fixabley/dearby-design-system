@@ -1,24 +1,22 @@
 import { useState } from 'react';
-import * as TogglePrimitive from '@radix-ui/react-toggle';
 import type { Session, TimeSlot, Track } from '@/types';
 import { STATUS } from '@/icons';
 import { Icon, Svg } from '@/components/atoms/Icon';
 import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
 function SessionCard({ s, track }: { s: Session; track: Track }) {
   const [saved, setSaved] = useState(!!s.saved);
   return (
-    <div className="relative flex flex-col gap-1 rounded-md bg-card p-2.5 shadow-control">
+    <Card className="relative flex flex-col gap-1 rounded-md p-2.5">
       <span className="self-start rounded-full px-2 py-1 text-micro font-bold leading-none" style={{ background: track.color + '2E', color: track.color }}>{track.name}</span>
       <div className="flex flex-wrap gap-1">{s.tags.map((t) => <Badge key={t} variant="mint" size="sm">{t}</Badge>)}</div>
       <b className="pr-6 text-body font-semibold leading-snug">{s.title}</b>
       <small className="text-[12px] text-muted-foreground">{s.who}</small>
-      <TogglePrimitive.Root pressed={saved} onPressedChange={setSaved} aria-label="찜"
-        className="absolute right-2 top-2 grid size-7 place-items-center rounded-full text-accent-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-[18px] data-[state=on]:[&_svg]:animate-[ds-pop_.36s_var(--ease-spring)]">
-        <Icon name={saved ? 'heartFill' : 'heart'} />
-      </TogglePrimitive.Root>
-    </div>
+      <Toggle variant="icon" size="auto" pressed={saved} onPressedChange={setSaved} aria-label="찜" className="absolute right-2 top-2"><Icon name={saved ? 'heartFill' : 'heart'} /></Toggle>
+    </Card>
   );
 }
 

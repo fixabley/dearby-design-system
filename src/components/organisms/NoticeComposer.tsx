@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Icon } from '@/components/atoms/Icon';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { Field } from '@/components/molecules/Field';
+import { FieldGroup } from '@/components/ui/field';
+import { TextField } from '@/components/molecules/TextField';
 import { ListGroup, ListRow } from '@/components/molecules/ListGroup';
 import { renderLite } from '@/lib/markdown';
 
@@ -12,7 +13,7 @@ export function NoticeForm({ title, body, onTitle, onBody, discord }: { title: s
   const [notify, setNotify] = useState(true);
   return (
     <div className="flex flex-col gap-3">
-      <ListGroup><Field label="제목" value={title} onChange={onTitle} /><Field label="내용" value={body} onChange={onBody} multiline /></ListGroup>
+      <FieldGroup><TextField label="제목" value={title} onChange={onTitle} /><TextField label="내용" value={body} onChange={onBody} multiline /></FieldGroup>
       <ListGroup>
         {discord && <ListRow title="디스코드 #자유 대화에도 올리기" trailing={<Switch checked={toDiscord} onCheckedChange={setToDiscord} />}><span className="text-[#5865F2] [&_svg]:size-[22px]"><Icon name="discord" /></span></ListRow>}
         <ListRow title="참여자에게 알림 보내기" trailing={<Switch checked={notify} onCheckedChange={setNotify} />} />

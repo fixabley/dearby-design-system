@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Segmented } from '@/components/atoms/Segmented';
 import { Avatar } from '@/components/ui/avatar';
-import { Field } from '@/components/molecules/Field';
+import { FieldGroup } from '@/components/ui/field';
+import { TextField } from '@/components/molecules/TextField';
 import { ListGroup, ListRow } from '@/components/molecules/ListGroup';
 import { WeekdayPicker } from '@/components/molecules/WeekdayPicker';
 
@@ -14,7 +15,7 @@ export function BlockEditor({ name, kind, days, from, to, leaders, desc }: {
   return (
     <div className="flex flex-col gap-3">
       <Segmented items={['class', 'rest'] as const} labels={{ class: '수업', rest: '쉬는 시간' }} value={k} onChange={setK} />
-      <ListGroup><Field label="이름" value={name} /></ListGroup>
+      <FieldGroup><TextField label="이름" value={name} /></FieldGroup>
       <div><h4 className="mb-1.5 px-4 text-caption text-muted-foreground">요일</h4><WeekdayPicker value={d} onChange={setD} /></div>
       <ListGroup><ListRow icon="calendar" title="시작" trailing={from} /><ListRow icon="clock" title="끝" trailing={to} /></ListGroup>
       {k === 'class' && (
@@ -23,7 +24,7 @@ export function BlockEditor({ name, kind, days, from, to, leaders, desc }: {
           <ListRow icon="add" title="사람 추가" add onClick={() => {}} />
         </ListGroup>
       )}
-      <ListGroup><Field label="상세 설명" value={desc} multiline /></ListGroup>
+      <FieldGroup><TextField label="상세 설명" value={desc} multiline /></FieldGroup>
     </div>
   );
 }

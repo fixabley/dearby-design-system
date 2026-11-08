@@ -14,10 +14,12 @@ const badgeVariants = cva(
         outline: 'bg-background text-foreground ring-1 ring-inset ring-border',
         muted: 'bg-background font-medium text-muted-foreground ring-1 ring-inset ring-border',
         destructive: 'bg-destructive/10 text-destructive',
+        count: 'bg-[#FF3B30] text-white',  // 알림 개수(iOS 관례)
       },
       size: {
         default: 'h-6 px-2.5 text-badge [&>svg]:size-3.5',
         sm: 'h-5 px-2 text-micro [&>svg]:size-3',
+        dot: 'h-4 min-w-4 px-1 text-[10px]',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },

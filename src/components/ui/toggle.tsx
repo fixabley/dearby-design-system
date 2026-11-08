@@ -9,9 +9,14 @@ const toggleVariants = cva(
   {
     variants: {
       variant: {
+        tile: 'h-[66px] flex-col gap-1.5 rounded-lg bg-card text-caption font-semibold text-foreground shadow-control [&_svg]:size-[22px] [&_svg]:text-accent-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground',
+        tileMint: 'h-[66px] flex-col gap-1.5 rounded-lg bg-accent text-caption font-semibold text-accent-foreground shadow-control [&_svg]:size-[22px]',
+        icon: 'size-7 rounded-full text-accent-foreground [&_svg]:size-[18px] data-[state=on]:[&_svg]:animate-[ds-pop_.36s_var(--ease-spring)]',
+        live: 'h-7 w-14 gap-[5px] rounded-full bg-background text-micro font-bold tracking-wider text-accent-foreground ring-[1.5px] ring-inset ring-primary data-[state=on]:bg-primary data-[state=on]:text-white data-[state=on]:shadow-[0_6px_18px_rgba(0,127,128,.28)] data-[state=on]:ring-0',
+        follow: 'h-8 gap-1 rounded-full bg-accent px-3.5 text-caption font-semibold text-accent-foreground shadow-control [&_svg]:size-4',
         chip: 'bg-background text-body text-foreground ring-1 ring-inset ring-[#C4C4C7] data-[state=on]:bg-accent data-[state=on]:font-semibold data-[state=on]:text-accent-foreground data-[state=on]:ring-2 data-[state=on]:ring-primary dark:ring-border',
       },
-      size: { default: 'h-10 px-3.5' },
+      size: { default: 'h-10 px-3.5', auto: '' },
     },
     defaultVariants: { variant: 'chip', size: 'default' },
   },

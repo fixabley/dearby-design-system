@@ -13,3 +13,8 @@ export * from './separator';
 export * from './label';
 export * from './input';
 export * from './scroll-area';
+export * from './item';
+export * from './field';
+export * from './button-group';
+export * from './input-group';
+export * from './tooltip';

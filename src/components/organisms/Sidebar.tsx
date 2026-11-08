@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { Icon } from '@/components/atoms/Icon';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export type NavKey = 'home' | 'discover' | 'cards' | 'profile';
@@ -7,13 +9,16 @@ export const NAV: { key: NavKey; icon: IconName; label: string }[] = [
   { key: 'home', icon: 'home', label: '홈' }, { key: 'discover', icon: 'explore', label: '발견' }, { key: 'cards', icon: 'card', label: '명함' }, { key: 'profile', icon: 'profile', label: '내 프로필' },
 ];
 
-function NavItem({ active, small, onClick, children }: { active?: boolean; small?: boolean; onClick?: () => void; children: React.ReactNode }) {
-  return <a href="#" aria-current={active ? 'page' : undefined} onClick={(e) => { e.preventDefault(); onClick?.(); }} className={cn(
-    'flex items-center gap-3 rounded-md px-3 font-semibold outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-[22px]',
-    small ? 'h-10 text-[14px]' : 'h-11 text-body', active ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:bg-muted')}>{children}</a>;
+function NavItem({ active, small, onClick, children }: { active?: boolean; small?: boolean; onClick?: () => void; children: ReactNode }) {
+  return (
+    <Button asChild variant="plain" className={cn('justify-start gap-3 rounded-md px-3 shadow-none active:scale-100 [&_svg]:size-[22px]', small ? 'h-10 text-[14px]' : 'h-11 text-body',
+      active ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:bg-muted')}>
+      <a href="#" aria-current={active ? 'page' : undefined} onClick={(e) => { e.preventDefault(); onClick?.(); }}>{children}</a>
+    </Button>
+  );
 }
 
-/** 웹 탐색(펼친 폰의 레일을 이름 붙은 사이드바로). 아래에 내가 연 모임 */
+/** 웹 탐색(shadcn Button 링크). 펼친 폰의 레일을 이름 붙은 사이드바로, 아래에 내가 연 모임 */
 export function Sidebar({ active, onNavigate, hosted = [] }: { active?: string; onNavigate?: (k: string) => void; hosted?: string[] }) {
   return (
     <nav aria-label="탐색" className="flex w-[220px] flex-col gap-0.5 px-3 pt-5">

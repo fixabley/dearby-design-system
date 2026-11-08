@@ -12,7 +12,7 @@ export * from './ReviewSummary';
 export * from './Notice';
 export * from './Timeline';
 export * from './ListGroup';
-export * from './Field';
+export * from './TextField';
 export * from './WeekdayPicker';
 export * from './QueueCard';
 export * from './SubmissionRow';

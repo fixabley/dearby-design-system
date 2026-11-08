@@ -6,11 +6,11 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Molecules/Field',
-  component: X.Field,
+  title: 'Molecules/TextField',
+  component: X.TextField,
   args: { label: '이름', value: '실습', placeholder: '선택', multiline: false, onChange: fn() },
   
-  render: (args: Record<string, any>) => <X.ListGroup><X.Field key={String(args.value) + args.multiline} {...(args as any)} /></X.ListGroup>,
+  render: (args: Record<string, any>) => <X.FieldGroup><X.TextField key={String(args.value) + args.multiline} {...(args as any)} /></X.FieldGroup>,
   parameters: { width: 345 },
 };
 export default meta;

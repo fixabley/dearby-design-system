@@ -1,0 +1,38 @@
+import { useState, type ComponentProps } from 'react';
+import { Text } from '@/components/atoms/shared/Text';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { formatDate } from '@/lib/date';
+
+type DisabledDates = ComponentProps<typeof Calendar>['disabled'];
+
+/**
+ * 날짜 고르기(shadcn 방식: Button outline + Popover + Calendar). 버튼에 'M월 d일 (요일)', 값이 없으면 자리 글자(흐리게).
+ * min · max 밖의 날과 disabledDates(날짜 · 날짜 목록 · 함수)는 고를 수 없고, 달 넘김도 min · max 안에서만 된다. 고르면 바로 닫힌다.
+ * label은 화면 읽기용 칸 이름(보이지 않음)이고 고른 값과 함께 읽힌다.
+ */
+export function DatePicker({ value, onChange, placeholder = '선택', min, max, disabledDates, today, label = '날짜', open, onOpenChange, id, className }: {
+  value?: Date; onChange?: (date: Date) => void; placeholder?: string; min?: Date; max?: Date; disabledDates?: DisabledDates; today?: Date; label?: string;
+  open?: boolean; onOpenChange?: (open: boolean) => void; id?: string; className?: string;
+}) {
+  const [innerOpen, setInnerOpen] = useState(false);
+  const isOpen = open ?? innerOpen;
+  const setOpen = (o: boolean) => { setInnerOpen(o); onOpenChange?.(o); };
+  const text = value ? formatDate(value, today) : placeholder;
+  const extra = disabledDates === undefined ? [] : Array.isArray(disabledDates) ? disabledDates : [disabledDates];
+  return (
+    <Popover open={isOpen} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" id={id} aria-label={`${label}, ${text}`} className={className}>
+          <Text as="span" variant="body" weight="regular" tone={value ? 'inherit' : 'muted'} tabular>{text}</Text>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="start" aria-label={`${label} 고르기`} className="w-auto p-0" onOpenAutoFocus={(e) => e.preventDefault()}>
+        <Calendar mode="single" required autoFocus selected={value} defaultMonth={value ?? today} today={today} startMonth={min} endMonth={max}
+          disabled={[...(min ? [{ before: min }] : []), ...(max ? [{ after: max }] : []), ...extra]}
+          onSelect={(d) => { onChange?.(d); setOpen(false); }} />
+      </PopoverContent>
+    </Popover>
+  );
+}

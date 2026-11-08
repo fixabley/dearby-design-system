@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6008",
-    "build-storybook": "storybook build -o dist --quiet",
+    "build-storybook": "storybook build --quiet",
+    "build": "vite build -c vite.lib.config.ts",
+    "prepare": "npm run build",
     "typecheck": "tsc --noEmit",
     "check": "node scripts/check-layers.mjs"
   },
@@ -50,6 +52,7 @@
     "storybook": "^10.6.6",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
+    "unplugin-dts": "^1.1.2",
     "vite": "^7.3.7"
   }
 }

@@ -85,7 +85,7 @@ manage라는 도메인은 따로 두지 않습니다. 관리 탭 목록과 이�
 ```sh
 npm ci
 npm run storybook        # http://localhost:6008
-npm run build-storybook  # dist/
+npm run build-storybook  # storybook-static/
 ```
 
 `main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다.

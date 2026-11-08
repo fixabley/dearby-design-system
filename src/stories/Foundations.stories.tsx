@@ -5,7 +5,8 @@ export default { title: 'Foundations' } satisfies Meta;
 type S = StoryObj;
 
 const COLORS = [['primary', '청록 채움 · 두 모드 모두 #007F80'], ['accent', '민트 · 선택 면·민트 배지·태그'], ['accent-foreground', '청록 글자·아이콘'], ['foreground', '글자'], ['muted-foreground', '보조 글자'],
-  ['muted', '채움 · 입력·분할 전환 바탕'], ['border', '구분선 0.5px'], ['background', '바탕'], ['destructive', '탈락·오류 전용'], ['amber', '상태 캡션(선발 중)만']];
+  ['muted', '채움 · 입력·분할 전환 바탕'], ['border', '구분선 0.5px'], ['background', '바탕'], ['destructive', '탈락·오류 전용'], ['amber', '상태 캡션(선발 중)만'],
+  ['toast', '토스트 캡슐 · 두 모드 모두 검정 85%'], ['toast-action', '토스트 행동 · 밝은 청록']];
 export const Colors: S = { render: () => <div className="grid grid-cols-5 gap-3">{COLORS.map(([v, d]) => <div key={v} className="overflow-hidden rounded-xl ring-1 ring-border"><i className="block h-16" style={{ background: `var(--${v === 'amber' ? 'amber' : v})` }} /><p className="p-2.5 text-[12px] text-muted-foreground"><b className="block text-caption font-semibold text-foreground">{v}</b>{d}</p></div>)}</div> };
 
 /** 글자 계층은 Text 아톰으로만 쓴다(Atoms › Text › Scale에서 11가지를 모두 볼 수 있다) */

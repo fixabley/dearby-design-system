@@ -8,6 +8,12 @@ export function dayKey(d: Date) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+/** dayKey를 그날 0시로 */
+export function fromDayKey(key: string) {
+  const [y, m, d] = key.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
 /** 'M월 d일'. 기준일(today)과 해가 다르면 앞에 'yyyy년' */
 export function formatDay(d: Date, today: Date = new Date()) {
   const md = `${d.getMonth() + 1}월 ${d.getDate()}일`;

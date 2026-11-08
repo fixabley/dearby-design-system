@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
  * 글자 아톰. 글자 크기·굵기·줄 높이를 정하는 유일한 곳(shadcn 키트 제외).
  * 분자 이상은 글자 스타일 클래스를 쓰지 않고 Text(또는 Text를 품은 아톰)로만 글자를 그린다.
  * variant는 역할(글자 계층 11가지), weight는 같은 크기 안에서 강조, tone은 글자 색.
+ * leading은 줄 높이만 줄인다. tight(1.25)는 아바타 옆 한 줄 메타(HostLine)만 쓴다.
  */
 export const textVariants = cva('', {
   variants: {
@@ -32,6 +33,7 @@ export const textVariants = cva('', {
       inherit: '',
     },
     weight: { regular: 'font-normal', medium: 'font-medium', semibold: 'font-semibold', bold: 'font-bold' },
+    leading: { tight: 'leading-tight' },
     truncate: { true: 'min-w-0 truncate', false: '' },
     lines: { 1: 'line-clamp-1', 2: 'line-clamp-2', 3: 'line-clamp-3' },
     tabular: { true: 'tabular-nums', false: '' },
@@ -54,7 +56,7 @@ export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & Varia
   htmlFor?: string;
 };
 
-export function Text({ as, variant, tone, weight, truncate, lines, tabular, nowrap, pre, block, className, ...props }: TextProps) {
+export function Text({ as, variant, tone, weight, leading, truncate, lines, tabular, nowrap, pre, block, className, ...props }: TextProps) {
   const Comp = as ?? TAG[variant ?? 'body'];
-  return <Comp data-slot="text" className={cn(textVariants({ variant, tone, weight, truncate, lines, tabular, nowrap, pre }), block && !lines && 'block', className)} {...props} />;
+  return <Comp data-slot="text" className={cn(textVariants({ variant, tone, weight, leading, truncate, lines, tabular, nowrap, pre }), block && !lines && 'block', className)} {...props} />;
 }

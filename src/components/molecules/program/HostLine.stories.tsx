@@ -6,13 +6,13 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Atoms/Shared/Segmented',
-  id: 'atoms-segmented',
-  component: X.Segmented,
-  args: { items: ['activity', 'follow', 'projects'], labels: { activity: '활동', follow: '팔로우', projects: '프로젝트' }, value: 'activity', label: '프로필 탭', onChange: fn() },
+  title: 'Molecules/Program/HostLine',
+  id: 'molecules-hostline',
+  component: X.HostLine,
+  args: { logo: 'img/logo-13.png', initial: '', text: '삼성 · SSAFY', count: 1 },
+  argTypes: { logo: { control: "select", options: ["", "img/logo-13.png", "img/logo-22.png", "img/logo-pytorch.png"] } },
   
-  render: controlled(X.Segmented, 'value', 'onChange'),
-  parameters: { width: 345 },
+  parameters: { width: 300 },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import { Segmented } from '@/components/atoms/shared/Segmented';
+import { Segmented } from '@/components/molecules/shared/Segmented';
 import { Text } from '@/components/atoms/shared/Text';
 import { Avatar } from '@/components/ui/avatar';
 import { FieldGroup } from '@/components/ui/field';

@@ -6,7 +6,7 @@ import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
-  title: 'Molecules/Program/ProgramRow',
+  title: 'Organisms/Program/ProgramRow',
   id: 'organisms-programrow',
   component: X.ProgramRow,
   args: { p: D.PROGRAMS[0], selected: false, onSelect: fn() },

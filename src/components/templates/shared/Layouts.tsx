@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { Pane, PaneFooter } from '@/components/atoms/shared/Pane';
 import { RowList } from '@/components/atoms/shared/RowList';
-import { Segmented } from '@/components/atoms/shared/Segmented';
+import { Segmented } from '@/components/molecules/shared/Segmented';
 import { cn } from '@/lib/utils';
 
 type SlotProps = { className?: string; children: ReactNode };

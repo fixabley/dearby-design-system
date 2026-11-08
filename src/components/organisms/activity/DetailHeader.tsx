@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { ActivityDetailData as ActivityDetail } from '@/types';
-import { HostLine } from '@/components/atoms/program/HostLine';
+import { HostLine } from '@/components/molecules/program/HostLine';
 import { KindLabel } from '@/components/atoms/activity/KindLabel';
 import { Text } from '@/components/atoms/shared/Text';
 import { Badge } from '@/components/ui/badge';

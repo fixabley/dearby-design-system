@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { Submission } from '@/types';
-import { Segmented } from '@/components/atoms/shared/Segmented';
+import { Segmented } from '@/components/molecules/shared/Segmented';
 import { Text } from '@/components/atoms/shared/Text';
 import { ListGroup } from '@/components/molecules/shared/ListGroup';
 import { SubmissionRow } from '@/components/molecules/submission/SubmissionRow';

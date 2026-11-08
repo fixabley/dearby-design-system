@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { ProgramDetailData } from '@/types';
-import { HostLine } from '@/components/atoms/program/HostLine';
+import { HostLine } from '@/components/molecules/program/HostLine';
 import { KindLabel } from '@/components/atoms/activity/KindLabel';
 import { RowList } from '@/components/atoms/shared/RowList';
 import { Text } from '@/components/atoms/shared/Text';

@@ -31,7 +31,7 @@ jobs:
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: storybook-static
   deploy:
     if: github.event_name != 'pull_request'
     needs: build

@@ -1,6 +1,6 @@
 # Dearby Design System
 
-Dearby 시안 아티팩트(홈·상세 리뉴얼, Loopers 참고 적용, 웹 시안)의 화면 요소를 **shadcn/ui** 위에 다시 만든 디자인 시스템입니다. 실제 서비스 코드와는 별개입니다.
+Dearby 시안 아티팩트(홈·상세 리뉴얼, Loopers 참고 적용, 웹 시안)의 화면 요소를 **shadcn/ui** 위에 다시 만든 디자인 시스템입니다. 웹(dearby-web)은 이 레포를 패키지로 받아 씁니다([패키지로 받아 쓰기](#패키지로-받아-쓰기)).
 
 **Storybook**: https://fixabley.github.io/dearby-design-system/
 
@@ -8,7 +8,8 @@ Dearby 시안 아티팩트(홈·상세 리뉴얼, Loopers 참고 적용, 웹 시
 
 ```
 src/
-  globals.css              Tailwind v4 + Dearby 토큰을 shadcn 이름에 덮어씌움
+  globals.css              Storybook 진입점: Tailwind v4 다음에 styles.css
+  styles.css               Dearby 토큰을 shadcn 이름에 덮어씌움 · Pretendard · 다크(.dk) · 기본 스타일(패키지로 내보냄)
   components/
     foundations/           Icon(시안 아이콘)
     ui/                    shadcn 원본(Radix + cva) + Dearby 디자인
@@ -85,10 +86,58 @@ manage라는 도메인은 따로 두지 않습니다. 관리 탭 목록과 이�
 ```sh
 npm ci
 npm run storybook        # http://localhost:6008
-npm run build-storybook  # dist/
+npm run build-storybook  # storybook-static/
+npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepare로도 돈다
 ```
 
 `main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다.
+
+## 패키지로 받아 쓰기
+
+받아 쓰는 쪽에는 React 19와 Tailwind 4가 있어야 합니다(peer 의존성). git 의존성으로 커밋을 박아 받습니다.
+
+```json
+{
+  "dependencies": { "@dearby/design-system": "github:fixabley/dearby-design-system#<커밋>" },
+  "allowScripts": { "github:fixabley/dearby-design-system": true }
+}
+```
+
+- npm은 git 의존성을 설치할 때 이 레포를 받아 devDependencies를 깔고 `prepare`(`npm run build`)로 `dist`를 만든 뒤, `files`에 적은 것(dist · src/styles.css · static/fonts)만 담습니다. dist는 커밋하지 않습니다.
+- npm 11.19부터는 git 의존성의 `prepare`도 허용 목록(`allowScripts`)으로 확인합니다. 지금은 경고만 내지만 막히지 않게 위처럼 적어 둡니다. 커밋 없이 적었으니 버전을 올려도 고칠 필요가 없습니다.
+- 버전을 올릴 때는 커밋 해시를 바꾸고 `npm install`로 package-lock.json을 함께 갱신합니다.
+
+| 가져오는 경로 | 내용 |
+| --- | --- |
+| `@dearby/design-system` | 컴포넌트 · 타입 · 아이콘 · `cn` · `renderLite` |
+| `@dearby/design-system/data` | 시안 예시 데이터(`ACTIVITIES` 등) |
+| `@dearby/design-system/styles.css` | 토큰(@theme) · Pretendard · 다크(.dk) · 기본 스타일 |
+| `@dearby/design-system/fonts/*` | Pretendard 파일 |
+
+### 스타일
+
+```css
+/* 받아 쓰는 쪽의 전역 CSS(예: src/app/globals.css) */
+@import "tailwindcss";
+@import "@dearby/design-system/styles.css";
+@source "../../node_modules/@dearby/design-system/dist";
+```
+
+- `styles.css`는 Tailwind를 부르지 않으니 받아 쓰는 쪽이 `@import "tailwindcss"`를 먼저 합니다.
+- Tailwind는 node_modules를 스스로 읽지 않습니다. `@source`로 dist를 알려 줘야 컴포넌트가 쓰는 클래스가 만들어집니다. 경로는 그 CSS 파일 기준입니다.
+- 글꼴은 `styles.css` 기준 상대 경로로 적혀 있어 Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 경로를 다시 잡고, 번들러가 파일을 내보냅니다. 따로 손댈 것은 없습니다.
+- 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다.
+
+### 컴포넌트
+
+```tsx
+import { ActivityRow, RowList } from "@dearby/design-system";
+import { ACTIVITIES } from "@dearby/design-system/data";
+```
+
+- 컴포넌트 파일에는 `"use client"`가 붙어 있어 Next 서버 컴포넌트에서도 그릴 수 있습니다. 다만 `WebShell.Sidebar`처럼 점으로 꺼내는 부품은 서버 컴포넌트에서 꺼낼 수 없으니 `"use client"` 파일에서 조립합니다. `cn` · 아이콘 · 예시 데이터는 서버에서도 씁니다.
+- 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
+- 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 
 ## 원칙
 

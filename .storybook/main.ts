@@ -6,7 +6,8 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   stories: ['../src/**/*.mdx', '../src/**/*.stories.tsx'],
   addons: ['@storybook/addon-docs'],
-  staticDirs: ['../static'],
+  // 글꼴은 styles.css가 번들로 부르니 예시 이미지만 그대로 낸다
+  staticDirs: [{ from: '../static/img', to: '/img' }],
   core: { disableTelemetry: true },
   viteFinal: async (c) => {
     c.plugins = [...(c.plugins ?? []), tailwindcss()];

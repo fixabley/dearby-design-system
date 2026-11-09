@@ -30,7 +30,10 @@
   --border: #d8d8dc;
   --input: #f1f1f4;
   --ring: #007f80;
-  --destructive: #d93025; /* 탈락·오류 전용 */
+  --destructive: #d93025; /* 탈락·오류, 지우기 같은 동작의 빨간 글자 */
+  /* 되돌릴 수 없는 동작의 확인 버튼 면: 두 모드 모두 #D93025 + 흰 글자(primary-foreground).
+     다크 빨강 #FF6B5F는 흰 글자 대비 2.79라 면으로 쓰지 않는다 */
+  --destructive-fill: #d93025;
   --amber: #9a5b00; /* 상태 캡션(선발 중)만 */
   --success: #34c759; /* iOS 스위치 켬 */
   /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
@@ -92,6 +95,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
+  --color-destructive-fill: var(--destructive-fill);
   --color-amber: var(--amber);
   --color-success: var(--success);
   --color-toast: var(--toast);

@@ -31,13 +31,14 @@ const meta: Meta = {
         'outline',
         'ghost',
         'destructive',
+        'destructive-fill',
         'glass',
         'link',
         'plain',
         'tile',
       ],
       ...look(
-        'default 청록 채움 · mint 민트 · outline 흰 면 · ghost 글자 · destructive 빨강 글자 · glass 글래스 · link 글자 링크 · plain 겉모양 없음 · tile 큰 타일 면',
+        'default 청록 채움 · mint 민트 · outline 흰 면 · ghost 글자 · destructive 빨강 글자 · destructive-fill 빨강 채움(되돌릴 수 없는 동작의 확인) · glass 글래스 · link 글자 링크 · plain 겉모양 없음 · tile 큰 타일 면',
       ),
     },
     size: {
@@ -93,6 +94,22 @@ export const Sizes: Story = {
         <X.Button variant="glass" size="icon" aria-label="뒤로" icon="back" />
         <X.Button variant="glass" size="icon" aria-label="공유" icon="share" />
       </div>
+    </div>
+  ),
+};
+/** 되돌릴 수 없는 동작(지우기·탈퇴)의 확인은 빨강 채움, 확인을 여는 버튼은 빨강 글자(destructive) */
+export const Destructive: Story = {
+  render: () => (
+    <div className="flex w-[345px] flex-col gap-3">
+      <X.Button variant="destructive-fill" size="lg" block>
+        지우기
+      </X.Button>
+      <X.Button variant="destructive-fill" size="lg" block disabled>
+        지우는 중
+      </X.Button>
+      <X.Button variant="destructive" block>
+        프로젝트 지우기
+      </X.Button>
     </div>
   ),
 };

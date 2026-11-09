@@ -12,7 +12,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
-        mint: 'bg-accent text-accent-foreground',
+        mint: 'bg-accent text-mint-foreground',
         outline: 'bg-background text-foreground ring-1 ring-inset ring-border',
         muted:
           'bg-background font-medium text-muted-foreground ring-1 ring-inset ring-border',

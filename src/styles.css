@@ -21,7 +21,8 @@
   --primary-foreground: #ffffff;
   --accent: #e2f1f0; /* 민트 */
   --accent-foreground: #007f80;
-  /* 민트 채움 컨트롤(Button mint · Toggle 민트 면): 바탕은 accent와 같고, 글자만 덧칠 hover(5%)에서도 4.5:1이 되게 조금 진하게(쉼 5.01 · hover 4.53 · 누름 4.08). 브랜드 청록(accent-foreground)은 그대로 */
+  /* 민트 채움 컨트롤(Button mint · Toggle 민트 면): 바탕은 accent와 같고, 글자만 덧칠 hover(5%)에서도 4.5:1이 되게 조금 진하게(쉼 5.01 · hover 4.53 · 누름 4.08). 브랜드 청록(accent-foreground)은 그대로.
+     민트(accent) 면 위 청록 글자(Sidebar 고른 항목 · Calendar 고른 날 · Badge mint · Avatar 글자 · Empty 원 · 주간 시간표 수업 블록)도 글자는 mint-foreground */
   --mint: #e2f1f0;
   --mint-foreground: #007172;
   --secondary: #e2f1f0;

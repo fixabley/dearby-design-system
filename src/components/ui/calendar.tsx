@@ -105,8 +105,8 @@ function CalendarDayButton({
         modifiers.today && 'font-semibold text-accent-foreground',
         modifiers.outside && 'text-muted-foreground',
         modifiers.disabled && 'text-muted-foreground opacity-50',
-        middle && 'text-accent-foreground',
-        picked && !filled && 'bg-accent font-semibold text-accent-foreground',
+        middle && 'text-mint-foreground',
+        picked && !filled && 'bg-accent font-semibold text-mint-foreground',
         filled && 'bg-primary font-semibold text-primary-foreground',
         className,
       )}

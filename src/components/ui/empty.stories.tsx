@@ -17,7 +17,7 @@ const meta: Meta = {
     media: { control: 'inline-radio', options: ['icon', 'default'], ...look('EmptyMedia variant. icon 민트 원 · default 겉모양 없음') },
     onAction: event('EmptyContent 버튼 누름'),
   },
-  render: ({ title, description, icon, media, action, onAction }: Record<string, any>) => (
+  render: ({ title, description, icon, media, action, onAction }) => (
     <X.Empty>
       <X.EmptyHeader>
         {icon && <X.EmptyMedia variant={media}><X.Icon name={icon} /></X.EmptyMedia>}

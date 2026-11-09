@@ -21,7 +21,7 @@ const meta: Meta = {
     className: { table: { disable: true } },
     children: { table: { disable: true } },
   },
-  render: function Render({ date, today, onSelect, onOpenChange, ...args }: Record<string, any>) {
+  render: function Render({ date, today, onSelect, onOpenChange, ...args }) {
     const [, update] = useArgs();
     return (
       <X.DateHeader {...args} date={toDate(date)} today={toDate(today)}

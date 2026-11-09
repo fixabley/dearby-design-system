@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.EvenSplit,
   args: { screenTitle: '공지 쓰기', height: 600, left: 'Editor', right: 'Preview' },
 
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.EvenSplit><X.EvenSplit.Left><Ph t={args.left} h={460} /></X.EvenSplit.Left><X.EvenSplit.Right><Ph t={args.right} h={460} /></X.EvenSplit.Right></X.EvenSplit></X.WebShell.Main></X.WebShell>; },
+  render: function Render(args) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.EvenSplit><X.EvenSplit.Left><Ph t={args.left} h={460} /></X.EvenSplit.Left><X.EvenSplit.Right><Ph t={args.right} h={460} /></X.EvenSplit.Right></X.EvenSplit></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -26,7 +26,7 @@ const NOTICE = { title: '목요일 모임은 21:00에 시작해요', body: '11�
 
 /** 컴파운드로 채운 실제 화면: 공지 쓰기 | 미리보기 */
 export const Composed: Story = {
-  render: function Render(args: Record<string, any>) {
+  render: function Render(args) {
     const [{ noticeTitle = NOTICE.title, noticeBody = NOTICE.body }, update] = useArgs();
     return (
       <X.WebShell height={args.height ?? 600}>

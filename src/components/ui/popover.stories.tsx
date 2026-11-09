@@ -24,7 +24,7 @@ const meta: Meta = {
     onSelect: event('날짜 고름(고르면 바로 닫힌다)'),
   },
   // ⑧-0b 내 활동 날짜 헤더를 누르면 헤더 아래 말풍선에 날짜 피커가 뜨고, 날짜를 누르면 바로 닫힌다
-  render: function Render({ date, open, side, align, sideOffset, onOpenChange, onSelect }: Record<string, any>) {
+  render: function Render({ date, open, side, align, sideOffset, onOpenChange, onSelect }) {
     const [, update] = useArgs();
     const value = toDate(date);
     return (

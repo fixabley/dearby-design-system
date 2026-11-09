@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 기수 고르기·모두 보기 없이 요약과 후기만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ReviewSection r={args.r}><X.ReviewSection.Summary /><X.ReviewSection.List /></X.ReviewSection> };
+export const Composed: Story = { render: (args) => <X.ReviewSection r={args.r}><X.ReviewSection.Summary /><X.ReviewSection.List /></X.ReviewSection> };

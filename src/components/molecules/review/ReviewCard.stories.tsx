@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -23,4 +24,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 평가와 글을 먼저, 쓴 사람은 아래(인증 배지 없이) */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ReviewCard {...(args as any)}><X.ReviewCard.Rating className="mt-0" /><X.ReviewCard.Body /><X.ReviewCard.Header className="mt-3"><X.ReviewCard.Author /></X.ReviewCard.Header></X.ReviewCard> };
+export const Composed: Story = { render: (args) => <X.ReviewCard {...(args as ComponentProps<typeof X.ReviewCard>)}><X.ReviewCard.Rating className="mt-0" /><X.ReviewCard.Body /><X.ReviewCard.Header className="mt-3"><X.ReviewCard.Author /></X.ReviewCard.Header></X.ReviewCard> };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -23,4 +24,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 커버 없이 글과 화살표만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.QueueCard {...(args as any)}><X.QueueCard.Text /><X.QueueCard.Chevron /></X.QueueCard> };
+export const Composed: Story = { render: (args) => <X.QueueCard {...(args as ComponentProps<typeof X.QueueCard>)}><X.QueueCard.Text /><X.QueueCard.Chevron /></X.QueueCard> };

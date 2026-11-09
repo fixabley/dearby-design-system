@@ -12,7 +12,7 @@ const meta: Meta = {
   component: X.ScrollArea,
   args: { height: 240, width: 480 },
   argTypes: { height: { control: { type: 'range', min: 120, max: 600, step: 20 } }, width: { control: { type: 'range', min: 320, max: 600, step: 10 } } },
-  render: ({ height, width }: Record<string, any>) => <X.ScrollArea style={{ height, width }}><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.ScrollArea>,
+  render: ({ height, width }) => <X.ScrollArea style={{ height, width }}><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.ScrollArea>,
   
 };
 export default meta;

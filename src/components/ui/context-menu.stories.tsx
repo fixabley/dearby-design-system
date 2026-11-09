@@ -25,7 +25,7 @@ const meta: Meta = {
     onOpenChange: event(),
   },
   // ㉘-d3 참여자 길게 누르기(웹은 오른쪽 클릭): 프로필 보기 · 신고 · 차단
-  render: ({ items, name, handle, role, bio, disabled, modal, onSelect, onOpenChange }: Record<string, any>) => (
+  render: ({ items, name, handle, role, bio, disabled, modal, onSelect, onOpenChange }) => (
     <X.ItemGroup variant="plain"><X.ContextMenu modal={modal} onOpenChange={onOpenChange}>
       <X.ContextMenuTrigger asChild disabled={disabled}>
         <X.Item size="row" className="-mx-3 w-[calc(100%+24px)] cursor-default px-3 py-3 data-[state=open]:bg-muted">

@@ -17,7 +17,7 @@ const meta: Meta = {
     variant: { control: 'inline-radio', options: ['destructive', 'default'], ...look('destructive 빨강 틴트(㉗-d3 시스템 알림 꺼짐) · default 카드 면') },
     onAction: event('AlertAction 누름'),
   },
-  render: ({ title, description, action, icon, onAction, ...args }: Record<string, any>) => (
+  render: ({ title, description, action, icon, onAction, ...args }) => (
     <X.Alert {...args}>
       {icon && <X.Icon name={icon} />}
       <X.AlertTitle>{title}</X.AlertTitle>

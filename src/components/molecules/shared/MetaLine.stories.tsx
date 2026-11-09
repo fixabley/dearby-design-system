@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { content, event, iconArgType, look, state } from '@/stories/argTypes';
+import { content, iconArgType, look } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Molecules/Shared/MetaLine',
@@ -24,4 +25,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 라벨 없이 아이콘과 D-day만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.MetaLine {...(args as any)} dday="D-6"><X.MetaLine.Icon /><X.MetaLine.Value /></X.MetaLine> };
+export const Composed: Story = { render: (args) => <X.MetaLine {...(args as ComponentProps<typeof X.MetaLine>)} dday="D-6"><X.MetaLine.Icon /><X.MetaLine.Value /></X.MetaLine> };

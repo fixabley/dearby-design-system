@@ -38,7 +38,7 @@ const meta: Meta = {
     className: { table: { disable: true } },
     children: { table: { disable: true } },
   },
-  render: ({ items, today, pickable }: Record<string, any>) => (
+  render: ({ items, today, pickable }) => (
     <Phone title="내 활동">
       <X.DateSectionList<Mine> items={items} today={toDate(today)} pickable={pickable} className={fill}
         getDate={(m) => toDate(m.date)} renderItem={(m) => <X.ActivityRow a={m.a} />} />
@@ -70,7 +70,7 @@ const NOTES: { date: string; items: Note[] }[] = [
 export const Composed: Story = {
   args: { today: '2026-11-09' },
   argTypes: { items: { table: { disable: true } }, pickable: { table: { disable: true } } },
-  render: ({ today }: Record<string, any>) => (
+  render: ({ today }) => (
     <Phone title="알림">
       <X.DateSectionList today={toDate(today)} className={fill}>
         {NOTES.map((g) => (

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -27,4 +28,4 @@ export const Playground: Story = {};
 export const Edit: Story = { args: { mode: 'edit' } };
 
 /** 컴파운드로 바꿔 조립: 쉬는 시간 블록을 뺀 시간표 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.WeeklyTimetable {...(args as any)}><X.WeeklyTimetable.Days /><X.WeeklyTimetable.Grid>{(args.blocks as X.Block[]).map((b, i) => b.shape !== 'rest' && <X.WeeklyTimetable.Block key={i} index={i} />)}</X.WeeklyTimetable.Grid><X.WeeklyTimetable.Detail /></X.WeeklyTimetable> };
+export const Composed: Story = { render: (args) => <X.WeeklyTimetable {...(args as ComponentProps<typeof X.WeeklyTimetable>)}><X.WeeklyTimetable.Days /><X.WeeklyTimetable.Grid>{(args.blocks as X.Block[]).map((b, i) => b.shape !== 'rest' && <X.WeeklyTimetable.Block key={i} index={i} />)}</X.WeeklyTimetable.Grid><X.WeeklyTimetable.Detail /></X.WeeklyTimetable> };

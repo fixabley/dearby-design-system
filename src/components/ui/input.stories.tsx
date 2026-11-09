@@ -12,7 +12,7 @@ const meta: Meta = {
   component: X.Input,
   args: { label: '제목', defaultValue: '목요일 모임은 21:00에 시작해요', placeholder: '선택', multiline: false, disabled: false },
   
-  render: ({ label, multiline, ...args }: Record<string, any>) => <X.ListGroup><div className="px-4 py-2.5"><X.Label>{label}</X.Label>{multiline ? <X.Textarea key="t" {...args} /> : <X.Input key={String(args.defaultValue)} {...args} />}</div></X.ListGroup>,
+  render: ({ label, multiline, ...args }) => <X.ListGroup><div className="px-4 py-2.5"><X.Label>{label}</X.Label>{multiline ? <X.Textarea key="t" {...args} /> : <X.Input key={String(args.defaultValue)} {...args} />}</div></X.ListGroup>,
   parameters: { width: 345 },
 };
 export default meta;

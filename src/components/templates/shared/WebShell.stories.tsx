@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.WebShell,
   args: { height: 480, active: 'home', title: '홈' },
   argTypes: { active: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
-  render: ({ height, active, title }: Record<string, any>) => <X.WebShell height={height}><X.WebShell.Sidebar><X.Sidebar active={active} hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={title} right={<X.GlassGroup unread={2} />} /></X.WebShell.Main></X.WebShell>,
+  render: ({ height, active, title }) => <X.WebShell height={height}><X.WebShell.Sidebar><X.Sidebar active={active} hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={title} right={<X.GlassGroup unread={2} />} /></X.WebShell.Main></X.WebShell>,
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 채운 실제 화면: 내가 연 모임 없는 사이드바 + 발견 목록 */
 export const Composed: Story = {
-  render: ({ height }: Record<string, any>) => (
+  render: ({ height }) => (
     <X.WebShell height={height}>
       <X.WebShell.Sidebar><X.Sidebar active="discover"><X.Sidebar.Logo /><X.Sidebar.Nav /></X.Sidebar></X.WebShell.Sidebar>
       <X.WebShell.Main>

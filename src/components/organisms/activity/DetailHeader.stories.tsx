@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 종류·조직 줄 없이 이름과 구분 고르기 | 배지 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.DetailHeader d={args.d}><X.DetailHeader.Body><X.DetailHeader.Title /><X.DetailHeader.Picker /></X.DetailHeader.Body><X.DetailHeader.Badges /></X.DetailHeader> };
+export const Composed: Story = { render: (args) => <X.DetailHeader d={args.d}><X.DetailHeader.Body><X.DetailHeader.Title /><X.DetailHeader.Picker /></X.DetailHeader.Body><X.DetailHeader.Badges /></X.DetailHeader> };

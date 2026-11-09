@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 커버·날짜 없이 머리 · 행동 · 일정 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ActivityDetail d={args.d}><X.ActivityDetail.Header /><X.ActivityDetail.Actions /><X.ActivityDetail.Schedule /></X.ActivityDetail> };
+export const Composed: Story = { render: (args) => <X.ActivityDetail d={args.d}><X.ActivityDetail.Header /><X.ActivityDetail.Actions /><X.ActivityDetail.Schedule /></X.ActivityDetail> };

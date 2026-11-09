@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 설정 없이 화면 액션 | 알림 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.GlassGroup unread={args.unread}><X.GlassGroup.Action icon="share" label="공유" /><X.GlassGroup.Separator /><X.GlassGroup.Notifications /></X.GlassGroup> };
+export const Composed: Story = { render: (args) => <X.GlassGroup unread={args.unread}><X.GlassGroup.Action icon="share" label="공유" /><X.GlassGroup.Separator /><X.GlassGroup.Notifications /></X.GlassGroup> };

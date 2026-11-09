@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 배너 없이 이름 · 조직 · 태그 + 모집 중만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ProgramDetail p={args.p}><div><X.ProgramDetail.Title className="mt-0" /><X.ProgramDetail.Host /><X.ProgramDetail.Tags /></div><X.ProgramDetail.Open /></X.ProgramDetail> };
+export const Composed: Story = { render: (args) => <X.ProgramDetail p={args.p}><div><X.ProgramDetail.Title className="mt-0" /><X.ProgramDetail.Host /><X.ProgramDetail.Tags /></div><X.ProgramDetail.Open /></X.ProgramDetail> };

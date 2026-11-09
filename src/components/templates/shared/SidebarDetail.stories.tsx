@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.SidebarDetail,
   args: { screenTitle: '', height: 600, side: 'Profile header 360', content: 'Tabs + content' },
 
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.SidebarDetail><X.SidebarDetail.Side><Ph t={args.side} h={320} /></X.SidebarDetail.Side><X.SidebarDetail.Content><Ph t={args.content} h={700} /></X.SidebarDetail.Content></X.SidebarDetail></X.WebShell.Main></X.WebShell>; },
+  render: function Render(args) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.SidebarDetail><X.SidebarDetail.Side><Ph t={args.side} h={320} /></X.SidebarDetail.Side><X.SidebarDetail.Content><Ph t={args.content} h={700} /></X.SidebarDetail.Content></X.SidebarDetail></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 채운 실제 화면: 왼쪽 프로필 머리 + 오른쪽 활동 목록 */
 export const Composed: Story = {
-  render: (args: Record<string, any>) => (
+  render: (args) => (
     <X.WebShell height={args.height ?? 600}>
       <X.WebShell.Sidebar><X.Sidebar active="profile" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar>
       <X.WebShell.Main>

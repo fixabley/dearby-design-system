@@ -16,7 +16,7 @@ const meta: Meta = {
     disabled: state(),
     onCheckedChange: event(),
   },
-  render: function Render({ label, ...args }: Record<string, any>) {
+  render: function Render({ label, ...args }) {
     const [, update] = useArgs();
     return (
       <label className="flex items-center gap-3 text-body-lg">

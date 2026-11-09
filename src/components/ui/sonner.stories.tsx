@@ -20,7 +20,7 @@ const meta: Meta = {
   // 이 파일의 스토리는 toast()를 부를 수 있도록 Toaster를 함께 띄운다
   decorators: [(Story, { args }) => <><Story /><X.Toaster position={args.position} duration={args.duration} /></>],
   // ㉖-d2 선발 결과 질문에서 탈락을 누른 뒤: 끝난 활동으로 옮기고 되돌리기 토스트
-  render: ({ message, description, action, onAction }: Record<string, any>) => (
+  render: ({ message, description, action, onAction }) => (
     <X.Button variant="outline" size="sm" onClick={() => X.toast(message, { description: description || undefined, action: action ? { label: action, onClick: onAction } : undefined })}>탈락</X.Button>
   ),
 };

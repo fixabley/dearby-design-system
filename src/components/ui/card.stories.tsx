@@ -12,7 +12,7 @@ const meta: Meta = {
   component: X.Card,
   args: { title: '소개', body: '서류 통과한 17기끼리 모의 면접을 돌려요. 매주 월·목 저녁 온라인으로 만나요.' },
   
-  render: ({ title, body }: Record<string, any>) => <X.Card><X.CardTitle>{title}</X.CardTitle><p className="text-body leading-relaxed">{body}</p></X.Card>,
+  render: ({ title, body }) => <X.Card><X.CardTitle>{title}</X.CardTitle><p className="text-body leading-relaxed">{body}</p></X.Card>,
   parameters: { width: 345 },
 };
 export default meta;

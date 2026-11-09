@@ -1,5 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { renderLite } from '@/lib/markdown';
 import { cn } from '@/lib/utils';
 
@@ -99,3 +99,14 @@ function NoticeRoot({
  * `<Notice title={…} body={…} byline={…}><Notice.Title /><Notice.Byline className="mt-0.5" /></Notice>`
  */
 export const Notice = Object.assign(NoticeRoot, { Title, Body, Byline });
+
+/** 불러오는 동안의 공지 한 개: 같은 간격(제목 · 본문 lines줄 · 쓴 사람 줄). 본문 길이는 불러오기 전에는 알 수 없어 lines로 받는다 */
+export function NoticeSkeleton({ lines = 2 }: { lines?: number }) {
+  return (
+    <div aria-hidden>
+      <TextSkeleton variant="innerTitle" className="w-2/3" />
+      <TextSkeleton variant="body" lines={lines} className="mt-1" />
+      <TextSkeleton variant="caption" className="mt-1.5 w-1/2" />
+    </div>
+  );
+}

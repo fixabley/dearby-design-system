@@ -61,7 +61,7 @@ function SocialLinksRoot({
 
 /**
  * 소셜 링크 원 버튼 줄(컴파운드, 시안 ㉘-b 받은 명함 · ㉙-u0 프로필 머리): Link(채움 원 + 아이콘, 넓은 화면에서는 이름 말풍선).
- * 기본 조립은 `<SocialLinks links={[{ icon: 'githubMark', href: 'https://github.com/seoyeon', label: 'GitHub' }]} />`. 바꿔 조립하려면 부품을 직접 놓는다:
- * `<SocialLinks><SocialLinks.Link icon="githubMark" href="…" label="GitHub" /><SocialLinks.Link icon="link" href="…" label="링크" /></SocialLinks>`
+ * 기본 조립은 `<SocialLinks links={[{ icon: 'github', href: 'https://github.com/seoyeon', label: 'GitHub' }]} />`. 바꿔 조립하려면 부품을 직접 놓는다:
+ * `<SocialLinks><SocialLinks.Link icon="github" href="…" label="GitHub" /><SocialLinks.Link icon="link" href="…" label="링크" /></SocialLinks>`
  */
 export const SocialLinks = Object.assign(SocialLinksRoot, { Link });

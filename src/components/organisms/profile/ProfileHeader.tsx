@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 
 const SOCIAL: { icon: IconName; label: string }[] = [
   { icon: 'chat', label: '채팅' },
-  { icon: 'githubMark', label: 'GitHub' },
+  { icon: 'github', label: 'GitHub' },
   { icon: 'link', label: '링크' },
 ];
 

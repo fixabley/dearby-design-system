@@ -5,7 +5,7 @@ import { content } from '@/stories/argTypes';
 // ㉘-b 받은 명함 · ㉙-u0 프로필 머리의 소셜 줄: 말풍선 · GitHub · 바깥 링크(↗). 주소는 예시
 const LINKS: X.SocialLink[] = [
   { icon: 'chat', href: 'https://example.com/chat', label: '채팅' },
-  { icon: 'githubMark', href: 'https://github.com/seoyeon', label: 'GitHub' },
+  { icon: 'github', href: 'https://github.com/seoyeon', label: 'GitHub' },
   { icon: 'link', href: 'https://example.com', label: '링크' },
 ];
 

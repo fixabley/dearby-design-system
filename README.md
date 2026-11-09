@@ -198,7 +198,7 @@ import { Icon, ListGroup, ListRow } from '@dearby/design-system';
   - `onClick` · `asChild` 줄에서만 그립니다. 줄을 덮는 버튼 · 링크 밖의 형제라 버튼 안에 버튼이 들어가지 않고, 접근성 트리는 `listitem` 아래 줄 버튼(또는 링크)과 액션이 나란합니다. 누르지 않는 줄의 스위치 · 버튼은 `trailing`에 넣습니다.
   - 액션은 아이콘 버튼 `Button variant="plain" size="icon-sm"`으로 두고 이름은 `aria-label`로 줍니다(새 탭이면 "(새 탭)"까지).
   - 제목이 길면 액션 칸은 그대로 두고 제목이 말줄임됩니다.
-- 누르는 줄(`onClick` · `asChild`)과 `Button variant="plain"`은 hover에 글자색 5%, 누르면 10%를 칠합니다. 라이트는 살짝 회색, 다크는 살짝 밝아집니다. 줄의 hover는 액션 칸까지 줄 전체에 칠해지고, 액션 버튼 위에서는 버튼 자기 hover가 그 위에 겹칩니다. 누름은 누른 요소(줄 또는 액션)만 칠합니다.
+- 누르는 줄(`onClick` · `asChild`)은 다른 누를 수 있는 것과 같은 값([원칙](#원칙)의 누름)을 칠합니다. 줄의 hover는 액션 칸까지 줄 전체에 칠해지고, 액션 버튼 위에서는 버튼 자기 hover가 그 위에 겹칩니다. 누름은 누른 요소(줄 또는 액션)만 칠합니다.
 - 아이콘이 종류 글자를 대신하면 종류 이름은 `sr-only` 글자로 남깁니다. 줄을 누르면 하는 일(복사)도 함께 적어 버튼 이름이 "이메일 seoyeon@example.com 복사"가 되게 합니다. 복사는 `navigator.clipboard.writeText`가 끝난 뒤 `toast`로 알립니다.
 
 ```tsx
@@ -338,6 +338,9 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, Discord와 Clyde 로고는 Disco
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
 - 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 8개(`text-title` … `text-micro`), 화면에서는 `Text` 역할 11가지로 씁니다.
+- 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
+  - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
+  - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(그림자 + 축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기), ActivityRow · ProgramRow(여백이 0이라 덧칠이 글에 붙음, 정하기 전).
 - 날짜는 `M월 d일 (요일)`(올해가 아니면 앞에 `yyyy년`), 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다. 표기 도우미는 `lib/date`에 있습니다.
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.

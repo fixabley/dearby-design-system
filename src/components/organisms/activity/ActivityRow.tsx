@@ -1,9 +1,15 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { Activity } from '@/types';
-import { HostLine } from '@/components/molecules/program/HostLine';
-import { KindLabel } from '@/components/atoms/activity/KindLabel';
+import {
+  HostLine,
+  HostLineSkeleton,
+} from '@/components/molecules/program/HostLine';
+import {
+  KindLabel,
+  KindLabelSkeleton,
+} from '@/components/atoms/activity/KindLabel';
 import { StatusGlyph } from '@/components/atoms/activity/StatusGlyph';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Thumbnail } from '@/components/atoms/shared/Thumbnail';
 import {
   Item,
@@ -11,7 +17,11 @@ import {
   ItemContent,
   ItemMedia,
 } from '@/components/ui/item';
-import { MetaLine } from '@/components/molecules/shared/MetaLine';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  MetaLine,
+  MetaLineSkeleton,
+} from '@/components/molecules/shared/MetaLine';
 import { ProgressTrack } from '@/components/molecules/activity/ProgressTrack';
 import { TimetableButton } from '@/components/molecules/timetable/TimetableButton';
 import { cn } from '@/lib/utils';
@@ -167,3 +177,23 @@ export const ActivityRow = Object.assign(ActivityRowRoot, {
   Timetable,
   Track,
 });
+
+/** 불러오는 동안의 활동 행: 같은 칸과 간격(종류 · 썸네일 | 조직 줄 · 이름 한 줄 · 메타 두 줄). 상태 · 시간표 · 트랙은 있을 때만이라 뺀다 */
+export function ActivityRowSkeleton() {
+  return (
+    <Item size="row" aria-hidden>
+      <ItemMedia className="w-16 flex-col gap-[5px]">
+        <KindLabelSkeleton />
+        <Skeleton className="size-16" />
+      </ItemMedia>
+      <ItemContent>
+        <HostLineSkeleton />
+        <TextSkeleton variant="rowTitle" className="mt-[3px] w-3/4" />
+        <div className="mt-1 flex flex-col gap-[3px]">
+          <MetaLineSkeleton />
+          <MetaLineSkeleton className="w-1/2" />
+        </div>
+      </ItemContent>
+    </Item>
+  );
+}

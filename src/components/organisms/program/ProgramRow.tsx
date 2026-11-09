@@ -1,8 +1,14 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { Program } from '@/types';
-import { HostLine } from '@/components/molecules/program/HostLine';
-import { KindLabel } from '@/components/atoms/activity/KindLabel';
-import { Text } from '@/components/atoms/shared/Text';
+import {
+  HostLine,
+  HostLineSkeleton,
+} from '@/components/molecules/program/HostLine';
+import {
+  KindLabel,
+  KindLabelSkeleton,
+} from '@/components/atoms/activity/KindLabel';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Thumbnail } from '@/components/atoms/shared/Thumbnail';
 import {
   Item,
@@ -10,6 +16,7 @@ import {
   ItemDescription,
   ItemMedia,
 } from '@/components/ui/item';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 type ProgramRowContextValue = { p: Program };
@@ -144,3 +151,20 @@ export const ProgramRow = Object.assign(ProgramRowRoot, {
   Title,
   Description,
 });
+
+/** 불러오는 동안의 프로그램 행: 같은 칸과 간격(종류 · 썸네일 | 조직 줄 · 이름 한 줄 · 소개 두 줄) */
+export function ProgramRowSkeleton() {
+  return (
+    <Item size="row" aria-hidden className="py-3.5">
+      <ItemMedia className="w-16 flex-col gap-[5px]">
+        <KindLabelSkeleton />
+        <Skeleton className="size-16" />
+      </ItemMedia>
+      <ItemContent>
+        <HostLineSkeleton />
+        <TextSkeleton variant="rowTitle" className="mt-[3px] w-3/4" />
+        <TextSkeleton variant="caption" lines={2} className="mt-0.5" />
+      </ItemContent>
+    </Item>
+  );
+}

@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -41,5 +42,20 @@ export const Composed: Story = {
         </X.SubmissionRow>
       ))}
     </X.ListGroup>
+  ),
+};
+
+/** 불러오는 동안(SubmissionRowSkeleton): 같은 칸과 간격 */
+export const Skeleton: Story = {
+  parameters: { width: 818 },
+  render: () => (
+    <SideBySide width={393}>
+      <X.ListGroup>
+        <X.SubmissionRow s={D.SUBMISSIONS[0]} />
+      </X.ListGroup>
+      <X.ListGroup>
+        <X.SubmissionRowSkeleton />
+      </X.ListGroup>
+    </SideBySide>
   ),
 };

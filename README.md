@@ -151,14 +151,19 @@ import { ACTIVITIES } from "@dearby/design-system/data";
 
 ## 글꼴
 
-`static/fonts/pretendard/`는 [Pretendard](https://github.com/orioncactus/pretendard) npm 패키지 1.3.9의 `dist/web/variable/pretendardvariable-dynamic-subset.css`와 `dist/web/variable/woff2-dynamic-subset/`(woff2 92개)를 한 바이트도 바꾸지 않고 같은 구조로 복사한 것입니다. 저작권자가 만든 파일 그대로라 글꼴 이름 `Pretendard Variable`을 그대로 씁니다. 레포 의존성에는 넣지 않습니다(패키지 전체가 압축 약 72MB).
+`static/fonts/pretendard/`에는 Pretendard 글꼴과 라이선스가 받은 그대로 있습니다. 한 바이트도 바꾸지 않습니다.
 
-버전을 올릴 때는 작업 공간 밖 임시 폴더에서 패키지를 받아 같은 두 경로를 덮어쓰고, `npm run build-storybook`으로 글꼴이 나오는지 확인합니다.
+- `pretendardvariable-dynamic-subset.css` · `woff2-dynamic-subset/`(woff2 92개): [Pretendard](https://github.com/orioncactus/pretendard) npm 패키지 1.3.9의 `dist/web/variable/`에서 같은 구조로 복사했습니다. 저작권자가 만든 파일 그대로라 글꼴 이름 `Pretendard Variable`을 그대로 씁니다. 레포 의존성에는 넣지 않습니다(패키지 전체가 압축 약 72MB).
+- `LICENSE.txt`(SIL OFL 1.1 전문, 예약 글꼴 이름과 원 글꼴 저작권 줄 포함): 원본 저장소 main의 `LICENSE`(커밋 0189074 "Add missing copyright notices")를 그대로 가져왔습니다. 1.3.9 패키지의 라이선스에 빠져 있던 Adobe · Inter · M+ 저작권 줄을 저작권자가 나중에 더한 판이라 지금 쓰는 글꼴에도 해당합니다.
+- 패키지(`files`의 `static/fonts`)에는 글꼴과 함께 들어가고, Storybook 결과물에는 `licenses/Pretendard-LICENSE.txt`로 나갑니다. 글꼴을 다시 내보내는 받아 쓰는 쪽도 이 파일(`node_modules/@dearby/design-system/static/fonts/pretendard/LICENSE.txt`)을 함께 둡니다.
+
+버전을 올릴 때는 작업 공간 밖 임시 폴더에서 패키지를 받아 덮어쓰고 라이선스도 원본 저장소에서 다시 받은 뒤, `npm run build-storybook`으로 글꼴이 나오는지 확인합니다.
 
 ```sh
 cd "$(mktemp -d)" && npm pack pretendard@<버전> && tar -xzf pretendard-<버전>.tgz
-rm -r <레포>/static/fonts/pretendard && mkdir <레포>/static/fonts/pretendard
+rm -r <레포>/static/fonts/pretendard/woff2-dynamic-subset
 cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/dist/web/variable/woff2-dynamic-subset <레포>/static/fonts/pretendard/
+gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
 ```
 
 ## 원칙
@@ -169,4 +174,4 @@ cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/di
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.
 
-글꼴은 [Pretendard](https://github.com/orioncactus/pretendard)(SIL OFL 1.1)입니다. 예시에 나오는 기관 이름·로고는 시안 확인용이며 각 기관에 권리가 있습니다.
+글꼴은 [Pretendard](https://github.com/orioncactus/pretendard)(SIL OFL 1.1, [글꼴](#글꼴))입니다. 예시에 나오는 기관 이름·로고는 시안 확인용이며 각 기관에 권리가 있습니다.

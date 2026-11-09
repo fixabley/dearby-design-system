@@ -143,6 +143,27 @@
   --ease-out-soft: var(--ease-out);
 }
 
+/* 누를 수 있는 것의 hover · 누름(2026-11-09 사용자 결정 "누를 수 있는 건 그렇게 해줘"). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해
+   라이트는 살짝 어둡게 · 다크는 살짝 밝게 보인다: hover 5%, 누름 10%. 채움 버튼도 같은 방향으로 보이고 모서리 · 그림자는 건드리지 않는다.
+   덧칠(background-image)은 전환되지 않아 켜지고 꺼지는 것이 바로다. hover는 마우스가 있는 기기에서만이라 터치 뒤에 남지 않는다 */
+@utility pressable {
+  -webkit-tap-highlight-color: transparent;
+  @media (hover: hover) {
+    &:hover {
+      background-image: linear-gradient(
+        color-mix(in oklab, var(--foreground) 5%, transparent),
+        color-mix(in oklab, var(--foreground) 5%, transparent)
+      );
+    }
+  }
+  &:active {
+    background-image: linear-gradient(
+      color-mix(in oklab, var(--foreground) 10%, transparent),
+      color-mix(in oklab, var(--foreground) 10%, transparent)
+    );
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

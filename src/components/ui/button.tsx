@@ -5,9 +5,9 @@ import type { IconName } from '@/icons';
 import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
-// shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아짐
+// shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아지고 바탕 위에 덧칠(pressable, styles.css)
 const buttonVariants = cva(
-  'inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 pressable disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -20,9 +20,7 @@ const buttonVariants = cva(
         'destructive-fill':
           'bg-destructive-fill text-primary-foreground shadow-control',
         link: 'h-auto bg-transparent px-0 text-accent-foreground shadow-none',
-        // 겉모양 없는 버튼. hover는 라이트에서 살짝 회색 · 다크에서 살짝 밝게(글자색 5%), 누르면 한 단계 더(10%). 누를 때는 바로 칠하고 뗄 때만 흐려진다
-        plain:
-          'bg-transparent text-foreground shadow-none hover:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
+        plain: 'bg-transparent text-foreground shadow-none',
         tile: 'bg-card text-foreground shadow-control',
         // 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass)
         glass:

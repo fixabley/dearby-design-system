@@ -247,8 +247,8 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료에서 가져옵니다. 출처가 불분명한 아이콘 모음에서 베끼지 않습니다. 아래는 모두 2026-11-09에 받았습니다.
 
 - 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다.
-- 색은 글자색을 따르지 않고 라이트에서 검정(`#000`), 다크에서 흰색(`#fff`)으로 고정합니다(안쪽 `<svg>`의 `fill-black dark:fill-white`). 세 회사 모두 단색은 검정 · 흰색만 허용합니다.
-- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 저장소 배지 등)에 씁니다. GitHub 마크만은 GitHub로 잇지 않는 곳에서도 GitHub 저장소를 가리키는 표시로 씁니다(2026-11-09 결정, 아래 GitHub 절). 예: 웹 프로젝트 행의 저장소 수 옆, `SubmissionRow`의 평가 전 배지, `EvaluationForm`의 저장소 줄. 이때 마크가 무엇을 가리키는지 옆 글자로 쓰거나 마크에 화면 읽기 이름을 줍니다(`<Icon name="github" label="GitHub 저장소" />`).
+- 색은 글자색을 따르지 않고 라이트에서 검정(`#000`), 다크에서 흰색(`#fff`)으로 고정합니다(안쪽 `<svg>`의 `fill-black dark:fill-white`). 네 회사 모두 단색은 검정 · 흰색만 허용합니다.
+- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 저장소 배지 등)에 씁니다. GitHub · 디스코드 마크는 그 서비스로 잇지 않는 곳에서도 씁니다(2026-11-09 결정, 아래 각 절). GitHub는 저장소를 가리키는 표시로(웹 프로젝트 행의 저장소 수 옆, `SubmissionRow`의 평가 전 배지, `EvaluationForm`의 저장소 줄), 디스코드는 디스코드 계정 · 서버를 가리키는 표시로(프로필 연락처 줄, `ServerPicker`, `NoticeComposer`) 씁니다. 이때 마크가 무엇을 가리키는지 옆 글자로 쓰거나 마크에 화면 읽기 이름을 줍니다(`<Icon name="github" label="GitHub 저장소" />`).
 - 어느 로고든 서비스 이름 대신 쓰거나, 다른 기호 · 글자와 합치거나, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다.
 
 ### GitHub(`github`)
@@ -256,6 +256,12 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - 원천: [GitHub 브랜드 툴킷의 로고 안내](https://brand.github.com/foundations/logo)(github.com/logos가 이리로 이어짐)에서 받는 [로고 묶음](https://brand.github.com/GitHub_Logos.zip)의 `SVG/GitHub_Invertocat_Black.svg`(viewBox `0 0 98 96`). viewBox 전체를 덮는 사각형이라 그림에 영향이 없는 clip-path만 빼고 경로를 그대로 씁니다. 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 18.6)에 놓습니다. 시안의 GitHub 아이콘은 다시 그린 모양이라 이것으로 바꿨습니다.
 - 조건: 지침의 할 것 목록은 다섯 가지입니다. GitHub로 잇는 링크, 자기 GitHub 프로필이나 프로젝트로 잇는 소셜 버튼(Invertocat), 프로젝트가 GitHub와 연동된다는 표시("Show integration"), GitHub에 관한 글, 우리 서비스 이름 · 로고보다 덜 드러나게 두기입니다. 색은 흰색 · 검정(드물게 회색 · 초록)만 쓰고, 색 · 비율을 바꾸거나 늘이거나 다른 글자 · 도안과 합치지 않습니다. 그림자 · 그라데이션 같은 효과를 넣지 않고, 복잡한 배경이나 대비가 모자란 배경에 두지 않습니다. 우리 서비스 · 계정의 로고나 아이콘으로 쓰지 않습니다.
 - GitHub로 잇지 않는 곳: 저장소 수 옆 같은 앱 화면 속 표시는 지침에 직접 나오지 않습니다. 우리는 이것을 GitHub 저장소를 가리키는 쓰임으로 보고, 할 것 목록 가운데 연동 표시에 가깝다고 판단해 씁니다. GitHub가 확인해 준 것은 아닙니다. 지침의 하지 말 것 목록에는 GitHub의 사전 서면 허가 없이 상표 · 로고를 쓰지 말라는 항목("Use without permission")도 있으니, 쓰임이 넓어지면 [GitHub 문의](https://github.com/contact)로 확인합니다.
+
+### 디스코드(`discord`)
+
+- 원천: [Discord 브랜드 페이지](https://discord.com/branding)의 Symbol 절 다운로드 버튼이 주는 묶음의 `Discord_Symbol_Black/Discord-Symbol-Black.svg`(viewBox `0 0 126.644 96`). 로그인 · 동의 없이 받습니다. 경로를 그대로 쓰고 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 14.4)에 놓습니다. 시안의 디스코드 아이콘은 다시 그린 선 모양이라 이것으로 바꿨고, 그래서 `ServerPicker` · `NoticeComposer`의 디스코드 표시도 블러플 선 아이콘에서 흑백 공식 마크로 바뀌었습니다.
+- 조건: 지침의 할 것 목록은 디스코드 표장으로 자기가 디스코드 사용자이거나 디스코드 서버가 있다는 것을 알리기("inform people that you are a Discord user and/or that you have a Discord server"), Discord를 서버 · 사용자 이름을 꾸미는 말로 쓰기, 디지털로만 쓰기입니다. 디스코드인 것처럼, 디스코드가 후원 · 대행하는 것처럼 보이게 하지 않습니다. 색은 블러플 · 검정 · 흰색이고 고치거나 다시 칠하거나 비틀지 않습니다. 굿즈에 쓰지 않습니다. 글자 없는 심볼은 디스코드 브랜드가 잘 보이거나 다른 곳에서 이미 충분히 드러난 곳에서만 씁니다("Use these only when the Discord brand is clearly visible or has been well established elsewhere"). 지침 밖의 쓰임은 디스코드의 허락이 필요합니다.
+- 링크 없는 연락처 줄: 디스코드 아이디는 디스코드 프로필 주소로 열 수 없어 줄에 링크가 없습니다. 프로필 주인이 자기 디스코드 아이디를 알리는 쓰임이라 할 것 목록의 첫 항목에 맞는다고 보고 씁니다. 심볼만 두는 조건은 마크 옆에 디스코드 아이디가 있고 화면 읽기 이름("디스코드")을 주는 것으로 맞춘다고 판단했습니다. 우리 해석이며 디스코드가 확인해 준 것은 아닙니다. 화면에 "디스코드" 글자를 함께 보이면 이 조건이 더 분명해집니다.
 
 ### LinkedIn(`linkedin`)
 
@@ -275,7 +281,7 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - Notion: [상표 사용 지침](https://notion.notion.site/Notion-Trademark-Usage-Guidelines-9826313c686a4f6e9d8a48347162714b)은 브랜드 지침이나 서면 합의로 승인된 표장만 쓰게 하고, [브랜드 사용 지침](https://notion.notion.site/Notion-s-brand-usage-guidelines-How-to-use-Notion-s-brand-in-your-marketing-689045e1761348f887a3c5c80295e00f)은 단독 Notion 로고를 쓰지 말라고 합니다. 쓸 때 붙이는 표기도 허락을 받았다는 문구("used here with permission")입니다. 허락은 team@makenotion.com에 묻습니다.
 - Behance: Behance는 Adobe 제품이고, [Adobe 상표 지침](https://www.adobe.com/legal/permissions/trademarks.html)은 라이선스 없이는 Adobe 제품 로고를 쓸 수 없고 소프트웨어 제품 · 서비스 안에 넣으려면 서면 허가가 필요하다고 합니다. Behance가 따로 공개한 로고 자료도 찾지 못했습니다. 허락은 같은 페이지의 요청 양식으로 묻습니다.
 
-GitHub와 Invertocat 로고는 GitHub, Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
+GitHub와 Invertocat 로고는 GitHub, Inc.의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
 
 ## 원칙
 

@@ -37,7 +37,7 @@ function Server({
   return (
     <Item asChild selected={s.name === value} className={className}>
       <label>
-        <ItemMedia variant="icon" className="text-[#5865F2]">
+        <ItemMedia variant="icon">
           <Icon name="discord" />
         </ItemMedia>
         <ItemContent>

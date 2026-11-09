@@ -52,7 +52,7 @@ function Discord({ className }: { className?: string }) {
       title="디스코드에도 올리기"
       className={className}
       media={
-        <span className="text-[#5865F2] [&_svg]:size-[22px]">
+        <span className="[&_svg]:size-[22px]">
           <Icon name="discord" />
         </span>
       }

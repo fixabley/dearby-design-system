@@ -90,18 +90,21 @@ npm run build-storybook  # storybook-static/
 npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepare로도 돈다
 ```
 
-`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
+`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 포맷 확인 · lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
 
-## 린트
+## 린트 · 포맷
 
 ```sh
-npm run lint    # ESLint
-npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡는다
+npm run format        # Prettier로 모양을 고쳐 쓴다
+npm run format:check  # 모양만 확인한다(CI · 커밋 훅)
+npm run lint          # ESLint
+npm run hooks         # 처음 한 번: 커밋할 때 포맷 확인과 lint가 돌게 훅 경로를 잡는다
 ```
 
-- 설정은 `eslint.config.js`입니다: JS·TS 권장 규칙, Storybook, React hooks(웹과 같은 recommended), 따옴표. 모양 규칙은 따옴표뿐이고(문자열은 작은따옴표, 이스케이프를 피할 때만 큰따옴표, JSX 속성은 큰따옴표로 웹과 같음) 나머지 모양은 `.editorconfig`를 따릅니다. `npm run lint -- --fix`로 고칠 수 있습니다.
-- 저장할 때: 편집기의 ESLint 연동을 켭니다. IntelliJ는 Settings › Languages & Frameworks › JavaScript › Code Quality Tools › ESLint에서 자동 구성과 `Run eslint --fix on save`를 켭니다.
-- 커밋할 때: `npm run hooks`가 `git config core.hooksPath .githooks`를 잡으면 커밋마다 `.githooks/pre-commit`이 `npm run lint`를 돌리고, 실패하면 커밋이 막힙니다. git 의존성으로 받아 쓰는 쪽(웹)의 설치에서 돌지 않게 `prepare` · `postinstall`에는 넣지 않았습니다. 이 설정은 저장소의 모든 worktree에 함께 적용됩니다.
+- 모양은 Prettier가 맡습니다(`.prettierrc`): 한 줄 80자, 들여쓰기 2칸, 세미콜론, 작은따옴표(JSX 속성은 큰따옴표), 끝 쉼표 모두. 웹과 같은 설정입니다. 빌드 결과물 · `package-lock.json` · 받아 온 파일(`static/`)은 건드리지 않습니다(`.prettierignore`). 판마다 모양이 달라질 수 있어 Prettier 버전은 고정합니다.
+- ESLint는 코드 문제만 봅니다(`eslint.config.js`): JS·TS 권장 규칙, Storybook, React hooks(웹과 같은 recommended). Prettier와 겹치는 규칙은 `eslint-config-prettier`로 끕니다. `npm run lint -- --fix`로 고칠 수 있는 것은 고칩니다.
+- 저장할 때: 편집기의 Prettier와 ESLint 연동을 켭니다. IntelliJ는 Settings › Languages & Frameworks › JavaScript › Prettier에서 `Automatic Prettier configuration`, `Run on 'Reformat Code' action`, `Run on save`를 켜고, Code Quality Tools › ESLint에서 자동 구성과 `Run eslint --fix on save`를 켭니다.
+- 커밋할 때: `npm run hooks`가 `git config core.hooksPath .githooks`를 잡으면 커밋마다 `.githooks/pre-commit`이 `npm run format:check`와 `npm run lint`를 돌리고, 실패하면 커밋이 막힙니다. git 의존성으로 받아 쓰는 쪽(웹)의 설치에서 돌지 않게 `prepare` · `postinstall`에는 넣지 않았습니다. 이 설정은 저장소의 모든 worktree에 함께 적용됩니다.
 
 ## 패키지로 받아 쓰기
 

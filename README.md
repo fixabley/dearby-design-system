@@ -29,7 +29,7 @@ src/
 
 | 경로                       | 컴포넌트                                                                                                                                                                                           |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Switch · Toggle                                                                                                      |
+| `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
 | `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar)                                                                                                                      |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
@@ -154,6 +154,7 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 컴포넌트 파일에는 `"use client"`가 붙어 있어 Next 서버 컴포넌트에서도 그릴 수 있습니다. 다만 `WebShell.Sidebar`처럼 점으로 꺼내는 부품은 서버 컴포넌트에서 꺼낼 수 없으니 `"use client"` 파일에서 조립합니다. `cn` · 아이콘 · 예시 데이터는 서버에서도 씁니다.
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
+- 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 스켈레톤은 화면 읽기에서 숨으므로 불러오는 중이라는 표시는 감싸는 영역에 `aria-busy="true"`를 달고, 다 불러오면 뗍니다. 깜빡임은 동작 줄이기 설정이면 꺼집니다.
 
 ## 글꼴
 

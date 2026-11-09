@@ -20,6 +20,7 @@ export const Motion: StoryObj = {
             '닫힐 때 짧게 가라앉음(Radix가 끝날 때까지 기다림)',
           ],
           ['ds-pop / ds-eq', '찜 튀어 오름 · LIVE 막대'],
+          ['animate-pulse', '스켈레톤 깜빡임(2초, 불투명도 1 ↔ 0.5)'],
           ['prefers-reduced-motion', '모두 끔'],
         ].map(([a, b]) => (
           <tr key={a} className="border-b border-border">

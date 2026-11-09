@@ -15,7 +15,7 @@ export function SideBySide({
           <p className="mb-2 text-micro text-muted-foreground">
             {i ? '스켈레톤' : '불러온 뒤'}
           </p>
-          <div data-compare={i ? 'skeleton' : 'loaded'}>{c}</div>
+          {c}
         </div>
       ))}
     </div>

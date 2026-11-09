@@ -41,13 +41,10 @@ export function HostLine({
   );
 }
 
-/** 불러오는 동안의 조직 줄: 로고 자리 + 보조 글자 한 줄(같은 줄 높이). 너비는 className으로 */
-export function HostLineSkeleton({ className }: { className?: string }) {
+/** 불러오는 동안의 조직 줄: 로고 자리 + 보조 글자 한 줄(같은 줄 높이) */
+export function HostLineSkeleton() {
   return (
-    <div
-      aria-hidden
-      className={cn('flex w-1/2 items-center gap-1.5', className)}
-    >
+    <div aria-hidden className="flex w-1/2 items-center gap-1.5">
       <Skeleton className="size-4 rounded-sm" />
       <TextSkeleton variant="caption" leading="tight" className="flex-1" />
     </div>

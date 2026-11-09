@@ -25,6 +25,6 @@ export function KindLabel({
 }
 
 /** 불러오는 동안의 종류 라벨: 같은 높이(아이콘 12) 막대 */
-export function KindLabelSkeleton({ className }: { className?: string }) {
-  return <Skeleton className={cn('h-3 w-10', className)} />;
+export function KindLabelSkeleton() {
+  return <Skeleton className="h-3 w-10" />;
 }

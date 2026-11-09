@@ -87,15 +87,9 @@ function TimelineRoot({
 export const Timeline = Object.assign(TimelineRoot, { Group, Item });
 
 /** 불러오는 동안의 타임라인: 묶음 하나(머리 캡슐) + 항목 items개(점 · 제목 · 날짜). 같은 칸과 간격 */
-export function TimelineSkeleton({
-  items = 3,
-  className,
-}: {
-  items?: number;
-  className?: string;
-}) {
+export function TimelineSkeleton({ items = 3 }: { items?: number }) {
   return (
-    <div aria-hidden className={className}>
+    <div aria-hidden>
       <div className="flex items-center gap-2.5 pb-3.5 pt-0.5">
         <Skeleton className="size-3.5 rounded-full" />
         {/* 머리 캡슐과 같은 높이: 컨트롤 글자 줄 + 위아래 5 */}

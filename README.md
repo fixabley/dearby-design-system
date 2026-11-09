@@ -198,7 +198,7 @@ import { Icon, ListGroup, ListRow } from '@dearby/design-system';
   - `onClick` · `asChild` 줄에서만 그립니다. 줄을 덮는 버튼 · 링크 밖의 형제라 버튼 안에 버튼이 들어가지 않고, 접근성 트리는 `listitem` 아래 줄 버튼(또는 링크)과 액션이 나란합니다. 누르지 않는 줄의 스위치 · 버튼은 `trailing`에 넣습니다.
   - 액션은 아이콘 버튼 `Button variant="plain" size="icon-sm"`으로 두고 이름은 `aria-label`로 줍니다(새 탭이면 "(새 탭)"까지).
   - 제목이 길면 액션 칸은 그대로 두고 제목이 말줄임됩니다.
-- 누르는 줄(`onClick` · `asChild`)과 `Button variant="plain"`은 hover에 글자색 5%, 누르면 10%를 칠합니다. 라이트는 살짝 회색, 다크는 살짝 밝아집니다.
+- 누르는 줄(`onClick` · `asChild`)과 `Button variant="plain"`은 hover에 글자색 5%, 누르면 10%를 칠합니다. 라이트는 살짝 회색, 다크는 살짝 밝아집니다. 줄의 hover는 액션 칸까지 줄 전체에 칠해지고, 액션 버튼 위에서는 버튼 자기 hover가 그 위에 겹칩니다. 누름은 누른 요소(줄 또는 액션)만 칠합니다.
 - 아이콘이 종류 글자를 대신하면 종류 이름은 `sr-only` 글자로 남깁니다. 줄을 누르면 하는 일(복사)도 함께 적어 버튼 이름이 "이메일 seoyeon@example.com 복사"가 되게 합니다. 복사는 `navigator.clipboard.writeText`가 끝난 뒤 `toast`로 알립니다.
 
 ```tsx

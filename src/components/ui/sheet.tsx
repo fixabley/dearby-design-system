@@ -58,7 +58,7 @@ function SheetHeader({
       <SheetPrimitive.Title className="text-headline">
         {title}
       </SheetPrimitive.Title>
-      <SheetPrimitive.Close className="text-body font-semibold text-accent-foreground outline-none">
+      <SheetPrimitive.Close className="-m-1.5 rounded-md p-1.5 text-body font-semibold text-accent-foreground outline-none pressable focus-visible:ring-2 focus-visible:ring-ring">
         닫기
       </SheetPrimitive.Close>
     </div>

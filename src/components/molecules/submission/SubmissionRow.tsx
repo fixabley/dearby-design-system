@@ -96,7 +96,7 @@ function SubmissionRowRoot({
   return (
     <SubmissionRowContext.Provider value={{ s }}>
       {onSelect ? (
-        <Item asChild selected={selected}>
+        <Item asChild selected={selected} className="pressable">
           <button type="button" onClick={onSelect}>
             {body}
           </button>

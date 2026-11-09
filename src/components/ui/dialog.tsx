@@ -49,7 +49,7 @@ function DialogContent({
         {children}
         {/* 닫기의 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass) */}
         {showClose && (
-          <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full border-[.5px] border-black/8 bg-white/74 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 transition-transform active:scale-95 dark:border-white/8 dark:bg-[rgba(36,40,43,.72)] dark:shadow-control [&_svg]:size-5">
+          <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full border-[.5px] border-black/8 bg-white/74 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 transition-transform active:scale-95 pressable dark:border-white/8 dark:bg-[rgba(36,40,43,.72)] dark:shadow-control [&_svg]:size-5">
             <Icon name="close" />
             <span className="sr-only">닫기</span>
           </DialogPrimitive.Close>

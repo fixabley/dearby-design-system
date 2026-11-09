@@ -41,7 +41,7 @@ function Avatar({
       )}
       <AvatarPrimitive.Fallback
         delayMs={src ? 300 : 0}
-        className="flex size-full items-center justify-center bg-accent font-bold text-accent-foreground"
+        className="flex size-full items-center justify-center bg-accent font-bold text-mint-foreground"
       >
         {fallback}
       </AvatarPrimitive.Fallback>

@@ -5,14 +5,14 @@ import type { IconName } from '@/icons';
 import { Icon } from '@/components/foundations/Icon';
 import { cn } from '@/lib/utils';
 
-// shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아짐
+// shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아지고 바탕 위에 덧칠(pressable, styles.css)
 const buttonVariants = cva(
-  'inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 pressable disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground shadow-primary',
-        mint: 'bg-accent text-accent-foreground shadow-control',
+        mint: 'bg-mint text-mint-foreground shadow-control',
         outline: 'bg-background text-foreground shadow-control',
         ghost: 'bg-transparent text-accent-foreground',
         destructive: 'bg-transparent font-normal text-destructive',

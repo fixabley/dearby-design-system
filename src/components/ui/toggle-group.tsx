@@ -59,7 +59,7 @@ function ToggleGroup({
 const ITEM: Record<Variant, string> = {
   segmented: '',
   circle:
-    'grid aspect-square place-items-center rounded-full bg-muted text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring data-[state=on]:bg-primary data-[state=on]:text-white',
+    'grid aspect-square place-items-center rounded-full bg-muted text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:bg-primary data-[state=on]:text-white',
   plain: 'outline-none focus-visible:ring-2 focus-visible:ring-ring',
 };
 function ToggleGroupItem({
@@ -79,7 +79,7 @@ function ToggleGroupItem({
     <ToggleGroupPrimitive.Item
       data-slot="toggle-group-item"
       className={cn(
-        'flex-1 rounded-full text-caption font-semibold text-muted-foreground outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring data-[state=on]:text-foreground',
+        'flex-1 rounded-full text-caption font-semibold text-muted-foreground outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:text-foreground',
         className,
       )}
       {...props}

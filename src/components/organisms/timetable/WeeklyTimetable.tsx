@@ -16,7 +16,7 @@ import { ScheduleItemDialog } from '@/components/organisms/timetable/ScheduleIte
 
 const DAYS = ['월', '화', '수', '목', '금'];
 const SHAPE = {
-  class: 'bg-accent text-accent-foreground',
+  class: 'bg-accent text-mint-foreground',
   special: 'bg-primary text-white',
   rest: 'items-center justify-center border border-dashed border-[#C9CFCE] text-muted-foreground dark:border-white/20',
 };

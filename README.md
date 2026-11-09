@@ -192,33 +192,89 @@ import { Icon, ListGroup, ListRow } from '@dearby/design-system';
     <Link href="/settings/notifications" />
   </ListRow>
 </ListGroup>
+```
+
+- 줄 전체가 한 가지 일을 하고 오른쪽에 따로 누르는 것이 하나 더 있으면 `action`에 넣습니다. 예: 연락처 줄은 줄 전체가 값 복사, 오른쪽 ↗이 메일 쓰기 · 전화 걸기 · Instagram · 디스코드 프로필 새 탭입니다.
+  - `onClick` · `asChild` 줄에서만 그립니다. 줄을 덮는 버튼 · 링크 밖의 형제라 버튼 안에 버튼이 들어가지 않고, 접근성 트리는 `listitem` 아래 줄 버튼(또는 링크)과 액션이 나란합니다. 누르지 않는 줄의 스위치 · 버튼은 `trailing`에 넣습니다.
+  - 액션은 아이콘 버튼 `Button variant="plain" size="icon-sm"`으로 두고 이름은 `aria-label`로 줍니다(새 탭이면 "(새 탭)"까지).
+  - 제목이 길면 액션 칸은 그대로 두고 제목이 말줄임됩니다.
+- 누르는 줄(`onClick` · `asChild`)은 다른 누를 수 있는 것과 같은 값([원칙](#원칙)의 누름)을 칠합니다. 줄의 hover는 액션 칸까지 줄 전체에 칠해지고, 액션 버튼 위에서는 버튼 자기 hover가 그 위에 겹칩니다. 누름은 누른 요소(줄 또는 액션)만 칠합니다.
+- 아이콘이 종류 글자를 대신하면 종류 이름은 `sr-only` 글자로 남깁니다. 줄을 누르면 하는 일(복사)도 함께 적어 버튼 이름이 "이메일 seoyeon@example.com 복사"가 되게 합니다. 복사는 `navigator.clipboard.writeText`가 끝난 뒤 `toast`로 알립니다.
+
+```tsx
+import { Button, Icon, ListGroup, ListRow, toast } from '@dearby/design-system';
+
+const copy = (value: string) => () =>
+  navigator.clipboard.writeText(value).then(
+    () => toast('복사했어요'),
+    () => toast('복사하지 못했어요'),
+  );
 
 <ListGroup title="연락처">
-  <ListRow asChild title="이메일" trailing="seoyeon@example.com">
-    <a href="mailto:seoyeon@example.com" />
-  </ListRow>
   <ListRow
-    asChild
-    title="Instagram"
-    trailing={
+    icon="mail"
+    title={
       <>
-        @seoyeon
-        <Icon name="link" className="size-4" />
-        <span className="sr-only">(새 탭)</span>
+        <span className="sr-only">이메일 </span>seoyeon@example.com
+        <span className="sr-only"> 복사</span>
       </>
     }
-  >
-    <a
-      href="https://www.instagram.com/seoyeon"
-      target="_blank"
-      rel="noopener noreferrer"
-    />
-  </ListRow>
-  <ListRow title="디스코드" trailing="seoyeon" onClick={copyName} />
+    onClick={copy('seoyeon@example.com')}
+    action={
+      <Button asChild variant="plain" size="icon-sm" icon="link">
+        <a href="mailto:seoyeon@example.com" aria-label="메일 보내기" />
+      </Button>
+    }
+  />
+  {/* 전화는 icon="phone", 액션 <a href="tel:01012345678" aria-label="전화 걸기" /> */}
+  <ListRow
+    icon="link"
+    title={
+      <>
+        <span className="sr-only">Instagram </span>@seoyeon
+        <span className="sr-only"> 복사</span>
+      </>
+    }
+    onClick={copy('@seoyeon')}
+    action={
+      <Button asChild variant="plain" size="icon-sm" icon="link">
+        <a
+          href="https://www.instagram.com/seoyeon"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram 열기 (새 탭)"
+        />
+      </Button>
+    }
+  />
+  {/* 디스코드는 숫자 id로 프로필을 열고, 로고는 블러플로 칠한다 */}
+  <ListRow
+    icon="discord"
+    title={
+      <>
+        <span className="sr-only">디스코드 </span>seoyeon
+        <span className="sr-only"> 복사</span>
+      </>
+    }
+    onClick={copy('seoyeon')}
+    className="[--logo-color:#5865F2]"
+    action={
+      <Button asChild variant="plain" size="icon-sm" icon="link">
+        <a
+          href="https://discord.com/users/123456789012345678"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="디스코드 프로필 열기 (새 탭)"
+        />
+      </Button>
+    }
+  />
 </ListGroup>
 ```
 
-## 글꼴
+- 연락처 줄의 아이콘은 색을 채웁니다: 메일 · 전화는 `icon` 기본 청록, 서비스 로고는 `--logo-color`로 그 회사 지침이 허락하는 브랜드색([서비스 로고](#서비스-로고)). Instagram 로고는 넣지 않아 일반 링크 아이콘(`link`)을 씁니다.
+- 디스코드 연락처는 사용자가 공개로 켠 경우에만 다른 사람에게 보입니다. 디스코드 개발자 약관 5(b)가 디스코드에서 받은 사용자 이름 · id 같은 API Data를 사용자가 명시적으로 공유하라고 할 때만("when a user of your Application expressly directs you to share") 제3자에게 보이게 하기 때문입니다.
+
 ## 글꼴
 
 `static/fonts/pretendard/`에는 Pretendard 글꼴과 라이선스가 받은 그대로 있습니다. 한 바이트도 바꾸지 않습니다.
@@ -236,20 +292,41 @@ cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/di
 gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
 ```
 
+## 아이콘
+
+`icons.ts`의 아이콘은 시안의 SVG 원문입니다. 시안에 없는 것만 같은 규격(24 격자, 선 1.8, 둥근 끝 · 이음, `aria-hidden`)으로 새로 그립니다. 다른 아이콘 모음을 보고 베끼지 않고 사각형 · 선 · 호로 짭니다.
+
+- `mail`(둥근 사각형 봉투 + V 한 획) · `phone`(수화기 한 획, 두 받침이 대각선에 맞서는 대칭): 2026-11-09 프로필 연락처 줄을 위해 그렸습니다(사용자 결정 "봉투·수화기").
+- 시안에는 이 모양들이 없습니다. 시안의 연락처 행은 이메일에 말풍선(`chat`, ㉗-b), 전화에 사람과 음파(㉗-j 명함 화면)를 썼고, 사용자가 봉투 · 수화기로 정했습니다.
+
 ## 서비스 로고
 
 아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료에서 가져옵니다. 출처가 불분명한 아이콘 모음에서 베끼지 않습니다. 아래는 모두 2026-11-09에 받았습니다.
 
 - 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다.
-- 색은 글자색을 따르지 않고 라이트에서 검정(`#000`), 다크에서 흰색(`#fff`)으로 고정합니다(안쪽 `<svg>`의 `fill-black dark:fill-white`). 세 회사 모두 단색은 검정 · 흰색만 허용합니다.
-- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 저장소 배지 등)에 씁니다. GitHub 마크만은 GitHub로 잇지 않는 곳에서도 GitHub 저장소를 가리키는 표시로 씁니다(2026-11-09 결정, 아래 GitHub 절). 예: 웹 프로젝트 행의 저장소 수 옆, `SubmissionRow`의 평가 전 배지, `EvaluationForm`의 저장소 줄. 이때 마크가 무엇을 가리키는지 옆 글자로 쓰거나 마크에 화면 읽기 이름을 줍니다(`<Icon name="github" label="GitHub 저장소" />`).
-- 어느 로고든 서비스 이름 대신 쓰거나, 다른 기호 · 글자와 합치거나, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다.
+- 색은 글자색을 따르지 않습니다. 기본은 라이트 검정(`#000`) · 다크 흰색(`#fff`)이고(네 회사 모두 단색은 검정 · 흰색만 허용), 쓰는 쪽이 CSS 변수 `--logo-color`로 그 회사 지침이 허락하는 다른 색을 고릅니다(안쪽 `<svg>`의 `fill-[var(--logo-color,#000)] dark:fill-[var(--logo-color,#fff)]`). 변수는 `Icon`이나 그 위 요소 어디에 줘도 이어집니다.
+  - SNS 버튼(`SocialLinks`)과 저장소 표시 · 관리 화면 줄은 기본 흑백 그대로 둡니다(사용자 결정).
+  - 프로필 연락처 줄은 지침이 허락하는 브랜드색으로 채웁니다(2026-11-09 사용자 결정 "나머지도 브랜드색 채워줘"). 디스코드는 블러플 `[--logo-color:#5865F2]`.
+  - 브랜드색 바탕 버튼 위는 흰색 `[--logo-color:#fff]`(예: 디스코드로 로그인 버튼의 블러플 바탕 위 흰 로고), 글자색을 따르게 하려면 `[--logo-color:currentColor]`.
+  - 글자색(currentColor)을 기본으로 하지 않은 까닭: 로고가 놓이는 자리의 글자색은 청록(ListRow 아이콘) · 회색(보조 글자)처럼 지침이 허락하지 않는 색인 경우가 많아, 기본이 흑백이어야 쓰는 쪽이 색을 잊어도 지침을 어기지 않습니다.
+- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 프로필 연락처 줄, 저장소 배지 등)에 씁니다. GitHub · 디스코드 마크는 그 서비스로 잇지 않는 곳에서도 씁니다(2026-11-09 결정, 아래 각 절). GitHub는 저장소를 가리키는 표시로(웹 프로젝트 행의 저장소 수 옆, `SubmissionRow`의 평가 전 배지, `EvaluationForm`의 저장소 줄), 디스코드는 디스코드 서버 연동을 가리키는 표시로(`ServerPicker`, `NoticeComposer`) 씁니다. 이때 마크가 무엇을 가리키는지 옆 글자로 쓰거나 마크에 화면 읽기 이름을 줍니다(`<Icon name="github" label="GitHub 저장소" />`).
+- 어느 로고든 글 속 서비스 이름 자리에 넣거나 낱말 · 다른 기호와 합쳐 한 덩어리로 만들지 않고, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다. 이름 글자 없이 로고만 두는 표시(소셜 링크 버튼, 연락처 줄의 종류 아이콘)는 화면 읽기 이름에 서비스 이름을 줍니다. 근거: 이름 조항은 Instagram의 "Keep the word Instagram consistent" 절(글 속 낱말을 로고로 바꾸지 않기)과 LinkedIn의 "Incorporate the [in] Logo into a word or slogan" 금지뿐이고, GitHub("Use the Invertocat logo as a social button") · LinkedIn("In a series of social media icons")은 로고만 있는 소셜 버튼을 허락합니다.
 
 ### GitHub(`github`)
 
 - 원천: [GitHub 브랜드 툴킷의 로고 안내](https://brand.github.com/foundations/logo)(github.com/logos가 이리로 이어짐)에서 받는 [로고 묶음](https://brand.github.com/GitHub_Logos.zip)의 `SVG/GitHub_Invertocat_Black.svg`(viewBox `0 0 98 96`). viewBox 전체를 덮는 사각형이라 그림에 영향이 없는 clip-path만 빼고 경로를 그대로 씁니다. 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 18.6)에 놓습니다. 시안의 GitHub 아이콘은 다시 그린 모양이라 이것으로 바꿨습니다.
 - 조건: 지침의 할 것 목록은 다섯 가지입니다. GitHub로 잇는 링크, 자기 GitHub 프로필이나 프로젝트로 잇는 소셜 버튼(Invertocat), 프로젝트가 GitHub와 연동된다는 표시("Show integration"), GitHub에 관한 글, 우리 서비스 이름 · 로고보다 덜 드러나게 두기입니다. 색은 흰색 · 검정(드물게 회색 · 초록)만 쓰고, 색 · 비율을 바꾸거나 늘이거나 다른 글자 · 도안과 합치지 않습니다. 그림자 · 그라데이션 같은 효과를 넣지 않고, 복잡한 배경이나 대비가 모자란 배경에 두지 않습니다. 우리 서비스 · 계정의 로고나 아이콘으로 쓰지 않습니다.
 - GitHub로 잇지 않는 곳: 저장소 수 옆 같은 앱 화면 속 표시는 지침에 직접 나오지 않습니다. 우리는 이것을 GitHub 저장소를 가리키는 쓰임으로 보고, 할 것 목록 가운데 연동 표시에 가깝다고 판단해 씁니다. GitHub가 확인해 준 것은 아닙니다. 지침의 하지 말 것 목록에는 GitHub의 사전 서면 허가 없이 상표 · 로고를 쓰지 말라는 항목("Use without permission")도 있으니, 쓰임이 넓어지면 [GitHub 문의](https://github.com/contact)로 확인합니다.
+
+### 디스코드(`discord`)
+
+- 원천: [Discord 브랜드 페이지](https://discord.com/branding)의 Symbol 절 다운로드 버튼이 주는 묶음의 `Discord_Symbol_Black/Discord-Symbol-Black.svg`(viewBox `0 0 126.644 96`). 로그인 · 동의 없이 받습니다. 경로를 그대로 쓰고 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 14.4)에 놓습니다. 시안의 디스코드 아이콘은 다시 그린 선 모양이라 이것으로 바꿨고, 그래서 `ServerPicker` · `NoticeComposer`의 디스코드 표시도 블러플 선 아이콘에서 흑백 공식 마크로 바뀌었습니다.
+- 조건: 지침의 할 것 목록은 디스코드 표장으로 자기가 디스코드 사용자이거나 디스코드 서버가 있다는 것을 알리기("inform people that you are a Discord user and/or that you have a Discord server"), Discord를 서버 · 사용자 이름을 꾸미는 말로 쓰기, 디지털로만 쓰기입니다. 디스코드인 것처럼, 디스코드가 후원 · 대행하는 것처럼 보이게 하지 않습니다. 색은 블러플 · 검정 · 흰색이고 고치거나 다시 칠하거나 비틀지 않습니다. 굿즈에 쓰지 않습니다. 글자 없는 심볼은 디스코드 브랜드가 잘 보이거나 다른 곳에서 이미 충분히 드러난 곳에서만 씁니다("Use these only when the Discord brand is clearly visible or has been well established elsewhere"). 지침 밖의 쓰임은 디스코드의 허락이 필요합니다.
+- 개발자 약관(Developer Terms, 2024-06-06 갱신 · 2024-07-08 시행, 2026-11-09 사용자 브라우저로 확인): 8(b)는 디스코드 브랜드 표장을 앱을 알리면서 필요한 표시이거나 부수적으로 보일 때만, 약관과 브랜드 지침을 따라 쓰는 제한된 사용권을 줍니다("solely to display Discord's Brand Features for required attribution(s) or in an incidental manner … only in accordance with the Terms and Discord's Brand Guidelines"). 8(a)는 그 쓰임이 디스코드에 귀속된다고, 8(c)는 제휴 · 보증처럼 말하지 말라고 합니다. 개발자 정책(Developer Policy)에는 이름 · 로고 조항이 없습니다. 그래서 공식 파일을 고치지 않고 브랜드 지침 안에서 씁니다.
+- 쓰임별(2026-11-09 확인, 모두 우리 해석이며 디스코드가 확인해 준 것은 아닙니다):
+  - 프로필 연락처 줄(블러플, 오른쪽 ↗이 `https://discord.com/users/{숫자 id}` 프로필을 새 탭으로 엶, 줄을 누르면 아이디 복사): 사용자가 자기 디스코드 계정을 알리고 디스코드로 잇는 쓰임이라 할 것 목록의 첫 항목에 맞습니다. 화면에는 "Discord" 글자 없이 화면 읽기 이름만 두는데(사용자 결정), 심볼 조건("clearly visible")은 마크 자체와 디스코드 프로필로 잇는 링크로 채운다고 판단했습니다. 공개로 켠 연락처만 보입니다(위 쓰는 법, 개발자 약관 5(b)).
+  - 디스코드로 로그인 버튼: 개발자 문서의 [Social SDK 브랜딩 지침](https://docs.discord.com/developers/discord-social-sdk/design-guidelines/branding-guidelines)이 버튼 글자 + Discord 로고로 된 버튼 세트(Blurple · Light · Dark · Flexible)를 두고, 로그인 연결 지점은 Blurple 버튼을 쓰라고 합니다("Please use the Blurple Button button styling for the sign-in connection point"). 게임 연동용 문서라 웹 OAuth2 로그인에 그대로 해당하는지는 해석이고, 웹 OAuth2 문서에는 버튼 · 로고 규정이 없습니다. 버튼 글자가 브랜드를 보여 심볼 조건은 채웁니다. 웹은 블러플 바탕 버튼에 흰 로고(`[--logo-color:#fff]`)를 씁니다.
+  - 디스코드 계정 연결 줄: 지침에 말이 없습니다. 웹 계정 연결 안내는 "Connect Discord" 버튼으로 시작한다고만 합니다. "디스코드 계정 연결" 글자가 보이면 심볼 조건은 채웁니다.
 
 ### LinkedIn(`linkedin`)
 
@@ -267,14 +344,20 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 허락 없이는 조건을 맞출 수 없어 넣지 않았습니다. 이 서비스들은 일반 링크 아이콘(`link`)으로 씁니다. 다른 곳에서 구한 로고로 대신하지 않습니다.
 
 - Notion: [상표 사용 지침](https://notion.notion.site/Notion-Trademark-Usage-Guidelines-9826313c686a4f6e9d8a48347162714b)은 브랜드 지침이나 서면 합의로 승인된 표장만 쓰게 하고, [브랜드 사용 지침](https://notion.notion.site/Notion-s-brand-usage-guidelines-How-to-use-Notion-s-brand-in-your-marketing-689045e1761348f887a3c5c80295e00f)은 단독 Notion 로고를 쓰지 말라고 합니다. 쓸 때 붙이는 표기도 허락을 받았다는 문구("used here with permission")입니다. 허락은 team@makenotion.com에 묻습니다.
+- Instagram: [Meta 브랜드 리소스의 Instagram 페이지](https://about.meta.com/brand/resources/instagram/instagram-brand/)는 로고 묶음(`IG_brand_asset_pack_2023.zip`)을 "적용되는 가이드라인 및 기타 사용 약관을 읽었으며 이에 동의합니다" 문구 아래의 다운로드로만 줍니다. 동의를 거쳐야 받는 자료라 받지 않았습니다. 글리프 쓰임의 세부로 안내하는 Brand Elements(아이콘) 페이지는 2026-11-09에 "이 페이지를 이용할 수 없습니다"로 열리지 않아 색 · 쓰임 조건도 확인하지 못했습니다. 같은 페이지의 이름 조항("Don't modify, abbreviate or translate the word Instagram … or use any of our logos to replace it")은 "Keep the word Instagram consistent" 절에 있어, 글 속 낱말 Instagram을 로고로 바꾸지 말라는 뜻으로 읽힙니다. 이름 글자 없이 사용자 이름 옆에 글리프만 두는 쓰임은 이 페이지가 따로 말하지 않습니다. 동의는 사람이 직접 해야 하니, 묶음을 받아 오면 그 안의 글리프와 지침으로 다시 판단합니다.
+- Threads: [Meta 브랜드 리소스의 Threads 페이지](https://www.meta.com/brand/resources/threads/)도 로고 묶음(`Threads-Brand-Resource-Center.zip`)을 Instagram과 같은 동의 문구 아래 다운로드로만 주고, 바로 열리는 SVG는 없습니다. 페이지에 적힌 조건은 여백(아이콘 폭의 1/4)과 아이콘 + Threads 글자 짝(lock up) 규칙, 방송 · 옥외 광고 · A4보다 큰 인쇄물의 허가 요청뿐이고, 색이나 소셜 링크 쓰임은 "More detailed guidelines are coming soon"이라 아직 없습니다. Instagram과 함께 묶음을 받아 오면 다시 판단합니다.
 - Behance: Behance는 Adobe 제품이고, [Adobe 상표 지침](https://www.adobe.com/legal/permissions/trademarks.html)은 라이선스 없이는 Adobe 제품 로고를 쓸 수 없고 소프트웨어 제품 · 서비스 안에 넣으려면 서면 허가가 필요하다고 합니다. Behance가 따로 공개한 로고 자료도 찾지 못했습니다. 허락은 같은 페이지의 요청 양식으로 묻습니다.
 
-GitHub와 Invertocat 로고는 GitHub, Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
+GitHub와 Invertocat 로고는 GitHub, Inc.의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
 
 ## 원칙
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
 - 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 8개(`text-title` … `text-micro`), 화면에서는 `Text` 역할 11가지로 씁니다.
+- 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄 · 활동 · 프로그램 목록 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
+  - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
+  - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(그림자 + 축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).
+  - 활동 · 프로그램 목록 줄(ActivityRow · ProgramRow)은 덧칠 면을 글 자리 밖 좌우 12까지 넓힙니다(`-mx-3 px-3`, 고른 면도 같음). 스크롤 칸 안에 둘 때는 칸 안쪽에 12 이상 여백이 있어야 잘리지 않습니다(TwoPane 목록 칸 · TwoColumnList는 맞춰 둠).
 - 날짜는 `M월 d일 (요일)`(올해가 아니면 앞에 `yyyy년`), 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다. 표기 도우미는 `lib/date`에 있습니다.
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.

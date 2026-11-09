@@ -32,7 +32,7 @@ const emptyMediaVariants = cva(
     variants: {
       variant: {
         default: 'bg-transparent',
-        icon: 'size-14 rounded-full bg-accent text-accent-foreground [&_svg]:size-6.5', // 56 민트 원 + 26 아이콘
+        icon: 'size-14 rounded-full bg-accent text-mint-foreground [&_svg]:size-6.5', // 56 민트 원 + 26 아이콘
       },
     },
     defaultVariants: { variant: 'default' },

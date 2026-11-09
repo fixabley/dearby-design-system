@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/item';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ListRow } from '@/components/molecules/shared/ListGroup';
+import { cn } from '@/lib/utils';
 
 type ServerOption = { name: string; sub: string };
 type ServerPickerContextValue = { value: string };
@@ -35,9 +36,13 @@ function Server({
 }) {
   const { value } = useServerPicker('Server');
   return (
-    <Item asChild selected={s.name === value} className={className}>
+    <Item
+      asChild
+      selected={s.name === value}
+      className={cn('pressable', className)}
+    >
       <label>
-        <ItemMedia variant="icon" className="text-[#5865F2]">
+        <ItemMedia variant="icon">
           <Icon name="discord" />
         </ItemMedia>
         <ItemContent>

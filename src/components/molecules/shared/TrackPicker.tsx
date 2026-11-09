@@ -15,7 +15,8 @@ export function TrackPicker({
       variant="link"
       size="auto"
       className={cn(
-        'gap-[3px] [&_svg]:transition-transform data-[state=open]:[&_svg]:rotate-180',
+        // 덧칠(pressable)이 글자에 붙지 않게 여백을 주고 음수 여백으로 자리를 그대로 둔다
+        '-mx-1 gap-[3px] rounded-md px-1 [&_svg]:transition-transform data-[state=open]:[&_svg]:rotate-180',
         className,
       )}
       {...props}

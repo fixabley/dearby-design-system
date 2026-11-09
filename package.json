@@ -30,7 +30,8 @@
     "prepare": "npm run build",
     "typecheck": "tsc --noEmit",
     "check": "node scripts/check-layers.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "hooks": "git config core.hooksPath .githooks"
   },
   "peerDependencies": {
     "react": "^19",

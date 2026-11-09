@@ -1,0 +1,5 @@
+#!/bin/sh
+# 커밋 전에 전체 lint를 돌리고, 실패하면 커밋을 막는다.
+# 훅 경로는 npm run hooks로 한 번 켠다. git 의존성으로 받아 쓰는 쪽에서도 돌지 않게 prepare·postinstall에는 넣지 않는다.
+set -e
+npm run lint

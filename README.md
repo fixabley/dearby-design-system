@@ -285,6 +285,7 @@ const copy = (value: string) => () =>
   - 절충한 점: 같은 패턴은 탭 순서에 보이는 닫기 버튼을 강하게 권합니다("It is strongly recommended that the tab sequence of all dialogs include a visible element with role button that closes the dialog"). 바텀시트의 닫기 버튼은 탭 순서에 있지만 브라우저가 초점 표시를 켤 때만 보이고 마우스 · 터치로 연 직후에는 초점이 있어도 보이지 않으므로, 이 권고를 따른 것이 아닙니다.
   - 바텀시트의 최대 높이는 `85dvh`입니다. 보이는 닫기가 없으니 터치에서는 바깥 누르기가 유일한 길인데, `vh`는 휴대폰에서 주소창이 접힌 큰 화면 기준이라(MDN: "`vh` is equivalent to `lvh`") 키 큰 시트 위에 남는 바깥이 거의 없어질 수 있습니다. `dvh`는 지금 보이는 화면 기준이라("fit exactly within the viewport, irrespective of the presence of dynamic browser interfaces") 위 15%가 늘 남습니다. 실기기로는 확인하지 못했습니다.
 - `Button`은 `type` 기본값을 두지 않습니다(기본값을 `button`으로 바꾸면 `type` 없이 제출에 쓰던 버튼이 깨집니다). `<form>` 안에서 제출이 아닌 버튼(지우기 등)에는 `type="button"`을 줍니다.
+- 아이콘만 있는 버튼(`size="icon"` 44 · `icon-sm` 40 · `icon-lg` 52)은 보이는 글자가 없으니 `aria-label`을 꼭 줍니다. `icon-lg`는 고정 CTA(`lg`, 52)와 높이 · 모서리가 같은 정사각 버튼이라 CTA 줄에 나란히 놓습니다(2026-11-10 사용자 결정 "하단에 정사각형 버튼에 쓰레기통 아이콘이면 충분"). 휴지통은 흰 면에 아이콘만 빨갛게 둡니다: `<Button type="button" variant="outline" size="icon-lg" icon="trash" className="text-destructive" aria-label="LinkedIn 지우기" />`. 빨강 채움(`destructive-fill`)은 되돌릴 수 없는 동작의 확인 버튼에만 씁니다.
 
 ## 글꼴
 

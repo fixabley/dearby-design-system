@@ -18,14 +18,17 @@ const meta: Meta = {
   },
   argTypes: {
     dialog: { table: { disable: true } },
+    children: { table: { disable: true } },
   },
 
-  render: function Render({ title, floating, dialog, ...args }) {
+  render: function Render({ title, floating, dialog, children, ...args }) {
     const [, update] = useArgs();
     const body = (
       <>
         <X.SheetHeader title={title} />
-        <p className="py-4 text-body text-muted-foreground">내용</p>
+        {children ?? (
+          <p className="py-4 text-body text-muted-foreground">내용</p>
+        )}
       </>
     );
     return (
@@ -70,3 +73,43 @@ export const Floating: Story = { args: { floating: true } };
 
 /** 넓은 화면의 대화상자(DialogContent showClose={false}) 안에 같은 머리: X 닫기가 보인다 */
 export const InDialog: Story = { args: { dialog: true } };
+
+// 고치기 시트 내용: 주소 입력, 아래 줄 왼쪽 끝에 지우기(CTA와 높이가 같은 정사각 휴지통).
+// 바꾼 것이 있으면(changed) 그 옆에 변경 되돌리기 · 적용하기가 붙는다
+const editForm = (changed: boolean) => (
+  <div className="flex flex-col gap-4 pt-2">
+    <X.FieldGroup>
+      <X.TextField label="주소" value="https://linkedin.com/in/seoyeon" />
+    </X.FieldGroup>
+    <div className="flex gap-2">
+      <X.Button
+        type="button"
+        variant="outline"
+        size="icon-lg"
+        icon="trash"
+        className="text-destructive"
+        aria-label="LinkedIn 지우기"
+      />
+      {changed && (
+        <>
+          <X.Button type="button" variant="plain" size="lg">
+            변경 되돌리기
+          </X.Button>
+          <X.Button size="lg" className="flex-1">
+            적용하기
+          </X.Button>
+        </>
+      )}
+    </div>
+  </div>
+);
+
+/** 고치기 시트(바꾼 것이 있을 때): 아래 줄에 지우기 · 변경 되돌리기 · 적용하기 */
+export const EditForm: Story = {
+  args: { title: 'LinkedIn', children: editForm(true) },
+};
+
+/** 고치기 시트(바꾼 것이 없을 때): 아래 줄 왼쪽 끝에 지우기만 */
+export const EditFormDeleteOnly: Story = {
+  args: { title: 'LinkedIn', children: editForm(false) },
+};

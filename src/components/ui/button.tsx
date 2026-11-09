@@ -32,6 +32,7 @@ const buttonVariants = cva(
         sm: 'h-8 rounded-full px-3.5 text-caption [&_svg]:size-4',
         icon: 'size-11 rounded-full [&_svg]:size-5.5',
         'icon-sm': 'size-10 rounded-full [&_svg]:size-[22px]',
+        'icon-lg': 'size-13 rounded-[14px] [&_svg]:size-6', // 고정 CTA(lg) 옆에 놓는 같은 높이 · 모서리의 정사각 아이콘 버튼
         tile: 'h-[66px] flex-col gap-1.5 rounded-lg text-caption [&_svg]:size-[22px] [&_svg]:text-accent-foreground',
         'tile-sm':
           'h-[54px] w-14 flex-col gap-[3px] rounded-md px-0 text-caption [&_svg]:size-[26px]',

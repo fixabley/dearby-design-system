@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { Children, createContext, isValidElement, useContext, type ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { Text } from '@/components/atoms/shared/Text';
 import { Button } from '@/components/ui/button';
@@ -15,22 +15,28 @@ function useTabBar(part: string) {
   return ctx;
 }
 
-/** 탭 하나: 아이콘 + 이름. value가 active와 같으면 민트 면 */
+/** 탭 하나: 아이콘 + 이름. value가 active와 같으면 민트 글자(면은 TabBar가 하나로 그린다) */
 function Tab({ value, icon, className, children }: { value: NavKey; icon: IconName; className?: string; children: ReactNode }) {
   const { active, onNavigate } = useTabBar('Tab');
   return (
     <Button variant="plain" aria-current={value === active ? 'page' : undefined} onClick={() => onNavigate?.(value)} icon={icon}
-      className={cn('h-full flex-1 flex-col gap-0.5 rounded-full px-0 [&_svg]:size-6', value === active && 'bg-accent text-accent-foreground', className)}>
+      className={cn('h-full flex-1 flex-col gap-0.5 rounded-full px-0 duration-200 [&_svg]:size-6', value === active && 'text-accent-foreground', className)}>
       <Text variant="micro">{children}</Text>
     </Button>
   );
 }
 
 function TabBarRoot({ active, onNavigate, children }: { active: NavKey; onNavigate?: (k: NavKey) => void; children?: ReactNode }) {
+  // 고른 탭의 순서는 children에서 센다(분할 전환과 같은 방식). 탭은 모두 flex-1이라 너비가 같으니 칸 수와 순서만으로 면이 탭에 맞는다
+  const tabs = Children.toArray(children ?? NAV.map((n) => <Tab key={n.key} value={n.key} icon={n.icon}>{n.label}</Tab>));
+  const index = tabs.findIndex((t) => isValidElement<{ value?: NavKey }>(t) && t.props.value === active);
   return (
     <TabBarContext.Provider value={{ active, onNavigate }}>
-      <ButtonGroup variant="glass" aria-label="탭 막대" className="h-16 w-full gap-1 p-1.5">
-        {children ?? NAV.map((n) => <Tab key={n.key} value={n.key} icon={n.icon}>{n.label}</Tab>)}
+      <ButtonGroup variant="glass" aria-label="탭 막대" className="relative isolate h-16 w-full gap-1 p-1.5"
+        style={{ ['--n' as string]: tabs.length, ['--i' as string]: index }}>
+        {/* 민트 면 하나가 고른 탭으로 미끄러진다. 너비 (100% − 여백 6px×2 − 간격 4px×(n−1)) ÷ n, 한 칸 이동은 너비 + 간격 4px */}
+        {index >= 0 && <span aria-hidden className="absolute inset-y-1.5 left-1.5 -z-10 w-[calc((100%-8px)/var(--n)-4px)] translate-x-[calc(var(--i)*(100%+4px))] rounded-full bg-accent transition-transform duration-[360ms] ease-spring" />}
+        {tabs}
       </ButtonGroup>
     </TabBarContext.Provider>
   );
@@ -40,5 +46,6 @@ function TabBarRoot({ active, onNavigate, children }: { active: NavKey; onNaviga
  * 모바일 탭 막대(shadcn ButtonGroup 글래스 + Button, 컴파운드): 앱 탭마다 Tab.
  * 기본 조립은 `<TabBar active="home" onNavigate={…} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<TabBar active="home"><TabBar.Tab value="home" icon="home">홈</TabBar.Tab><TabBar.Tab value="profile" icon="profile">내 프로필</TabBar.Tab></TabBar>`
+ * 고른 면의 자리를 children 순서로 정하니 Tab은 TabBar 바로 아래에 둔다(Fragment나 다른 컴포넌트로 감싸지 않는다).
  */
 export const TabBar = Object.assign(TabBarRoot, { Tab });

@@ -185,16 +185,15 @@ function ListRowRoot({
       {onClick || asChild ? (
         // 줄(listitem) 안에 button 또는 링크: 그 요소에 listitem 역할을 덮으면 버튼 · 링크로 읽히지 않는다.
         // 최소 높이는 줄이 갖고(구분선 포함 44) 누르는 요소는 그 높이를 채운다.
-        // action은 누르는 요소 밖 형제라 버튼 · 링크가 겹치지 않고, 누르는 요소는 남은 폭을 모두 갖는다
+        // action은 누르는 요소 밖 형제라 버튼 · 링크가 겹치지 않고, 누르는 요소는 남은 폭을 모두 갖는다.
+        // hover는 줄(group/item) 어디에 있든 두 칸 모두 칠하고, 누름은 누른 요소만 칠한다(값은 Button plain과 같음)
         <Item selected={selected} className="gap-0 p-0">
           <Comp
             type={asChild ? undefined : 'button'}
             onClick={onClick}
             className={cn(
               itemVariants(),
-              'min-h-0 min-w-0 flex-1 self-stretch',
-              // hover · 누름 면은 Button plain과 같은 값
-              'hover:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
+              'min-h-0 min-w-0 flex-1 self-stretch group-hover/item:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
               className,
             )}
           >
@@ -202,7 +201,9 @@ function ListRowRoot({
             {asChild && <Slottable>{children}</Slottable>}
           </Comp>
           {action && (
-            <div className="flex shrink-0 items-center pr-1.5">{action}</div>
+            <div className="flex shrink-0 items-center self-stretch pr-1.5 transition-colors duration-200 group-hover/item:bg-foreground/5">
+              {action}
+            </div>
           )}
         </Item>
       ) : (

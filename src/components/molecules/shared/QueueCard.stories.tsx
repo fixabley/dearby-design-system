@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -37,5 +38,19 @@ export const Composed: Story = {
       <X.QueueCard.Text />
       <X.QueueCard.Chevron />
     </X.QueueCard>
+  ),
+};
+
+/** 불러오는 동안(QueueCardSkeleton): 같은 면과 간격 */
+export const Skeleton: Story = {
+  parameters: { width: 818 },
+  render: () => (
+    <SideBySide width={393}>
+      <X.QueueCard
+        covers={['img/cover-22.jpg', 'img/cover-13.jpg', 'img/cover-42.jpg']}
+        sub="프로그램 7개 중 3개 봤어요"
+      />
+      <X.QueueCardSkeleton />
+    </SideBySide>
   ),
 };

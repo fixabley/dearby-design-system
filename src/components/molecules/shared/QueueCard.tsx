@@ -1,8 +1,13 @@
 import { createContext, useContext, type ReactNode } from 'react';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+
+/** 카드 면(원래 부품과 스켈레톤이 함께 쓴다) */
+const SURFACE =
+  'flex w-full items-center gap-3.5 rounded-xl bg-gradient-to-br from-[#E3F3F2] to-[#F4F8F8] px-4 py-[18px] dark:from-card dark:to-card';
 
 type QueueCardContextValue = { covers: string[]; title: string; sub: string };
 const QueueCardContext = createContext<QueueCardContextValue | null>(null);
@@ -75,7 +80,10 @@ function QueueCardRoot({
     <QueueCardContext.Provider value={{ covers, title, sub }}>
       <Card
         asChild
-        className="flex w-full items-center gap-3.5 rounded-xl bg-gradient-to-br from-[#E3F3F2] to-[#F4F8F8] px-4 py-[18px] text-left outline-none transition-transform active:scale-[.99] focus-visible:ring-2 focus-visible:ring-ring dark:from-card dark:to-card"
+        className={cn(
+          SURFACE,
+          'text-left outline-none transition-transform active:scale-[.99] focus-visible:ring-2 focus-visible:ring-ring',
+        )}
       >
         <button type="button" onClick={onClick}>
           {children ?? (
@@ -101,3 +109,16 @@ export const QueueCard = Object.assign(QueueCardRoot, {
   Text: QueueCardText,
   Chevron,
 });
+
+/** 불러오는 동안의 대기열 카드: 같은 면과 간격(겹친 커버 세 장 자리 · 제목 · 보조 줄) */
+export function QueueCardSkeleton() {
+  return (
+    <Card aria-hidden className={SURFACE}>
+      <Skeleton className="h-11 w-[78px] shrink-0 rounded-sm" />
+      <div className="min-w-0 flex-1">
+        <TextSkeleton variant="innerTitle" className="w-1/2" />
+        <TextSkeleton variant="caption" className="w-3/4" />
+      </div>
+    </Card>
+  );
+}

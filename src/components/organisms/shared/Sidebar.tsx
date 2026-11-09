@@ -51,7 +51,7 @@ function NavItem({
         'justify-start gap-3 rounded-md px-3 shadow-none active:scale-100 [&_svg]:size-[22px]',
         small ? 'h-10' : 'h-11',
         on
-          ? 'bg-accent text-accent-foreground'
+          ? 'bg-accent text-accent-foreground hover:bg-accent active:bg-accent'
           : 'text-muted-foreground hover:bg-muted',
         className,
       )}

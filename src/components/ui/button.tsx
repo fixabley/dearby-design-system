@@ -20,7 +20,9 @@ const buttonVariants = cva(
         'destructive-fill':
           'bg-destructive-fill text-primary-foreground shadow-control',
         link: 'h-auto bg-transparent px-0 text-accent-foreground shadow-none',
-        plain: 'bg-transparent text-foreground shadow-none',
+        // 겉모양 없는 버튼. hover는 라이트에서 살짝 회색 · 다크에서 살짝 밝게(글자색 5%), 누르면 한 단계 더(10%). 누를 때는 바로 칠하고 뗄 때만 흐려진다
+        plain:
+          'bg-transparent text-foreground shadow-none hover:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
         tile: 'bg-card text-foreground shadow-control',
         // 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass)
         glass:

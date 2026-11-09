@@ -193,6 +193,8 @@ function ListRowRoot({
             className={cn(
               itemVariants(),
               'min-h-0 min-w-0 flex-1 self-stretch',
+              // hover · 누름 면은 Button plain과 같은 값
+              'hover:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
               className,
             )}
           >

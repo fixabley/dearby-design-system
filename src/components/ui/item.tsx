@@ -113,11 +113,12 @@ function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
     />
   );
 }
+// 제목 · 보조 줄은 relative: 말줄임(overflow hidden) 안의 sr-only(absolute) 글자가 잘리지 않으면 페이지가 가로로 넘친다
 function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="item-title"
-      className={cn('truncate text-body-lg', className)}
+      className={cn('relative truncate text-body-lg', className)}
       {...props}
     />
   );
@@ -126,7 +127,10 @@ function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
   return (
     <p
       data-slot="item-description"
-      className={cn('truncate text-caption text-muted-foreground', className)}
+      className={cn(
+        'relative truncate text-caption text-muted-foreground',
+        className,
+      )}
       {...props}
     />
   );

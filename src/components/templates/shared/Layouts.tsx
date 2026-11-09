@@ -6,9 +6,13 @@ import { cn } from '@/lib/utils';
 
 type SlotProps = { className?: string; children: ReactNode };
 
-/** 목록 칸(5fr, 따로 스크롤) */
+/** 목록 칸(5fr, 따로 스크롤). 행의 고른 면 · 누름 덧칠이 글 자리 밖 12까지 나가므로 스크롤 칸을 좌우 12 넓히고 안쪽 여백으로 글 자리를 그대로 둔다 */
 function TwoPaneList({ className, children }: SlotProps) {
-  return <Pane className={className}>{children}</Pane>;
+  return (
+    <Pane className={cn('-mx-3', className)}>
+      <div className="px-3">{children}</div>
+    </Pane>
+  );
 }
 
 /** 상세 칸(7fr, 따로 스크롤). detailKey가 바뀌면 내용이 아래에서 떠오른다 */
@@ -95,8 +99,13 @@ function TwoColumnListItems({ children }: { children: ReactNode }) {
   return <RowList columns={2}>{children}</RowList>;
 }
 
+// 여백은 스크롤 칸 안쪽에 둬야 행의 고른 면 · 누름 덧칠(글 자리 밖 12)이 잘리지 않는다
 function TwoColumnListRoot({ children }: { children: ReactNode }) {
-  return <Pane className="flex-1 px-6">{children}</Pane>;
+  return (
+    <Pane className="flex-1">
+      <div className="px-6">{children}</div>
+    </Pane>
+  );
 }
 
 /**

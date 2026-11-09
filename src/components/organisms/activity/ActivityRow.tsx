@@ -141,7 +141,8 @@ function ActivityRowRoot({
         asChild
         size="row"
         selected={selected}
-        className={cn(selected && '-mx-3 w-[calc(100%+24px)] px-3')}
+        // 고른 면 · 누름 덧칠은 글 자리 밖으로 좌우 12씩 넓힌다(글 자리는 그대로)
+        className="-mx-3 w-[calc(100%+24px)] px-3 pressable"
       >
         <a
           href={`/activities/${a.id}`}

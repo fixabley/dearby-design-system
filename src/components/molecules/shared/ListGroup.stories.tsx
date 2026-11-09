@@ -165,7 +165,7 @@ export const Contacts: Story = {
           icon="discord"
           title={value('디스코드', 'seoyeon')}
           onClick={copy('seoyeon')}
-          trailing={<X.Icon name="copy" className="size-5" />}
+          trailing={<X.Icon name="copy" className="size-[22px]" />}
         />
       </X.ListGroup>
     );

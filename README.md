@@ -257,7 +257,7 @@ const copy = (value: string) => () =>
       </>
     }
     onClick={copy('seoyeon')}
-    trailing={<Icon name="copy" className="size-5" />}
+    trailing={<Icon name="copy" className="size-[22px]" />}
   />
 </ListGroup>
 ```

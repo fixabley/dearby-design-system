@@ -10,6 +10,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
+  itemVariants,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 
@@ -175,8 +176,14 @@ function ListRowRoot({
       value={{ icon, media, title, subtitle, trailing, add }}
     >
       {onClick ? (
-        <Item asChild selected={selected} className={className}>
-          <button type="button" onClick={onClick}>
+        // 줄(listitem) 안에 button: button에 listitem 역할을 덮으면 버튼으로 읽히지 않는다.
+        // 최소 높이는 줄이 갖고(구분선 포함 44) button은 그 높이를 채운다
+        <Item selected={selected} className="p-0">
+          <button
+            type="button"
+            onClick={onClick}
+            className={cn(itemVariants(), 'min-h-0 self-stretch', className)}
+          >
             {body}
           </button>
         </Item>
@@ -191,6 +198,7 @@ function ListRowRoot({
 
 /**
  * 묶음 목록의 행(shadcn Item, 컴파운드): Media(아이콘 또는 media로 준 앞 요소) · Body(Title · Subtitle) · Trailing(오른쪽 값·스위치·라디오).
+ * onClick을 주면 줄(listitem) 안에 줄 전체를 덮는 button을 두고, className은 그 button에 붙는다.
  * 기본 조립은 `<ListRow icon="calendar" title="시작" trailing="11월 30일 (월)" />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ListRow title="한유진" subtitle="멘토"><ListRow.Body><ListRow.Subtitle /><ListRow.Title /></ListRow.Body><ListRow.Trailing /></ListRow>`
  */

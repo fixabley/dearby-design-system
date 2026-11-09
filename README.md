@@ -31,7 +31,7 @@ src/
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar)                                                                                                                      |
+| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle                                                                                                         |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
@@ -286,6 +286,23 @@ const copy = (value: string) => () =>
   - 바텀시트의 최대 높이는 `85dvh`입니다. 보이는 닫기가 없으니 터치에서는 바깥 누르기가 유일한 길인데, `vh`는 휴대폰에서 주소창이 접힌 큰 화면 기준이라(MDN: "`vh` is equivalent to `lvh`") 키 큰 시트 위에 남는 바깥이 거의 없어질 수 있습니다. `dvh`는 지금 보이는 화면 기준이라("fit exactly within the viewport, irrespective of the presence of dynamic browser interfaces") 위 15%가 늘 남습니다. 실기기로는 확인하지 못했습니다.
 - `Button`은 `type` 기본값을 두지 않습니다(기본값을 `button`으로 바꾸면 `type` 없이 제출에 쓰던 버튼이 깨집니다). `<form>` 안에서 제출이 아닌 버튼(지우기 등)에는 `type="button"`을 줍니다.
 - 아이콘만 있는 버튼(`size="icon"` 44 · `icon-sm` 40 · `icon-lg` 52)은 보이는 글자가 없으니 `aria-label`을 꼭 줍니다. `icon-lg`는 고정 CTA(`lg`, 52)와 높이 · 모서리가 같은 정사각 버튼이라 CTA 줄에 나란히 놓습니다(2026-11-10 사용자 결정 "하단에 정사각형 버튼에 쓰레기통 아이콘이면 충분"). 휴지통은 흰 면에 아이콘만 빨갛게 둡니다: `<Button type="button" variant="outline" size="icon-lg" icon="trash" className="text-destructive" aria-label="LinkedIn 지우기" />`. 빨강 채움(`destructive-fill`)은 되돌릴 수 없는 동작의 확인 버튼에만 씁니다.
+- 자물쇠 토글(`LockToggle`)은 잠김(비공개) · 열림(공개)을 오가는 아이콘 버튼입니다(2026-11-10 사용자 결정 "Lottie 애니메이션 자물쇠"). `Switch`와 같은 props(`checked` · `defaultChecked` · `onCheckedChange` · `disabled`)라 바꿔 끼울 수 있습니다. **켜짐(checked) = 공개 = 열린 자물쇠**입니다. 모양은 아이콘 버튼(`Button variant="plain" size="icon-sm"`)과 같습니다: 면 40, 아이콘 22, 누름 덧칠, 초점 링, 비활성.
+  - 역할은 `switch`(`aria-checked`)이고 Space · Enter로 바뀝니다. 근거: WAI-ARIA 1.2는 switch를 켬 · 끔 값을 나타내는 것으로 정의하고("A type of checkbox that represents on/off values, as opposed to checked/unchecked values"), 공개 여부는 켜고 끄는 설정입니다. WAI-ARIA 스위치 패턴은 스위치 · 체크박스 · 토글 버튼(`aria-pressed`)을 서로 바꿔 쓸 수 있다고 하면서 모양과 의미에 가장 맞는 역할을 고르라고 합니다("they are often functionally interchangeable. Choose the role that best matches both the visual design and semantics of the user interface"). 의미는 켜고 끄는 설정이라 switch에 맞고, 바꿔 끼우는 대상인 `Switch`와 읽히는 말 · props가 이어집니다. 모양은 미는 스위치가 아니라 아이콘 버튼이라 토글 버튼 쪽에 가깝습니다. WAI-ARIA 1.2의 주석(규범 아님)도 switch의 이점을 화면 모양과 맞게 전달하는 데 둡니다("in a fashion consistent with its on-screen appearance").
+  - 이름은 쓰는 쪽이 `aria-label`로 주고 상태에 따라 바꾸지 않습니다(예: "LinkedIn 공개"). 근거: "it is critical the label on a switch does not change when its state changes". 화면 읽기는 이름과 켬 · 끔 상태를 읽습니다. 역할을 부르는 말과 순서는 보조기술과 판마다 다르고, 실기기로는 확인하지 못했습니다.
+  - 움직임: 상태가 바뀌면 고리가 왼발을 축으로 25° 젖혀지며 열리고, 거꾸로 닫힙니다(0.33초, `ease-spring` 토큰). 직접 만든 Lottie입니다(`LockToggle.tsx`의 `lockAnimation`, 남의 자산 없음). `lock` 아이콘과 같은 고리 · 몸통이고 첫 프레임은 `lock`, 끝 프레임은 `unlock` 아이콘과 같은 그림입니다. 색은 글자색을 따릅니다(Lottie가 쓴 `stroke` 속성을 CSS `stroke: currentColor`가 덮음).
+  - 재생기는 [lottie-web](https://github.com/airbnb/lottie-web) 5.13.0(MIT, Copyright (c) 2015 Bodymovin)의 SVG 전용 light 빌드(`lottie-web/build/player/lottie_light`)입니다. 묶지 않고 의존성으로 둡니다. 크기는 줄인 것 기준 gzip 46KB입니다(패키지의 `lottie_light.min.js` 46,480바이트. 우리가 부르는 줄이지 않은 파일은 gzip 73KB이고 받아 쓰는 쪽 번들러가 줄입니다. Next 16 빌드에서 잰 청크는 46,209바이트). 견준 것: 전체 빌드 76KB, [jlottie](https://github.com/LottieFiles/jlottie) 1.2.1은 12KB지만 거꾸로 재생(`setDirection`)과 타입 선언이 없음, dotlottie-web 0.82.1은 wasm만 491KB.
+  - 재생기는 부품이 화면에 놓인 뒤 `import()`로 따로 불러옵니다. 패키지(dist)에는 lottie 코드가 없고, 받아 쓰는 쪽 번들러가 별도 청크로 나눠 화면의 첫 로딩 스크립트에 넣지 않습니다(Next 16 · Turbopack 빌드로 확인).
+  - 불러오기 전 · 불러오기 실패 · 동작 줄이기(`prefers-reduced-motion: reduce`)에서는 같은 자리 · 크기에 `lock` · `unlock` 정지 아이콘을 그립니다. 동작 줄이기면 재생기를 아예 불러오지 않습니다. `styles.css`의 동작 줄이기 규칙은 CSS 움직임만 끄고 스크립트로 그리는 Lottie에는 닿지 않아 부품이 직접 봅니다.
+
+```tsx
+import { LockToggle } from '@dearby/design-system';
+
+<LockToggle
+  checked={isPublic}
+  onCheckedChange={setPublic}
+  aria-label="LinkedIn 공개"
+/>;
+```
 
 ## 글꼴
 

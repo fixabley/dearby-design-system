@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -30,5 +31,16 @@ export const Composed: Story = {
     <X.Timeline groups={D.SSAFY.schedule}>
       <X.Timeline.Group group={D.SSAFY.schedule[0]} />
     </X.Timeline>
+  ),
+};
+
+/** 불러오는 동안(TimelineSkeleton): 묶음 하나와 같은 칸과 간격 */
+export const Skeleton: Story = {
+  parameters: { width: 722 },
+  render: () => (
+    <SideBySide width={345}>
+      <X.Timeline groups={D.SSAFY.schedule.slice(0, 1)} />
+      <X.TimelineSkeleton items={D.SSAFY.schedule[0].items.length} />
+    </SideBySide>
   ),
 };

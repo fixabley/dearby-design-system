@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -31,5 +32,16 @@ export const Composed: Story = {
       <X.ScheduleCard.Title>선발 일정</X.ScheduleCard.Title>
       <X.ScheduleCard.Timeline />
     </X.ScheduleCard>
+  ),
+};
+
+/** 불러오는 동안(ScheduleCardSkeleton): 같은 카드 면과 간격. 묶음 하나 · 안내 없는 카드와 비교한다 */
+export const Skeleton: Story = {
+  parameters: { width: 992 },
+  render: () => (
+    <SideBySide width={480}>
+      <X.ScheduleCard groups={D.SSAFY.schedule.slice(0, 1)} />
+      <X.ScheduleCardSkeleton items={D.SSAFY.schedule[0].items.length} />
+    </SideBySide>
   ),
 };

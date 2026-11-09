@@ -191,6 +191,13 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - 조건: 워드마크는 쓰지 않고 배지만 씁니다. 기본은 빨간 원에 흰 P이고, 색을 쓰기 어려우면 검정이나 흰색으로 씁니다. 테두리 · 필터 · 효과를 더하거나 원에서 P를 빼거나 색을 바꾸지 않습니다. 배지에는 늘 행동 유도(예: Pinterest에서 팔로우)를 함께 두고 자기 Pinterest 계정으로 잇습니다.
 - 다 맞추지 못한 점: 이 지침은 자기 Pinterest를 알리는 기업을 위한 것이고, `SocialLinks`는 배지와 이름 말풍선뿐이라 행동 유도 문구가 없습니다. 색은 LinkedIn과 같이 순수 검정 · 흰색과 조금 다릅니다.
 
+### 넣지 않은 로고
+
+허락 없이는 조건을 맞출 수 없어 넣지 않았습니다. 이 서비스들은 일반 링크 아이콘(`link`)으로 씁니다. 다른 곳에서 구한 로고로 대신하지 않습니다.
+
+- Notion: [상표 사용 지침](https://notion.notion.site/Notion-Trademark-Usage-Guidelines-9826313c686a4f6e9d8a48347162714b)은 브랜드 지침이나 서면 합의로 승인된 표장만 쓰게 하고, [브랜드 사용 지침](https://notion.notion.site/Notion-s-brand-usage-guidelines-How-to-use-Notion-s-brand-in-your-marketing-689045e1761348f887a3c5c80295e00f)은 단독 Notion 로고를 쓰지 말라고 합니다. 쓸 때 붙이는 표기도 허락을 받았다는 문구("used here with permission")입니다. 허락은 team@makenotion.com에 묻습니다.
+- Behance: Behance는 Adobe 제품이고, [Adobe 상표 지침](https://www.adobe.com/legal/permissions/trademarks.html)은 라이선스 없이는 Adobe 제품 로고를 쓸 수 없고 소프트웨어 제품 · 서비스 안에 넣으려면 서면 허가가 필요하다고 합니다. Behance가 따로 공개한 로고 자료도 찾지 못했습니다. 허락은 같은 페이지의 요청 양식으로 묻습니다.
+
 LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
 
 ## 원칙

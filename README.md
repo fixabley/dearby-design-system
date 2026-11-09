@@ -192,33 +192,78 @@ import { Icon, ListGroup, ListRow } from '@dearby/design-system';
     <Link href="/settings/notifications" />
   </ListRow>
 </ListGroup>
+```
+
+- 줄 전체가 한 가지 일을 하고 오른쪽에 따로 누르는 것이 하나 더 있으면 `action`에 넣습니다. 예: 연락처 줄은 줄 전체가 값 복사, 오른쪽 ↗이 메일 쓰기 · 전화 걸기 · 새 탭 열기입니다.
+  - `onClick` · `asChild` 줄에서만 그립니다. 줄을 덮는 버튼 · 링크 밖의 형제라 버튼 안에 버튼이 들어가지 않고, 접근성 트리는 `listitem` 아래 줄 버튼(또는 링크)과 액션이 나란합니다. 누르지 않는 줄의 스위치 · 버튼은 `trailing`에 넣습니다.
+  - 액션은 아이콘 버튼 `Button variant="plain" size="icon-sm"`으로 두고 이름은 `aria-label`로 줍니다(새 탭이면 "(새 탭)"까지).
+  - 제목이 길면 액션 칸은 그대로 두고 제목이 말줄임됩니다.
+- 누르는 줄(`onClick` · `asChild`)과 `Button variant="plain"`은 hover에 글자색 5%, 누르면 10%를 칠합니다. 라이트는 살짝 회색, 다크는 살짝 밝아집니다.
+- 아이콘이 종류 글자를 대신하면 종류 이름은 `sr-only` 글자로 남깁니다. 줄을 누르면 하는 일(복사)도 함께 적어 버튼 이름이 "이메일 seoyeon@example.com 복사"가 되게 합니다. 복사는 `navigator.clipboard.writeText`가 끝난 뒤 `toast`로 알립니다.
+
+```tsx
+import { Button, Icon, ListGroup, ListRow, toast } from '@dearby/design-system';
+
+const copy = (value: string) => () =>
+  navigator.clipboard.writeText(value).then(
+    () => toast('복사했어요'),
+    () => toast('복사하지 못했어요'),
+  );
 
 <ListGroup title="연락처">
-  <ListRow asChild title="이메일" trailing="seoyeon@example.com">
-    <a href="mailto:seoyeon@example.com" />
-  </ListRow>
   <ListRow
-    asChild
-    title="Instagram"
-    trailing={
+    icon="mail"
+    title={
       <>
-        @seoyeon
-        <Icon name="link" className="size-4" />
-        <span className="sr-only">(새 탭)</span>
+        <span className="sr-only">이메일 </span>seoyeon@example.com
+        <span className="sr-only"> 복사</span>
       </>
     }
-  >
-    <a
-      href="https://www.instagram.com/seoyeon"
-      target="_blank"
-      rel="noopener noreferrer"
-    />
-  </ListRow>
-  <ListRow title="디스코드" trailing="seoyeon" onClick={copyName} />
+    onClick={copy('seoyeon@example.com')}
+    action={
+      <Button asChild variant="plain" size="icon-sm" icon="link">
+        <a href="mailto:seoyeon@example.com" aria-label="메일 보내기" />
+      </Button>
+    }
+  />
+  {/* 전화는 icon="phone", 액션 <a href="tel:01012345678" aria-label="전화 걸기" /> */}
+  <ListRow
+    icon="link"
+    title={
+      <>
+        <span className="sr-only">Instagram </span>@seoyeon
+        <span className="sr-only"> 복사</span>
+      </>
+    }
+    onClick={copy('@seoyeon')}
+    action={
+      <Button asChild variant="plain" size="icon-sm" icon="link">
+        <a
+          href="https://www.instagram.com/seoyeon"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram 열기 (새 탭)"
+        />
+      </Button>
+    }
+  />
+  {/* 디스코드는 열 주소가 없어 복사만 한다. 클립보드는 줄 버튼 안 장식(aria-hidden) */}
+  <ListRow
+    icon="discord"
+    title={
+      <>
+        <span className="sr-only">디스코드 </span>seoyeon
+        <span className="sr-only"> 복사</span>
+      </>
+    }
+    onClick={copy('seoyeon')}
+    trailing={<Icon name="clipboard" className="size-5" />}
+  />
 </ListGroup>
 ```
 
-## 글꼴
+Instagram 로고는 넣지 않아([서비스 로고](#서비스-로고)) 일반 링크 아이콘(`link`)을 씁니다.
+
 ## 글꼴
 
 `static/fonts/pretendard/`에는 Pretendard 글꼴과 라이선스가 받은 그대로 있습니다. 한 바이트도 바꾸지 않습니다.

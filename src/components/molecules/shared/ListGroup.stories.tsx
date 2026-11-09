@@ -23,6 +23,7 @@ const meta: Meta = {
   argTypes: {
     children: { table: { disable: true } },
     asChild: { table: { disable: true } },
+    action: { table: { disable: true } },
     onClick: event(),
     title: content('제목'),
     subtitle: content('보조 줄'),
@@ -97,38 +98,78 @@ export const Links: Story = {
 };
 
 /**
- * 연락처: 이메일은 메일 쓰기, 전화는 걸기, Instagram은 새 탭(화면 읽기에 "새 탭"을 알린다), 디스코드는 주소가 없어 누르면 이름 복사(onClick).
- * 링크 줄과 누르는 줄이 같은 높이 · 여백 · 초점 면이다
+ * 연락처(프로필): 줄 전체는 값 복사(onClick, 토스트로 알린다), 오른쪽 action은 기본 앱으로 열기(메일 쓰기 · 전화 걸기 · Instagram 새 탭).
+ * 왼쪽은 종류 아이콘이고 종류 이름은 화면 읽기 글자로 남긴다(버튼 이름 "이메일 seoyeon@example.com 복사").
+ * 디스코드는 열 주소가 없어 복사만 하고, 클립보드 표시를 줄 안에 둔다. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다
  */
 export const Contacts: Story = {
-  render: () => (
-    <X.ListGroup title="연락처">
-      <X.ListRow asChild title="이메일" trailing="seoyeon@example.com">
-        <a href="mailto:seoyeon@example.com" />
-      </X.ListRow>
-      <X.ListRow asChild title="전화" trailing="010-1234-5678">
-        <a href="tel:01012345678" />
-      </X.ListRow>
-      <X.ListRow
-        asChild
-        title="Instagram"
-        trailing={
-          <>
-            @seoyeon
-            <X.Icon name="link" className="size-4" />
-            <span className="sr-only">(새 탭)</span>
-          </>
-        }
-      >
-        <a
-          href="https://www.instagram.com/seoyeon"
-          target="_blank"
-          rel="noopener noreferrer"
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+        <X.Toaster />
+      </>
+    ),
+  ],
+  render: () => {
+    const value = (kind: string, v: string) => (
+      <>
+        <span className="sr-only">{kind} </span>
+        {v}
+        <span className="sr-only"> 복사</span>
+      </>
+    );
+    const copy = (v: string) => () =>
+      navigator.clipboard.writeText(v).then(
+        () => X.toast('복사했어요'),
+        () => X.toast('복사하지 못했어요'),
+      );
+    return (
+      <X.ListGroup title="연락처">
+        <X.ListRow
+          icon="mail"
+          title={value('이메일', 'seoyeon@example.com')}
+          onClick={copy('seoyeon@example.com')}
+          action={
+            <X.Button asChild variant="plain" size="icon-sm" icon="link">
+              <a href="mailto:seoyeon@example.com" aria-label="메일 보내기" />
+            </X.Button>
+          }
         />
-      </X.ListRow>
-      <X.ListRow title="디스코드" trailing="seoyeon" onClick={() => {}} />
-    </X.ListGroup>
-  ),
+        <X.ListRow
+          icon="phone"
+          title={value('전화', '010-1234-5678')}
+          onClick={copy('010-1234-5678')}
+          action={
+            <X.Button asChild variant="plain" size="icon-sm" icon="link">
+              <a href="tel:01012345678" aria-label="전화 걸기" />
+            </X.Button>
+          }
+        />
+        <X.ListRow
+          icon="link"
+          title={value('Instagram', '@seoyeon')}
+          onClick={copy('@seoyeon')}
+          action={
+            <X.Button asChild variant="plain" size="icon-sm" icon="link">
+              <a
+                href="https://www.instagram.com/seoyeon"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram 열기 (새 탭)"
+              />
+            </X.Button>
+          }
+        />
+        <X.ListRow
+          icon="discord"
+          title={value('디스코드', 'seoyeon')}
+          onClick={copy('seoyeon')}
+          trailing={<X.Icon name="clipboard" className="size-5" />}
+        />
+      </X.ListGroup>
+    );
+  },
 };
 
 /** 컴파운드로 바꿔 조립: 앞 요소는 아바타, 보조 줄을 제목 위로 */

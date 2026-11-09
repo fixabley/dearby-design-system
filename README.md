@@ -155,6 +155,7 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 - 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 스켈레톤은 화면 읽기에서 숨으므로 불러오는 중이라는 표시는 감싸는 영역에 `aria-busy="true"`를 달고, 다 불러오면 뗍니다. 깜빡임은 동작 줄이기 설정이면 꺼집니다.
+- 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
 
 ## 글꼴
 

@@ -1,8 +1,9 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { DDay } from '@/components/atoms/shared/DDay';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 type MetaLineContextValue = {
@@ -119,6 +120,19 @@ export function MetaList({
       {items.map((m) => (
         <MetaLine key={m.label} {...m} wrap={wrap} />
       ))}
+    </div>
+  );
+}
+
+/** 불러오는 동안의 메타 줄: 아이콘 자리 + 보조 글자 한 줄(같은 줄 높이). 너비는 className으로 */
+export function MetaLineSkeleton({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      className={cn('flex w-3/4 items-center gap-1.5', className)}
+    >
+      <Skeleton className="size-[15px] shrink-0" />
+      <TextSkeleton variant="caption" className="flex-1" />
     </div>
   );
 }

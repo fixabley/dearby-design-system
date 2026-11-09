@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 /**
@@ -108,5 +109,37 @@ export function Text({
       )}
       {...props}
     />
+  );
+}
+
+/**
+ * Text 자리 표시: 같은 역할(variant · leading)의 줄 높이(1lh) 칸마다 글자 크기(0.8em) 막대 하나.
+ * 불러온 글자와 줄 높이가 같아 바뀔 때 튀지 않는다. 여러 줄이면 마지막 줄을 짧게. 너비 · 여백은 className으로
+ */
+export function TextSkeleton({
+  variant,
+  leading,
+  lines = 1,
+  className,
+}: Pick<VariantProps<typeof textVariants>, 'variant' | 'leading'> & {
+  lines?: number;
+  className?: string;
+}) {
+  return (
+    <div
+      aria-hidden
+      className={cn(textVariants({ variant, leading }), className)}
+    >
+      {Array.from({ length: lines }, (_, i) => (
+        <div key={i} className="flex h-[1lh] items-center">
+          <Skeleton
+            className={cn(
+              'h-[0.8em] w-full',
+              lines > 1 && i === lines - 1 && 'w-2/3',
+            )}
+          />
+        </div>
+      ))}
+    </div>
   );
 }

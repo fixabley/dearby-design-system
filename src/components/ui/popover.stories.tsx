@@ -100,3 +100,25 @@ export default meta;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: StoryObj<typeof meta> = {};
+
+/** 화면 끝 가까이의 트리거(ⓘ 안내처럼 글만 든 말풍선): 좁은 화면에서도 상자가 화면 끝에서 16 안쪽에 머문다 */
+export const NearEdge: StoryObj<typeof meta> = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex justify-end">
+      <X.Popover>
+        <X.PopoverTrigger asChild>
+          <X.Button
+            variant="plain"
+            size="icon-sm"
+            icon="info"
+            aria-label="공개 범위 안내"
+          />
+        </X.PopoverTrigger>
+        <X.PopoverContent aria-label="공개 범위 안내" className="text-body">
+          자물쇠로 잠근 항목은 명함을 주지 않은 사람에게는 보이지 않아요
+        </X.PopoverContent>
+      </X.Popover>
+    </div>
+  ),
+};

@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Text } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { InputGroup, InputGroupInput } from '@/components/ui/input-group';
@@ -23,14 +23,15 @@ export function TimePicker({ value = '', placeholder = '선택', label = '시간
 }) {
   const listId = useId();
   const [text, setText] = useState(value);
+  // value가 바깥에서 바뀌면 그린 직후가 아니라 이번 렌더에서 칸 글자를 맞춘다(효과 안의 setState 대신)
+  const [prevValue, setPrevValue] = useState(value);
+  if (value !== prevValue) { setPrevValue(value); setText(value); }
   const [innerOpen, setInnerOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const anchorRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const isOpen = open ?? innerOpen;
   const setOpen = (o: boolean) => { if (o !== isOpen) { setInnerOpen(o); onOpenChange?.(o); } };
-
-  useEffect(() => setText(value), [value]);
 
   /** 목록 칸 i가 보이게. center면 가운데로 */
   const reveal = (i: number, center = false) => {

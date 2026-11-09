@@ -31,7 +31,7 @@ src/
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar)                                                                                                                      |
+| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle                                                                                                         |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
@@ -274,6 +274,35 @@ const copy = (value: string) => () =>
 
 - 연락처 줄의 아이콘은 색을 채웁니다: 메일 · 전화는 `icon` 기본 청록, 서비스 로고는 `--logo-color`로 그 회사 지침이 허락하는 브랜드색([서비스 로고](#서비스-로고)). Instagram 로고(`instagram`)는 브랜드색 지침을 받지 못해 기본 흑백으로 둡니다.
 - 디스코드 연락처는 사용자가 공개로 켠 경우에만 다른 사람에게 보입니다. 디스코드 개발자 약관 5(b)가 디스코드에서 받은 사용자 이름 · id 같은 API Data를 사용자가 명시적으로 공유하라고 할 때만("when a user of your Application expressly directs you to share") 제3자에게 보이게 하기 때문입니다.
+- 시트 머리(`SheetHeader`)는 왼쪽 제목과 닫기입니다. 닫기는 머리가 놓인 곳에 따라 다르게 그립니다(2026-11-10 사용자 결정 "닫기 버튼 필요없고 바텀시트 기본동작처럼 다른 곳 누르면 닫기", "넓은화면에는 x 아이콘 표시해줘"). 시안의 시트 머리는 어디서나 오른쪽이 `닫기` 글자(핸들 바꾸기 · 건넬 명함 시트의 `.hsh`, 시간표 시트의 `.tsheet .close`)라 이 점이 시안과 다릅니다.
+  - 좁은 화면의 바텀시트(`SheetContent`): 보이는 닫기가 없고 바깥을 누르거나 Esc로 닫습니다.
+  - 넓은 화면의 떠 있는 카드(`SheetContent floating`)와 대화상자(`DialogContent showClose={false}` 안): 머리 오른쪽에 X 버튼이 보입니다(`close` 아이콘, 아이콘 버튼 `Button variant="plain" size="icon-sm"`과 같은 모양). 화면 폭이 아니라 머리가 무엇 안에 놓였는지로 정하므로 쓰는 쪽이 따로 넘길 것은 없습니다. 대화상자에는 `showClose={false}`를 줘야 유리 닫기와 겹치지 않습니다.
+  - 두 닫기 가운데 하나만 그립니다(다른 하나는 `display: none`). 그래서 화면 읽기와 Tab 순서에는 닫기가 하나만 잡힙니다. 머리 높이(40)와 제목 자리는 어느 쪽이든 같고, X 아이콘의 오른쪽 끝이 내용 끝에 맞습니다.
+  - 바텀시트의 닫기 버튼은 지우지 않고 숨겼습니다. 화면 읽기에는 늘 `닫기` 버튼으로 있고, 초점이 있으면서 브라우저가 초점 표시를 켤 때(`:focus-visible`)만 머리 오른쪽에 시안의 닫기 모양으로 나타납니다. 열릴 때 첫 초점은 닫기에 갑니다(Radix는 첫 번째 누를 수 있는 요소에 초점을 줍니다. WAI-ARIA 대화상자 패턴: "Generally, focus is initially set on the first focusable element"). 버튼을 마우스 · 터치로 눌러 열면 초점이 닫기에 있어도 보이지 않고, 키보드로 열거나 Tab으로 닫기에 가면 보입니다.
+  - `:focus-visible`은 브라우저가 정하는 어림 규칙이라 키보드로 열지 않아도 닫기가 보이는 때가 있습니다: 누르지 않아도 화면이 뜨면서 스스로 열리는 시트(주소로 바로 들어온 로그인 시트 등), 마우스로 연 뒤 아무 키(Shift 포함)나 누른 때(둘 다 Chrome에서 확인). 브라우저마다 다를 수 있고 Safari · Firefox는 확인하지 못했습니다.
+  - 바텀시트를 마우스 · 터치로 연 직후에는 초점이 보이지 않는 닫기에 있습니다. 이때 Enter · Space를 누르면 시트가 닫힙니다(보이는 닫기가 있던 때와 같은 동작). 첫 초점을 시트 자체에 두면 이 상태가 없어지지만(`onOpenAutoFocus`) 모든 시트의 화면 읽기 낭독이 바뀌어 실기기 확인 뒤에 정할 일로 남깁니다.
+  - 근거: Radix Dialog는 Esc로 닫고("Esc closes the component automatically") 바깥 누르기로도 닫습니다(Content의 `onPointerDownOutside`를 막지 않는 한). WAI-ARIA 대화상자 패턴도 Esc로 닫는다고 하고("Escape: Closes the dialog"), 바깥을 건드리면 닫는 구현을 언급합니다("in some implementations, attempts to interact with the inert content cause the dialog to close"). 다만 모달일 때 Radix가 바깥 내용을 접근성 트리에서 가리므로(`aria-hidden`) 터치로 화면 읽기를 쓰는 사람에게는 바깥도 Esc 키도 없어, 대화상자 안의 닫기 버튼이 확실한 길입니다. VoiceOver · TalkBack의 닫기 제스처가 이 시트를 닫는지는 실기기로 확인하지 못했습니다. Android의 뒤로 가기는 키 이벤트 없이 close watcher만 부르는데(HTML 표준: "no event is involved") Radix Dialog에는 close watcher가 없어 닫히지 않을 가능성이 높습니다.
+  - 절충한 점: 같은 패턴은 탭 순서에 보이는 닫기 버튼을 강하게 권합니다("It is strongly recommended that the tab sequence of all dialogs include a visible element with role button that closes the dialog"). 바텀시트의 닫기 버튼은 탭 순서에 있지만 브라우저가 초점 표시를 켤 때만 보이고 마우스 · 터치로 연 직후에는 초점이 있어도 보이지 않으므로, 이 권고를 따른 것이 아닙니다.
+  - 바텀시트의 최대 높이는 `85dvh`입니다. 보이는 닫기가 없으니 터치에서는 바깥 누르기가 유일한 길인데, `vh`는 휴대폰에서 주소창이 접힌 큰 화면 기준이라(MDN: "`vh` is equivalent to `lvh`") 키 큰 시트 위에 남는 바깥이 거의 없어질 수 있습니다. `dvh`는 지금 보이는 화면 기준이라("fit exactly within the viewport, irrespective of the presence of dynamic browser interfaces") 위 15%가 늘 남습니다. 실기기로는 확인하지 못했습니다.
+- `Button`은 `type` 기본값을 두지 않습니다(기본값을 `button`으로 바꾸면 `type` 없이 제출에 쓰던 버튼이 깨집니다). `<form>` 안에서 제출이 아닌 버튼(지우기 등)에는 `type="button"`을 줍니다.
+- 아이콘만 있는 버튼(`size="icon"` 44 · `icon-sm` 40 · `icon-lg` 52)은 보이는 글자가 없으니 `aria-label`을 꼭 줍니다. `icon-lg`는 고정 CTA(`lg`, 52)와 높이 · 모서리가 같은 정사각 버튼이라 CTA 줄에 나란히 놓습니다(2026-11-10 사용자 결정 "하단에 정사각형 버튼에 쓰레기통 아이콘이면 충분"). 휴지통은 흰 면에 아이콘만 빨갛게 둡니다: `<Button type="button" variant="outline" size="icon-lg" icon="trash" className="text-destructive" aria-label="LinkedIn 지우기" />`. 빨강 채움(`destructive-fill`)은 되돌릴 수 없는 동작의 확인 버튼에만 씁니다.
+- 자물쇠 토글(`LockToggle`)은 잠김(비공개) · 열림(공개)을 오가는 아이콘 버튼입니다(2026-11-10 사용자 결정 "Lottie 애니메이션 자물쇠"). `Switch`와 같은 props(`checked` · `defaultChecked` · `onCheckedChange` · `disabled`)라 바꿔 끼울 수 있습니다. **켜짐(checked) = 공개 = 열린 자물쇠**입니다. 모양은 아이콘 버튼(`Button variant="plain" size="icon-sm"`)과 같습니다: 면 40, 아이콘 22, 누름 덧칠, 초점 링, 비활성.
+  - 역할은 `switch`(`aria-checked`)이고 Space · Enter로 바뀝니다. 근거: WAI-ARIA 1.2는 switch를 켬 · 끔 값을 나타내는 것으로 정의하고("A type of checkbox that represents on/off values, as opposed to checked/unchecked values"), 공개 여부는 켜고 끄는 설정입니다. WAI-ARIA 스위치 패턴은 스위치 · 체크박스 · 토글 버튼(`aria-pressed`)을 서로 바꿔 쓸 수 있다고 하면서 모양과 의미에 가장 맞는 역할을 고르라고 합니다("they are often functionally interchangeable. Choose the role that best matches both the visual design and semantics of the user interface"). 의미는 켜고 끄는 설정이라 switch에 맞고, 바꿔 끼우는 대상인 `Switch`와 읽히는 말 · props가 이어집니다. 모양은 미는 스위치가 아니라 아이콘 버튼이라 토글 버튼 쪽에 가깝습니다. WAI-ARIA 1.2의 주석(규범 아님)도 switch의 이점을 화면 모양과 맞게 전달하는 데 둡니다("in a fashion consistent with its on-screen appearance").
+  - 이름은 쓰는 쪽이 `aria-label`로 주고 상태에 따라 바꾸지 않습니다(예: "LinkedIn 공개"). 근거: "it is critical the label on a switch does not change when its state changes". 화면 읽기는 이름과 켬 · 끔 상태를 읽습니다. 역할을 부르는 말과 순서는 보조기술과 판마다 다르고, 실기기로는 확인하지 못했습니다.
+  - 움직임: 상태가 바뀌면 고리가 왼발을 축으로 25° 젖혀지며 열리고, 거꾸로 닫힙니다(0.33초, `ease-spring` 토큰). 직접 만든 Lottie입니다(`LockToggle.tsx`의 `lockAnimation`, 남의 자산 없음). `lock` 아이콘과 같은 고리 · 몸통이고 첫 프레임은 `lock`, 끝 프레임은 `unlock` 아이콘과 같은 그림입니다. 색은 글자색을 따릅니다(Lottie가 쓴 `stroke` 속성을 CSS `stroke: currentColor`가 덮음).
+  - 재생기는 [lottie-web](https://github.com/airbnb/lottie-web) 5.13.0(MIT, Copyright (c) 2015 Bodymovin)의 SVG 전용 light 빌드(`lottie-web/build/player/lottie_light`)입니다. 묶지 않고 의존성으로 둡니다. 크기는 줄인 것 기준 gzip 46KB입니다(패키지의 `lottie_light.min.js` 46,480바이트. 우리가 부르는 줄이지 않은 파일은 gzip 73KB이고 받아 쓰는 쪽 번들러가 줄입니다. Next 16 빌드에서 잰 청크는 46,209바이트). 견준 것: 전체 빌드 76KB, [jlottie](https://github.com/LottieFiles/jlottie) 1.2.1은 12KB지만 거꾸로 재생(`setDirection`)과 타입 선언이 없음, dotlottie-web 0.82.1은 wasm만 491KB.
+  - 재생기는 부품이 화면에 놓인 뒤 `import()`로 따로 불러옵니다. 패키지(dist)에는 lottie 코드가 없고, 받아 쓰는 쪽 번들러가 별도 청크로 나눠 화면의 첫 로딩 스크립트에 넣지 않습니다(Next 16 · Turbopack 빌드로 확인).
+  - 불러오기 전 · 불러오기 실패 · 동작 줄이기(`prefers-reduced-motion: reduce`)에서는 같은 자리 · 크기에 `lock` · `unlock` 정지 아이콘을 그립니다. 동작 줄이기면 재생기를 아예 불러오지 않습니다. `styles.css`의 동작 줄이기 규칙은 CSS 움직임만 끄고 스크립트로 그리는 Lottie에는 닿지 않아 부품이 직접 봅니다.
+
+```tsx
+import { LockToggle } from '@dearby/design-system';
+
+<LockToggle
+  checked={isPublic}
+  onCheckedChange={setPublic}
+  aria-label="LinkedIn 공개"
+/>;
+```
 
 ## 글꼴
 
@@ -298,6 +327,9 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 - `mail`(둥근 사각형 봉투 + V 한 획) · `phone`(수화기 한 획, 두 받침이 대각선에 맞서는 대칭): 2026-11-09 프로필 연락처 줄을 위해 그렸습니다(사용자 결정 "봉투·수화기").
 - 시안에는 이 모양들이 없습니다. 시안의 연락처 행은 이메일에 말풍선(`chat`, ㉗-b), 전화에 사람과 음파(㉗-j 명함 화면)를 썼고, 사용자가 봉투 · 수화기로 정했습니다.
+- `trash`(뚜껑 선 + 둥근 ㄷ자 손잡이 + 아래로 좁아지는 통 한 획 + 세로 줄 둘): 2026-11-10 고치기 시트의 지우기 버튼을 위해 그렸습니다(사용자 결정 "하단에 정사각형 버튼에 쓰레기통 아이콘이면 충분"). 시안에는 휴지통이 없고 지우기는 빨간 글자(`계정 삭제` · `일정 삭제`)로만 나옵니다. 좌표는 세로 중심선(x 12)에 대칭으로 직접 잡았습니다: 뚜껑 4.5 ~ 19.5, 통 위 6.5 ~ 17.5 · 아래 모서리 반지름 2, 손잡이 9.5 ~ 14.5 · 모서리 반지름 1.5.
+- `unlock`(열린 자물쇠): 2026-11-10 자물쇠 토글을 위해 그렸습니다(사용자 결정 "lottie 자물쇠 락 언락 아이콘을 버튼으로"). 시안에는 열린 자물쇠가 없습니다. `lock`의 몸통은 그대로 두고 고리만 왼발(8, 11)을 축으로 25° 젖혔습니다(`transform="rotate(-25 8 11)"`). 몸통이 같은 자리라 `lock`과 바꿔 그려도 튀지 않고, 자물쇠 토글 Lottie의 끝 프레임과 같은 그림입니다.
+- `info`(ⓘ)는 새로 그리지 않았습니다. 시안의 원문 그대로입니다(추천 카드의 `자세히` 버튼, 원 반지름 9.5에 안쪽 획만 선 2.4).
 
 ## 서비스 로고
 

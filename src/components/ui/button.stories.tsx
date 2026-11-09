@@ -49,12 +49,13 @@ const meta: Meta = {
         'sm',
         'icon',
         'icon-sm',
+        'icon-lg',
         'tile',
         'tile-sm',
         'auto',
       ],
       ...look(
-        'lg 52(고정 CTA) · default 44 · sm 32 · icon·icon-sm 아이콘만 있는 정사각 버튼(44·40) · tile 행동 타일 · tile-sm 시간표 버튼 · auto 글자 높이',
+        'lg 52(고정 CTA) · default 44 · sm 32 · icon·icon-sm 아이콘만 있는 원형 버튼(44·40) · icon-lg CTA 옆 정사각 아이콘 버튼(52, 모서리는 lg와 같음) · tile 행동 타일 · tile-sm 시간표 버튼 · auto 글자 높이',
       ),
     },
     block: { ...look('칸 너비를 꽉 채움') },
@@ -93,6 +94,13 @@ export const Sizes: Story = {
       <div className="flex gap-2">
         <X.Button variant="glass" size="icon" aria-label="뒤로" icon="back" />
         <X.Button variant="glass" size="icon" aria-label="공유" icon="share" />
+        <X.Button
+          variant="outline"
+          size="icon-lg"
+          aria-label="지우기"
+          icon="trash"
+          className="text-destructive"
+        />
       </div>
     </div>
   ),

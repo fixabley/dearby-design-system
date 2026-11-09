@@ -42,7 +42,10 @@ function Tab({
       icon={icon}
       className={cn(
         'h-full flex-1 flex-col gap-[3px] rounded-full px-0 duration-200 [&_svg]:size-6',
-        value === active && 'text-accent-foreground',
+        // 안 고른 탭은 시안 .tab #3a3a3c, 다크 .dk .tab #9AA3A8(다크 muted-foreground와 같은 값)
+        value === active
+          ? 'text-accent-foreground'
+          : 'text-[#3a3a3c] dark:text-muted-foreground',
         className,
       )}
     >

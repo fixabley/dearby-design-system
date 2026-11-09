@@ -212,7 +212,7 @@ const copy = (value: string) => () =>
 
 <ListGroup title="연락처">
   <ListRow
-    icon="chat"
+    icon="mail"
     title={
       <>
         <span className="sr-only">이메일 </span>seoyeon@example.com
@@ -226,7 +226,7 @@ const copy = (value: string) => () =>
       </Button>
     }
   />
-  {/* 전화도 같은 모양, 액션 <a href="tel:01012345678" aria-label="전화 걸기" /> */}
+  {/* 전화는 icon="phone", 액션 <a href="tel:01012345678" aria-label="전화 걸기" /> */}
   <ListRow
     icon="link"
     title={
@@ -285,8 +285,8 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 `icons.ts`의 아이콘은 시안의 SVG 원문입니다. 시안에 없는 것만 같은 규격(24 격자, 선 1.8, 둥근 끝 · 이음, `aria-hidden`)으로 새로 그립니다. 다른 아이콘 모음을 보고 베끼지 않고 사각형 · 선 · 호로 짭니다.
 
-- `copy`(모서리 둥근 사각형 둘이 겹친 모양): 2026-11-09 프로필 연락처 줄의 복사 표시로 그렸습니다(사용자 결정 "사각형 두개가 겹친듯한 아이콘").
-- 연락처 줄의 이메일은 시안 ㉗-b 연락처의 말풍선(`chat`, 활동 종류 밋업과 같은 경로)을 씁니다. 전화는 시안 명함 화면(㉗-j)이 사람과 음파 모양을 쓰는데, 시안 것을 넣을지 수화기를 새로 그릴지 정하기 전이라 아직 없습니다.
+- `mail`(둥근 사각형 봉투 + V 한 획) · `phone`(수화기 한 획, 두 받침이 대각선에 맞서는 대칭) · `copy`(모서리 둥근 사각형 둘이 겹친 모양): 2026-11-09 프로필 연락처 줄을 위해 그렸습니다(사용자 결정 "봉투·수화기", "사각형 두개가 겹친듯한 아이콘").
+- 시안에는 이 모양들이 없습니다. 시안의 연락처 행은 이메일에 말풍선(`chat`, ㉗-b), 전화에 사람과 음파(㉗-j 명함 화면)를 썼고, 사용자가 봉투 · 수화기로 정했습니다.
 
 ## 서비스 로고
 

@@ -307,7 +307,10 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 - 원천: [Discord 브랜드 페이지](https://discord.com/branding)의 Symbol 절 다운로드 버튼이 주는 묶음의 `Discord_Symbol_Black/Discord-Symbol-Black.svg`(viewBox `0 0 126.644 96`). 로그인 · 동의 없이 받습니다. 경로를 그대로 쓰고 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 14.4)에 놓습니다. 시안의 디스코드 아이콘은 다시 그린 선 모양이라 이것으로 바꿨고, 그래서 `ServerPicker` · `NoticeComposer`의 디스코드 표시도 블러플 선 아이콘에서 흑백 공식 마크로 바뀌었습니다.
 - 조건: 지침의 할 것 목록은 디스코드 표장으로 자기가 디스코드 사용자이거나 디스코드 서버가 있다는 것을 알리기("inform people that you are a Discord user and/or that you have a Discord server"), Discord를 서버 · 사용자 이름을 꾸미는 말로 쓰기, 디지털로만 쓰기입니다. 디스코드인 것처럼, 디스코드가 후원 · 대행하는 것처럼 보이게 하지 않습니다. 색은 블러플 · 검정 · 흰색이고 고치거나 다시 칠하거나 비틀지 않습니다. 굿즈에 쓰지 않습니다. 글자 없는 심볼은 디스코드 브랜드가 잘 보이거나 다른 곳에서 이미 충분히 드러난 곳에서만 씁니다("Use these only when the Discord brand is clearly visible or has been well established elsewhere"). 지침 밖의 쓰임은 디스코드의 허락이 필요합니다.
-- 링크 없는 연락처 줄: 디스코드 아이디는 디스코드 프로필 주소로 열 수 없어 줄에 링크가 없습니다. 프로필 주인이 자기 디스코드 아이디를 알리는 쓰임이라 할 것 목록의 첫 항목에 맞는다고 보고 씁니다. 심볼만 두는 조건은 마크 옆에 디스코드 아이디가 있고 화면 읽기 이름("디스코드")을 주는 것으로 맞춘다고 판단했습니다. 우리 해석이며 디스코드가 확인해 준 것은 아닙니다. 화면에 "디스코드" 글자를 함께 보이면 이 조건이 더 분명해집니다.
+- 쓰임별(2026-11-09 확인, 모두 우리 해석이며 디스코드가 확인해 준 것은 아닙니다):
+  - 프로필 연락처 줄(링크 없음, 누르면 아이디 복사): 할 것 목록의 첫 항목(자기가 디스코드 사용자임을 알리기)에 가깝지만 지침에 직접 나오지 않습니다. 화면에 "Discord" 글자가 없고 화면 읽기 글자만 있으면 심볼 조건("clearly visible")을 채운다고 보기 어려울 수 있습니다. 화면에 "디스코드" 글자를 함께 보이면 조건이 분명해집니다.
+  - 디스코드로 로그인 버튼: 개발자 문서의 [Social SDK 브랜딩 지침](https://docs.discord.com/developers/discord-social-sdk/design-guidelines/branding-guidelines)이 버튼 글자 + Discord 로고로 된 버튼 세트(Blurple · Light · Dark · Flexible)를 두고, 로그인 연결 지점은 Blurple 버튼을 쓰라고 합니다("Please use the Blurple Button button styling for the sign-in connection point"). 게임 연동용 문서라 웹 OAuth2 로그인에 그대로 해당하는지는 해석이고, 웹 OAuth2 문서에는 버튼 · 로고 규정이 없습니다. 버튼 글자가 브랜드를 보여 심볼 조건은 채웁니다.
+  - 디스코드 계정 연결 줄: 지침에 말이 없습니다. 웹 계정 연결 안내는 "Connect Discord" 버튼으로 시작한다고만 합니다. "디스코드 계정 연결" 글자가 보이면 심볼 조건은 채웁니다.
 
 ### LinkedIn(`linkedin`)
 

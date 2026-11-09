@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -39,3 +40,14 @@ void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
+
+/** 불러오는 동안(HostLineSkeleton): 불러온 뒤와 같은 높이 */
+export const Skeleton: Story = {
+  parameters: { width: 632 },
+  render: () => (
+    <SideBySide width={300}>
+      <X.HostLine logo="img/logo-13.png" text="삼성 · SSAFY" count={1} />
+      <X.HostLineSkeleton />
+    </SideBySide>
+  ),
+};

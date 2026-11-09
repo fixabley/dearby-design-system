@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import type { TimelineGroup } from '@/types';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 /** 항목 하나: 점 + 제목 · 날짜(· D-day) */
@@ -84,3 +85,33 @@ function TimelineRoot({
  * `<Timeline groups={groups}><Timeline.Group group={groups[0]}><Timeline.Item item={groups[0].items[0]} /></Timeline.Group></Timeline>`
  */
 export const Timeline = Object.assign(TimelineRoot, { Group, Item });
+
+/** 불러오는 동안의 타임라인: 묶음 하나(머리 캡슐) + 항목 items개(점 · 제목 · 날짜). 같은 칸과 간격 */
+export function TimelineSkeleton({ items = 3 }: { items?: number }) {
+  return (
+    <div aria-hidden>
+      <div className="flex items-center gap-2.5 pb-3.5 pt-0.5">
+        <Skeleton className="size-3.5 rounded-full" />
+        {/* 머리 캡슐과 같은 높이: 컨트롤 글자 줄 + 위아래 5 */}
+        <Skeleton className="w-20 rounded-full py-[5px]">
+          <TextSkeleton variant="control" className="invisible" />
+        </Skeleton>
+      </div>
+      {Array.from({ length: items }, (_, i) => (
+        <div
+          key={i}
+          className="grid grid-cols-[14px_minmax(0,1fr)] items-start gap-3 pb-[18px]"
+        >
+          <Skeleton className="ml-[3px] mt-[7px] size-[7px] rounded-full" />
+          <div>
+            <TextSkeleton variant="innerTitle" className="w-1/2" />
+            {/* 날짜는 글 속 줄(감싼 블록의 줄 높이) 안에 있어 같은 줄 높이 칸에 둔다 */}
+            <div className="flex h-[1lh] items-center">
+              <TextSkeleton variant="caption" className="w-2/3" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

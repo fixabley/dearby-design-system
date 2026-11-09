@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 import { content, iconArgType, look } from '@/stories/argTypes';
@@ -46,5 +47,16 @@ export const Composed: Story = {
       <X.MetaLine.Icon />
       <X.MetaLine.Value />
     </X.MetaLine>
+  ),
+};
+
+/** 불러오는 동안(MetaLineSkeleton): 불러온 뒤와 같은 높이 */
+export const Skeleton: Story = {
+  parameters: { width: 632 },
+  render: () => (
+    <SideBySide width={300}>
+      <X.MetaLine label="모집" value="11월 9일 (월) 17:00 마감" />
+      <X.MetaLineSkeleton />
+    </SideBySide>
   ),
 };

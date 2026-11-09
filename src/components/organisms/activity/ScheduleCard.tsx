@@ -1,8 +1,11 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { TimelineGroup } from '@/types';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Card, CardTitle } from '@/components/ui/card';
-import { Timeline } from '@/components/molecules/shared/Timeline';
+import {
+  Timeline,
+  TimelineSkeleton,
+} from '@/components/molecules/shared/Timeline';
 
 type ScheduleCardContextValue = { groups: TimelineGroup[]; note?: string };
 const ScheduleCardContext = createContext<ScheduleCardContextValue | null>(
@@ -84,3 +87,14 @@ export const ScheduleCard = Object.assign(ScheduleCardRoot, {
   Timeline: ScheduleCardTimeline,
   Note,
 });
+
+/** 불러오는 동안의 일정 카드: 같은 카드 면과 간격(제목 · 타임라인 묶음 하나). 안내는 있을 때만이라 뺀다 */
+export function ScheduleCardSkeleton({ items }: { items?: number }) {
+  return (
+    <Card aria-hidden>
+      {/* 카드 제목(CardTitle)과 같은 줄 높이 · 여백 */}
+      <TextSkeleton variant="body" className="-mt-0.5 mb-2.5 w-12" />
+      <TimelineSkeleton items={items} />
+    </Card>
+  );
+}

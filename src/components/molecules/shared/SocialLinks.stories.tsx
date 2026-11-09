@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import { content } from '@/stories/argTypes';
 
 // ㉘-b 받은 명함 · ㉙-u0 프로필 머리의 소셜 줄: 말풍선 · GitHub · 바깥 링크(↗). 주소는 예시
@@ -35,5 +36,15 @@ export const Composed: Story = {
       <X.SocialLinks.Link {...LINKS[1]} />
       <X.SocialLinks.Link {...LINKS[2]} />
     </X.SocialLinks>
+  ),
+};
+
+/** 불러오는 동안(SocialLinksSkeleton): 같은 크기의 원 */
+export const Skeleton: Story = {
+  render: () => (
+    <SideBySide width={200}>
+      <X.SocialLinks links={LINKS} />
+      <X.SocialLinksSkeleton />
+    </SideBySide>
   ),
 };

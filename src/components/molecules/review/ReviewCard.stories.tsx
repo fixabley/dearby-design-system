@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -48,5 +49,22 @@ export const Composed: Story = {
         <X.ReviewCard.Author />
       </X.ReviewCard.Header>
     </X.ReviewCard>
+  ),
+};
+
+/** 불러오는 동안(ReviewCardSkeleton): 같은 칸과 간격. 글이 세 줄인 후기와 비교한다 */
+export const Skeleton: Story = {
+  parameters: { width: 818 },
+  render: () => (
+    <SideBySide width={393}>
+      <X.ReviewCard
+        initial="박"
+        name="박서준"
+        meta="7기 · 2026년 9월"
+        rating="recommend"
+        body="매주 코드 리뷰를 주고받으면서 PR 쓰는 법이 많이 늘었어요. 기수 안에서 사이드 프로젝트 팀이 꾸려져서 끝나고도 같이 만들고 있어요. 다음 기수에도 추천하고 싶어요."
+      />
+      <X.ReviewCardSkeleton />
+    </SideBySide>
   ),
 };

@@ -2,6 +2,8 @@ import { createContext, useContext, type ReactNode } from 'react';
 import type { Submission } from '@/types';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { TextSkeleton } from '@/components/atoms/shared/Text';
 import {
   Item,
   ItemActions,
@@ -116,3 +118,21 @@ export const SubmissionRow = Object.assign(SubmissionRowRoot, {
   Text: SubmissionRowText,
   Status,
 });
+
+/** 불러오는 동안의 제출 한 줄: 같은 칸(아바타 · 이름 · PR·시각 · 상태 배지). ItemGroup 안에 넣어 쓴다 */
+export function SubmissionRowSkeleton() {
+  return (
+    <Item aria-hidden>
+      <ItemMedia>
+        <Skeleton className="size-9 rounded-full" />
+      </ItemMedia>
+      <ItemContent>
+        <TextSkeleton variant="bodyLarge" className="w-20" />
+        <TextSkeleton variant="caption" className="w-2/3" />
+      </ItemContent>
+      <ItemActions>
+        <Skeleton className="h-5 w-12 rounded-full" />
+      </ItemActions>
+    </Item>
+  );
+}

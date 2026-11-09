@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -22,3 +23,15 @@ void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
+
+/** 불러오는 동안(KindLabelSkeleton): 불러온 뒤와 같은 높이 */
+export const Skeleton: Story = {
+  render: () => (
+    <SideBySide width={120}>
+      <div className="flex">
+        <X.KindLabel kind="BOOTCAMP" />
+      </div>
+      <X.KindLabelSkeleton />
+    </SideBySide>
+  ),
+};

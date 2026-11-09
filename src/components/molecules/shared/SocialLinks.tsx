@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Tooltip,
   TooltipContent,
@@ -65,3 +66,20 @@ function SocialLinksRoot({
  * `<SocialLinks><SocialLinks.Link icon="github" href="…" label="GitHub" /><SocialLinks.Link icon="link" href="…" label="링크" /></SocialLinks>`
  */
 export const SocialLinks = Object.assign(SocialLinksRoot, { Link });
+
+/** 불러오는 동안의 소셜 링크 줄: 같은 크기(Button icon-sm 40)의 원 count개 */
+export function SocialLinksSkeleton({
+  count = 3,
+  className,
+}: {
+  count?: number;
+  className?: string;
+}) {
+  return (
+    <div aria-hidden className={cn('flex gap-2.5', className)}>
+      {Array.from({ length: count }, (_, i) => (
+        <Skeleton key={i} className="size-10 rounded-full" />
+      ))}
+    </div>
+  );
+}

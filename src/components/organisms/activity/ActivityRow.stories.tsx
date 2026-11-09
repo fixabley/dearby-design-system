@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -61,5 +62,23 @@ export const Composed: Story = {
         </X.ActivityRow>
       ))}
     </X.RowList>
+  ),
+};
+
+/** 불러오는 동안(ActivityRowSkeleton): 같은 칸과 간격. 상태 · 시간표 · 트랙이 없는 행과 비교한다 */
+export const Skeleton: Story = {
+  parameters: { width: 992 },
+  render: () => (
+    <SideBySide width={480}>
+      <X.ActivityRow
+        a={{
+          ...D.ACTIVITIES[1],
+          status: undefined,
+          steps: undefined,
+          timetable: undefined,
+        }}
+      />
+      <X.ActivityRowSkeleton />
+    </SideBySide>
   ),
 };

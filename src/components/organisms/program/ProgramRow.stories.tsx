@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -38,5 +39,16 @@ export const Composed: Story = {
         </X.ProgramRow>
       ))}
     </X.RowList>
+  ),
+};
+
+/** 불러오는 동안(ProgramRowSkeleton): 같은 칸과 간격 */
+export const Skeleton: Story = {
+  parameters: { width: 992 },
+  render: () => (
+    <SideBySide width={480}>
+      <X.ProgramRow p={D.PROGRAMS[0]} />
+      <X.ProgramRowSkeleton />
+    </SideBySide>
   ),
 };

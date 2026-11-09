@@ -1,8 +1,9 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { Rating } from '@/types';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Item,
   ItemActions,
@@ -163,3 +164,23 @@ export const ReviewCard = Object.assign(ReviewCardRoot, {
   Rating,
   Body,
 });
+
+/** 불러오는 동안의 후기 한 개: 같은 칸과 간격(아바타 · 이름 · 기수, 평가, 글 세 줄). 참여 인증은 있을 때만이라 뺀다 */
+export function ReviewCardSkeleton() {
+  return (
+    <div aria-hidden className="py-3.5">
+      <Item className="min-h-0 p-0">
+        <ItemMedia>
+          <Skeleton className="size-9 rounded-full" />
+        </ItemMedia>
+        <ItemContent>
+          {/* 이름 칸은 ItemTitle(입력·목록 행 줄 높이) 안의 행 안 제목이라 bodyLarge 줄 높이를 쓴다 */}
+          <TextSkeleton variant="bodyLarge" className="w-16" />
+          <TextSkeleton variant="caption" className="w-28" />
+        </ItemContent>
+      </Item>
+      <TextSkeleton variant="control" className="mt-2 w-16" />
+      <TextSkeleton variant="body" lines={3} className="mt-1" />
+    </div>
+  );
+}

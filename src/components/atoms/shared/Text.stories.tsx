@@ -138,3 +138,23 @@ export const Tones: Story = {
     </div>
   ),
 };
+
+/** 자리 표시(TextSkeleton): 역할마다 불러온 글자와 줄 높이가 같다 */
+export const Skeleton: Story = {
+  parameters: { width: 840 },
+  render: () => (
+    <div className="divide-y divide-border">
+      {VARIANTS.map((v) => (
+        <div key={v} className="flex items-start gap-5 py-2.5">
+          <X.Text variant="caption" tone="muted" className="w-24 shrink-0">
+            <code>{v}</code>
+          </X.Text>
+          <X.Text variant={v} block className="w-80 shrink-0">
+            활동 둘러보기 SSAFY 17기
+          </X.Text>
+          <X.TextSkeleton variant={v} className="w-80" />
+        </div>
+      ))}
+    </div>
+  ),
+};

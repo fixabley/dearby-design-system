@@ -198,12 +198,14 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 - 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다.
 - 색은 글자색을 따르지 않고 라이트에서 검정(`#000`), 다크에서 흰색(`#fff`)으로 고정합니다(안쪽 `<svg>`의 `fill-black dark:fill-white`). 세 회사 모두 단색은 검정 · 흰색만 허용합니다.
-- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 저장소 배지 등)에만 씁니다. 서비스 이름 대신 쓰거나, 다른 기호 · 글자와 합치거나, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다.
+- 로고는 그 서비스의 사용자 프로필이나 프로젝트 주소로 잇는 곳(`SocialLinks`, 저장소 배지 등)에 씁니다. GitHub 마크만은 GitHub로 잇지 않는 곳에서도 GitHub 저장소를 가리키는 표시로 씁니다(2026-11-09 결정, 아래 GitHub 절). 예: 웹 프로젝트 행의 저장소 수 옆, `SubmissionRow`의 평가 전 배지, `EvaluationForm`의 저장소 줄. 이때 마크가 무엇을 가리키는지 옆 글자로 쓰거나 마크에 화면 읽기 이름을 줍니다(`<Icon name="github" label="GitHub 저장소" />`).
+- 어느 로고든 서비스 이름 대신 쓰거나, 다른 기호 · 글자와 합치거나, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다.
 
 ### GitHub(`github`)
 
 - 원천: [GitHub 브랜드 툴킷의 로고 안내](https://brand.github.com/foundations/logo)(github.com/logos가 이리로 이어짐)에서 받는 [로고 묶음](https://brand.github.com/GitHub_Logos.zip)의 `SVG/GitHub_Invertocat_Black.svg`(viewBox `0 0 98 96`). viewBox 전체를 덮는 사각형이라 그림에 영향이 없는 clip-path만 빼고 경로를 그대로 씁니다. 24 격자 안 19 크기(x · y 2.5, 세로는 비율대로 약 18.6)에 놓습니다. 시안의 GitHub 아이콘은 다시 그린 모양이라 이것으로 바꿨습니다.
-- 조건: Invertocat는 자기 GitHub 프로필이나 프로젝트로 잇는 소셜 버튼, GitHub로 잇는 링크에 쓸 수 있습니다. 색은 흰색 · 검정(드물게 회색 · 초록)만 쓰고, 색 · 비율을 바꾸거나 늘이거나 다른 글자 · 도안과 합치지 않습니다. 그림자 · 그라데이션 같은 효과를 넣지 않고, 복잡한 배경이나 대비가 모자란 배경에 두지 않습니다. 우리 서비스 · 계정의 로고나 아이콘으로 쓰지 않습니다.
+- 조건: 지침의 할 것 목록은 다섯 가지입니다. GitHub로 잇는 링크, 자기 GitHub 프로필이나 프로젝트로 잇는 소셜 버튼(Invertocat), 프로젝트가 GitHub와 연동된다는 표시("Show integration"), GitHub에 관한 글, 우리 서비스 이름 · 로고보다 덜 드러나게 두기입니다. 색은 흰색 · 검정(드물게 회색 · 초록)만 쓰고, 색 · 비율을 바꾸거나 늘이거나 다른 글자 · 도안과 합치지 않습니다. 그림자 · 그라데이션 같은 효과를 넣지 않고, 복잡한 배경이나 대비가 모자란 배경에 두지 않습니다. 우리 서비스 · 계정의 로고나 아이콘으로 쓰지 않습니다.
+- GitHub로 잇지 않는 곳: 저장소 수 옆 같은 앱 화면 속 표시는 지침에 직접 나오지 않습니다. 우리는 이것을 GitHub 저장소를 가리키는 쓰임으로 보고, 할 것 목록 가운데 연동 표시에 가깝다고 판단해 씁니다. GitHub가 확인해 준 것은 아닙니다. 지침의 하지 말 것 목록에는 GitHub의 사전 서면 허가 없이 상표 · 로고를 쓰지 말라는 항목("Use without permission")도 있으니, 쓰임이 넓어지면 [GitHub 문의](https://github.com/contact)로 확인합니다.
 
 ### LinkedIn(`linkedin`)
 

@@ -36,7 +36,7 @@
   --destructive-fill: #d93025;
   --amber: #9a5b00; /* 상태 캡션(선발 중)만 */
   --success: #34c759; /* iOS 스위치 켬 */
-  /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
+  /* 토스트 캡슐: 검정 85% + 흰 글자(primary-foreground). 다크는 .dk에서 회색으로 바꾼다 */
   --toast: rgba(0, 0, 0, 0.85);
   --toast-action: #5fd4d2; /* 토스트 위 행동 글자(밝은 청록) */
   --radius: 12px;
@@ -60,6 +60,9 @@
   --secondary-foreground: #2fb3b4;
   --muted: #1a1d1f;
   --switch-off: #39393d; /* 묶음 행 배경(muted)과 구분되게 밝게 */
+  /* 토스트 캡슐: 검정 85%는 다크 바탕과 1.09:1이라 묻혀서 바탕보다 밝은 회색(switch-off와 같은 값, 2026-11-09 사용자 결정 "다크만 밝은 회색 캡슐").
+     흰 글자 11.5:1 · 설명(흰 70%) 6.6:1 · 행동 청록 6.5:1. 더 밝은 #636366은 행동 3.4:1 · 설명 3.9:1이라 쓰지 않는다 */
+  --toast: #39393d;
   --segment-thumb: #636366; /* 분할 전환 바탕(muted)과 구분되게 밝게(iOS 다크 분할 전환과 같은 회색) */
   --muted-foreground: #9aa3a8;
   --border: rgba(255, 255, 255, 0.08);

@@ -1,6 +1,7 @@
 import { Toaster as Sonner, toast, type ToasterProps } from 'sonner';
 
-// shadcn Sonner + Dearby 토스트(시안 ㉖-d2): 아래 가운데 검정 85% 캡슐(두 모드 같음), 흰 13/600 글자, 행동은 밝은 청록 굵은 글자.
+// shadcn Sonner + Dearby 토스트(시안 ㉖-d2): 아래 가운데 검정 85% 캡슐, 흰 13/600 글자, 행동은 밝은 청록 굵은 글자.
+// 시안은 두 모드를 같게 정했지만 다크에서는 캡슐이 바탕에 묻혀 다크만 밝은 회색 캡슐로 한다(2026-11-09 사용자 결정, 값과 대비는 styles.css --toast).
 // sonner 기본 겉모양(styled)은 끄고(unstyled) 토큰(toast · toast-action · primary-foreground)으로 다시 입힌다. 쌓임·밀어 닫기는 sonner 그대로.
 // 캡슐은 글자 폭만큼(최대 330). 600px 이하에서 sonner가 토스트를 꽉 채우는 규칙(폭·right)만 !로 덮어 가운데에 둔다
 function Toaster({ toastOptions, ...props }: ToasterProps) {

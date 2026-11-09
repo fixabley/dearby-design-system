@@ -13,6 +13,7 @@ const meta: Meta = {
       '크기·모양. 글자 줄 h-4 w-48 · 원 size-12 rounded-full · 둥근 사각형 size-16',
     ),
   },
+  parameters: { width: 345 },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -35,7 +36,6 @@ export const Row: Story = {
       ))}
     </div>
   ),
-  parameters: { width: 345 },
 };
 
 /** 프로필 머리: 사진(Avatar lg) + 이름·핸들 줄 */
@@ -49,7 +49,6 @@ export const ProfileHeader: Story = {
       </div>
     </div>
   ),
-  parameters: { width: 345 },
 };
 
 /** 바탕 · 카드 · 채움(muted) 묶음 위에서 모두 보이는지 라이트·다크로 확인한다 */
@@ -72,5 +71,4 @@ export const Surfaces: Story = {
       ))}
     </div>
   ),
-  parameters: { width: 345 },
 };

@@ -7,16 +7,44 @@ import { cn } from '@/lib/utils';
 // 썸네일의 네모 크기는 Thumbnail 아톰이 가진다(여기서는 Root·Image·Fallback만 빌려 간다)
 const avatarVariants = cva('relative flex shrink-0 overflow-hidden', {
   variants: {
-    size: { sm: 'size-9 rounded-full text-[14px]', md: 'size-12 rounded-full text-[18px]', lg: 'size-20 rounded-full text-[30px]', mark: 'size-4 rounded-sm text-[11px]', dot: 'size-[18px] rounded-full text-[10px]' },
+    size: {
+      sm: 'size-9 rounded-full text-[14px]',
+      md: 'size-12 rounded-full text-[18px]',
+      lg: 'size-20 rounded-full text-[30px]',
+      mark: 'size-4 rounded-sm text-[11px]',
+      dot: 'size-[18px] rounded-full text-[10px]',
+    },
   },
   defaultVariants: { size: 'sm' },
 });
 
-function Avatar({ className, size, src, fallback, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants> & { src?: string; fallback: string }) {
+function Avatar({
+  className,
+  size,
+  src,
+  fallback,
+  ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Root> &
+  VariantProps<typeof avatarVariants> & { src?: string; fallback: string }) {
   return (
-    <AvatarPrimitive.Root data-slot="avatar" className={cn(avatarVariants({ size }), className)} {...props}>
-      {src && <AvatarPrimitive.Image src={src} alt="" className="aspect-square size-full object-cover" />}
-      <AvatarPrimitive.Fallback delayMs={src ? 300 : 0} className="flex size-full items-center justify-center bg-accent font-bold text-accent-foreground">{fallback}</AvatarPrimitive.Fallback>
+    <AvatarPrimitive.Root
+      data-slot="avatar"
+      className={cn(avatarVariants({ size }), className)}
+      {...props}
+    >
+      {src && (
+        <AvatarPrimitive.Image
+          src={src}
+          alt=""
+          className="aspect-square size-full object-cover"
+        />
+      )}
+      <AvatarPrimitive.Fallback
+        delayMs={src ? 300 : 0}
+        className="flex size-full items-center justify-center bg-accent font-bold text-accent-foreground"
+      >
+        {fallback}
+      </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
   );
 }

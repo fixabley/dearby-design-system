@@ -7,6 +7,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 시안 아티팩트(홈·상세 리뉴얼, Loopers 참고 적용, 웹 시안)의 화면 요소를 **shadcn/ui** 위에 다시 만든 디자인 시스템입니다. 실제 서비스 코드와는 별개입니다.
 
 **만든 순서**
+
 1. 화면 요소마다 바꿔 쓸 수 있는 shadcn·Radix 컴포넌트를 골랐습니다. 코드는 `components/ui/`(shadcn 기본 위치)에 두고, Storybook에서는 `shadcn` 태그를 달아 층마다 맨 앞 묶음(Atoms › shadcn, Molecules › shadcn)에 넣었습니다.
 2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 토큰 8개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
 3. Radix를 직접 쓰는 곳은 `ui/` 안뿐이고, 나머지 컴포넌트는 모두 shadcn 컴포넌트를 조립합니다.
@@ -17,6 +18,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 `npm run check`가 이 규칙을 검사합니다.
 
 {/* MDX는 GFM 표를 그리지 않아 Markdown 블록으로 그린다 */}
+
 <Markdown>{`
 | 층 | 참조할 수 있는 것 |
 | --- | --- |

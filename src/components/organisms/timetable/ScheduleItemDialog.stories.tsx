@@ -9,16 +9,31 @@ const meta: Meta = {
   id: 'organisms-scheduleitemdialog',
   component: X.ScheduleItemDialog,
   args: {
-    open: false, badgeText: '특강', title: '특강', when: '매주 수요일 15:00 ~ 17:00', tags: [],
+    open: false,
+    badgeText: '특강',
+    title: '특강',
+    when: '매주 수요일 15:00 ~ 17:00',
+    tags: [],
     people: [{ initial: '한', name: '한유진', role: '멘토 · @yujin' }],
-    description: '현업 iOS 개발자에게 앱을 출시하며 겪은 일을 들어요. 질문은 미리 모아 둘게요.\n• **18:00**까지 질문 남기기', onOpenChange: fn(),
+    description:
+      '현업 iOS 개발자에게 앱을 출시하며 겪은 일을 들어요. 질문은 미리 모아 둘게요.\n• **18:00**까지 질문 남기기',
+    onOpenChange: fn(),
   },
   render: function Render({ badgeText, ...args }) {
     const [, update] = useArgs();
     return (
       <>
-        <X.Button variant="mint" onClick={() => update({ open: true })}>상세 열기</X.Button>
-        <X.ScheduleItemDialog {...(args as ComponentProps<typeof X.ScheduleItemDialog>)} badge={badgeText ? <X.Badge>{badgeText}</X.Badge> : undefined} onOpenChange={(o: boolean) => { args.onOpenChange?.(o); update({ open: o }); }} />
+        <X.Button variant="mint" onClick={() => update({ open: true })}>
+          상세 열기
+        </X.Button>
+        <X.ScheduleItemDialog
+          {...(args as ComponentProps<typeof X.ScheduleItemDialog>)}
+          badge={badgeText ? <X.Badge>{badgeText}</X.Badge> : undefined}
+          onOpenChange={(o: boolean) => {
+            args.onOpenChange?.(o);
+            update({ open: o });
+          }}
+        />
       </>
     );
   },
@@ -34,10 +49,22 @@ export const Composed: StoryObj<typeof meta> = {
     const [, update] = useArgs();
     return (
       <>
-        <X.Button variant="mint" onClick={() => update({ open: true })}>상세 열기</X.Button>
-        <X.ScheduleItemDialog {...(args as ComponentProps<typeof X.ScheduleItemDialog>)} badge={badgeText ? <X.Badge>{badgeText}</X.Badge> : undefined} onOpenChange={(o: boolean) => { args.onOpenChange?.(o); update({ open: o }); }}>
+        <X.Button variant="mint" onClick={() => update({ open: true })}>
+          상세 열기
+        </X.Button>
+        <X.ScheduleItemDialog
+          {...(args as ComponentProps<typeof X.ScheduleItemDialog>)}
+          badge={badgeText ? <X.Badge>{badgeText}</X.Badge> : undefined}
+          onOpenChange={(o: boolean) => {
+            args.onOpenChange?.(o);
+            update({ open: o });
+          }}
+        >
           <X.ScheduleItemDialog.Header />
-          <X.ScheduleItemDialog.Body><X.ScheduleItemDialog.Description /><X.ScheduleItemDialog.People /></X.ScheduleItemDialog.Body>
+          <X.ScheduleItemDialog.Body>
+            <X.ScheduleItemDialog.Description />
+            <X.ScheduleItemDialog.People />
+          </X.ScheduleItemDialog.Body>
         </X.ScheduleItemDialog>
       </>
     );

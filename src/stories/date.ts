@@ -15,4 +15,5 @@ export function toDate(s?: string) {
 export const toIso = (d?: Date) => (d ? dayKey(d) : '');
 
 /** 'YYYY-MM-DDTHH:mm' */
-export const toIsoTime = (d?: Date) => (d ? `${dayKey(d)}T${formatTime(d)}` : '');
+export const toIsoTime = (d?: Date) =>
+  d ? `${dayKey(d)}T${formatTime(d)}` : '';

@@ -8,15 +8,33 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 
 const ROOT = new URL('../src/components/', import.meta.url).pathname;
-const LAYERS = ['foundations', 'ui', 'atoms', 'molecules', 'organisms', 'templates'];
-const RANK = { foundations: 0, atoms: 1, molecules: 2, organisms: 3, templates: 4 };
+const LAYERS = [
+  'foundations',
+  'ui',
+  'atoms',
+  'molecules',
+  'organisms',
+  'templates',
+];
+const RANK = {
+  foundations: 0,
+  atoms: 1,
+  molecules: 2,
+  organisms: 3,
+  templates: 4,
+};
 const KIT_RANK = { Atoms: 1, Molecules: 2 };
 const NAME = { 0: '기반', 1: '아톰', 2: '분자', 3: '유기체', 4: '템플릿' };
-const TYPO = /(?<![\w-])(text-(?:title|section|headline|body-lg|body|caption|badge|micro)|text-\[\d+(?:\.\d+)?(?:px|rem)\]|font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)|leading-[\w.[\]-]+|tracking-[\w.[\]-]+)(?![\w-])/g;
+const TYPO =
+  /(?<![\w-])(text-(?:title|section|headline|body-lg|body|caption|badge|micro)|text-\[\d+(?:\.\d+)?(?:px|rem)\]|font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)|leading-[\w.[\]-]+|tracking-[\w.[\]-]+)(?![\w-])/g;
 
-const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
-const files = LAYERS.flatMap((l) => (existsSync(join(ROOT, l)) ? walk(join(ROOT, l)) : []))
-  .filter((f) => f.endsWith('.tsx') && !f.endsWith('.stories.tsx'));
+const walk = (d) =>
+  readdirSync(d, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)],
+  );
+const files = LAYERS.flatMap((l) =>
+  existsSync(join(ROOT, l)) ? walk(join(ROOT, l)) : [],
+).filter((f) => f.endsWith('.tsx') && !f.endsWith('.stories.tsx'));
 const short = (p) => relative(ROOT, p);
 const layerOf = (p) => short(p).split('/')[0];
 const isKit = (p) => layerOf(p) === 'ui';
@@ -26,10 +44,20 @@ const errors = [];
 const kitRank = new Map();
 for (const f of files.filter(isKit)) {
   const story = f.replace(/\.tsx$/, '.stories.tsx');
-  if (!existsSync(story)) { errors.push(`shadcn 층  ${short(f)}  옆 스토리(${short(story)})가 없어 층을 정할 수 없다`); continue; }
+  if (!existsSync(story)) {
+    errors.push(
+      `shadcn 층  ${short(f)}  옆 스토리(${short(story)})가 없어 층을 정할 수 없다`,
+    );
+    continue;
+  }
   const title = /title:\s*'([^']+)'/.exec(readFileSync(story, 'utf8'))?.[1];
   const rank = KIT_RANK[title?.split('/')[0]];
-  if (rank === undefined) { errors.push(`shadcn 층  ${short(f)}  스토리 제목 '${title ?? '없음'}'이 Atoms/… 도 Molecules/… 도 아니다`); continue; }
+  if (rank === undefined) {
+    errors.push(
+      `shadcn 층  ${short(f)}  스토리 제목 '${title ?? '없음'}'이 Atoms/… 도 Molecules/… 도 아니다`,
+    );
+    continue;
+  }
   kitRank.set(f, rank);
 }
 const rankOf = (p) => (isKit(p) ? kitRank.get(p) : RANK[layerOf(p)]);
@@ -37,8 +65,11 @@ const label = (p) => `${NAME[rankOf(p)]}${isKit(p) ? ' · shadcn' : ''}`;
 
 // import 대상: '@/components/…', './x', '../x'. components 밖이면 null
 const target = (from, spec) => {
-  const base = spec.startsWith('@/components/') ? join(ROOT, spec.slice('@/components/'.length))
-    : spec.startsWith('.') ? resolve(dirname(from), spec) : null;
+  const base = spec.startsWith('@/components/')
+    ? join(ROOT, spec.slice('@/components/'.length))
+    : spec.startsWith('.')
+      ? resolve(dirname(from), spec)
+      : null;
   if (!base || !base.startsWith(ROOT)) return null;
   return existsSync(`${base}.tsx`) ? `${base}.tsx` : base; // .tsx가 아니면 경로 앞부분만으로 층을 정한다
 };
@@ -53,16 +84,25 @@ for (const f of files) {
     if (!to) continue;
     const t = rankOf(to);
     if (t === undefined) continue;
-    if (t > me) errors.push(`위 층 참조  ${short(f)} (${label(f)}) → ${short(to)} (${label(to)})`);
+    if (t > me)
+      errors.push(
+        `위 층 참조  ${short(f)} (${label(f)}) → ${short(to)} (${label(to)})`,
+      );
     else if (t < me || isKit(to)) continue;
     else if (me === 3) orgEdges.set(f, [...(orgEdges.get(f) ?? []), to]);
-    else errors.push(`같은 층 참조  ${short(f)} → ${short(to)} (${label(f)} → ${label(to)}, 같은 층은 shadcn 원본만)`);
+    else
+      errors.push(
+        `같은 층 참조  ${short(f)} → ${short(to)} (${label(f)} → ${label(to)}, 같은 층은 shadcn 원본만)`,
+      );
   }
   if (me >= 2 && !isKit(f)) {
     src.split('\n').forEach((line, i) => {
       if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
       const hits = [...line.matchAll(TYPO)].map((x) => x[1]);
-      if (hits.length) errors.push(`글자 스타일  ${short(f)}:${i + 1}  ${[...new Set(hits)].join(' ')}`);
+      if (hits.length)
+        errors.push(
+          `글자 스타일  ${short(f)}:${i + 1}  ${[...new Set(hits)].join(' ')}`,
+        );
     });
   }
 }
@@ -70,7 +110,12 @@ for (const f of files) {
 // 유기체 순환 찾기
 const state = new Map();
 const visit = (n, path) => {
-  if (state.get(n) === 1) { errors.push(`순환 참조  ${[...path.slice(path.indexOf(n)), n].map(short).join(' → ')}`); return; }
+  if (state.get(n) === 1) {
+    errors.push(
+      `순환 참조  ${[...path.slice(path.indexOf(n)), n].map(short).join(' → ')}`,
+    );
+    return;
+  }
   if (state.get(n) === 2) return;
   state.set(n, 1);
   for (const m of orgEdges.get(n) ?? []) visit(m, [...path, n]);
@@ -79,9 +124,18 @@ const visit = (n, path) => {
 for (const n of orgEdges.keys()) visit(n, []);
 
 if (errors.length) {
-  const groups = errors.reduce((a, e) => ((a[e.split('  ')[0]] ??= []).push(e), a), {});
-  for (const [k, list] of Object.entries(groups)) console.log(`\n[${k}] ${list.length}\n` + list.map((e) => '  ' + e.split('  ').slice(1).join('  ')).join('\n'));
+  const groups = errors.reduce(
+    (a, e) => ((a[e.split('  ')[0]] ??= []).push(e), a),
+    {},
+  );
+  for (const [k, list] of Object.entries(groups))
+    console.log(
+      `\n[${k}] ${list.length}\n` +
+        list.map((e) => '  ' + e.split('  ').slice(1).join('  ')).join('\n'),
+    );
   console.log(`\n위반 ${errors.length}건`);
   process.exit(1);
 }
-console.log(`층 규칙 통과: 컴포넌트 ${files.length}개(shadcn 원본 ${kitRank.size}개 포함)`);
+console.log(
+  `층 규칙 통과: 컴포넌트 ${files.length}개(shadcn 원본 ${kitRank.size}개 포함)`,
+);

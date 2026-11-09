@@ -15,7 +15,9 @@ const meta: Meta = {
   component: X.SocialLinks,
   args: { links: LINKS },
   argTypes: {
-    links: content('링크(아이콘 · 주소 · 이름). 웹 주소는 새 탭으로 열고, 이름은 말풍선과 화면 읽기에 쓴다. 비우면 줄을 그리지 않는다'),
+    links: content(
+      '링크(아이콘 · 주소 · 이름). 웹 주소는 새 탭으로 열고, 이름은 말풍선과 화면 읽기에 쓴다. 비우면 줄을 그리지 않는다',
+    ),
     className: { table: { disable: true } },
     children: { table: { disable: true } },
   },

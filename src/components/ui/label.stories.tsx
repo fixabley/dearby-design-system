@@ -12,7 +12,8 @@ const meta: Meta = {
   render: (args) => <X.Label {...args} />,
 };
 export default meta;
-void fn; void useArgs;
+void fn;
+void useArgs;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: StoryObj<typeof meta> = {};

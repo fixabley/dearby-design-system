@@ -9,9 +9,18 @@ const deps = Object.keys({ ...pkg.dependencies, ...pkg.peerDependencies });
 
 export default defineConfig({
   resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } },
-  plugins: [dts({ entryRoot: 'src', include: ['src'], exclude: ['src/**/*.stories.tsx', 'src/stories/**'] })],
+  plugins: [
+    dts({
+      entryRoot: 'src',
+      include: ['src'],
+      exclude: ['src/**/*.stories.tsx', 'src/stories/**'],
+    }),
+  ],
   build: {
-    lib: { entry: { index: 'src/index.ts', data: 'src/data.ts' }, formats: ['es'] },
+    lib: {
+      entry: { index: 'src/index.ts', data: 'src/data.ts' },
+      formats: ['es'],
+    },
     minify: false,
     rollupOptions: {
       external: (id) => deps.some((d) => id === d || id.startsWith(`${d}/`)),
@@ -20,7 +29,10 @@ export default defineConfig({
         preserveModulesRoot: 'src',
         entryFileNames: '[name].js',
         // 컴포넌트는 훅·Radix를 쓰니 Next 서버 컴포넌트에서 부르면 클라이언트 경계가 되게 한다. lib·data·icons는 서버에서도 쓴다
-        banner: (chunk) => (/\/src\/components\/.+\.tsx$/.test(chunk.facadeModuleId ?? '') ? "'use client';" : ''),
+        banner: (chunk) =>
+          /\/src\/components\/.+\.tsx$/.test(chunk.facadeModuleId ?? '')
+            ? "'use client';"
+            : '',
       },
     },
   },

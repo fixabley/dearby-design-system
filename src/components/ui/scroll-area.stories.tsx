@@ -7,19 +7,31 @@ import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
   title: 'Atoms/shadcn/ScrollArea',
-  id: 'ui-shadcn-scrollarea',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  id: 'ui-shadcn-scrollarea', // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.ScrollArea,
   args: { height: 240, width: 480 },
-  argTypes: { height: { control: { type: 'range', min: 120, max: 600, step: 20 } }, width: { control: { type: 'range', min: 320, max: 600, step: 10 } } },
-  render: ({ height, width }) => <X.ScrollArea style={{ height, width }}><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.ScrollArea>,
-
+  argTypes: {
+    height: { control: { type: 'range', min: 120, max: 600, step: 20 } },
+    width: { control: { type: 'range', min: 320, max: 600, step: 10 } },
+  },
+  render: ({ height, width }) => (
+    <X.ScrollArea style={{ height, width }}>
+      <X.RowList>
+        {D.ACTIVITIES.map((a) => (
+          <X.ActivityRow key={a.id} a={a} />
+        ))}
+      </X.RowList>
+    </X.ScrollArea>
+  ),
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
-

@@ -12,13 +12,14 @@ const meta: Meta = {
   args: { pressed: true, onPressedChange: fn() },
 
   render: controlled(X.LiveToggle, 'pressed', 'onPressedChange'),
-
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
-

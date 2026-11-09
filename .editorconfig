@@ -1,6 +1,4 @@
-# 편집기 공통 모양. IntelliJ는 ij_* 속성으로 자동 정렬을 맞춘다.
-# 모양: 2칸 들여쓰기, 작은따옴표(JSX 속성은 큰따옴표), 세미콜론, 여러 줄일 때 끝 쉼표. 웹과 같다.
-# ESLint의 모양 규칙은 따옴표(@stylistic)뿐이고 여기와 같은 쪽이라 부딪히지 않는다.
+# 편집기 공통 모양. 코드 모양(따옴표·세미콜론·끝 쉼표·한 줄 길이)은 Prettier(.prettierrc)가 맡고 웹과 같다.
 root = true
 
 [*]
@@ -17,22 +15,3 @@ trim_trailing_whitespace = false
 # static/은 받아 온 파일(글꼴·라이선스·예시 이미지)이라 받은 그대로 둔다
 [static/**]
 trim_trailing_whitespace = false
-
-[*.{ts,tsx,mts,cts}]
-ij_typescript_use_double_quotes = false
-ij_typescript_force_quote_style = true
-ij_typescript_use_semicolon_after_statement = true
-ij_typescript_force_semicolon_style = true
-ij_typescript_spaces_within_imports = true
-ij_typescript_spaces_within_object_literal_braces = true
-ij_typescript_spaces_within_object_type_braces = true
-ij_typescript_enforce_trailing_comma = whenmultiline
-
-[*.{js,jsx,mjs,cjs}]
-ij_javascript_use_double_quotes = false
-ij_javascript_force_quote_style = true
-ij_javascript_use_semicolon_after_statement = true
-ij_javascript_force_semicolon_style = true
-ij_javascript_spaces_within_imports = true
-ij_javascript_spaces_within_object_literal_braces = true
-ij_javascript_enforce_trailing_comma = whenmultiline

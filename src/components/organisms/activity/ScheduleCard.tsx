@@ -5,16 +5,25 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { Timeline } from '@/components/molecules/shared/Timeline';
 
 type ScheduleCardContextValue = { groups: TimelineGroup[]; note?: string };
-const ScheduleCardContext = createContext<ScheduleCardContextValue | null>(null);
+const ScheduleCardContext = createContext<ScheduleCardContextValue | null>(
+  null,
+);
 
 function useScheduleCard(part: string) {
   const ctx = useContext(ScheduleCardContext);
-  if (!ctx) throw new Error(`ScheduleCard.${part}는 <ScheduleCard> 안에서 쓴다`);
+  if (!ctx)
+    throw new Error(`ScheduleCard.${part}는 <ScheduleCard> 안에서 쓴다`);
   return ctx;
 }
 
 /** 카드 제목 */
-function Title({ className, children }: { className?: string; children?: ReactNode }) {
+function Title({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   return <CardTitle className={className}>{children ?? '일정'}</CardTitle>;
 }
 
@@ -25,16 +34,42 @@ function ScheduleCardTimeline({ className }: { className?: string }) {
 }
 
 /** 아래 안내(있을 때만) */
-function Note({ className, children }: { className?: string; children?: ReactNode }) {
+function Note({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { note } = useScheduleCard('Note');
   const node = children ?? note;
-  return node ? <Text as="p" variant="caption" tone="muted" className={className}>{node}</Text> : null;
+  return node ? (
+    <Text as="p" variant="caption" tone="muted" className={className}>
+      {node}
+    </Text>
+  ) : null;
 }
 
-function ScheduleCardRoot({ groups, note, children }: { groups: TimelineGroup[]; note?: string; children?: ReactNode }) {
+function ScheduleCardRoot({
+  groups,
+  note,
+  children,
+}: {
+  groups: TimelineGroup[];
+  note?: string;
+  children?: ReactNode;
+}) {
   return (
     <ScheduleCardContext.Provider value={{ groups, note }}>
-      <Card>{children ?? <><Title /><ScheduleCardTimeline /><Note /></>}</Card>
+      <Card>
+        {children ?? (
+          <>
+            <Title />
+            <ScheduleCardTimeline />
+            <Note />
+          </>
+        )}
+      </Card>
     </ScheduleCardContext.Provider>
   );
 }
@@ -44,4 +79,8 @@ function ScheduleCardRoot({ groups, note, children }: { groups: TimelineGroup[];
  * 기본 조립은 `<ScheduleCard groups={groups} note={note} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ScheduleCard groups={groups} note={note}><ScheduleCard.Title>선발 일정</ScheduleCard.Title><ScheduleCard.Timeline /></ScheduleCard>`
  */
-export const ScheduleCard = Object.assign(ScheduleCardRoot, { Title, Timeline: ScheduleCardTimeline, Note });
+export const ScheduleCard = Object.assign(ScheduleCardRoot, {
+  Title,
+  Timeline: ScheduleCardTimeline,
+  Note,
+});

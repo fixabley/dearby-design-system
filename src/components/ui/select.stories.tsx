@@ -9,18 +9,53 @@ const meta: Meta = {
   id: 'ui-shadcn-select',
   tags: ['shadcn'],
   component: X.Select,
-  args: { value: '서울', options: ['서울', '대전', '광주', '구미', '부울경'], placeholder: '캠퍼스 고르기', variant: 'default', disabled: false, onValueChange: fn() },
-  argTypes: {
-    value: content('고른 값'), options: content('항목'), placeholder: content('고르기 전 글자'),
-    variant: { control: 'inline-radio', options: ['default', 'inline'], ...look('default 입력 칸 · inline 목록 행 오른쪽 값') },
-    disabled: { table: { category: '상태' } }, onValueChange: event(),
+  args: {
+    value: '서울',
+    options: ['서울', '대전', '광주', '구미', '부울경'],
+    placeholder: '캠퍼스 고르기',
+    variant: 'default',
+    disabled: false,
+    onValueChange: fn(),
   },
-  render: function Render({ options, placeholder, variant, disabled, ...args }) {
+  argTypes: {
+    value: content('고른 값'),
+    options: content('항목'),
+    placeholder: content('고르기 전 글자'),
+    variant: {
+      control: 'inline-radio',
+      options: ['default', 'inline'],
+      ...look('default 입력 칸 · inline 목록 행 오른쪽 값'),
+    },
+    disabled: { table: { category: '상태' } },
+    onValueChange: event(),
+  },
+  render: function Render({
+    options,
+    placeholder,
+    variant,
+    disabled,
+    ...args
+  }) {
     const [, update] = useArgs();
     return (
-      <X.Select value={args.value} disabled={disabled} onValueChange={(v) => { args.onValueChange?.(v); update({ value: v }); }}>
-        <X.SelectTrigger variant={variant} className="group"><X.SelectValue placeholder={placeholder} /></X.SelectTrigger>
-        <X.SelectContent>{(options as string[]).map((o) => <X.SelectItem key={o} value={o}>{o}</X.SelectItem>)}</X.SelectContent>
+      <X.Select
+        value={args.value}
+        disabled={disabled}
+        onValueChange={(v) => {
+          args.onValueChange?.(v);
+          update({ value: v });
+        }}
+      >
+        <X.SelectTrigger variant={variant} className="group">
+          <X.SelectValue placeholder={placeholder} />
+        </X.SelectTrigger>
+        <X.SelectContent>
+          {(options as string[]).map((o) => (
+            <X.SelectItem key={o} value={o}>
+              {o}
+            </X.SelectItem>
+          ))}
+        </X.SelectContent>
       </X.Select>
     );
   },

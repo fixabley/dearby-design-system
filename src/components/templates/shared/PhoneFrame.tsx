@@ -3,22 +3,63 @@ import { Text } from '@/components/atoms/shared/Text';
 import { cn } from '@/lib/utils';
 
 /** 위 제목 줄: 가운데 제목 + 오른쪽 children(글래스 그룹 등) */
-function Header({ title, className, children }: { title?: string; className?: string; children?: ReactNode }) {
+function Header({
+  title,
+  className,
+  children,
+}: {
+  title?: string;
+  className?: string;
+  children?: ReactNode;
+}) {
   return (
-    <div className={cn('absolute inset-x-0 top-14 z-10 flex h-14 items-center justify-center px-4', className)}>
-      <Text as="h1" variant="subtitle">{title}</Text><div className="absolute right-4">{children}</div>
+    <div
+      className={cn(
+        'absolute inset-x-0 top-14 z-10 flex h-14 items-center justify-center px-4',
+        className,
+      )}
+    >
+      <Text as="h1" variant="subtitle">
+        {title}
+      </Text>
+      <div className="absolute right-4">{children}</div>
     </div>
   );
 }
 
 /** 스크롤 내용(위 제목 줄 · 아래 탭 막대 자리만큼 여백) */
-function Body({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn('absolute inset-0 overflow-y-auto px-6 pb-32 pt-[120px]', className)}>{children}</div>;
+function Body({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        'absolute inset-0 overflow-y-auto px-6 pb-32 pt-[120px]',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 /** 아래 떠 있는 탭 막대 자리 */
-function PhoneFrameTabBar({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn('absolute inset-x-4 bottom-7 z-10', className)}>{children}</div>;
+function PhoneFrameTabBar({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className={cn('absolute inset-x-4 bottom-7 z-10', className)}>
+      {children}
+    </div>
+  );
 }
 
 function PhoneFrameRoot({ children }: { children: ReactNode }) {
@@ -34,4 +75,8 @@ function PhoneFrameRoot({ children }: { children: ReactNode }) {
  * 폰 틀(393×852, 컴파운드): Header(위 제목 줄) · Body(스크롤 내용) · TabBar(떠 있는 탭 막대 자리).
  * `<PhoneFrame><PhoneFrame.Header title="홈"><GlassGroup unread={2} /></PhoneFrame.Header><PhoneFrame.Body>…</PhoneFrame.Body><PhoneFrame.TabBar><TabBar active="home" /></PhoneFrame.TabBar></PhoneFrame>`
  */
-export const PhoneFrame = Object.assign(PhoneFrameRoot, { Header, Body, TabBar: PhoneFrameTabBar });
+export const PhoneFrame = Object.assign(PhoneFrameRoot, {
+  Header,
+  Body,
+  TabBar: PhoneFrameTabBar,
+});

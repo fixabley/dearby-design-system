@@ -1,7 +1,11 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 import { cn } from '@/lib/utils';
 
 type SearchBarContextValue = { placeholder: string; onFilter?: () => void };
@@ -16,19 +20,50 @@ function useSearchBar(part: string) {
 /** 검색 캡슐(shadcn InputGroup 글래스) */
 function Input({ className }: { className?: string }) {
   const { placeholder } = useSearchBar('Input');
-  return <InputGroup variant="glass" className={className}><InputGroupAddon><Icon name="search" /></InputGroupAddon><InputGroupInput placeholder={placeholder} aria-label="검색" /></InputGroup>;
+  return (
+    <InputGroup variant="glass" className={className}>
+      <InputGroupAddon>
+        <Icon name="search" />
+      </InputGroupAddon>
+      <InputGroupInput placeholder={placeholder} aria-label="검색" />
+    </InputGroup>
+  );
 }
 
 /** 필터 원형 버튼 */
 function Filter({ className }: { className?: string }) {
   const { onFilter } = useSearchBar('Filter');
-  return <Button variant="glass" size="icon" aria-label="필터" onClick={onFilter} icon="filter" className={cn('text-accent-foreground', className)} />;
+  return (
+    <Button
+      variant="glass"
+      size="icon"
+      aria-label="필터"
+      onClick={onFilter}
+      icon="filter"
+      className={cn('text-accent-foreground', className)}
+    />
+  );
 }
 
-function SearchBarRoot({ placeholder = '프로그램·활동·태그 검색', onFilter, children }: { placeholder?: string; onFilter?: () => void; children?: ReactNode }) {
+function SearchBarRoot({
+  placeholder = '프로그램·활동·태그 검색',
+  onFilter,
+  children,
+}: {
+  placeholder?: string;
+  onFilter?: () => void;
+  children?: ReactNode;
+}) {
   return (
     <SearchBarContext.Provider value={{ placeholder, onFilter }}>
-      <div className="flex items-center gap-2">{children ?? <><Input /><Filter /></>}</div>
+      <div className="flex items-center gap-2">
+        {children ?? (
+          <>
+            <Input />
+            <Filter />
+          </>
+        )}
+      </div>
     </SearchBarContext.Provider>
   );
 }

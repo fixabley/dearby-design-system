@@ -27,42 +27,42 @@ src/
 - import는 `@/components/<층>/<도메인>/<이름>`으로 씁니다. 층마다 `index.ts`가 모두 내보내고 `src/index.ts`가 다시 내보냅니다.
 - 스토리 제목은 `<층>/<도메인>/<이름>`(도메인은 영문 첫 글자 대문자: Shared · Activity · Program …)이고, id는 `<층>-<이름 소문자>`로 적어 둡니다. 도메인을 옮겨도 주소가 그대로입니다. shadcn 원본의 id는 예전 주소대로 `ui-shadcn-<이름>`입니다.
 
-| 경로 | 컴포넌트 |
-| --- | --- |
-| `ui/` · Atoms › shadcn | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Switch · Toggle |
+| 경로                       | 컴포넌트                                                                                                                                                                                           |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Switch · Toggle                                                                                                      |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| `atoms/shared/` | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) |
-| `atoms/activity/` | KindLabel · StatusGlyph |
-| `molecules/shared/` | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker |
-| `molecules/activity/` | ActionTile(ActionTiles) · ProgressTrack · LiveToggle |
-| `molecules/program/` | HostLine |
-| `molecules/review/` | ReviewCard · ReviewSummary |
-| `molecules/submission/` | SubmissionRow |
-| `molecules/timetable/` | TimetableButton · WeekdayPicker |
-| `molecules/notice/` | Notice |
-| `molecules/discord/` | ChannelSelect |
-| `molecules/team/` | TeamColumn |
-| `organisms/shared/` | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList |
-| `organisms/activity/` | ActivityRow · ActivityDetail · DetailHeader · ApplyCard · ScheduleCard, 관리 탭 상수(`constants.ts`) |
-| `organisms/program/` | ProgramDetail · ProgramRow |
-| `organisms/review/` | ReviewSection |
-| `organisms/submission/` | SubmissionList · EvaluationForm |
-| `organisms/timetable/` | ConferenceTimetable · WeeklyTimetable · ScheduleItemDialog · BlockEditor |
-| `organisms/notice/` | NoticeComposer(NoticeForm · NoticePreview) |
-| `organisms/discord/` | ChannelTemplate · ServerPicker |
-| `organisms/team/` | TeamBoard |
-| `organisms/profile/` | ProfileHeader |
-| `templates/shared/` | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame |
+| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar)                                                                                                                      |
+| `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
+| `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker                 |
+| `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
+| `molecules/program/`       | HostLine                                                                                                                                                                                           |
+| `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
+| `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
+| `molecules/timetable/`     | TimetableButton · WeekdayPicker                                                                                                                                                                    |
+| `molecules/notice/`        | Notice                                                                                                                                                                                             |
+| `molecules/discord/`       | ChannelSelect                                                                                                                                                                                      |
+| `molecules/team/`          | TeamColumn                                                                                                                                                                                         |
+| `organisms/shared/`        | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList                                                                                                                          |
+| `organisms/activity/`      | ActivityRow · ActivityDetail · DetailHeader · ApplyCard · ScheduleCard, 관리 탭 상수(`constants.ts`)                                                                                               |
+| `organisms/program/`       | ProgramDetail · ProgramRow                                                                                                                                                                         |
+| `organisms/review/`        | ReviewSection                                                                                                                                                                                      |
+| `organisms/submission/`    | SubmissionList · EvaluationForm                                                                                                                                                                    |
+| `organisms/timetable/`     | ConferenceTimetable · WeeklyTimetable · ScheduleItemDialog · BlockEditor                                                                                                                           |
+| `organisms/notice/`        | NoticeComposer(NoticeForm · NoticePreview)                                                                                                                                                         |
+| `organisms/discord/`       | ChannelTemplate · ServerPicker                                                                                                                                                                     |
+| `organisms/team/`          | TeamBoard                                                                                                                                                                                          |
+| `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
+| `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
 
-| 층 | 순위 | 참조할 수 있는 것 |
-| --- | --- | --- |
-| Foundations | 0 | 토큰(색 · 글자 · 모서리 · 그림자 · 움직임), `Icon` |
-| Atoms | 1 | Foundations, Atoms 층 shadcn 원본 |
-| Molecules | 2 | 그 아래 전부, Molecules 층 shadcn 원본 |
-| Organisms | 3 | 그 아래 전부, 다른 Organism(순환 금지) |
-| Templates | 4 | 그 아래 전부 |
+| 층          | 순위 | 참조할 수 있는 것                                  |
+| ----------- | ---- | -------------------------------------------------- |
+| Foundations | 0    | 토큰(색 · 글자 · 모서리 · 그림자 · 움직임), `Icon` |
+| Atoms       | 1    | Foundations, Atoms 층 shadcn 원본                  |
+| Molecules   | 2    | 그 아래 전부, Molecules 층 shadcn 원본             |
+| Organisms   | 3    | 그 아래 전부, 다른 Organism(순환 금지)             |
+| Templates   | 4    | 그 아래 전부                                       |
 
 - 위 층은 참조하지 않습니다. 같은 층에서는 shadcn 원본만 감싸 쓸 수 있고, 유기체끼리만 서로 품을 수 있습니다(순환 금지).
 - shadcn 원본의 층은 옆 스토리 제목(`Atoms/shadcn/…` 또는 `Molecules/shadcn/…`)으로 정합니다.
@@ -90,18 +90,22 @@ npm run build-storybook  # storybook-static/
 npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepare로도 돈다
 ```
 
-`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
+`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 포맷 확인 · lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
 
-## 린트
+## 린트 · 포맷
 
 ```sh
-npm run lint    # ESLint
-npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡는다
+npm run format        # Prettier로 모양을 고쳐 쓴다
+npm run format:check  # 모양만 확인한다(CI · 커밋 훅)
+npm run lint          # ESLint
+npm run hooks         # 처음 한 번: 커밋할 때 포맷 확인과 lint가 돌게 훅 경로를 잡는다
 ```
 
-- 설정은 `eslint.config.js`입니다: JS·TS 권장 규칙, Storybook, React hooks(웹과 같은 recommended), 따옴표. 모양 규칙은 따옴표뿐이고(문자열은 작은따옴표, 이스케이프를 피할 때만 큰따옴표, JSX 속성은 큰따옴표로 웹과 같음) 나머지 모양은 `.editorconfig`를 따릅니다. `npm run lint -- --fix`로 고칠 수 있습니다.
-- 저장할 때: 편집기의 ESLint 연동을 켭니다. IntelliJ는 Settings › Languages & Frameworks › JavaScript › Code Quality Tools › ESLint에서 자동 구성과 `Run eslint --fix on save`를 켭니다.
-- 커밋할 때: `npm run hooks`가 `git config core.hooksPath .githooks`를 잡으면 커밋마다 `.githooks/pre-commit`이 `npm run lint`를 돌리고, 실패하면 커밋이 막힙니다. git 의존성으로 받아 쓰는 쪽(웹)의 설치에서 돌지 않게 `prepare` · `postinstall`에는 넣지 않았습니다. 이 설정은 저장소의 모든 worktree에 함께 적용됩니다.
+- 모양은 Prettier가 맡습니다(`.prettierrc`): 한 줄 80자, 들여쓰기 2칸, 세미콜론, 작은따옴표(JSX 속성은 큰따옴표), 끝 쉼표 모두. 웹과 같은 설정입니다. 빌드 결과물 · `package-lock.json` · 받아 온 파일(`static/`)은 건드리지 않습니다(`.prettierignore`). 판마다 모양이 달라질 수 있어 Prettier 버전은 고정합니다.
+- ESLint는 코드 문제만 봅니다(`eslint.config.js`): JS·TS 권장 규칙, Storybook, React hooks(웹과 같은 recommended). Prettier와 겹치는 규칙은 `eslint-config-prettier`로 끕니다. `npm run lint -- --fix`로 고칠 수 있는 것은 고칩니다.
+- 저장할 때: 편집기의 Prettier와 ESLint 연동을 켭니다. IntelliJ는 Settings › Languages & Frameworks › JavaScript › Prettier에서 `Automatic Prettier configuration`, `Run on 'Reformat Code' action`, `Run on save`를 켜고, Code Quality Tools › ESLint에서 자동 구성과 `Run eslint --fix on save`를 켭니다.
+- 커밋할 때: `npm run hooks`가 `git config core.hooksPath .githooks`를 잡으면 커밋마다 `.githooks/pre-commit`이 `npm run format:check`와 `npm run lint`를 돌리고, 실패하면 커밋이 막힙니다. git 의존성으로 받아 쓰는 쪽(웹)의 설치에서 돌지 않게 `prepare` · `postinstall`에는 넣지 않았습니다. 이 설정은 저장소의 모든 worktree에 함께 적용됩니다.
+- 모양만 바꾼 커밋은 `.git-blame-ignore-revs`에 적습니다. GitHub의 blame은 이 파일을 스스로 읽고, 로컬에서는 `git config blame.ignoreRevsFile .git-blame-ignore-revs`를 한 번 잡습니다.
 
 ## 패키지로 받아 쓰기
 
@@ -109,7 +113,9 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 
 ```json
 {
-  "dependencies": { "@dearby/design-system": "github:fixabley/dearby-design-system#<커밋>" },
+  "dependencies": {
+    "@dearby/design-system": "github:fixabley/dearby-design-system#<커밋>"
+  },
   "allowScripts": { "github:fixabley/dearby-design-system": true }
 }
 ```
@@ -118,18 +124,18 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 - npm 11.19부터는 git 의존성의 `prepare`도 허용 목록(`allowScripts`)으로 확인합니다. 지금은 경고만 내지만 막히지 않게 위처럼 적어 둡니다. 커밋 없이 적었으니 버전을 올려도 고칠 필요가 없습니다.
 - 버전을 올릴 때는 커밋 해시를 바꾸고 `npm install`로 package-lock.json을 함께 갱신합니다.
 
-| 가져오는 경로 | 내용 |
-| --- | --- |
-| `@dearby/design-system` | 컴포넌트 · 타입 · 아이콘 · `cn` · `renderLite` |
-| `@dearby/design-system/data` | 시안 예시 데이터(`ACTIVITIES` 등) |
+| 가져오는 경로                      | 내용                                                |
+| ---------------------------------- | --------------------------------------------------- |
+| `@dearby/design-system`            | 컴포넌트 · 타입 · 아이콘 · `cn` · `renderLite`      |
+| `@dearby/design-system/data`       | 시안 예시 데이터(`ACTIVITIES` 등)                   |
 | `@dearby/design-system/styles.css` | 토큰(@theme) · Pretendard · 다크(.dk) · 기본 스타일 |
 
 ### 스타일
 
 ```css
 /* 받아 쓰는 쪽의 전역 CSS(예: src/app/globals.css) */
-@import "tailwindcss";
-@import "@dearby/design-system/styles.css";
+@import 'tailwindcss';
+@import '@dearby/design-system/styles.css';
 @source "../../node_modules/@dearby/design-system/dist";
 ```
 
@@ -141,8 +147,8 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 ### 컴포넌트
 
 ```tsx
-import { ActivityRow, RowList } from "@dearby/design-system";
-import { ACTIVITIES } from "@dearby/design-system/data";
+import { ActivityRow, RowList } from '@dearby/design-system';
+import { ACTIVITIES } from '@dearby/design-system/data';
 ```
 
 - 컴포넌트 파일에는 `"use client"`가 붙어 있어 Next 서버 컴포넌트에서도 그릴 수 있습니다. 다만 `WebShell.Sidebar`처럼 점으로 꺼내는 부품은 서버 컴포넌트에서 꺼낼 수 없으니 `"use client"` 파일에서 조립합니다. `cn` · 아이콘 · 예시 데이터는 서버에서도 씁니다.

@@ -1,73 +1,77 @@
 /* Dearby 스타일: 토큰(@theme) · 글꼴 · 다크(.dk) · 기본 스타일. Tailwind는 부르지 않는다.
    받아 쓰는 쪽은 @import "tailwindcss" 다음에 이 파일을 부르고, Storybook은 globals.css가 같은 순서로 부른다 */
-@import "tw-animate-css";
+@import 'tw-animate-css';
 /* 글꼴: 저작권자가 만든 Pretendard 가변 다이나믹 서브셋(바꾸지 않고 복사, README "글꼴"). 화면에 있는 글자가 든 woff2 조각만 받는다.
    이 파일 기준 상대 경로라 받아 쓰는 쪽 번들러가 글꼴 파일을 찾아 내보낸다 */
-@import "../static/fonts/pretendard/pretendardvariable-dynamic-subset.css";
+@import '../static/fonts/pretendard/pretendardvariable-dynamic-subset.css';
 
 /* 다크는 시스템 설정을 따르는 .dk(앱 시안과 같은 이름) */
 @custom-variant dark (&:is(.dk *, .dk));
 
 /* ── Dearby 토큰(시안 11월 3일 체계)을 shadcn 이름에 덮어씌움 ── */
 :root {
-  color-scheme: light;           /* 브라우저 기본 컨트롤·스크롤바 */
-  --background: #FFFFFF;
+  color-scheme: light; /* 브라우저 기본 컨트롤·스크롤바 */
+  --background: #ffffff;
   --foreground: #111113;
-  --card: #FFFFFF;
+  --card: #ffffff;
   --card-foreground: #111113;
-  --popover: #FFFFFF;
+  --popover: #ffffff;
   --popover-foreground: #111113;
-  --primary: #007F80;            /* 청록 채움 면: 두 모드 모두 #007F80 + 흰 글자 */
-  --primary-foreground: #FFFFFF;
-  --accent: #E2F1F0;             /* 민트 */
-  --accent-foreground: #007F80;
-  --secondary: #E2F1F0;
-  --secondary-foreground: #007F80;
-  --muted: #F1F1F4;              /* 채움 */
-  --switch-off: #E5E5EA;         /* 꺼진 스위치 바탕 */
-  --segment-thumb: #FFFFFF;      /* 분할 전환의 고른 면 */
-  --muted-foreground: #86868B;
-  --border: #D8D8DC;
-  --input: #F1F1F4;
-  --ring: #007F80;
-  --destructive: #D93025;        /* 탈락·오류 전용 */
-  --amber: #9A5B00;              /* 상태 캡션(선발 중)만 */
-  --success: #34C759;            /* iOS 스위치 켬 */
-  --toast: rgba(0, 0, 0, .85);   /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
-  --toast-action: #5FD4D2;       /* 토스트 위 행동 글자(밝은 청록) */
+  --primary: #007f80; /* 청록 채움 면: 두 모드 모두 #007F80 + 흰 글자 */
+  --primary-foreground: #ffffff;
+  --accent: #e2f1f0; /* 민트 */
+  --accent-foreground: #007f80;
+  --secondary: #e2f1f0;
+  --secondary-foreground: #007f80;
+  --muted: #f1f1f4; /* 채움 */
+  --switch-off: #e5e5ea; /* 꺼진 스위치 바탕 */
+  --segment-thumb: #ffffff; /* 분할 전환의 고른 면 */
+  --muted-foreground: #86868b;
+  --border: #d8d8dc;
+  --input: #f1f1f4;
+  --ring: #007f80;
+  --destructive: #d93025; /* 탈락·오류 전용 */
+  --amber: #9a5b00; /* 상태 캡션(선발 중)만 */
+  --success: #34c759; /* iOS 스위치 켬 */
+  /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
+  --toast: rgba(0, 0, 0, 0.85);
+  --toast-action: #5fd4d2; /* 토스트 위 행동 글자(밝은 청록) */
   --radius: 12px;
-  --shadow-control: 0 2px 14px rgba(20, 32, 31, .08), 0 0 0 .5px rgba(0, 0, 0, .03);
-  --shadow-primary: 0 4px 16px rgba(0, 127, 128, .25);
-  --ease-spring: cubic-bezier(.3, 1.25, .45, 1);
-  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --shadow-control:
+    0 2px 14px rgba(20, 32, 31, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.03);
+  --shadow-primary: 0 4px 16px rgba(0, 127, 128, 0.25);
+  --ease-spring: cubic-bezier(0.3, 1.25, 0.45, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .dk {
-  color-scheme: dark;            /* 기본 컨트롤·스크롤바도 어둡게 */
-  --background: #0F1112;
-  --foreground: #F2F4F5;
+  color-scheme: dark; /* 기본 컨트롤·스크롤바도 어둡게 */
+  --background: #0f1112;
+  --foreground: #f2f4f5;
   --card: #202427;
-  --card-foreground: #F2F4F5;
+  --card-foreground: #f2f4f5;
   --popover: #202427;
-  --popover-foreground: #F2F4F5;
-  --accent: rgba(47, 179, 180, .16);
-  --accent-foreground: #2FB3B4;
-  --secondary: rgba(47, 179, 180, .16);
-  --secondary-foreground: #2FB3B4;
-  --muted: #1A1D1F;
-  --switch-off: #39393D;         /* 묶음 행 배경(muted)과 구분되게 밝게 */
-  --segment-thumb: #636366;      /* 분할 전환 바탕(muted)과 구분되게 밝게(iOS 다크 분할 전환과 같은 회색) */
-  --muted-foreground: #9AA3A8;
-  --border: rgba(255, 255, 255, .08);
-  --input: #1A1D1F;
-  --ring: #2FB3B4;
-  --destructive: #FF6B5F;
-  --amber: #F0B44C;
-  --shadow-control: 0 0 0 .5px rgba(255, 255, 255, .06);   /* 다크는 그림자 대신 가는 테두리 */
+  --popover-foreground: #f2f4f5;
+  --accent: rgba(47, 179, 180, 0.16);
+  --accent-foreground: #2fb3b4;
+  --secondary: rgba(47, 179, 180, 0.16);
+  --secondary-foreground: #2fb3b4;
+  --muted: #1a1d1f;
+  --switch-off: #39393d; /* 묶음 행 배경(muted)과 구분되게 밝게 */
+  --segment-thumb: #636366; /* 분할 전환 바탕(muted)과 구분되게 밝게(iOS 다크 분할 전환과 같은 회색) */
+  --muted-foreground: #9aa3a8;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #1a1d1f;
+  --ring: #2fb3b4;
+  --destructive: #ff6b5f;
+  --amber: #f0b44c;
+  --shadow-control: 0 0 0 0.5px rgba(255, 255, 255, 0.06); /* 다크는 그림자 대신 가는 테두리 */
   --shadow-primary: none;
 }
 
 @theme inline {
-  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-sans:
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -92,31 +96,81 @@
   --color-success: var(--success);
   --color-toast: var(--toast);
   --color-toast-action: var(--toast-action);
-  --radius-sm: 6px;   /* 작은 마크 */
-  --radius-md: 12px;  /* 썸네일·버튼·메뉴 */
-  --radius-lg: 16px;  /* 섹션 카드 */
-  --radius-xl: 20px;  /* 커버·카드 */
+  --radius-sm: 6px; /* 작은 마크 */
+  --radius-md: 12px; /* 썸네일·버튼·메뉴 */
+  --radius-lg: 16px; /* 섹션 카드 */
+  --radius-xl: 20px; /* 커버·카드 */
   --shadow-control: var(--shadow-control);
   --shadow-primary: var(--shadow-primary);
   /* 글자 계층 열 가지 */
   /* 글자 계층(2026-11-08 확정): 크기·줄 높이·기본 굵기. 이 값을 쓰는 곳은 Text 아톰과 shadcn 키트뿐 */
-  --text-title: 26px;    --text-title--line-height: 1.22;   --text-title--font-weight: 700;     /* 화면 제목 */
-  --text-section: 22px;  --text-section--line-height: 1.25; --text-section--font-weight: 700;   /* 섹션 제목 */
-  --text-headline: 17px; --text-headline--line-height: 1.28; --text-headline--font-weight: 600; /* 소제목·행 제목·고정 CTA */
-  --text-body-lg: 17px;  --text-body-lg--line-height: 1.4;                                      /* 입력·목록 행(플랫폼 기본 폼) */
-  --text-body: 15px;     --text-body--line-height: 1.6;                                         /* 본문(행 안 제목은 600) */
-  --text-caption: 13px;  --text-caption--line-height: 1.4;                                      /* 보조(컨트롤은 600) */
-  --text-badge: 12px;    --text-badge--line-height: 1;      --text-badge--font-weight: 700;     /* 배지 */
-  --text-micro: 11px;    --text-micro--line-height: 1.2;                                        /* 마이크로 */
+  /* 화면 제목 */
+  --text-title: 26px;
+  --text-title--line-height: 1.22;
+  --text-title--font-weight: 700;
+  /* 섹션 제목 */
+  --text-section: 22px;
+  --text-section--line-height: 1.25;
+  --text-section--font-weight: 700;
+  /* 소제목·행 제목·고정 CTA */
+  --text-headline: 17px;
+  --text-headline--line-height: 1.28;
+  --text-headline--font-weight: 600;
+  /* 입력·목록 행(플랫폼 기본 폼) */
+  --text-body-lg: 17px;
+  --text-body-lg--line-height: 1.4;
+  /* 본문(행 안 제목은 600) */
+  --text-body: 15px;
+  --text-body--line-height: 1.6;
+  /* 보조(컨트롤은 600) */
+  --text-caption: 13px;
+  --text-caption--line-height: 1.4;
+  /* 배지 */
+  --text-badge: 12px;
+  --text-badge--line-height: 1;
+  --text-badge--font-weight: 700;
+  /* 마이크로 */
+  --text-micro: 11px;
+  --text-micro--line-height: 1.2;
   --ease-spring: var(--ease-spring);
   --ease-out-soft: var(--ease-out);
 }
 
 @layer base {
-  * { @apply border-border; }
-  body { @apply bg-background text-foreground font-sans; word-break: keep-all; }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    word-break: keep-all;
+  }
 }
 
-@keyframes ds-eq { 0%, 100% { transform: scaleY(.4) } 50% { transform: scaleY(1) } }
-@keyframes ds-pop { 0% { transform: scale(.6) } 60% { transform: scale(1.18) } 100% { transform: scale(1) } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
+@keyframes ds-eq {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes ds-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -7,19 +7,37 @@ import { controlled } from '@/stories/controlled';
 
 const meta: Meta = {
   title: 'Atoms/shadcn/Separator',
-  id: 'ui-shadcn-separator',  // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
+  id: 'ui-shadcn-separator', // 예전 'UI (shadcn)' 링크가 그대로 열리도록 고정
   tags: ['shadcn'],
   component: X.Separator,
   args: { orientation: 'horizontal', className: 'my-3' },
-  argTypes: { orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'] } },
-  render: (args) => <div className={args.orientation === 'vertical' ? 'flex h-10 items-center gap-3' : 'w-[345px]'}><span>위</span><X.Separator {...args} /><span>아래</span></div>,
-
+  argTypes: {
+    orientation: {
+      control: 'inline-radio',
+      options: ['horizontal', 'vertical'],
+    },
+  },
+  render: (args) => (
+    <div
+      className={
+        args.orientation === 'vertical'
+          ? 'flex h-10 items-center gap-3'
+          : 'w-[345px]'
+      }
+    >
+      <span>위</span>
+      <X.Separator {...args} />
+      <span>아래</span>
+    </div>
+  ),
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
-

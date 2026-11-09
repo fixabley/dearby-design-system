@@ -13,28 +13,82 @@ function useNotice(part: string) {
 }
 
 /** 제목 */
-function Title({ className, children }: { className?: string; children?: ReactNode }) {
+function Title({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { title } = useNotice('Title');
-  return <Text as="b" variant="innerTitle" block className={className}>{children ?? title}</Text>;
+  return (
+    <Text as="b" variant="innerTitle" block className={className}>
+      {children ?? title}
+    </Text>
+  );
 }
 
 /** 본문(줄인 마크다운 렌더) */
-function Body({ className, children }: { className?: string; children?: ReactNode }) {
+function Body({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { body } = useNotice('Body');
-  return <Text variant="body" className={cn('mt-1', className)}>{children ?? renderLite(body)}</Text>;
+  return (
+    <Text variant="body" className={cn('mt-1', className)}>
+      {children ?? renderLite(body)}
+    </Text>
+  );
 }
 
 /** 쓴 사람 · 시각 */
-function Byline({ className, children }: { className?: string; children?: ReactNode }) {
+function Byline({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { byline } = useNotice('Byline');
   const node = children ?? byline;
-  return node ? <Text as="small" variant="caption" tone="muted" block className={cn('mt-1.5', className)}>{node}</Text> : null;
+  return node ? (
+    <Text
+      as="small"
+      variant="caption"
+      tone="muted"
+      block
+      className={cn('mt-1.5', className)}
+    >
+      {node}
+    </Text>
+  ) : null;
 }
 
-function NoticeRoot({ title, body, byline, children }: { title: string; body: string; byline?: string; children?: ReactNode }) {
+function NoticeRoot({
+  title,
+  body,
+  byline,
+  children,
+}: {
+  title: string;
+  body: string;
+  byline?: string;
+  children?: ReactNode;
+}) {
   return (
     <NoticeContext.Provider value={{ title, body, byline }}>
-      <div>{children ?? <><Title /><Body /><Byline /></>}</div>
+      <div>
+        {children ?? (
+          <>
+            <Title />
+            <Body />
+            <Byline />
+          </>
+        )}
+      </div>
     </NoticeContext.Provider>
   );
 }

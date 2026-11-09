@@ -9,11 +9,24 @@ const meta: Meta = {
   title: 'Molecules/Discord/ChannelSelect',
   id: 'molecules-channelselect',
   component: X.ChannelSelect,
-  args: { channels: D.CHANNELS, value: '자유 대화', variant: 'inline', onValueChange: fn() },
+  args: {
+    channels: D.CHANNELS,
+    value: '자유 대화',
+    variant: 'inline',
+    onValueChange: fn(),
+  },
   argTypes: {
-    value: { control: 'select', options: D.CHANNELS.filter((c) => c.type !== 'voice').map((c) => c.name), ...content('고른 채널') },
+    value: {
+      control: 'select',
+      options: D.CHANNELS.filter((c) => c.type !== 'voice').map((c) => c.name),
+      ...content('고른 채널'),
+    },
     channels: content('스터디 공간의 채널(음성 채널은 목록에서 빠진다)'),
-    variant: { control: 'inline-radio', options: ['inline', 'default'], ...look('inline 묶음 목록 행 오른쪽 · default 단독 입력 칸') },
+    variant: {
+      control: 'inline-radio',
+      options: ['inline', 'default'],
+      ...look('inline 묶음 목록 행 오른쪽 · default 단독 입력 칸'),
+    },
     onValueChange: event(),
   },
   render: controlled(X.ChannelSelect, 'value', 'onValueChange'),

@@ -2,8 +2,27 @@ import type { ReactNode } from 'react';
 import type { Team } from '@/types';
 import { TeamColumn } from '@/components/molecules/team/TeamColumn';
 
-function TeamBoardRoot({ teams, unassigned, children }: { teams: Team[]; unassigned?: Team; children?: ReactNode }) {
-  return <div className="grid grid-cols-4 items-start gap-4">{children ?? <>{teams.map((t) => <TeamColumn key={t.name} team={t} />)}{unassigned && <TeamColumn team={unassigned} unassigned />}</>}</div>;
+function TeamBoardRoot({
+  teams,
+  unassigned,
+  children,
+}: {
+  teams: Team[];
+  unassigned?: Team;
+  children?: ReactNode;
+}) {
+  return (
+    <div className="grid grid-cols-4 items-start gap-4">
+      {children ?? (
+        <>
+          {teams.map((t) => (
+            <TeamColumn key={t.name} team={t} />
+          ))}
+          {unassigned && <TeamColumn team={unassigned} unassigned />}
+        </>
+      )}
+    </div>
+  );
 }
 
 /**

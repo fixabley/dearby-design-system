@@ -3,14 +3,21 @@ import type { Step } from '@/types';
 import { Text } from '@/components/atoms/shared/Text';
 import { cn } from '@/lib/utils';
 
-const SEG = { past: 'bg-primary', cur: 'bg-background ring-[1.5px] ring-inset ring-primary', up: 'bg-muted' };
+const SEG = {
+  past: 'bg-primary',
+  cur: 'bg-background ring-[1.5px] ring-inset ring-primary',
+  up: 'bg-muted',
+};
 
 type ProgressTrackContextValue = { steps: Step[]; more?: number };
-const ProgressTrackContext = createContext<ProgressTrackContextValue | null>(null);
+const ProgressTrackContext = createContext<ProgressTrackContextValue | null>(
+  null,
+);
 
 function useProgressTrack(part: string) {
   const ctx = useContext(ProgressTrackContext);
-  if (!ctx) throw new Error(`ProgressTrack.${part}는 <ProgressTrack> 안에서 쓴다`);
+  if (!ctx)
+    throw new Error(`ProgressTrack.${part}는 <ProgressTrack> 안에서 쓴다`);
   return ctx;
 }
 
@@ -19,8 +26,26 @@ function Bar({ className }: { className?: string }) {
   const { steps, more } = useProgressTrack('Bar');
   return (
     <div className={cn('flex items-center gap-1', className)}>
-      {steps.map((s, i) => <i key={i} className={cn('h-1.5 flex-1 rounded-[3px] transition-colors duration-300', SEG[s.state])} />)}
-      {more ? <Text as="em" variant="micro" weight="bold" tone="muted" className="not-italic">+{more}</Text> : null}
+      {steps.map((s, i) => (
+        <i
+          key={i}
+          className={cn(
+            'h-1.5 flex-1 rounded-[3px] transition-colors duration-300',
+            SEG[s.state],
+          )}
+        />
+      ))}
+      {more ? (
+        <Text
+          as="em"
+          variant="micro"
+          weight="bold"
+          tone="muted"
+          className="not-italic"
+        >
+          +{more}
+        </Text>
+      ) : null}
     </div>
   );
 }
@@ -30,16 +55,44 @@ function Labels({ className }: { className?: string }) {
   const { steps, more } = useProgressTrack('Labels');
   return (
     <div className={cn('mt-1 flex gap-1', className)}>
-      {steps.map((s, i) => <Text key={i} variant="micro" truncate weight={s.state === 'cur' ? 'bold' : undefined} tone={s.state === 'cur' ? 'default' : 'muted'} className="flex-1">{s.name}</Text>)}
+      {steps.map((s, i) => (
+        <Text
+          key={i}
+          variant="micro"
+          truncate
+          weight={s.state === 'cur' ? 'bold' : undefined}
+          tone={s.state === 'cur' ? 'default' : 'muted'}
+          className="flex-1"
+        >
+          {s.name}
+        </Text>
+      ))}
       {more ? <em className="w-3.5 shrink-0" /> : null}
     </div>
   );
 }
 
-function ProgressTrackRoot({ steps, more, className, children }: { steps: Step[]; more?: number; className?: string; children?: ReactNode }) {
+function ProgressTrackRoot({
+  steps,
+  more,
+  className,
+  children,
+}: {
+  steps: Step[];
+  more?: number;
+  className?: string;
+  children?: ReactNode;
+}) {
   return (
     <ProgressTrackContext.Provider value={{ steps, more }}>
-      <div className={className}>{children ?? <><Bar /><Labels /></>}</div>
+      <div className={className}>
+        {children ?? (
+          <>
+            <Bar />
+            <Labels />
+          </>
+        )}
+      </div>
     </ProgressTrackContext.Provider>
   );
 }

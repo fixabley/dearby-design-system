@@ -1,6 +1,6 @@
 name: Storybook to Pages
 
-# PR: lint · 타입 검사 · 층 검사 · 빌드만. main에 합쳐질 때만 Pages로 배포한다
+# PR: 포맷 확인 · lint · 타입 검사 · 층 검사 · 빌드만. main에 합쳐질 때만 Pages로 배포한다
 on:
   push:
     branches: [main]
@@ -25,6 +25,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run format:check
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run check

@@ -9,11 +9,32 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Tooltip,
   args: { label: '공유', side: 'bottom', open: undefined },
-  argTypes: { side: { control: 'inline-radio', options: ['top', 'right', 'bottom', 'left'] }, open: { control: 'inline-radio', options: [undefined, true, false] } },
-  render: ({ label, side, open }) => <div className="p-10"><X.Tooltip open={open}><X.TooltipTrigger asChild><X.Button variant="glass" size="icon" aria-label={label} icon="share" /></X.TooltipTrigger><X.TooltipContent side={side}>{label}</X.TooltipContent></X.Tooltip></div>,
+  argTypes: {
+    side: {
+      control: 'inline-radio',
+      options: ['top', 'right', 'bottom', 'left'],
+    },
+    open: { control: 'inline-radio', options: [undefined, true, false] },
+  },
+  render: ({ label, side, open }) => (
+    <div className="p-10">
+      <X.Tooltip open={open}>
+        <X.TooltipTrigger asChild>
+          <X.Button
+            variant="glass"
+            size="icon"
+            aria-label={label}
+            icon="share"
+          />
+        </X.TooltipTrigger>
+        <X.TooltipContent side={side}>{label}</X.TooltipContent>
+      </X.Tooltip>
+    </div>
+  ),
 };
 export default meta;
-void fn; void useArgs;
+void fn;
+void useArgs;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: StoryObj<typeof meta> = {};

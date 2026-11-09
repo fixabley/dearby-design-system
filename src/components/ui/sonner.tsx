@@ -19,8 +19,10 @@ function Toaster({ toastOptions, ...props }: ToasterProps) {
           title: 'text-caption font-semibold',
           description: 'text-caption text-primary-foreground/70',
           icon: 'relative flex size-5 shrink-0 items-center justify-center text-toast-action [&_svg]:size-5',
-          actionButton: 'ml-auto shrink-0 rounded-sm text-caption font-bold text-toast-action outline-none focus-visible:ring-2 focus-visible:ring-toast-action',
-          cancelButton: 'shrink-0 rounded-sm text-caption font-semibold text-primary-foreground/70 outline-none focus-visible:ring-2 focus-visible:ring-toast-action',
+          actionButton:
+            'ml-auto shrink-0 rounded-sm text-caption font-bold text-toast-action outline-none focus-visible:ring-2 focus-visible:ring-toast-action',
+          cancelButton:
+            'shrink-0 rounded-sm text-caption font-semibold text-primary-foreground/70 outline-none focus-visible:ring-2 focus-visible:ring-toast-action',
           error: '[&_[data-icon]]:text-destructive',
           ...toastOptions?.classNames,
         },

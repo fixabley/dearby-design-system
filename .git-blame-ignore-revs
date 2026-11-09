@@ -1,0 +1,4 @@
+# git blame에서 건너뛸 커밋(모양만 바꾼 커밋). GitHub는 이 파일을 스스로 읽는다
+# 로컬: git config blame.ignoreRevsFile .git-blame-ignore-revs
+# Prettier 전체 적용(#17)
+06260453a8e40e76e6405973362b413c5d6d2f2c

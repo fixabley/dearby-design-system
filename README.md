@@ -274,6 +274,17 @@ const copy = (value: string) => () =>
 
 - 연락처 줄의 아이콘은 색을 채웁니다: 메일 · 전화는 `icon` 기본 청록, 서비스 로고는 `--logo-color`로 그 회사 지침이 허락하는 브랜드색([서비스 로고](#서비스-로고)). Instagram 로고(`instagram`)는 브랜드색 지침을 받지 못해 기본 흑백으로 둡니다.
 - 디스코드 연락처는 사용자가 공개로 켠 경우에만 다른 사람에게 보입니다. 디스코드 개발자 약관 5(b)가 디스코드에서 받은 사용자 이름 · id 같은 API Data를 사용자가 명시적으로 공유하라고 할 때만("when a user of your Application expressly directs you to share") 제3자에게 보이게 하기 때문입니다.
+- 시트 머리(`SheetHeader`)는 왼쪽 제목과 닫기입니다. 닫기는 머리가 놓인 곳에 따라 다르게 그립니다(2026-11-10 사용자 결정 "닫기 버튼 필요없고 바텀시트 기본동작처럼 다른 곳 누르면 닫기", "넓은화면에는 x 아이콘 표시해줘"). 시안의 시트 머리는 어디서나 오른쪽이 `닫기` 글자(핸들 바꾸기 · 건넬 명함 시트의 `.hsh`, 시간표 시트의 `.tsheet .close`)라 이 점이 시안과 다릅니다.
+  - 좁은 화면의 바텀시트(`SheetContent`): 보이는 닫기가 없고 바깥을 누르거나 Esc로 닫습니다.
+  - 넓은 화면의 떠 있는 카드(`SheetContent floating`)와 대화상자(`DialogContent showClose={false}` 안): 머리 오른쪽에 X 버튼이 보입니다(`close` 아이콘, 아이콘 버튼 `Button variant="plain" size="icon-sm"`과 같은 모양). 화면 폭이 아니라 머리가 무엇 안에 놓였는지로 정하므로 쓰는 쪽이 따로 넘길 것은 없습니다. 대화상자에는 `showClose={false}`를 줘야 유리 닫기와 겹치지 않습니다.
+  - 두 닫기 가운데 하나만 그립니다(다른 하나는 `display: none`). 그래서 화면 읽기와 Tab 순서에는 닫기가 하나만 잡힙니다. 머리 높이(40)와 제목 자리는 어느 쪽이든 같고, X 아이콘의 오른쪽 끝이 내용 끝에 맞습니다.
+  - 바텀시트의 닫기 버튼은 지우지 않고 숨겼습니다. 화면 읽기에는 늘 `닫기` 버튼으로 있고, 초점이 있으면서 브라우저가 초점 표시를 켤 때(`:focus-visible`)만 머리 오른쪽에 시안의 닫기 모양으로 나타납니다. 열릴 때 첫 초점은 닫기에 갑니다(Radix는 첫 번째 누를 수 있는 요소에 초점을 줍니다. WAI-ARIA 대화상자 패턴: "Generally, focus is initially set on the first focusable element"). 버튼을 마우스 · 터치로 눌러 열면 초점이 닫기에 있어도 보이지 않고, 키보드로 열거나 Tab으로 닫기에 가면 보입니다.
+  - `:focus-visible`은 브라우저가 정하는 어림 규칙이라 키보드로 열지 않아도 닫기가 보이는 때가 있습니다: 누르지 않아도 화면이 뜨면서 스스로 열리는 시트(주소로 바로 들어온 로그인 시트 등), 마우스로 연 뒤 아무 키(Shift 포함)나 누른 때(둘 다 Chrome에서 확인). 브라우저마다 다를 수 있고 Safari · Firefox는 확인하지 못했습니다.
+  - 바텀시트를 마우스 · 터치로 연 직후에는 초점이 보이지 않는 닫기에 있습니다. 이때 Enter · Space를 누르면 시트가 닫힙니다(보이는 닫기가 있던 때와 같은 동작). 첫 초점을 시트 자체에 두면 이 상태가 없어지지만(`onOpenAutoFocus`) 모든 시트의 화면 읽기 낭독이 바뀌어 실기기 확인 뒤에 정할 일로 남깁니다.
+  - 근거: Radix Dialog는 Esc로 닫고("Esc closes the component automatically") 바깥 누르기로도 닫습니다(Content의 `onPointerDownOutside`를 막지 않는 한). WAI-ARIA 대화상자 패턴도 Esc로 닫는다고 하고("Escape: Closes the dialog"), 바깥을 건드리면 닫는 구현을 언급합니다("in some implementations, attempts to interact with the inert content cause the dialog to close"). 다만 모달일 때 Radix가 바깥 내용을 접근성 트리에서 가리므로(`aria-hidden`) 터치로 화면 읽기를 쓰는 사람에게는 바깥도 Esc 키도 없어, 대화상자 안의 닫기 버튼이 확실한 길입니다. VoiceOver · TalkBack의 닫기 제스처가 이 시트를 닫는지는 실기기로 확인하지 못했습니다. Android의 뒤로 가기는 키 이벤트 없이 close watcher만 부르는데(HTML 표준: "no event is involved") Radix Dialog에는 close watcher가 없어 닫히지 않을 가능성이 높습니다.
+  - 절충한 점: 같은 패턴은 탭 순서에 보이는 닫기 버튼을 강하게 권합니다("It is strongly recommended that the tab sequence of all dialogs include a visible element with role button that closes the dialog"). 바텀시트의 닫기 버튼은 탭 순서에 있지만 브라우저가 초점 표시를 켤 때만 보이고 마우스 · 터치로 연 직후에는 초점이 있어도 보이지 않으므로, 이 권고를 따른 것이 아닙니다.
+  - 바텀시트의 최대 높이는 `85dvh`입니다. 보이는 닫기가 없으니 터치에서는 바깥 누르기가 유일한 길인데, `vh`는 휴대폰에서 주소창이 접힌 큰 화면 기준이라(MDN: "`vh` is equivalent to `lvh`") 키 큰 시트 위에 남는 바깥이 거의 없어질 수 있습니다. `dvh`는 지금 보이는 화면 기준이라("fit exactly within the viewport, irrespective of the presence of dynamic browser interfaces") 위 15%가 늘 남습니다. 실기기로는 확인하지 못했습니다.
+- `Button`은 `type` 기본값을 두지 않습니다(기본값을 `button`으로 바꾸면 `type` 없이 제출에 쓰던 버튼이 깨집니다). `<form>` 안에서 제출이 아닌 버튼(지우기 등)에는 `type="button"`을 줍니다.
 
 ## 글꼴
 

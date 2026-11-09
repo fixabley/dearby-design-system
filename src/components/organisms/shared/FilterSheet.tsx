@@ -33,7 +33,7 @@ function useFilterSheet(part: string) {
   return ctx;
 }
 
-/** 머리: 제목 + 닫기 */
+/** 머리: 제목 + 닫기(SheetHeader가 놓인 곳에 맞게 그린다) */
 function Header({
   className,
   children,

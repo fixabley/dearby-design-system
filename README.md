@@ -154,8 +154,21 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 컴포넌트 파일에는 `"use client"`가 붙어 있어 Next 서버 컴포넌트에서도 그릴 수 있습니다. 다만 `WebShell.Sidebar`처럼 점으로 꺼내는 부품은 서버 컴포넌트에서 꺼낼 수 없으니 `"use client"` 파일에서 조립합니다. `cn` · 아이콘 · 예시 데이터는 서버에서도 씁니다.
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
-- 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 스켈레톤은 화면 읽기에서 숨으므로 불러오는 중이라는 표시는 감싸는 영역에 `aria-busy="true"`를 달고, 다 불러오면 뗍니다. 깜빡임은 동작 줄이기 설정이면 꺼집니다.
+- 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 깜빡임은 동작 줄이기 설정이면 꺼집니다.
 - 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
+- 스켈레톤은 화면 읽기에서 숨습니다. 화면 읽기 사용자에게는 불러오는 영역(목록 · 화면)마다 하나씩 알립니다: 그 영역에 `aria-busy="true"`를 달고, 바로 옆(aria-busy 영역 밖)에 화면에 안 보이는 `role="status"` 글자 "불러오는 중"을 둡니다. 다 불러오면 둘 다 뗍니다. 항목 스켈레톤마다 두면 여러 번 읽히니 영역에 하나만 둡니다. status를 busy 영역 안에 두면 읽기 프로그램이 바뀌는 중인 영역의 알림을 미룰 수 있어 밖에 둡니다. 따로 부품은 두지 않습니다(Tailwind `sr-only` 글자 하나).
+
+```tsx
+<span role="status" className="sr-only">
+  불러오는 중
+</span>
+<div aria-busy="true">
+  <RowList>
+    <ActivityRowSkeleton />
+    <ActivityRowSkeleton />
+  </RowList>
+</div>
+```
 
 ## 글꼴
 

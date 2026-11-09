@@ -21,33 +21,46 @@ type Story = StoryObj<typeof meta>;
 /** Controls 패널에서 className으로 크기·모양을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
-/** 목록 행: 썸네일(Thumbnail md) + 제목·보조 두 줄. 감싸는 목록에 aria-busy를 단다 */
+/**
+ * 목록 행: 썸네일(Thumbnail md) + 제목·보조 두 줄.
+ * 목록 하나에 aria-busy, 그 바로 옆(busy 밖)에 화면에 안 보이는 role="status" 글자 하나로 "불러오는 중"을 알린다
+ */
 export const Row: Story = {
   render: () => (
-    <div aria-busy="true" className="flex flex-col gap-4">
-      {[0, 1, 2].map((i) => (
-        <div key={i} className="flex items-center gap-3">
-          <X.Skeleton className="size-16" />
-          <div className="flex flex-1 flex-col gap-2">
-            <X.Skeleton className="h-[17px] w-3/4" />
-            <X.Skeleton className="h-[13px] w-1/2" />
+    <>
+      <span role="status" className="sr-only">
+        불러오는 중
+      </span>
+      <div aria-busy="true" className="flex flex-col gap-4">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="flex items-center gap-3">
+            <X.Skeleton className="size-16" />
+            <div className="flex flex-1 flex-col gap-2">
+              <X.Skeleton className="h-[17px] w-3/4" />
+              <X.Skeleton className="h-[13px] w-1/2" />
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   ),
 };
 
-/** 프로필 머리: 사진(Avatar lg) + 이름·핸들 줄 */
+/** 프로필 머리: 사진(Avatar lg) + 이름·핸들 줄. 알림은 Row와 같다 */
 export const ProfileHeader: Story = {
   render: () => (
-    <div aria-busy="true" className="flex items-center gap-4">
-      <X.Skeleton className="size-20 rounded-full" />
-      <div className="flex flex-col gap-2.5">
-        <X.Skeleton className="h-[26px] w-32" />
-        <X.Skeleton className="h-[13px] w-20" />
+    <>
+      <span role="status" className="sr-only">
+        불러오는 중
+      </span>
+      <div aria-busy="true" className="flex items-center gap-4">
+        <X.Skeleton className="size-20 rounded-full" />
+        <div className="flex flex-col gap-2.5">
+          <X.Skeleton className="h-[26px] w-32" />
+          <X.Skeleton className="h-[13px] w-20" />
+        </div>
       </div>
-    </div>
+    </>
   ),
 };
 

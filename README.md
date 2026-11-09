@@ -228,7 +228,7 @@ const copy = (value: string) => () =>
   />
   {/* 전화는 icon="phone", 액션 <a href="tel:01012345678" aria-label="전화 걸기" /> */}
   <ListRow
-    icon="link"
+    icon="instagram"
     title={
       <>
         <span className="sr-only">Instagram </span>@seoyeon
@@ -272,7 +272,7 @@ const copy = (value: string) => () =>
 </ListGroup>
 ```
 
-- 연락처 줄의 아이콘은 색을 채웁니다: 메일 · 전화는 `icon` 기본 청록, 서비스 로고는 `--logo-color`로 그 회사 지침이 허락하는 브랜드색([서비스 로고](#서비스-로고)). Instagram 로고는 넣지 않아 일반 링크 아이콘(`link`)을 씁니다.
+- 연락처 줄의 아이콘은 색을 채웁니다: 메일 · 전화는 `icon` 기본 청록, 서비스 로고는 `--logo-color`로 그 회사 지침이 허락하는 브랜드색([서비스 로고](#서비스-로고)). Instagram 로고(`instagram`)는 브랜드색 지침을 받지 못해 기본 흑백으로 둡니다.
 - 디스코드 연락처는 사용자가 공개로 켠 경우에만 다른 사람에게 보입니다. 디스코드 개발자 약관 5(b)가 디스코드에서 받은 사용자 이름 · id 같은 API Data를 사용자가 명시적으로 공유하라고 할 때만("when a user of your Application expressly directs you to share") 제3자에게 보이게 하기 때문입니다.
 
 ## 글꼴
@@ -301,10 +301,10 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 ## 서비스 로고
 
-아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료에서 가져옵니다. 출처가 불분명한 아이콘 모음에서 베끼지 않습니다. 아래는 모두 2026-11-09에 받았습니다.
+아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료를 우선합니다(2026-11-09 · 11-10에 받음). 공식 자료를 받을 수 없는 Instagram · Threads · Facebook · TikTok 넷은 사용자 결정(2026-11-10 "무료 SVG 쓰자")으로 출처가 분명한 무료 모음 simple-icons에서 판을 고정해 경로를 그대로 가져옵니다([무료 모음에서 가져온 로고](#무료-모음에서-가져온-로고)). 상표권은 각 회사에 있고 모음의 라이선스는 그림에만 해당하므로, 회사가 요청하면 그 로고를 내립니다. 출처가 불분명한 아이콘 모음에서 베끼지 않고, 우리가 다시 그리지 않습니다.
 
 - 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다.
-- 색은 글자색을 따르지 않습니다. 기본은 라이트 검정(`#000`) · 다크 흰색(`#fff`)이고(다섯 회사 모두 단색은 검정 · 흰색만 허용), 쓰는 쪽이 CSS 변수 `--logo-color`로 그 회사 지침이 허락하는 다른 색을 고릅니다(안쪽 `<svg>`의 `fill-[var(--logo-color,#000)] dark:fill-[var(--logo-color,#fff)]`). 변수는 `Icon`이나 그 위 요소 어디에 줘도 이어집니다.
+- 색은 글자색을 따르지 않습니다. 기본은 라이트 검정(`#000`) · 다크 흰색(`#fff`)이고(공식 자료를 받은 다섯 회사 모두 단색은 검정 · 흰색만 허용), 쓰는 쪽이 CSS 변수 `--logo-color`로 그 회사 지침이 허락하는 다른 색을 고릅니다(안쪽 `<svg>`의 `fill-[var(--logo-color,#000)] dark:fill-[var(--logo-color,#fff)]`). 변수는 `Icon`이나 그 위 요소 어디에 줘도 이어집니다.
   - SNS 버튼(`SocialLinks`)과 저장소 표시 · 관리 화면 줄은 기본 흑백 그대로 둡니다(사용자 결정).
   - 프로필 연락처 줄은 지침이 허락하는 브랜드색으로 채웁니다(2026-11-09 사용자 결정 "나머지도 브랜드색 채워줘"). 디스코드는 블러플 `[--logo-color:#5865F2]`.
   - 브랜드색 바탕 버튼 위는 흰색 `[--logo-color:#fff]`(예: 디스코드로 로그인 버튼의 블러플 바탕 위 흰 로고), 글자색을 따르게 하려면 `[--logo-color:currentColor]`.
@@ -345,18 +345,27 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - 조건: 툴킷의 [Brand Quick Guide For External Partners](https://about.x.com/content/dam/about-twitter/x/brand-toolkit/x-brand-guidelines.pdf)(2023-08 v1.0)를 따릅니다. 로고는 검정 · 흰색만 씁니다("The X logo is black or white", 흰 바탕에 검정 · 검정 바탕에 흰색, `#000` · `#fff`). 로고 둘레에 로고 폭만큼 빈 공간을 둡니다("The empty space around the logo should be at minimum equal width left, right, top, bottom"). `SocialLinks` 원(40)에 22로 그리면 로고는 약 12.8이고 둘레 여백이 13.6이라 이를 채웁니다. 이름은 Twitter가 아니라 X로 씁니다(지침의 용어표). 화면 읽기 이름은 "X"입니다.
 - 쓰임: 지침은 파트너가 로고를 "청중이 찾아올 곳을 안내하는 데"("to help signpost where your audience can find you") 쓴다고 하고, 계정이 X에 있음을 보이는 사용자 이름 짝(lockup)을 둡니다. 자기 X 계정으로 잇는 소셜 링크 버튼은 이 쓰임에 맞는다고 보고 씁니다. 우리 해석이며 X가 확인해 준 것은 아닙니다. 지침은 X가 명시적으로 허락한 목적으로만 쓸 수 있고("You may use the X brands solely for the purposes expressly authorized by X"), 툴킷 페이지는 자료를 쓰면 상표 지침 · 이용 약관을 따르기로 한 것으로 본다고 합니다. 쓰임이 넓어지면 trademarks@x.com에 묻습니다.
 
+### 무료 모음에서 가져온 로고
+
+`instagram` · `threads` · `facebook` · `tiktok`(2026-11-10, 사용자 결정 "무료 SVG 쓰자").
+
+- 원천: [simple-icons](https://github.com/simple-icons/simple-icons) 16.37.0 npm 묶음(`https://registry.npmjs.org/simple-icons/-/simple-icons-16.37.0.tgz`, 로그인 · 동의 없이 받는 공개 저장소)의 `icons/<이름>.svg`(viewBox `0 0 24 24`). 패키지를 의존성으로 들이지 않고 경로만 옮겼습니다. 경로와 viewBox는 그대로이고 `role` · `title`만 뺐습니다. 판을 올리면 이 절의 판과 경로를 함께 바꿉니다.
+- 라이선스: simple-icons는 CC0-1.0입니다. 다만 그 면책 문서는 프로젝트가 CC0여도 모든 아이콘이 CC0인 것은 아니라고 하고(개별 라이선스는 데이터에 있을 때만), 이 넷에는 개별 라이선스 항목이 없습니다. 또 브랜드가 문제 삼는 일에 책임지지 않으니 쓰는 쪽이 권한을 구하라고 합니다("We ask that our users seek the correct permissions"). 상표권은 각 회사에 있습니다.
+- 크기: 24 격자 안에서 다른 로고와 눈으로 맞춥니다. Instagram은 둥근 사각형이라 LinkedIn과 같은 18(x · y 3), Threads · Facebook · TikTok은 GitHub · Pinterest와 같은 높이 19(x · y 2.5).
+- 쓰임 · 색: SNS 버튼(`SocialLinks`)에서 기본 흑백으로 씁니다. 화면 읽기 이름(`label`)은 Instagram · Threads · Facebook · TikTok입니다. 연락처 줄의 브랜드색은 지침을 받지 못해 정하지 않았습니다(기본 흑백).
+- 공식 자료를 받을 수 없던 이유와 어긋날 수 있는 점(사용자가 이 위험을 듣고 정함):
+  - Instagram · Threads · Facebook: Meta 브랜드 리소스가 로고 묶음을 "적용되는 가이드라인 및 기타 사용 약관을 읽었으며 이에 동의합니다" 문구 아래 다운로드로만 줍니다. Instagram 글리프 세부 페이지는 열리지 않았고 Threads는 "More detailed guidelines are coming soon"이라 색 · 소셜 링크 조건을 확인하지 못했습니다. Facebook 로고 지침은 파랑에 흰 "f"(기본)나 흰색(보조)만 쓰고 색을 바꾸지 말라고 해("DON'T change the color of the logo") 검정 로고와 맞지 않습니다. Instagram 이름 조항("use any of our logos to replace it")은 글 속 낱말을 로고로 바꾸지 말라는 뜻입니다.
+  - TikTok: [Brand Hub 법적 고지](https://www.tiktokbrandhub.com/legal)와 [개발자 디자인 지침](https://developers.tiktok.com/docs/en/getting-started-design-guidelines)이 로고 · 아이콘을 사전 서면 허가 없이 쓰지 말라고 합니다("You may not use the TikTok logos, icons, symbols, or designs without prior written permission"). 낱말 TikTok은 허락 없이 플랫폼을 가리키는 데 쓸 수 있습니다.
+- 내리기: 회사가 요청하면 그 로고를 `icons.ts`에서 지우고 웹은 일반 링크 아이콘(`link`)으로 돌립니다. 공식 자료를 받을 수 있게 되면(사용자가 Meta 묶음을 받아 오는 등) 그 자료로 바꿉니다.
+
 ### 넣지 않은 로고
 
-허락 없이는 조건을 맞출 수 없어 넣지 않았습니다. 이 서비스들은 일반 링크 아이콘(`link`)으로 씁니다. 다른 곳에서 구한 로고로 대신하지 않습니다.
+허락 없이는 조건을 맞출 수 없어 넣지 않았습니다. 이 서비스들은 일반 링크 아이콘(`link`)으로 씁니다. 무료 모음을 쓰기로 한 사용자 결정은 위 네 회사만이라, 여기는 다른 곳에서 구한 로고로 대신하지 않습니다.
 
 - Notion: [상표 사용 지침](https://notion.notion.site/Notion-Trademark-Usage-Guidelines-9826313c686a4f6e9d8a48347162714b)은 브랜드 지침이나 서면 합의로 승인된 표장만 쓰게 하고, [브랜드 사용 지침](https://notion.notion.site/Notion-s-brand-usage-guidelines-How-to-use-Notion-s-brand-in-your-marketing-689045e1761348f887a3c5c80295e00f)은 단독 Notion 로고를 쓰지 말라고 합니다. 쓸 때 붙이는 표기도 허락을 받았다는 문구("used here with permission")입니다. 허락은 team@makenotion.com에 묻습니다.
-- Instagram: [Meta 브랜드 리소스의 Instagram 페이지](https://about.meta.com/brand/resources/instagram/instagram-brand/)는 로고 묶음(`IG_brand_asset_pack_2023.zip`)을 "적용되는 가이드라인 및 기타 사용 약관을 읽었으며 이에 동의합니다" 문구 아래의 다운로드로만 줍니다. 동의를 거쳐야 받는 자료라 받지 않았습니다. 글리프 쓰임의 세부로 안내하는 Brand Elements(아이콘) 페이지는 2026-11-09에 "이 페이지를 이용할 수 없습니다"로 열리지 않아 색 · 쓰임 조건도 확인하지 못했습니다. 같은 페이지의 이름 조항("Don't modify, abbreviate or translate the word Instagram … or use any of our logos to replace it")은 "Keep the word Instagram consistent" 절에 있어, 글 속 낱말 Instagram을 로고로 바꾸지 말라는 뜻으로 읽힙니다. 이름 글자 없이 사용자 이름 옆에 글리프만 두는 쓰임은 이 페이지가 따로 말하지 않습니다. 동의는 사람이 직접 해야 하니, 묶음을 받아 오면 그 안의 글리프와 지침으로 다시 판단합니다.
-- Threads: [Meta 브랜드 리소스의 Threads 페이지](https://www.meta.com/brand/resources/threads/)도 로고 묶음(`Threads-Brand-Resource-Center.zip`)을 Instagram과 같은 동의 문구 아래 다운로드로만 주고, 바로 열리는 SVG는 없습니다. 페이지에 적힌 조건은 여백(아이콘 폭의 1/4)과 아이콘 + Threads 글자 짝(lock up) 규칙, 방송 · 옥외 광고 · A4보다 큰 인쇄물의 허가 요청뿐이고, 색이나 소셜 링크 쓰임은 "More detailed guidelines are coming soon"이라 아직 없습니다. Instagram과 함께 묶음을 받아 오면 다시 판단합니다.
-- TikTok: [TikTok Brand Hub 법적 고지](https://www.tiktokbrandhub.com/legal)와 [개발자 디자인 지침](https://developers.tiktok.com/docs/en/getting-started-design-guidelines)이 로고 · 아이콘은 사전 서면 허가 없이 쓰지 말라고 합니다("You may not use the TikTok logos, icons, symbols, or designs without prior written permission"). 로고 묶음은 바로 받을 수 있지만 쓸 수 없어 받지 않았습니다. 낱말 TikTok은 플랫폼을 가리키는 데 허락 없이 쓸 수 있어("follow us on TikTok"), 링크 이름에는 TikTok을 씁니다.
-- Facebook: [Meta 브랜드 리소스의 Facebook 로고 페이지](https://www.meta.com/brand/resources/facebook/logo/)도 로고 묶음(`Facebook-Brand-Asset-Pack.zip`)을 Instagram · Threads와 같은 동의 문구 아래 다운로드로만 줍니다. 또 로고는 Facebook 파랑에 흰 "f"(기본)나 흰색(보조)으로만 쓰고 색을 바꾸지 말라고 해("DON'T change the color of the logo"), 흑백으로 그리는 SNS 버튼의 검정 로고와도 맞지 않습니다.
 - Behance: Behance는 Adobe 제품이고, [Adobe 상표 지침](https://www.adobe.com/legal/permissions/trademarks.html)은 라이선스 없이는 Adobe 제품 로고를 쓸 수 없고 소프트웨어 제품 · 서비스 안에 넣으려면 서면 허가가 필요하다고 합니다. Behance가 따로 공개한 로고 자료도 찾지 못했습니다. 허락은 같은 페이지의 요청 양식으로 묻습니다.
 
-GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
+GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Instagram · Threads · Facebook과 그 로고는 Meta의, TikTok과 그 로고는 TikTok의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
 
 ## 원칙
 

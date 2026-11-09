@@ -11,7 +11,7 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Separator,
   args: { orientation: 'horizontal', className: 'my-3' },
-  argTypes: { orientation: { control: "inline-radio", options: ["horizontal", "vertical"] } },
+  argTypes: { orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'] } },
   render: (args: Record<string, any>) => <div className={args.orientation === 'vertical' ? 'flex h-10 items-center gap-3' : 'w-[345px]'}><span>위</span><X.Separator {...args} /><span>아래</span></div>,
   
 };

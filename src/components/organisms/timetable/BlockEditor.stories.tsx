@@ -11,7 +11,7 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.BlockEditor,
   args: { name: '특강', kind: 'class', days: ['수'], from: '15:00', to: '17:00', leaders: [{ initial: '한', name: '한유진', role: '멘토 · @yujin' }], desc: '오전 강의 내용으로 화면 하나를 직접 만들어요.' },
-  argTypes: { kind: { control: "inline-radio", options: ["class", "rest"] } },
+  argTypes: { kind: { control: 'inline-radio', options: ['class', 'rest'] } },
   render: (args: Record<string, any>) => <X.BlockEditor key={JSON.stringify(args)} {...(args as any)} />,
   parameters: { width: 300 },
 };

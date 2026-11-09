@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'molecules-reviewcard',
   component: X.ReviewCard,
   args: { initial: '박', name: '박서준', meta: '7기 · 2026년 9월', rating: 'recommend', verified: true, body: '매주 코드 리뷰를 주고받으면서 PR 쓰는 법이 많이 늘었어요. 기수 안에서 사이드 프로젝트 팀이 꾸려져서 끝나고도 같이 만들고 있어요.' },
-  argTypes: { rating: { control: "inline-radio", options: ["recommend", "neutral", "disappointed"] } },
+  argTypes: { rating: { control: 'inline-radio', options: ['recommend', 'neutral', 'disappointed'] } },
   
   parameters: { width: 393 },
 };

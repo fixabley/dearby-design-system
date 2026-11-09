@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'atoms-pane',
   component: X.FloatingBar,
   args: { screenTitle: '발견', height: 600, align: 'center' },
-  argTypes: { align: { control: "inline-radio", options: ["center", "left-pane"] } },
+  argTypes: { align: { control: 'inline-radio', options: ['center', 'left-pane'] } },
   render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.TwoColumnList><Ph t="목록" h={900} /></X.TwoColumnList><X.FloatingBar align={args.align}><X.SearchBar /></X.FloatingBar></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };

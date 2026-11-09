@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'templates-webshell',
   component: X.WebShell,
   args: { height: 480, active: 'home', title: '홈' },
-  argTypes: { active: { control: "inline-radio", options: ["home", "discover", "cards", "profile"] } },
+  argTypes: { active: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
   render: ({ height, active, title }: Record<string, any>) => <X.WebShell height={height}><X.WebShell.Sidebar><X.Sidebar active={active} hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={title} right={<X.GlassGroup unread={2} />} /></X.WebShell.Main></X.WebShell>,
   parameters: { layout: 'fullscreen' },
 };

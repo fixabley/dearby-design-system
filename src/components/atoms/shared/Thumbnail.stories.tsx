@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'atoms-thumbnail',
   component: X.Thumbnail,
   args: { thumb: { cover: 'img/cover-13.jpg' }, size: 'md' },
-  argTypes: { size: { control: "inline-radio", options: ["sm", "md", "lg", "xl"] } },
+  argTypes: { size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] } },
   
   
 };

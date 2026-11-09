@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'organisms-tabbar',
   component: X.TabBar,
   args: { active: 'home', onNavigate: fn() },
-  argTypes: { active: { control: "inline-radio", options: ["home", "discover", "cards", "profile"] } },
+  argTypes: { active: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
   render: controlled(X.TabBar, 'active', 'onNavigate'),
   parameters: { width: 361 },
 };

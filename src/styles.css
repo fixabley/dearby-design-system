@@ -21,6 +21,9 @@
   --primary-foreground: #ffffff;
   --accent: #e2f1f0; /* 민트 */
   --accent-foreground: #007f80;
+  /* 민트 채움 컨트롤(Button mint · Toggle 민트 면): 바탕은 accent와 같고, 글자만 덧칠 hover(5%)에서도 4.5:1이 되게 조금 진하게(쉼 5.01 · hover 4.53 · 누름 4.08). 브랜드 청록(accent-foreground)은 그대로 */
+  --mint: #e2f1f0;
+  --mint-foreground: #007172;
   --secondary: #e2f1f0;
   --secondary-foreground: #007f80;
   --muted: #f1f1f4; /* 채움 */
@@ -56,6 +59,9 @@
   --popover-foreground: #f2f4f5;
   --accent: rgba(47, 179, 180, 0.16);
   --accent-foreground: #2fb3b4;
+  /* 민트 채움 컨트롤: accent 16%를 바탕(#0f1112) 위에 합친 불투명 색이라 떠 있는 버튼 뒤가 비치지 않는다. 청록 글자 쉼 5.83 · hover 5.07 · 누름 4.36 */
+  --mint: #142b2c;
+  --mint-foreground: #2fb3b4;
   --secondary: rgba(47, 179, 180, 0.16);
   --secondary-foreground: #2fb3b4;
   --muted: #1a1d1f;
@@ -88,6 +94,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-mint: var(--mint);
+  --color-mint-foreground: var(--mint-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);

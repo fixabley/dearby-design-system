@@ -12,7 +12,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground shadow-primary',
-        mint: 'bg-accent text-accent-foreground shadow-control',
+        mint: 'bg-mint text-mint-foreground shadow-control',
         outline: 'bg-background text-foreground shadow-control',
         ghost: 'bg-transparent text-accent-foreground',
         destructive: 'bg-transparent font-normal text-destructive',

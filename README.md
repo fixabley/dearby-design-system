@@ -236,6 +236,12 @@ cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/di
 gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
 ```
 
+## 아이콘
+
+`icons.ts`의 아이콘은 시안의 SVG 원문입니다. 시안에 없는 것만 같은 규격(24 격자, 선 1.8, 둥근 끝 · 이음, `aria-hidden`)으로 새로 그립니다. 다른 아이콘 모음을 보고 베끼지 않고 사각형 · 선 · 호로 짭니다.
+
+- `mail`(둥근 사각형 봉투 + V 한 획) · `phone`(수화기 한 획, 두 받침이 대각선에 맞서는 대칭) · `clipboard`(둥근 사각형 판 + 위 집게): 2026-11-09 프로필 연락처 줄을 위해 그렸습니다. 시안의 연락처 행은 이메일에 말풍선(`chat`), 전화에 사람과 음파, 인스타그램에 하트(`heart`)를 임시로 두었고 봉투 · 수화기 · 클립보드 모양은 없습니다.
+
 ## 서비스 로고
 
 아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료에서 가져옵니다. 출처가 불분명한 아이콘 모음에서 베끼지 않습니다. 아래는 모두 2026-11-09에 받았습니다.

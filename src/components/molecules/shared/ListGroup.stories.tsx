@@ -100,7 +100,7 @@ export const Links: Story = {
 /**
  * 연락처(프로필): 줄 전체는 값 복사(onClick, 토스트로 알린다), 오른쪽 action은 기본 앱으로 열기(메일 쓰기 · 전화 걸기 · Instagram · 디스코드 프로필 새 탭).
  * 왼쪽은 종류 아이콘이고 종류 이름은 화면 읽기 글자로 남긴다(버튼 이름 "이메일 seoyeon@example.com 복사").
- * 아이콘은 색을 채운다: 메일 · 전화는 청록, 디스코드 로고는 --logo-color로 블러플. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다
+ * 아이콘은 색을 채운다: 메일 · 전화는 청록, 디스코드 로고는 --logo-color로 블러플. Instagram 로고는 브랜드색 지침을 받지 못해 기본 흑백이다(README 서비스 로고)
  */
 export const Contacts: Story = {
   decorators: [
@@ -147,7 +147,7 @@ export const Contacts: Story = {
           }
         />
         <X.ListRow
-          icon="link"
+          icon="instagram"
           title={value('Instagram', '@seoyeon')}
           onClick={copy('@seoyeon')}
           action={

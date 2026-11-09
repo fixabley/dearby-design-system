@@ -182,8 +182,8 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 ### LinkedIn(`linkedin`)
 
 - 원천: [[in] 로고 안내](https://brand.linkedin.com/in-logo) 페이지에 들어 있는 심볼 `inbug-blue-28`(viewBox `0 0 28 28`, 원래 색 `#0a66c2`). [내려받기](https://brand.linkedin.com/downloads)의 `in-logo.zip`은 PNG뿐이라, 벡터는 브랜드 페이지가 직접 그리는 이 심볼을 씁니다. 24 격자 안 18 크기(x · y 3)에 놓습니다.
-- 조건: 자기 LinkedIn 프로필로 잇는 링크와 소셜 아이콘 줄에 쓸 수 있습니다. 모양과 색을 바꾸지 않고, 색은 파랑 · 검정 · 흰색 세 가지만 씁니다(소셜 아이콘 줄에서는 배경색은 상관없음). 내려받으면 LinkedIn Brand and User Agreements를 따르기로 한 것으로 봅니다.
-- 다 맞추지 못한 점: `currentColor`는 글자색(라이트 `#111113` · 다크 `#f2f4f5`)이라 순수 검정 · 흰색과 조금 다릅니다.
+- 조건: 자기 LinkedIn 프로필로 잇는 링크와 소셜 아이콘 줄에 쓸 수 있습니다. 모양과 색을 바꾸지 않고, 색은 파랑 · 검정 · 흰색 세 가지만 씁니다(소셜 아이콘 줄에서는 배경색은 상관없음). [in] 로고를 쓰는 일은 LinkedIn Brand and User Agreements를 따릅니다.
+- 다 맞추지 못한 점: `currentColor`는 글자색(라이트 `#111113` · 다크 `#f2f4f5`)이라 순수 검정 · 흰색과 조금 다릅니다. 다른 소셜 아이콘과 색을 맞추려면 trademarkrequest@linkedin.com에 묻도록 안내되어 있습니다.
 
 ### Pinterest(`pinterest`)
 

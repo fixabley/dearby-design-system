@@ -14,7 +14,7 @@ function ToggleGroup({ className, children, count = 0, index = 0, variant = 'seg
   return (
     <ToggleGroupPrimitive.Root data-slot="toggle-group" className={cn('relative isolate flex h-9 rounded-full bg-muted p-[3px]', className)}
       style={{ ...style, ['--n' as string]: count, ['--i' as string]: index }} {...props}>
-      <span aria-hidden className="absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-background shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-transform duration-[360ms] ease-spring dark:bg-card" />
+      <span aria-hidden className="absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-transform duration-[360ms] ease-spring" />
       <VariantCtx.Provider value="segmented">{children}</VariantCtx.Provider>
     </ToggleGroupPrimitive.Root>
   );

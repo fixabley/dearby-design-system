@@ -1,7 +1,12 @@
+# Prettier는 코드 파일(js·jsx·mjs·cjs·ts·tsx·css)에만 쓴다. 문서와 설정 파일은 손으로 쓴 모양 그대로 둔다
+*.md
+*.mdx
+*.json
+*.yaml
+*.yml
+*.html
 # Prettier는 .gitignore도 읽지만, 이 파일만 옮겨 써도 되게 빌드 결과물을 함께 적는다
 dist
 storybook-static
-# npm이 쓰는 파일
-package-lock.json
 # 받아 온 파일(글꼴·라이선스 원문·예시 이미지)은 받은 그대로 둔다
 static/

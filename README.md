@@ -174,6 +174,50 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 </div>
 ```
 
+- 묶음 목록에서 다른 곳으로 가는 줄은 `ListRow`에 `asChild`를 주고 링크 요소 하나(`<a>` · Next `Link`)를 children으로 넣습니다. shadcn `Button asChild`와 같은 방식입니다. 줄(listitem) 안에 줄 전체를 덮는 링크가 되어, 누르는 줄(`onClick`)과 높이 44 · 여백 · 초점 면 · 고른 면이 같습니다.
+  - `href` · `target` · `rel`은 링크 요소에 줍니다. 링크 요소 안은 비워 둡니다. 안에 부품을 놓으면 기본 조립과 함께 두 번 그려집니다.
+  - 꺾쇠(`chevronRight`) · ↗(`link`) 같은 표시와 새 탭 알림(`sr-only` 글자)은 `trailing`에 넣습니다.
+
+```tsx
+import Link from 'next/link';
+import { Icon, ListGroup, ListRow } from '@dearby/design-system';
+
+<ListGroup title="환경설정">
+  <ListRow
+    asChild
+    icon="bell"
+    title="알림"
+    trailing={<Icon name="chevronRight" className="size-4" />}
+  >
+    <Link href="/settings/notifications" />
+  </ListRow>
+</ListGroup>
+
+<ListGroup title="연락처">
+  <ListRow asChild title="이메일" trailing="seoyeon@example.com">
+    <a href="mailto:seoyeon@example.com" />
+  </ListRow>
+  <ListRow
+    asChild
+    title="Instagram"
+    trailing={
+      <>
+        @seoyeon
+        <Icon name="link" className="size-4" />
+        <span className="sr-only">(새 탭)</span>
+      </>
+    }
+  >
+    <a
+      href="https://www.instagram.com/seoyeon"
+      target="_blank"
+      rel="noopener noreferrer"
+    />
+  </ListRow>
+  <ListRow title="디스코드" trailing="seoyeon" onClick={copyName} />
+</ListGroup>
+```
+
 ## 글꼴
 ## 글꼴
 

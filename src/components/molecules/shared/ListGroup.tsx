@@ -1,4 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import type { IconName } from '@/icons';
 import { Text } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
@@ -150,6 +151,7 @@ function ListRowRoot({
   add,
   selected,
   onClick,
+  asChild,
   className,
   children,
 }: {
@@ -161,31 +163,35 @@ function ListRowRoot({
   add?: boolean;
   selected?: boolean;
   onClick?: () => void;
+  asChild?: boolean;
   className?: string;
   children?: ReactNode;
 }) {
-  const body = children ?? (
+  // asChild면 children은 링크 요소라 조립은 기본 조립
+  const body = (asChild ? null : children) ?? (
     <>
       <Media />
       <Body />
       <Trailing />
     </>
   );
+  const Comp = asChild ? Slot : 'button';
   return (
     <ListRowContext.Provider
       value={{ icon, media, title, subtitle, trailing, add }}
     >
-      {onClick ? (
-        // 줄(listitem) 안에 button: button에 listitem 역할을 덮으면 버튼으로 읽히지 않는다.
-        // 최소 높이는 줄이 갖고(구분선 포함 44) button은 그 높이를 채운다
+      {onClick || asChild ? (
+        // 줄(listitem) 안에 button 또는 링크: 그 요소에 listitem 역할을 덮으면 버튼 · 링크로 읽히지 않는다.
+        // 최소 높이는 줄이 갖고(구분선 포함 44) 누르는 요소는 그 높이를 채운다
         <Item selected={selected} className="p-0">
-          <button
-            type="button"
+          <Comp
+            type={asChild ? undefined : 'button'}
             onClick={onClick}
             className={cn(itemVariants(), 'min-h-0 self-stretch', className)}
           >
             {body}
-          </button>
+            {asChild && <Slottable>{children}</Slottable>}
+          </Comp>
         </Item>
       ) : (
         <Item selected={selected} className={className}>
@@ -199,6 +205,9 @@ function ListRowRoot({
 /**
  * 묶음 목록의 행(shadcn Item, 컴파운드): Media(아이콘 또는 media로 준 앞 요소) · Body(Title · Subtitle) · Trailing(오른쪽 값·스위치·라디오).
  * onClick을 주면 줄(listitem) 안에 줄 전체를 덮는 button을 두고, className은 그 button에 붙는다.
+ * asChild면 button 대신 children으로 준 링크 요소 하나(`<a href>` · Next `Link`)를 같은 자리에 두고 그 안에 기본 조립을 넣는다.
+ * href · target · rel은 그 요소에 준다: `<ListRow asChild icon="profile" title="프로필" trailing={…}><Link href="/settings/profile" /></ListRow>`.
+ * 링크 요소는 비워 둔다(안에 부품을 놓으면 기본 조립과 함께 두 번 그려진다). asChild로 바꿔 조립하는 것은 아직 받지 않는다.
  * 기본 조립은 `<ListRow icon="calendar" title="시작" trailing="11월 30일 (월)" />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ListRow title="한유진" subtitle="멘토"><ListRow.Body><ListRow.Subtitle /><ListRow.Title /></ListRow.Body><ListRow.Trailing /></ListRow>`
  */

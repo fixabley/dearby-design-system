@@ -12,7 +12,7 @@ import { Icon } from '@/components/foundations/Icon';
 // 일요일부터 한 주. 고른 날은 민트 원 + 청록 굵은 글자, 오늘은 청록 굵은 글자, 오늘을 고르면 iOS처럼 청록 채움 + 흰 글자로 구분.
 // 기간은 시작·끝 청록 채움 원 사이를 민트 띠로 잇는다(끝 원까지 민트면 띠와 구분되지 않는다). 앞뒤 달 날짜는 흐리게
 const navButton =
-  'inline-flex size-10 items-center justify-center rounded-full text-accent-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-disabled:pointer-events-none aria-disabled:opacity-40 [&_svg]:size-5';
+  'inline-flex size-10 items-center justify-center rounded-full text-accent-foreground outline-none transition-colors pressable focus-visible:ring-2 focus-visible:ring-ring aria-disabled:pointer-events-none aria-disabled:opacity-40 [&_svg]:size-5';
 
 // 기간 띠는 칸(td)에 깐다. 시작·끝은 원 가운데부터 이어지고, 줄 끝에서는 둥글게 끊는다(DayButton의 data-range-*)
 const rangeBand = [
@@ -101,16 +101,13 @@ function CalendarDayButton({
       data-range-end={end || undefined}
       data-range-middle={middle || undefined}
       className={cn(
-        'mx-auto flex size-10 items-center justify-center rounded-full text-body-lg tabular-nums outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none',
+        'mx-auto flex size-10 items-center justify-center rounded-full text-body-lg tabular-nums outline-none transition-colors pressable focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none',
         modifiers.today && 'font-semibold text-accent-foreground',
         modifiers.outside && 'text-muted-foreground',
         modifiers.disabled && 'text-muted-foreground opacity-50',
-        middle && 'text-accent-foreground hover:bg-transparent',
-        picked &&
-          !filled &&
-          'bg-accent font-semibold text-accent-foreground hover:bg-accent',
-        filled &&
-          'bg-primary font-semibold text-primary-foreground hover:bg-primary',
+        middle && 'text-accent-foreground',
+        picked && !filled && 'bg-accent font-semibold text-accent-foreground',
+        filled && 'bg-primary font-semibold text-primary-foreground',
         className,
       )}
       {...props}

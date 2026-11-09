@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 // shadcn Toggle: 필터 칩. 켜면 민트 면 + 청록 2px 테두리
 const toggleVariants = cva(
-  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full outline-none transition-[background-color,box-shadow,color,transform] duration-150 active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-45 [&_svg]:size-[18px]',
+  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full outline-none transition-[background-color,box-shadow,color,transform] duration-150 active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring pressable disabled:pointer-events-none disabled:opacity-45 [&_svg]:size-[18px]',
   {
     variants: {
       variant: {

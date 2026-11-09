@@ -9,7 +9,12 @@ const meta: Meta = {
   id: 'ui-shadcn-checkbox',
   tags: ['shadcn'],
   component: X.Checkbox,
-  args: { label: '단계 통과 인증', checked: true, disabled: false, onCheckedChange: fn() },
+  args: {
+    label: '단계 통과 인증',
+    checked: true,
+    disabled: false,
+    onCheckedChange: fn(),
+  },
   argTypes: {
     label: content('옆 글자(label로 감싸 글자를 눌러도 켜진다)'),
     checked: state('켜짐'),
@@ -20,7 +25,14 @@ const meta: Meta = {
     const [, update] = useArgs();
     return (
       <label className="flex items-center gap-3 text-body-lg">
-        <X.Checkbox checked={args.checked} disabled={args.disabled} onCheckedChange={(v) => { args.onCheckedChange?.(v); update({ checked: v === true }); }} />
+        <X.Checkbox
+          checked={args.checked}
+          disabled={args.disabled}
+          onCheckedChange={(v) => {
+            args.onCheckedChange?.(v);
+            update({ checked: v === true });
+          }}
+        />
         {label}
       </label>
     );
@@ -37,10 +49,26 @@ export const List: Story = {
   parameters: { width: 345 },
   render: () => (
     <div>
-      <p className="px-4 pb-1.5 text-caption text-muted-foreground">연락처·링크</p>
+      <p className="px-4 pb-1.5 text-caption text-muted-foreground">
+        연락처·링크
+      </p>
       <X.ItemGroup>
-        {([['이메일', true], ['전화', false], ['GitHub', true], ['인스타그램', false]] as const).map(([t, on]) => (
-          <X.Item key={t} asChild><label><X.ItemContent><X.ItemTitle>{t}</X.ItemTitle></X.ItemContent><X.Checkbox defaultChecked={on} /></label></X.Item>
+        {(
+          [
+            ['이메일', true],
+            ['전화', false],
+            ['GitHub', true],
+            ['인스타그램', false],
+          ] as const
+        ).map(([t, on]) => (
+          <X.Item key={t} asChild>
+            <label>
+              <X.ItemContent>
+                <X.ItemTitle>{t}</X.ItemTitle>
+              </X.ItemContent>
+              <X.Checkbox defaultChecked={on} />
+            </label>
+          </X.Item>
         ))}
       </X.ItemGroup>
     </div>

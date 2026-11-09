@@ -4,7 +4,12 @@ import { HostLine } from '@/components/molecules/program/HostLine';
 import { KindLabel } from '@/components/atoms/activity/KindLabel';
 import { Text } from '@/components/atoms/shared/Text';
 import { Thumbnail } from '@/components/atoms/shared/Thumbnail';
-import { Item, ItemContent, ItemDescription, ItemMedia } from '@/components/ui/item';
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+} from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 
 type ProgramRowContextValue = { p: Program };
@@ -19,7 +24,12 @@ function useProgramRow(part: string) {
 /** 왼쪽 열: 종류 · 썸네일 */
 function Media({ className }: { className?: string }) {
   const { p } = useProgramRow('Media');
-  return <ItemMedia className={cn('w-16 flex-col gap-[5px]', className)}><KindLabel kind={p.kind} /><Thumbnail thumb={p.thumb} /></ItemMedia>;
+  return (
+    <ItemMedia className={cn('w-16 flex-col gap-[5px]', className)}>
+      <KindLabel kind={p.kind} />
+      <Thumbnail thumb={p.thumb} />
+    </ItemMedia>
+  );
 }
 
 /** 조직 줄(· 활동 n개) */
@@ -29,28 +39,93 @@ function Host({ className }: { className?: string }) {
 }
 
 /** 프로그램 이름(두 줄까지) */
-function Title({ className, children }: { className?: string; children?: ReactNode }) {
+function Title({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { p } = useProgramRow('Title');
-  return <Text variant="rowTitle" lines={2} className={cn('mt-[3px]', className)}>{children ?? p.title}</Text>;
+  return (
+    <Text variant="rowTitle" lines={2} className={cn('mt-[3px]', className)}>
+      {children ?? p.title}
+    </Text>
+  );
 }
 
 /** 소개(두 줄까지) */
-function Description({ className, children }: { className?: string; children?: ReactNode }) {
+function Description({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { p } = useProgramRow('Description');
-  return <ItemDescription className={cn('mt-0.5 line-clamp-2 whitespace-normal', className)}>{children ?? p.desc}</ItemDescription>;
+  return (
+    <ItemDescription
+      className={cn('mt-0.5 line-clamp-2 whitespace-normal', className)}
+    >
+      {children ?? p.desc}
+    </ItemDescription>
+  );
 }
 
 /** 글 열: 조직 줄 · 이름 · 소개. children을 주면 그 조립으로 바꾼다 */
-function Body({ className, children }: { className?: string; children?: ReactNode }) {
-  return <ItemContent className={className}>{children ?? <><Host /><Title /><Description /></>}</ItemContent>;
+function Body({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <ItemContent className={className}>
+      {children ?? (
+        <>
+          <Host />
+          <Title />
+          <Description />
+        </>
+      )}
+    </ItemContent>
+  );
 }
 
-function ProgramRowRoot({ p, selected, onSelect, children }: { p: Program; selected?: boolean; onSelect?: (p: Program) => void; children?: ReactNode }) {
+function ProgramRowRoot({
+  p,
+  selected,
+  onSelect,
+  children,
+}: {
+  p: Program;
+  selected?: boolean;
+  onSelect?: (p: Program) => void;
+  children?: ReactNode;
+}) {
   return (
     <ProgramRowContext.Provider value={{ p }}>
-      <Item asChild size="row" selected={selected} className={cn('py-3.5', selected && '-mx-3 w-[calc(100%+24px)] px-3')}>
-        <a href={`/programs/${p.id}`} aria-current={selected || undefined} onClick={(e) => { e.preventDefault(); onSelect?.(p); }}>
-          {children ?? <><Media /><Body /></>}
+      <Item
+        asChild
+        size="row"
+        selected={selected}
+        className={cn('py-3.5', selected && '-mx-3 w-[calc(100%+24px)] px-3')}
+      >
+        <a
+          href={`/programs/${p.id}`}
+          aria-current={selected || undefined}
+          onClick={(e) => {
+            e.preventDefault();
+            onSelect?.(p);
+          }}
+        >
+          {children ?? (
+            <>
+              <Media />
+              <Body />
+            </>
+          )}
         </a>
       </Item>
     </ProgramRowContext.Provider>
@@ -62,4 +137,10 @@ function ProgramRowRoot({ p, selected, onSelect, children }: { p: Program; selec
  * 기본 조립은 `<ProgramRow p={p} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ProgramRow p={p}><ProgramRow.Media /><ProgramRow.Body><ProgramRow.Title /><ProgramRow.Description /></ProgramRow.Body></ProgramRow>`
  */
-export const ProgramRow = Object.assign(ProgramRowRoot, { Media, Body, Host, Title, Description });
+export const ProgramRow = Object.assign(ProgramRowRoot, {
+  Media,
+  Body,
+  Host,
+  Title,
+  Description,
+});

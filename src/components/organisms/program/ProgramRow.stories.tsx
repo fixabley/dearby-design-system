@@ -11,13 +11,15 @@ const meta: Meta = {
   component: X.ProgramRow,
   args: { p: D.PROGRAMS[0], selected: false, onSelect: fn() },
 
-
   parameters: { width: 480 },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
@@ -29,7 +31,10 @@ export const Composed: Story = {
       {D.PROGRAMS.slice(0, 3).map((p) => (
         <X.ProgramRow key={p.id} p={p}>
           <X.ProgramRow.Media />
-          <X.ProgramRow.Body><X.ProgramRow.Title /><X.ProgramRow.Description /></X.ProgramRow.Body>
+          <X.ProgramRow.Body>
+            <X.ProgramRow.Title />
+            <X.ProgramRow.Description />
+          </X.ProgramRow.Body>
         </X.ProgramRow>
       ))}
     </X.RowList>

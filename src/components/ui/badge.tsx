@@ -14,9 +14,10 @@ const badgeVariants = cva(
         default: 'bg-primary text-primary-foreground',
         mint: 'bg-accent text-accent-foreground',
         outline: 'bg-background text-foreground ring-1 ring-inset ring-border',
-        muted: 'bg-background font-medium text-muted-foreground ring-1 ring-inset ring-border',
+        muted:
+          'bg-background font-medium text-muted-foreground ring-1 ring-inset ring-border',
         destructive: 'bg-destructive/10 text-destructive',
-        count: 'bg-[#FF3B30] text-white',  // 알림 개수(iOS 관례)
+        count: 'bg-[#FF3B30] text-white', // 알림 개수(iOS 관례)
       },
       size: {
         default: 'h-6 px-2.5 text-badge [&>svg]:size-3.5',
@@ -29,9 +30,27 @@ const badgeVariants = cva(
 );
 
 /** icon: 글자 앞 아이콘(크기는 size를 따른다). 아이콘을 children에 직접 넣어도 된다 */
-function Badge({ className, variant, size, asChild = false, icon, children, ...props }: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean; icon?: IconName }) {
+function Badge({
+  className,
+  variant,
+  size,
+  asChild = false,
+  icon,
+  children,
+  ...props
+}: React.ComponentProps<'span'> &
+  VariantProps<typeof badgeVariants> & { asChild?: boolean; icon?: IconName }) {
   const Comp = asChild ? Slot : 'span';
-  return <Comp data-slot="badge" className={cn(badgeVariants({ variant, size }), className)} {...props}>{icon && <Icon name={icon} />}<Slottable>{children}</Slottable></Comp>;
+  return (
+    <Comp
+      data-slot="badge"
+      className={cn(badgeVariants({ variant, size }), className)}
+      {...props}
+    >
+      {icon && <Icon name={icon} />}
+      <Slottable>{children}</Slottable>
+    </Comp>
+  );
 }
 
 export { Badge, badgeVariants };

@@ -11,16 +11,29 @@ const meta: Meta = {
   component: X.ProgramDetail,
   args: { p: D.MOGAKCO },
 
-
   parameters: { width: 600 },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 배너 없이 이름 · 조직 · 태그 + 모집 중만 */
-export const Composed: Story = { render: (args) => <X.ProgramDetail p={args.p}><div><X.ProgramDetail.Title className="mt-0" /><X.ProgramDetail.Host /><X.ProgramDetail.Tags /></div><X.ProgramDetail.Open /></X.ProgramDetail> };
+export const Composed: Story = {
+  render: (args) => (
+    <X.ProgramDetail p={args.p}>
+      <div>
+        <X.ProgramDetail.Title className="mt-0" />
+        <X.ProgramDetail.Host />
+        <X.ProgramDetail.Tags />
+      </div>
+      <X.ProgramDetail.Open />
+    </X.ProgramDetail>
+  ),
+};

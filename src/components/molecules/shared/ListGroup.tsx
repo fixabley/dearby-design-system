@@ -2,20 +2,52 @@ import { createContext, useContext, type ReactNode } from 'react';
 import type { IconName } from '@/icons';
 import { Text } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
-import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from '@/components/ui/item';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 
 /** iOS 묶음 목록(shadcn ItemGroup). 위에 작은 머리 */
-export function ListGroup({ title, children, className }: { title?: string; children: ReactNode; className?: string }) {
+export function ListGroup({
+  title,
+  children,
+  className,
+}: {
+  title?: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <section className={className}>
-      {title && <Text as="h4" variant="caption" tone="muted" className="mb-1.5 mt-5 px-4">{title}</Text>}
+      {title && (
+        <Text
+          as="h4"
+          variant="caption"
+          tone="muted"
+          className="mb-1.5 mt-5 px-4"
+        >
+          {title}
+        </Text>
+      )}
       <ItemGroup>{children}</ItemGroup>
     </section>
   );
 }
 
-type ListRowContextValue = { icon?: IconName; media?: ReactNode; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; add?: boolean };
+type ListRowContextValue = {
+  icon?: IconName;
+  media?: ReactNode;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  trailing?: ReactNode;
+  add?: boolean;
+};
 const ListRowContext = createContext<ListRowContextValue | null>(null);
 
 function useListRow(part: string) {
@@ -25,45 +57,134 @@ function useListRow(part: string) {
 }
 
 /** 앞 요소: media로 준 요소(아바타 등), 없으면 청록 아이콘 */
-function Media({ className, children }: { className?: string; children?: ReactNode }) {
+function Media({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { icon, media } = useListRow('Media');
   const node = children ?? media;
   if (node) return <ItemMedia className={className}>{node}</ItemMedia>;
-  return icon ? <ItemMedia variant="icon" className={className}><Icon name={icon} /></ItemMedia> : null;
+  return icon ? (
+    <ItemMedia variant="icon" className={className}>
+      <Icon name={icon} />
+    </ItemMedia>
+  ) : null;
 }
 
 /** 제목(추가 행이면 청록) */
-function Title({ className, children }: { className?: string; children?: ReactNode }) {
+function Title({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { title, add } = useListRow('Title');
-  return <ItemTitle className={cn(add && 'text-accent-foreground', className)}>{children ?? title}</ItemTitle>;
+  return (
+    <ItemTitle className={cn(add && 'text-accent-foreground', className)}>
+      {children ?? title}
+    </ItemTitle>
+  );
 }
 
 /** 보조 줄 */
-function Subtitle({ className, children }: { className?: string; children?: ReactNode }) {
+function Subtitle({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { subtitle } = useListRow('Subtitle');
   const node = children ?? subtitle;
-  return node ? <ItemDescription className={className}>{node}</ItemDescription> : null;
+  return node ? (
+    <ItemDescription className={className}>{node}</ItemDescription>
+  ) : null;
 }
 
 /** 글 열: 제목 · 보조 줄. children을 주면 그 조립으로 바꾼다 */
-function Body({ className, children }: { className?: string; children?: ReactNode }) {
-  return <ItemContent className={className}>{children ?? <><Title /><Subtitle /></>}</ItemContent>;
+function Body({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <ItemContent className={className}>
+      {children ?? (
+        <>
+          <Title />
+          <Subtitle />
+        </>
+      )}
+    </ItemContent>
+  );
 }
 
 /** 오른쪽 값 · 스위치 · 라디오 */
-function Trailing({ className, children }: { className?: string; children?: ReactNode }) {
+function Trailing({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { trailing } = useListRow('Trailing');
   const node = children ?? trailing;
-  return node != null ? <ItemActions className={className}>{node}</ItemActions> : null;
+  return node != null ? (
+    <ItemActions className={className}>{node}</ItemActions>
+  ) : null;
 }
 
-function ListRowRoot({ icon, media, title, subtitle, trailing, add, selected, onClick, className, children }: {
-  icon?: IconName; media?: ReactNode; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; add?: boolean; selected?: boolean; onClick?: () => void; className?: string; children?: ReactNode;
+function ListRowRoot({
+  icon,
+  media,
+  title,
+  subtitle,
+  trailing,
+  add,
+  selected,
+  onClick,
+  className,
+  children,
+}: {
+  icon?: IconName;
+  media?: ReactNode;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  trailing?: ReactNode;
+  add?: boolean;
+  selected?: boolean;
+  onClick?: () => void;
+  className?: string;
+  children?: ReactNode;
 }) {
-  const body = children ?? <><Media /><Body /><Trailing /></>;
+  const body = children ?? (
+    <>
+      <Media />
+      <Body />
+      <Trailing />
+    </>
+  );
   return (
-    <ListRowContext.Provider value={{ icon, media, title, subtitle, trailing, add }}>
-      {onClick ? <Item asChild selected={selected} className={className}><button type="button" onClick={onClick}>{body}</button></Item> : <Item selected={selected} className={className}>{body}</Item>}
+    <ListRowContext.Provider
+      value={{ icon, media, title, subtitle, trailing, add }}
+    >
+      {onClick ? (
+        <Item asChild selected={selected} className={className}>
+          <button type="button" onClick={onClick}>
+            {body}
+          </button>
+        </Item>
+      ) : (
+        <Item selected={selected} className={className}>
+          {body}
+        </Item>
+      )}
     </ListRowContext.Provider>
   );
 }
@@ -73,4 +194,10 @@ function ListRowRoot({ icon, media, title, subtitle, trailing, add, selected, on
  * 기본 조립은 `<ListRow icon="calendar" title="시작" trailing="11월 30일 (월)" />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ListRow title="한유진" subtitle="멘토"><ListRow.Body><ListRow.Subtitle /><ListRow.Title /></ListRow.Body><ListRow.Trailing /></ListRow>`
  */
-export const ListRow = Object.assign(ListRowRoot, { Media, Body, Title, Subtitle, Trailing });
+export const ListRow = Object.assign(ListRowRoot, {
+  Media,
+  Body,
+  Title,
+  Subtitle,
+  Trailing,
+});

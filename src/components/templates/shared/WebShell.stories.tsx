@@ -10,14 +10,31 @@ const meta: Meta = {
   id: 'templates-webshell',
   component: X.WebShell,
   args: { height: 480, active: 'home', title: '홈' },
-  argTypes: { active: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
-  render: ({ height, active, title }) => <X.WebShell height={height}><X.WebShell.Sidebar><X.Sidebar active={active} hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={title} right={<X.GlassGroup unread={2} />} /></X.WebShell.Main></X.WebShell>,
+  argTypes: {
+    active: {
+      control: 'inline-radio',
+      options: ['home', 'discover', 'cards', 'profile'],
+    },
+  },
+  render: ({ height, active, title }) => (
+    <X.WebShell height={height}>
+      <X.WebShell.Sidebar>
+        <X.Sidebar active={active} hosted={['온디바이스 AI 앱 만들기']} />
+      </X.WebShell.Sidebar>
+      <X.WebShell.Main>
+        <X.TopBar title={title} right={<X.GlassGroup unread={2} />} />
+      </X.WebShell.Main>
+    </X.WebShell>
+  ),
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
 // useArgs·fn는 일부 스토리에서만 쓴다
-void useArgs; void fn; void controlled; void D;
+void useArgs;
+void fn;
+void controlled;
+void D;
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
@@ -26,10 +43,21 @@ export const Playground: Story = {};
 export const Composed: Story = {
   render: ({ height }) => (
     <X.WebShell height={height}>
-      <X.WebShell.Sidebar><X.Sidebar active="discover"><X.Sidebar.Logo /><X.Sidebar.Nav /></X.Sidebar></X.WebShell.Sidebar>
+      <X.WebShell.Sidebar>
+        <X.Sidebar active="discover">
+          <X.Sidebar.Logo />
+          <X.Sidebar.Nav />
+        </X.Sidebar>
+      </X.WebShell.Sidebar>
       <X.WebShell.Main>
         <X.TopBar title="발견" right={<X.GlassGroup unread={2} />} />
-        <div className="px-6"><X.RowList>{D.PROGRAMS.slice(0, 3).map((p) => <X.ProgramRow key={p.id} p={p} />)}</X.RowList></div>
+        <div className="px-6">
+          <X.RowList>
+            {D.PROGRAMS.slice(0, 3).map((p) => (
+              <X.ProgramRow key={p.id} p={p} />
+            ))}
+          </X.RowList>
+        </div>
       </X.WebShell.Main>
     </X.WebShell>
   ),

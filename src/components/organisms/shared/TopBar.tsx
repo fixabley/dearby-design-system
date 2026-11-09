@@ -2,7 +2,11 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { Text } from '@/components/atoms/shared/Text';
 import { cn } from '@/lib/utils';
 
-type TopBarContextValue = { title?: ReactNode; center?: ReactNode; right?: ReactNode };
+type TopBarContextValue = {
+  title?: ReactNode;
+  center?: ReactNode;
+  right?: ReactNode;
+};
 const TopBarContext = createContext<TopBarContextValue | null>(null);
 
 function useTopBar(part: string) {
@@ -12,16 +16,36 @@ function useTopBar(part: string) {
 }
 
 /** 왼쪽 제목(26/700). 비어도 자리를 차지해 오른쪽 그룹을 끝으로 민다 */
-function Title({ className, children }: { className?: string; children?: ReactNode }) {
+function Title({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { title } = useTopBar('Title');
-  return <Text variant="title" className={cn('flex-1', className)}>{children ?? title}</Text>;
+  return (
+    <Text variant="title" className={cn('flex-1', className)}>
+      {children ?? title}
+    </Text>
+  );
 }
 
 /** 가운데 전환(있을 때만) */
-function Center({ className, children }: { className?: string; children?: ReactNode }) {
+function Center({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   const { center } = useTopBar('Center');
   const node = children ?? center;
-  return node ? <div className={cn('absolute left-1/2 -translate-x-1/2', className)}>{node}</div> : null;
+  return node ? (
+    <div className={cn('absolute left-1/2 -translate-x-1/2', className)}>
+      {node}
+    </div>
+  ) : null;
 }
 
 /** 오른쪽 글래스 그룹 */
@@ -30,10 +54,28 @@ function Actions({ children }: { children?: ReactNode }) {
   return <>{children ?? right}</>;
 }
 
-function TopBarRoot({ title, center, right, children }: { title?: ReactNode; center?: ReactNode; right?: ReactNode; children?: ReactNode }) {
+function TopBarRoot({
+  title,
+  center,
+  right,
+  children,
+}: {
+  title?: ReactNode;
+  center?: ReactNode;
+  right?: ReactNode;
+  children?: ReactNode;
+}) {
   return (
     <TopBarContext.Provider value={{ title, center, right }}>
-      <div className="relative flex h-[76px] items-center px-6">{children ?? <><Title /><Center /><Actions /></>}</div>
+      <div className="relative flex h-[76px] items-center px-6">
+        {children ?? (
+          <>
+            <Title />
+            <Center />
+            <Actions />
+          </>
+        )}
+      </div>
     </TopBarContext.Provider>
   );
 }

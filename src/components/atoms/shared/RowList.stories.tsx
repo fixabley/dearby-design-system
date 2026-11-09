@@ -7,8 +7,17 @@ const meta: Meta = {
   id: 'atoms-rowlist',
   component: X.RowList,
   args: { inset: 78, columns: undefined, count: 4 },
-  argTypes: { columns: { control: 'inline-radio', options: [undefined, 2] }, count: { control: { type: 'range', min: 1, max: 5 } } },
-  render: ({ count, ...args }) => <X.RowList {...args}>{D.ACTIVITIES.slice(0, count).map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList>,
+  argTypes: {
+    columns: { control: 'inline-radio', options: [undefined, 2] },
+    count: { control: { type: 'range', min: 1, max: 5 } },
+  },
+  render: ({ count, ...args }) => (
+    <X.RowList {...args}>
+      {D.ACTIVITIES.slice(0, count).map((a) => (
+        <X.ActivityRow key={a.id} a={a} />
+      ))}
+    </X.RowList>
+  ),
   parameters: { width: 480 },
 };
 export default meta;

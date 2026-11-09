@@ -1,4 +1,10 @@
-import { Children, createContext, isValidElement, useContext, type ReactNode } from 'react';
+import {
+  Children,
+  createContext,
+  isValidElement,
+  useContext,
+  type ReactNode,
+} from 'react';
 import type { IconName } from '@/icons';
 import { Text } from '@/components/atoms/shared/Text';
 import { Button } from '@/components/ui/button';
@@ -16,26 +22,71 @@ function useTabBar(part: string) {
 }
 
 /** 탭 하나: 아이콘 + 이름. value가 active와 같으면 민트 글자(면은 TabBar가 하나로 그린다) */
-function Tab({ value, icon, className, children }: { value: NavKey; icon: IconName; className?: string; children: ReactNode }) {
+function Tab({
+  value,
+  icon,
+  className,
+  children,
+}: {
+  value: NavKey;
+  icon: IconName;
+  className?: string;
+  children: ReactNode;
+}) {
   const { active, onNavigate } = useTabBar('Tab');
   return (
-    <Button variant="plain" aria-current={value === active ? 'page' : undefined} onClick={() => onNavigate?.(value)} icon={icon}
-      className={cn('h-full flex-1 flex-col gap-0.5 rounded-full px-0 duration-200 [&_svg]:size-6', value === active && 'text-accent-foreground', className)}>
+    <Button
+      variant="plain"
+      aria-current={value === active ? 'page' : undefined}
+      onClick={() => onNavigate?.(value)}
+      icon={icon}
+      className={cn(
+        'h-full flex-1 flex-col gap-0.5 rounded-full px-0 duration-200 [&_svg]:size-6',
+        value === active && 'text-accent-foreground',
+        className,
+      )}
+    >
       <Text variant="micro">{children}</Text>
     </Button>
   );
 }
 
-function TabBarRoot({ active, onNavigate, children }: { active: NavKey; onNavigate?: (k: NavKey) => void; children?: ReactNode }) {
+function TabBarRoot({
+  active,
+  onNavigate,
+  children,
+}: {
+  active: NavKey;
+  onNavigate?: (k: NavKey) => void;
+  children?: ReactNode;
+}) {
   // 고른 탭의 순서는 children에서 센다(분할 전환과 같은 방식). 탭은 모두 flex-1이라 너비가 같으니 칸 수와 순서만으로 면이 탭에 맞는다
-  const tabs = Children.toArray(children ?? NAV.map((n) => <Tab key={n.key} value={n.key} icon={n.icon}>{n.label}</Tab>));
-  const index = tabs.findIndex((t) => isValidElement<{ value?: NavKey }>(t) && t.props.value === active);
+  const tabs = Children.toArray(
+    children ??
+      NAV.map((n) => (
+        <Tab key={n.key} value={n.key} icon={n.icon}>
+          {n.label}
+        </Tab>
+      )),
+  );
+  const index = tabs.findIndex(
+    (t) => isValidElement<{ value?: NavKey }>(t) && t.props.value === active,
+  );
   return (
     <TabBarContext.Provider value={{ active, onNavigate }}>
-      <ButtonGroup variant="glass" aria-label="탭 막대" className="relative isolate h-16 w-full gap-1 p-1.5"
-        style={{ ['--n' as string]: tabs.length, ['--i' as string]: index }}>
+      <ButtonGroup
+        variant="glass"
+        aria-label="탭 막대"
+        className="relative isolate h-16 w-full gap-1 p-1.5"
+        style={{ ['--n' as string]: tabs.length, ['--i' as string]: index }}
+      >
         {/* 민트 면 하나가 고른 탭으로 미끄러진다. 너비 (100% − 여백 6px×2 − 간격 4px×(n−1)) ÷ n, 한 칸 이동은 너비 + 간격 4px */}
-        {index >= 0 && <span aria-hidden className="absolute inset-y-1.5 left-1.5 -z-10 w-[calc((100%-8px)/var(--n)-4px)] translate-x-[calc(var(--i)*(100%+4px))] rounded-full bg-accent transition-transform duration-[360ms] ease-spring" />}
+        {index >= 0 && (
+          <span
+            aria-hidden
+            className="absolute inset-y-1.5 left-1.5 -z-10 w-[calc((100%-8px)/var(--n)-4px)] translate-x-[calc(var(--i)*(100%+4px))] rounded-full bg-accent transition-transform duration-[360ms] ease-spring"
+          />
+        )}
         {tabs}
       </ButtonGroup>
     </TabBarContext.Provider>

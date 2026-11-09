@@ -8,7 +8,14 @@ const meta: Meta = {
   title: 'Molecules/Shared/TimePicker',
   id: 'molecules-timepicker',
   component: X.TimePicker,
-  args: { value: '20:00', placeholder: '선택', label: '시간', open: false, onChange: fn(), onOpenChange: fn() },
+  args: {
+    value: '20:00',
+    placeholder: '선택',
+    label: '시간',
+    open: false,
+    onChange: fn(),
+    onOpenChange: fn(),
+  },
   argTypes: {
     value: content('시각(HH:mm, 24시간)'),
     placeholder: content('값이 없을 때 자리 글자'),
@@ -21,9 +28,17 @@ const meta: Meta = {
   render: function Render({ onChange, onOpenChange, ...args }) {
     const [, update] = useArgs();
     return (
-      <X.TimePicker {...args}
-        onOpenChange={(o) => { onOpenChange?.(o); update({ open: o }); }}
-        onChange={(t) => { onChange?.(t); update({ value: t }); }} />
+      <X.TimePicker
+        {...args}
+        onOpenChange={(o) => {
+          onOpenChange?.(o);
+          update({ open: o });
+        }}
+        onChange={(t) => {
+          onChange?.(t);
+          update({ value: t });
+        }}
+      />
     );
   },
   parameters: { width: 345 },
@@ -38,4 +53,7 @@ export const Playground: Story = {};
 export const Empty: Story = { args: { value: '' } };
 
 /** 목록을 열면 지금 값(20:00) 근처가 가운데 보이고 그 칸에 체크 */
-export const Open: Story = { args: { open: true }, parameters: { layout: 'padded' } };
+export const Open: Story = {
+  args: { open: true },
+  parameters: { layout: 'padded' },
+};

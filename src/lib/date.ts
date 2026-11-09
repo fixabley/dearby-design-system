@@ -17,7 +17,9 @@ export function fromDayKey(key: string) {
 /** 'M월 d일'. 기준일(today)과 해가 다르면 앞에 'yyyy년' */
 export function formatDay(d: Date, today: Date = new Date()) {
   const md = `${d.getMonth() + 1}월 ${d.getDate()}일`;
-  return d.getFullYear() === today.getFullYear() ? md : `${d.getFullYear()}년 ${md}`;
+  return d.getFullYear() === today.getFullYear()
+    ? md
+    : `${d.getFullYear()}년 ${md}`;
 }
 
 /** 'M월 d일 (요일)'. 연도 규칙은 formatDay와 같다 */
@@ -41,7 +43,10 @@ export function formatTime(d: Date) {
  */
 export function parseTime(text: string): string | null {
   const t = text.trim();
-  const m = /^(\d{1,2}):(\d{1,2})$/.exec(t) ?? /^(\d{1,2})()$/.exec(t) ?? /^(\d{1,2})(\d{2})$/.exec(t);
+  const m =
+    /^(\d{1,2}):(\d{1,2})$/.exec(t) ??
+    /^(\d{1,2})()$/.exec(t) ??
+    /^(\d{1,2})(\d{2})$/.exec(t);
   if (!m) return null;
   const h = Number(m[1]);
   const min = Number(m[2] || 0);

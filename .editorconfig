@@ -14,6 +14,10 @@ indent_size = 2
 [*.{md,mdx}]
 trim_trailing_whitespace = false
 
+# static/은 받아 온 파일(글꼴·라이선스·예시 이미지)이라 받은 그대로 둔다
+[static/**]
+trim_trailing_whitespace = false
+
 [*.{ts,tsx,mts,cts}]
 ij_typescript_use_double_quotes = false
 ij_typescript_force_quote_style = true

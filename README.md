@@ -123,7 +123,6 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 | `@dearby/design-system` | 컴포넌트 · 타입 · 아이콘 · `cn` · `renderLite` |
 | `@dearby/design-system/data` | 시안 예시 데이터(`ACTIVITIES` 등) |
 | `@dearby/design-system/styles.css` | 토큰(@theme) · Pretendard · 다크(.dk) · 기본 스타일 |
-| `@dearby/design-system/fonts/*` | Pretendard 파일 |
 
 ### 스타일
 
@@ -136,7 +135,7 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 
 - `styles.css`는 Tailwind를 부르지 않으니 받아 쓰는 쪽이 `@import "tailwindcss"`를 먼저 합니다.
 - Tailwind는 node_modules를 스스로 읽지 않습니다. `@source`로 dist를 알려 줘야 컴포넌트가 쓰는 클래스가 만들어집니다. 경로는 그 CSS 파일 기준입니다.
-- 글꼴은 `styles.css` 기준 상대 경로로 적혀 있어 Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 경로를 다시 잡고, 번들러가 파일을 내보냅니다. 따로 손댈 것은 없습니다.
+- 글꼴은 `styles.css`가 상대 경로로 부르는 Pretendard 가변 다이나믹 서브셋([글꼴](#글꼴))입니다. Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 그 CSS를 펼치며 글꼴 주소를 다시 잡고, 번들러가 woff2 92개를 내보냅니다. 브라우저는 화면에 있는 글자가 든 조각만 받습니다. 따로 손댈 것은 없습니다.
 - 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다. `.dk`는 `color-scheme: dark`도 켜서 브라우저 기본 컨트롤과 스크롤바도 어두워집니다(기본은 `light`).
 
 ### 컴포넌트
@@ -149,6 +148,18 @@ import { ACTIVITIES } from "@dearby/design-system/data";
 - 컴포넌트 파일에는 `"use client"`가 붙어 있어 Next 서버 컴포넌트에서도 그릴 수 있습니다. 다만 `WebShell.Sidebar`처럼 점으로 꺼내는 부품은 서버 컴포넌트에서 꺼낼 수 없으니 `"use client"` 파일에서 조립합니다. `cn` · 아이콘 · 예시 데이터는 서버에서도 씁니다.
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
+
+## 글꼴
+
+`static/fonts/pretendard/`는 [Pretendard](https://github.com/orioncactus/pretendard) npm 패키지 1.3.9의 `dist/web/variable/pretendardvariable-dynamic-subset.css`와 `dist/web/variable/woff2-dynamic-subset/`(woff2 92개)를 한 바이트도 바꾸지 않고 같은 구조로 복사한 것입니다. 저작권자가 만든 파일 그대로라 글꼴 이름 `Pretendard Variable`을 그대로 씁니다. 레포 의존성에는 넣지 않습니다(패키지 전체가 압축 약 72MB).
+
+버전을 올릴 때는 작업 공간 밖 임시 폴더에서 패키지를 받아 같은 두 경로를 덮어쓰고, `npm run build-storybook`으로 글꼴이 나오는지 확인합니다.
+
+```sh
+cd "$(mktemp -d)" && npm pack pretendard@<버전> && tar -xzf pretendard-<버전>.tgz
+rm -r <레포>/static/fonts/pretendard && mkdir <레포>/static/fonts/pretendard
+cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/dist/web/variable/woff2-dynamic-subset <레포>/static/fonts/pretendard/
+```
 
 ## 원칙
 

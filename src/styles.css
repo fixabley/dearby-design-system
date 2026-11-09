@@ -10,6 +10,7 @@
 
 /* ── Dearby 토큰(시안 11월 3일 체계)을 shadcn 이름에 덮어씌움 ── */
 :root {
+  color-scheme: light;           /* 브라우저 기본 컨트롤·스크롤바 */
   --background: #FFFFFF;
   --foreground: #111113;
   --card: #FFFFFF;
@@ -40,6 +41,7 @@
   --ease-out: cubic-bezier(.2, .8, .2, 1);
 }
 .dk {
+  color-scheme: dark;            /* 기본 컨트롤·스크롤바도 어둡게 */
   --background: #0F1112;
   --foreground: #F2F4F5;
   --card: #202427;

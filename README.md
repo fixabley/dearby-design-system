@@ -137,7 +137,7 @@ npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡
 - `styles.css`는 Tailwind를 부르지 않으니 받아 쓰는 쪽이 `@import "tailwindcss"`를 먼저 합니다.
 - Tailwind는 node_modules를 스스로 읽지 않습니다. `@source`로 dist를 알려 줘야 컴포넌트가 쓰는 클래스가 만들어집니다. 경로는 그 CSS 파일 기준입니다.
 - 글꼴은 `styles.css` 기준 상대 경로로 적혀 있어 Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 경로를 다시 잡고, 번들러가 파일을 내보냅니다. 따로 손댈 것은 없습니다.
-- 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다.
+- 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다. `.dk`는 `color-scheme: dark`도 켜서 브라우저 기본 컨트롤과 스크롤바도 어두워집니다(기본은 `light`).
 
 ### 컴포넌트
 

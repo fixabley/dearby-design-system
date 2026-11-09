@@ -39,9 +39,11 @@ export const Composed: Story = {
           update({ value: v });
         }}
       >
-        {(args.servers as { name: string; sub: string }[]).map((s) => (
-          <X.ServerPicker.Server key={s.name} server={s} />
-        ))}
+        <X.ServerPicker.Servers>
+          {(args.servers as { name: string; sub: string }[]).map((s) => (
+            <X.ServerPicker.Server key={s.name} server={s} />
+          ))}
+        </X.ServerPicker.Servers>
       </X.ServerPicker>
     );
   },

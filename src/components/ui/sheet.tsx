@@ -21,10 +21,11 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          'fixed z-50 flex max-h-[85vh] flex-col bg-background px-5 pb-6 pt-2 shadow-[0_-8px_40px_rgba(0,0,0,.15)] outline-none',
+          'fixed z-50 flex max-h-[85vh] flex-col bg-background px-5 pt-2 shadow-[0_-8px_40px_rgba(0,0,0,.15)] outline-none',
+          // 아래에 붙는 시트만 홈 인디케이터만큼 아래 여백을 더한다. env(safe-area-inset-bottom)은 받아 쓰는 쪽이 viewport-fit=cover일 때만 값이 있고 아니면 0
           floating
-            ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px]'
-            : 'inset-x-0 bottom-0 rounded-t-[24px]',
+            ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px] pb-6'
+            : 'inset-x-0 bottom-0 rounded-t-[24px] pb-[calc(24px+env(safe-area-inset-bottom))]',
           'duration-300 ease-spring data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-8 data-[state=open]:fade-in-0',
           'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-8 data-[state=closed]:fade-out-0 data-[state=closed]:duration-150',
           className,

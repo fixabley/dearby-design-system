@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
+import { SideBySide } from '@/stories/SideBySide';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
 
@@ -34,5 +35,49 @@ export const Composed: Story = {
       </div>
       <X.ProfileHeader.Social />
     </X.ProfileHeader>
+  ),
+};
+
+/** 불러오는 동안(ProfileHeaderSkeleton): 기본 조립과 같은 크기 · 간격. 소개는 있을 때만이라 뺀 예시 데이터로 비교한다 */
+export const Skeleton: Story = {
+  parameters: { width: 752 },
+  render: () => (
+    <SideBySide width={360}>
+      <X.ProfileHeader p={{ ...D.SEOYEON, bio: undefined }} />
+      <X.ProfileHeaderSkeleton />
+    </SideBySide>
+  ),
+};
+
+/** 웹 프로필처럼 바꿔 조립했을 때: 사진 · 이름 + SocialLinks */
+export const SkeletonComposed: Story = {
+  parameters: { width: 752 },
+  render: () => (
+    <SideBySide width={360}>
+      <X.ProfileHeader p={D.SEOYEON}>
+        <div className="flex items-center gap-4">
+          <X.ProfileHeader.Avatar />
+          <X.ProfileHeader.Name />
+        </div>
+        <X.SocialLinks
+          className="mt-3"
+          links={[
+            {
+              icon: 'github',
+              href: 'https://github.com/seoyeon',
+              label: 'GitHub',
+            },
+            { icon: 'link', href: 'https://example.com', label: '링크' },
+          ]}
+        />
+      </X.ProfileHeader>
+      <X.ProfileHeaderSkeleton>
+        <div className="flex items-center gap-4">
+          <X.ProfileHeaderSkeleton.Avatar />
+          <X.ProfileHeaderSkeleton.Name />
+        </div>
+        <X.SocialLinksSkeleton className="mt-3" count={2} />
+      </X.ProfileHeaderSkeleton>
+    </SideBySide>
   ),
 };

@@ -1,11 +1,12 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { Person } from '@/types';
 import type { IconName } from '@/icons';
-import { Text } from '@/components/atoms/shared/Text';
+import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Tooltip,
   TooltipContent,
@@ -141,4 +142,67 @@ export const ProfileHeader = Object.assign(ProfileHeaderRoot, {
   Bio,
   Joined,
   Social,
+});
+
+/** 불러오는 동안의 사진 자리(Avatar lg 80 원) */
+function AvatarSkeleton({ className }: { className?: string }) {
+  return <Skeleton className={cn('size-20 rounded-full', className)} />;
+}
+
+/** 불러오는 동안의 이름 · 핸들 · 직업 줄 */
+function NameSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn('w-40', className)}>
+      <TextSkeleton variant="title" className="w-3/4" />
+      <TextSkeleton variant="caption" className="w-1/2" />
+      <TextSkeleton variant="body" />
+    </div>
+  );
+}
+
+/** 불러오는 동안의 가입 줄 */
+function JoinedSkeleton({ className }: { className?: string }) {
+  return (
+    <TextSkeleton variant="caption" className={cn('mt-2 w-28', className)} />
+  );
+}
+
+/** 불러오는 동안의 소셜 버튼(36 원 세 개) */
+function SocialSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn('mt-3 flex gap-2', className)}>
+      {SOCIAL.map((s) => (
+        <Skeleton key={s.icon} className="size-9 rounded-full" />
+      ))}
+    </div>
+  );
+}
+
+function ProfileHeaderSkeletonRoot({ children }: { children?: ReactNode }) {
+  return (
+    <div aria-hidden>
+      {children ?? (
+        <>
+          <div className="flex items-center gap-4">
+            <AvatarSkeleton />
+            <NameSkeleton />
+          </div>
+          <JoinedSkeleton />
+          <SocialSkeleton />
+        </>
+      )}
+    </div>
+  );
+}
+
+/**
+ * 불러오는 동안의 프로필 머리(컴파운드, ProfileHeader와 같은 크기 · 간격): Avatar · Name · Joined · Social. 소개(Bio)는 있을 때만이라 뺀다.
+ * 기본 조립은 `<ProfileHeaderSkeleton />`. 원래 부품을 바꿔 조립했다면 같은 모양으로 놓는다:
+ * `<ProfileHeaderSkeleton><div className="flex items-center gap-4"><ProfileHeaderSkeleton.Avatar /><ProfileHeaderSkeleton.Name /></div><SocialLinksSkeleton className="mt-3" /></ProfileHeaderSkeleton>`
+ */
+export const ProfileHeaderSkeleton = Object.assign(ProfileHeaderSkeletonRoot, {
+  Avatar: AvatarSkeleton,
+  Name: NameSkeleton,
+  Joined: JoinedSkeleton,
+  Social: SocialSkeleton,
 });

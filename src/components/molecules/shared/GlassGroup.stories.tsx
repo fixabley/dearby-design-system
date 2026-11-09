@@ -11,8 +11,8 @@ const meta: Meta = {
   component: X.GlassGroup,
   args: { unread: 2, actions: [{ icon: 'share', label: '공유' }] },
   argTypes: { unread: { control: { type: 'number', min: 0, max: 99 } } },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

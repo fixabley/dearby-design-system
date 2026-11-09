@@ -11,8 +11,8 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.TeamBoard,
   args: { teams: D.TEAMS, unassigned: D.UNASSIGNED },
-  
-  
+
+
   parameters: { width: 1040 },
 };
 export default meta;

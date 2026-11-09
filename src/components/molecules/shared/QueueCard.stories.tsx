@@ -11,8 +11,8 @@ const meta: Meta = {
   id: 'molecules-queuecard',
   component: X.QueueCard,
   args: { covers: ['img/cover-22.jpg', 'img/cover-13.jpg', 'img/cover-42.jpg'], title: '오늘의 맞춤 대기열', sub: '프로그램 7개 중 3개 봤어요', onClick: fn() },
-  
-  
+
+
   parameters: { width: 393 },
 };
 export default meta;

@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-activitydetail',
   component: X.ActivityDetail,
   args: { d: D.SSAFY, inline: true },
-  
-  
+
+
   parameters: { width: 600 },
 };
 export default meta;

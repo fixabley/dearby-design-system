@@ -12,7 +12,7 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.EvaluationForm,
   args: { repo: 'doyun/ondevice-study #7', submitted: '11월 28일 (토) 22:10 제출', feedback: '모델 불러오기를 따로 뺀 구조가 깔끔해요.', onSend: fn() },
-  
+
   render: (args) => <X.EvaluationForm key={args.feedback} {...(args as ComponentProps<typeof X.EvaluationForm>)} />,
   parameters: { width: 480 },
 };

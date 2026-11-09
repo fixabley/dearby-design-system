@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'molecules-timeline',
   component: X.Timeline,
   args: { groups: D.SSAFY.schedule },
-  
-  
+
+
   parameters: { width: 345 },
 };
 export default meta;

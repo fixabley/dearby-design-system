@@ -22,8 +22,8 @@ const meta: Meta = {
     onClick: { ...event() },
     asChild: { table: { disable: true } },
   },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-applycard',
   component: X.ApplyCard,
   args: { d: D.SSAFY },
-  
-  
+
+
   parameters: { width: 340 },
 };
 export default meta;

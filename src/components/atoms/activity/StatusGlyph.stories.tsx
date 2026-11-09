@@ -11,8 +11,8 @@ const meta: Meta = {
   component: X.StatusGlyph,
   args: { status: 'participating' },
   argTypes: { status: { control: 'select', options: Object.keys(X.STATUS) } },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

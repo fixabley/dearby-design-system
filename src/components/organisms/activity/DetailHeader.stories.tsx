@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-detailheader',
   component: X.DetailHeader,
   args: { d: D.SSAFY, badges: true },
-  
-  
+
+
   parameters: { width: 560 },
 };
 export default meta;

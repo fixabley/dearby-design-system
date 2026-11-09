@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-profileheader',
   component: X.ProfileHeader,
   args: { p: D.SEOYEON },
-  
-  
+
+
   parameters: { width: 360 },
 };
 export default meta;

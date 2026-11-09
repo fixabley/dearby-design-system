@@ -20,9 +20,9 @@ const meta: Meta = {
     disabled: { ...state() },
     onPressedChange: { ...event() },
   },
-  
+
   render: controlled(X.Toggle, 'pressed', 'onPressedChange'),
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

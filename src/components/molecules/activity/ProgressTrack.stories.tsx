@@ -11,8 +11,8 @@ const meta: Meta = {
   id: 'molecules-progresstrack',
   component: X.ProgressTrack,
   args: { steps: [{ name: '지원', state: 'past' }, { name: '면접', state: 'past' }, { name: 'OT', state: 'past' }, { name: '활동', state: 'cur' }], more: 1 },
-  
-  
+
+
   parameters: { width: 280 },
 };
 export default meta;

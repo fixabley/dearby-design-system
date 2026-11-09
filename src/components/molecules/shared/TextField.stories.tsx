@@ -11,7 +11,7 @@ const meta: Meta = {
   id: 'molecules-textfield',
   component: X.TextField,
   args: { label: '이름', value: '실습', placeholder: '선택', multiline: false, onChange: fn() },
-  
+
   render: (args) => <X.FieldGroup><X.TextField key={String(args.value) + args.multiline} {...(args as ComponentProps<typeof X.TextField>)} /></X.FieldGroup>,
   parameters: { width: 345 },
 };

@@ -11,8 +11,8 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.ChannelTemplate,
   args: { channels: D.CHANNELS },
-  
-  
+
+
   parameters: { width: 420 },
 };
 export default meta;

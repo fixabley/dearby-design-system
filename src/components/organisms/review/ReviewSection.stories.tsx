@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-reviewsection',
   component: X.ReviewSection,
   args: { r: D.MOGAKCO.reviews! },
-  
-  
+
+
   parameters: { width: 560 },
 };
 export default meta;

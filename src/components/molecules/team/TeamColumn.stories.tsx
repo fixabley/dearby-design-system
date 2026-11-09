@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'molecules-teamcolumn',
   component: X.TeamColumn,
   args: { team: D.TEAMS[0], unassigned: false },
-  
-  
+
+
   parameters: { width: 260 },
 };
 export default meta;

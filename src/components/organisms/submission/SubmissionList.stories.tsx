@@ -11,7 +11,7 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.SubmissionList,
   args: { items: D.SUBMISSIONS, selected: 0, onSelect: fn() },
-  
+
   render: controlled(X.SubmissionList, 'selected', 'onSelect'),
   parameters: { width: 420 },
 };

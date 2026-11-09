@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-programdetail',
   component: X.ProgramDetail,
   args: { p: D.MOGAKCO },
-  
-  
+
+
   parameters: { width: 600 },
 };
 export default meta;

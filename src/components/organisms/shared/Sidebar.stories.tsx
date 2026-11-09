@@ -12,7 +12,7 @@ const meta: Meta = {
   args: { active: 'home', hosted: ['온디바이스 AI 앱 만들기'], onNavigate: fn() },
   argTypes: { active: { control: 'select', options: ['home', 'discover', 'cards', 'profile', '온디바이스 AI 앱 만들기'] } },
   render: controlled(X.Sidebar, 'active', 'onNavigate'),
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

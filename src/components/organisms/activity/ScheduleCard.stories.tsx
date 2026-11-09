@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-schedulecard',
   component: X.ScheduleCard,
   args: { groups: D.SSAFY.schedule, note: D.SSAFY.note },
-  
-  
+
+
   parameters: { width: 480 },
 };
 export default meta;

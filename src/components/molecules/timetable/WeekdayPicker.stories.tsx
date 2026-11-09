@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'molecules-weekdaypicker',
   component: X.WeekdayPicker,
   args: { value: ['월', '화', '목'], onChange: fn() },
-  
+
   render: controlled(X.WeekdayPicker, 'value', 'onChange'),
   parameters: { width: 345 },
 };

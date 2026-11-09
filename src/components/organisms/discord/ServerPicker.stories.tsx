@@ -11,7 +11,7 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.ServerPicker,
   args: { servers: D.SERVERS, value: D.SERVERS[0].name, onChange: fn() },
-  
+
   render: controlled(X.ServerPicker, 'value', 'onChange'),
   parameters: { width: 420 },
 };

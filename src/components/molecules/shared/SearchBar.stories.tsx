@@ -11,8 +11,8 @@ const meta: Meta = {
   id: 'molecules-searchbar',
   component: X.SearchBar,
   args: { placeholder: '프로그램·활동·태그 검색', onFilter: fn() },
-  
-  
+
+
   parameters: { width: 440 },
 };
 export default meta;

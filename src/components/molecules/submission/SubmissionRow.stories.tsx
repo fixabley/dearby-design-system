@@ -11,7 +11,7 @@ const meta: Meta = {
   id: 'molecules-submissionrow',
   component: X.SubmissionRow,
   args: { s: D.SUBMISSIONS[0], selected: false, onSelect: fn() },
-  
+
   render: (args) => <X.ListGroup><X.SubmissionRow {...(args as ComponentProps<typeof X.SubmissionRow>)} /></X.ListGroup>,
   parameters: { width: 393 },
 };

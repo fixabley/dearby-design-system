@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'organisms-topbar',
   component: X.TopBar,
   args: { title: '홈', center: false, unread: 2, share: false },
-  
+
   render: ({ title, center, unread, share }) => <X.TopBar title={center ? undefined : title} center={center ? <div className="w-[220px]"><X.Segmented items={['program', 'event'] as const} labels={{ program: '프로그램', event: '이벤트' }} value="program" /></div> : undefined} right={<X.GlassGroup unread={unread} actions={share ? [{ icon: 'share', label: '공유' }] : []} />} />,
   parameters: { width: 1060 },
 };

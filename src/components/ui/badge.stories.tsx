@@ -19,8 +19,8 @@ const meta: Meta = {
     size: { control: 'inline-radio', options: ['default', 'sm', 'dot'], ...look('default 24 · sm 20 · dot 16(알림 개수)') },
     asChild: { table: { disable: true } },
   },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

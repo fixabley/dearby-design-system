@@ -11,9 +11,9 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.ToggleGroup,
   args: { value: '활동', options: ['활동', '팔로우', '프로젝트'], onValueChange: fn() },
-  
+
   render: function Render({ options, value, ...args }) { const [, update] = useArgs(); const o = options as string[]; return <div className="w-[345px]"><X.ToggleGroup type="single" value={value} count={o.length} index={Math.max(0, o.indexOf(value))} onValueChange={(v: string) => { if (!v) return; args.onValueChange?.(v); update({ value: v }); }}>{o.map((x) => <X.ToggleGroupItem key={x} value={x}>{x}</X.ToggleGroupItem>)}</X.ToggleGroup></div>; },
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

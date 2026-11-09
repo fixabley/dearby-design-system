@@ -100,7 +100,8 @@ export const Links: Story = {
 /**
  * 연락처(프로필): 줄 전체는 값 복사(onClick, 토스트로 알린다), 오른쪽 action은 기본 앱으로 열기(메일 쓰기 · 전화 걸기 · Instagram 새 탭).
  * 왼쪽은 종류 아이콘이고 종류 이름은 화면 읽기 글자로 남긴다(버튼 이름 "이메일 seoyeon@example.com 복사").
- * 디스코드는 열 주소가 없어 복사만 하고, 클립보드 표시를 줄 안에 둔다. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다
+ * 디스코드는 열 주소가 없어 복사만 하고, 복사 표시를 줄 안에 둔다. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다.
+ * 이메일은 시안 ㉗-b의 말풍선(chat)이고, 전화 아이콘은 아직 정하지 않아 비워 둔다
  */
 export const Contacts: Story = {
   decorators: [
@@ -127,7 +128,7 @@ export const Contacts: Story = {
     return (
       <X.ListGroup title="연락처">
         <X.ListRow
-          icon="mail"
+          icon="chat"
           title={value('이메일', 'seoyeon@example.com')}
           onClick={copy('seoyeon@example.com')}
           action={
@@ -137,7 +138,6 @@ export const Contacts: Story = {
           }
         />
         <X.ListRow
-          icon="phone"
           title={value('전화', '010-1234-5678')}
           onClick={copy('010-1234-5678')}
           action={
@@ -165,7 +165,7 @@ export const Contacts: Story = {
           icon="discord"
           title={value('디스코드', 'seoyeon')}
           onClick={copy('seoyeon')}
-          trailing={<X.Icon name="clipboard" className="size-5" />}
+          trailing={<X.Icon name="copy" className="size-5" />}
         />
       </X.ListGroup>
     );

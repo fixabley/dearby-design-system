@@ -21,7 +21,8 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          'fixed z-50 flex max-h-[85vh] flex-col bg-background px-5 pt-2 shadow-[0_-8px_40px_rgba(0,0,0,.15)] outline-none',
+          // 그림자는 시안 .fsheet · .tksheet, 다크는 .dk .sheet처럼 그림자 대신 .5px 링
+          'fixed z-50 flex max-h-[85vh] flex-col bg-background px-5 pt-2 shadow-[0_-8px_30px_rgba(20,32,31,.16)] outline-none dark:shadow-control',
           // 아래에 붙는 시트만 홈 인디케이터만큼 아래 여백을 더한다. env(safe-area-inset-bottom)은 받아 쓰는 쪽이 viewport-fit=cover일 때만 값이 있고 아니면 0
           floating
             ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px] pb-6'

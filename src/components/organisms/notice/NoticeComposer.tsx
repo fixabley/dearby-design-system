@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { Channel } from '@/types';
 import { Text } from '@/components/atoms/shared/Text';
-import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { FieldGroup } from '@/components/ui/field';
@@ -51,11 +50,7 @@ function Discord({ className }: { className?: string }) {
     <ListRow
       title="디스코드에도 올리기"
       className={className}
-      media={
-        <span className="[&_svg]:size-[22px]">
-          <Icon name="discord" />
-        </span>
-      }
+      icon="discord"
       trailing={
         <Switch
           checked={toDiscord}

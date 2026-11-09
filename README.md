@@ -90,7 +90,7 @@ npm run build-storybook  # storybook-static/
 npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepare로도 돈다
 ```
 
-`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다.
+`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
 
 ## 린트
 

@@ -12,7 +12,11 @@ const COLORS = [
   ['muted', '채움 · 입력·분할 전환 바탕'],
   ['border', '구분선 0.5px'],
   ['background', '바탕'],
-  ['destructive', '탈락·오류 전용'],
+  ['destructive', '탈락·오류, 지우기 같은 동작의 빨간 글자'],
+  [
+    'destructive-fill',
+    '되돌릴 수 없는 동작의 확인 버튼 면 · 두 모드 모두 #D93025',
+  ],
   ['amber', '상태 캡션(선발 중)만'],
   ['toast', '토스트 캡슐 · 두 모드 모두 검정 85%'],
   ['toast-action', '토스트 행동 · 밝은 청록'],

@@ -16,6 +16,9 @@ const buttonVariants = cva(
         outline: 'bg-background text-foreground shadow-control',
         ghost: 'bg-transparent text-accent-foreground',
         destructive: 'bg-transparent font-normal text-destructive',
+        // 지우기·탈퇴처럼 되돌릴 수 없는 동작의 확인 버튼
+        'destructive-fill':
+          'bg-destructive-fill text-primary-foreground shadow-control',
         link: 'h-auto bg-transparent px-0 text-accent-foreground shadow-none',
         plain: 'bg-transparent text-foreground shadow-none',
         tile: 'bg-card text-foreground shadow-control',

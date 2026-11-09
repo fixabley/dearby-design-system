@@ -98,9 +98,9 @@ export const Links: Story = {
 };
 
 /**
- * 연락처(프로필): 줄 전체는 값 복사(onClick, 토스트로 알린다), 오른쪽 action은 기본 앱으로 열기(메일 쓰기 · 전화 걸기 · Instagram 새 탭).
+ * 연락처(프로필): 줄 전체는 값 복사(onClick, 토스트로 알린다), 오른쪽 action은 기본 앱으로 열기(메일 쓰기 · 전화 걸기 · Instagram · 디스코드 프로필 새 탭).
  * 왼쪽은 종류 아이콘이고 종류 이름은 화면 읽기 글자로 남긴다(버튼 이름 "이메일 seoyeon@example.com 복사").
- * 디스코드는 열 주소가 없어 복사만 하고, 복사 표시를 줄 안에 둔다. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다
+ * 아이콘은 색을 채운다: 메일 · 전화는 청록, 디스코드 로고는 --logo-color로 블러플. Instagram 로고는 넣지 않아(README 서비스 로고) 링크 아이콘이다
  */
 export const Contacts: Story = {
   decorators: [
@@ -165,7 +165,17 @@ export const Contacts: Story = {
           icon="discord"
           title={value('디스코드', 'seoyeon')}
           onClick={copy('seoyeon')}
-          trailing={<X.Icon name="copy" className="size-[22px]" />}
+          className="[--logo-color:#5865F2]"
+          action={
+            <X.Button asChild variant="plain" size="icon-sm" icon="link">
+              <a
+                href="https://discord.com/users/123456789012345678"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="디스코드 프로필 열기 (새 탭)"
+              />
+            </X.Button>
+          }
         />
       </X.ListGroup>
     );

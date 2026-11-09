@@ -41,7 +41,7 @@ function Tab({
       onClick={() => onNavigate?.(value)}
       icon={icon}
       className={cn(
-        'h-full flex-1 flex-col gap-0.5 rounded-full px-0 duration-200 [&_svg]:size-6',
+        'h-full flex-1 flex-col gap-[3px] rounded-full px-0 duration-200 [&_svg]:size-6',
         value === active && 'text-accent-foreground',
         className,
       )}
@@ -77,14 +77,14 @@ function TabBarRoot({
       <ButtonGroup
         variant="glass"
         aria-label="탭 막대"
-        className="relative isolate h-16 w-full gap-1 p-1.5"
+        className="relative isolate h-16 w-full p-1"
         style={{ ['--n' as string]: tabs.length, ['--i' as string]: index }}
       >
-        {/* 민트 면 하나가 고른 탭으로 미끄러진다. 너비 (100% − 여백 6px×2 − 간격 4px×(n−1)) ÷ n, 한 칸 이동은 너비 + 간격 4px */}
+        {/* 청록 10% 면 하나가 고른 탭으로 미끄러진다(시안 .tabs · .tab.on). 너비 (100% − 여백 4px×2) ÷ n, 한 칸 이동은 너비만큼 */}
         {index >= 0 && (
           <span
             aria-hidden
-            className="absolute inset-y-1.5 left-1.5 -z-10 w-[calc((100%-8px)/var(--n)-4px)] translate-x-[calc(var(--i)*(100%+4px))] rounded-full bg-accent transition-transform duration-[360ms] ease-spring"
+            className="absolute inset-y-1 left-1 -z-10 w-[calc((100%-8px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-primary/10 transition-transform duration-[360ms] ease-spring"
           />
         )}
         {tabs}

@@ -18,7 +18,7 @@ src/
     organisms/<도메인>/
     templates/shared/
   stories/foundations/     Colors · Typography · Radius & Shadow · Motion · Lite Markdown 스토리
-  icons.ts                 시안의 아이콘(SVG 원문, 영문 키)
+  icons.ts                 시안의 아이콘과 서비스 로고(SVG 원문, 영문 키, 로고는 서비스 로고 절)
   types.ts · data.ts       예시 데이터 타입과 값
 ```
 
@@ -171,6 +171,21 @@ rm -r <레포>/static/fonts/pretendard/woff2-dynamic-subset
 cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/dist/web/variable/woff2-dynamic-subset <레포>/static/fonts/pretendard/
 gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
 ```
+
+## 서비스 로고
+
+아이콘은 시안에서 가져오고, 시안에 없는 서비스 로고는 그 회사가 직접 공개한 자료에서 가져옵니다. 출처가 불분명한 아이콘 모음에서 베끼지 않습니다. 아래는 모두 2026-11-09에 받았습니다.
+
+- 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다. 원래 색은 빼고 다른 아이콘처럼 `currentColor`로 칠합니다.
+- 로고는 그 서비스의 사용자 주소로 잇는 링크(`SocialLinks`)에만 씁니다. 서비스 이름 대신 쓰거나, 다른 기호 · 글자와 합치거나, 그 회사와 제휴 · 보증 관계처럼 보이게 쓰지 않습니다.
+
+### LinkedIn(`linkedin`)
+
+- 원천: [[in] 로고 안내](https://brand.linkedin.com/in-logo) 페이지에 들어 있는 심볼 `inbug-blue-28`(viewBox `0 0 28 28`, 원래 색 `#0a66c2`). [내려받기](https://brand.linkedin.com/downloads)의 `in-logo.zip`은 PNG뿐이라, 벡터는 브랜드 페이지가 직접 그리는 이 심볼을 씁니다. 24 격자 안 18 크기(x · y 3)에 놓습니다.
+- 조건: 자기 LinkedIn 프로필로 잇는 링크와 소셜 아이콘 줄에 쓸 수 있습니다. 모양과 색을 바꾸지 않고, 색은 파랑 · 검정 · 흰색 세 가지만 씁니다(소셜 아이콘 줄에서는 배경색은 상관없음). 내려받으면 LinkedIn Brand and User Agreements를 따르기로 한 것으로 봅니다.
+- 다 맞추지 못한 점: `currentColor`는 글자색(라이트 `#111113` · 다크 `#f2f4f5`)이라 순수 검정 · 흰색과 조금 다릅니다.
+
+LinkedIn과 [in] 로고는 LinkedIn Corporation의 상표입니다.
 
 ## 원칙
 

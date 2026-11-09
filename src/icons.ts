@@ -1,4 +1,5 @@
 // 시안 아티팩트에서 가져온 아이콘(SVG 원문). 키는 계약의 아이콘 의미표를 따른 영문
+// 시안에 없는 서비스 로고는 각 회사의 공식 자료에서 가져왔다(README 서비스 로고)
 export const ICONS = {
   close:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
@@ -71,6 +72,9 @@ export const ICONS = {
   link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 16.5 16.5 7.5M9.5 7.5h7v7"/></svg>',
   // 시안 ㉗-a 내 프로필 우상단 수정
   edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5l1-4.2L15.8 5a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.7 18.5z"/><path d="M13.8 7l3.2 3.2"/></svg>',
+  // 공식 로고(README 서비스 로고). 원문 경로를 24 격자 안 18 크기로 놓음
+  linkedin:
+    '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><svg x="3" y="3" width="18" height="18" viewBox="0 0 28 28"><path d="m25.9 0h-23.8c-1.2 0-2.1 0.9-2.1 2v24c0 1.1 0.9 2 2.1 2h23.9c1.1 0 2.1-0.9 2.1-2v-24c-0.1-1.1-1-2-2.2-2zm-17.6 23.9h-4.1v-13.4h4.2v13.4zm-2.1-15.2c-1.3 0-2.4-1.1-2.4-2.4s1.1-2.4 2.4-2.4 2.4 1.1 2.4 2.4-1 2.4-2.4 2.4zm17.7 15.2h-4.1v-6.5c0-1.5 0-3.5-2.2-3.5s-2.5 1.7-2.5 3.4v6.6h-4.1v-13.4h4v1.8h0.1c0.6-1 1.9-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4v7.4z"/></svg></svg>',
 } as const;
 export type IconName = keyof typeof ICONS;
 export const STATUS = {

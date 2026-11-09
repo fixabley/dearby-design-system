@@ -122,16 +122,18 @@ export function LockToggle({
   const [anim, setAnim] = React.useState<AnimationItem | null>(null); // 준비된 재생기
   const drawn = React.useRef<AnimationItem | null>(null); // 지금 상태를 이미 그린 재생기
 
-  // 동작 줄이기면 재생기를 불러오지 않는다(lottie-web은 스크립트로 그려 styles.css의 동작 줄이기 규칙이 닿지 않는다)
+  // 동작 줄이기면 재생기를 불러오지 않는다(lottie-web은 스크립트로 그려 styles.css의 동작 줄이기 규칙이 닿지 않는다).
+  // 상자는 지금 잡아 둔다: Suspense가 내용을 가리면 ref가 떼어져, 그 사이 import가 끝나면 box.current가 비어 있다
   React.useEffect(() => {
-    if (still()) return;
+    const el = box.current;
+    if (!el || still()) return;
     let off = false;
     let item: AnimationItem | undefined;
     import('lottie-web/build/player/lottie_light')
       .then(({ default: lottie }) => {
-        if (off || !box.current) return;
+        if (off) return;
         const a = lottie.loadAnimation({
-          container: box.current,
+          container: el,
           renderer: 'svg',
           loop: false,
           autoplay: false,

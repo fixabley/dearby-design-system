@@ -185,7 +185,13 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - 조건: 자기 LinkedIn 프로필로 잇는 링크와 소셜 아이콘 줄에 쓸 수 있습니다. 모양과 색을 바꾸지 않고, 색은 파랑 · 검정 · 흰색 세 가지만 씁니다(소셜 아이콘 줄에서는 배경색은 상관없음). 내려받으면 LinkedIn Brand and User Agreements를 따르기로 한 것으로 봅니다.
 - 다 맞추지 못한 점: `currentColor`는 글자색(라이트 `#111113` · 다크 `#f2f4f5`)이라 순수 검정 · 흰색과 조금 다릅니다.
 
-LinkedIn과 [in] 로고는 LinkedIn Corporation의 상표입니다.
+### Pinterest(`pinterest`)
+
+- 원천: [Pinterest 브랜드 지침](https://business.pinterest.com/brand-guidelines) 페이지가 소셜 아이콘으로 직접 그리는 배지 [`pinterest.svg`](https://images.ctfassets.net/h67z7i6sbjau/7KaDJtrZJku9o86Vn5GgXW/6e47dfdd8fd9cea58e63756951645cea/pinterest.svg)(viewBox `0 0 24 24`, 원래 색 `#111111`). 지침이 안내하는 로고 자산 모음(pinterest-assets.com)은 로그인해야 받을 수 있어 이것을 씁니다. 24 격자 안 19 크기(x · y 2.5)에 놓습니다.
+- 조건: 워드마크는 쓰지 않고 배지만 씁니다. 기본은 빨간 원에 흰 P이고, 색을 쓰기 어려우면 검정이나 흰색으로 씁니다. 테두리 · 필터 · 효과를 더하거나 원에서 P를 빼거나 색을 바꾸지 않습니다. 배지에는 늘 행동 유도(예: Pinterest에서 팔로우)를 함께 두고 자기 Pinterest 계정으로 잇습니다.
+- 다 맞추지 못한 점: 이 지침은 자기 Pinterest를 알리는 기업을 위한 것이고, `SocialLinks`는 배지와 이름 말풍선뿐이라 행동 유도 문구가 없습니다. 색은 LinkedIn과 같이 순수 검정 · 흰색과 조금 다릅니다.
+
+LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
 
 ## 원칙
 

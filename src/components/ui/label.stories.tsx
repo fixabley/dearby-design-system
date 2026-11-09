@@ -9,7 +9,7 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Label,
   args: { children: '얻어 가는 것' },
-  render: (args: Record<string, any>) => <X.Label {...args} />,
+  render: (args) => <X.Label {...args} />,
 };
 export default meta;
 void fn; void useArgs;

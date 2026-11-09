@@ -10,9 +10,9 @@ const meta: Meta = {
   id: 'molecules-timetablebutton',
   component: X.TimetableButton,
   args: { onClick: fn() },
-  
-  
-  
+
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

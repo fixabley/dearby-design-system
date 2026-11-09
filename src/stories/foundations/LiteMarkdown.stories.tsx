@@ -6,7 +6,6 @@ export default meta;
 
 /** 줄인 마크다운: 공지·상세 설명이 쓰는 글 규칙. 디스코드에도 같은 원본을 보낸다 */
 export const LiteMarkdown: StoryObj<{ source: string }> = {
-  name: 'Lite Markdown',
   args: { source: '**굵게** · *기울임* · _기울임_ · ~~취소선~~ · `코드`\n[Google Meet](https://meet.google.com/abc-defg-hij) · https://forms.gle/dearby-study\n• 목록은 • 로 시작\n• user_name 같은 단어 속 밑줄은 그대로\n• javascript:alert(1) 같은 주소는 링크가 되지 않아요' },
   argTypes: { source: { control: 'text' } },
   render: ({ source }) => (

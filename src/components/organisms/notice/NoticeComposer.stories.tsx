@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -12,8 +13,8 @@ const meta: Meta = {
   component: X.NoticeForm,
   args: { title: '목요일 모임은 21:00에 시작해요', body: '11월 19일 (목)만 **한 시간 늦게** 시작해요. 회의 링크는 [Google Meet](https://meet.google.com/abc-defg-hij)\n• 질문은 https://forms.gle/dearby-study 에 남겨 주세요\n• ~~20:00~~ → *21:00*', channels: D.CHANNELS, defaultChannel: '자유 대화', onTitle: fn(), onBody: fn(), onSubmit: fn() },
   argTypes: { defaultChannel: { control: 'select', options: D.CHANNELS.filter((c) => c.type !== 'voice').map((c) => c.name) } },
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); return <div className="grid w-[960px] grid-cols-2 gap-12"><X.NoticeForm key={args.defaultChannel} {...(args as any)} onTitle={(v) => { args.onTitle?.(v); update({ title: v }); }} onBody={(v) => { args.onBody?.(v); update({ body: v }); }} /><X.NoticePreview title={args.title} body={args.body} /></div>; },
-  
+  render: function Render(args) { const [, update] = useArgs(); return <div className="grid w-[960px] grid-cols-2 gap-12"><X.NoticeForm key={args.defaultChannel} {...(args as ComponentProps<typeof X.NoticeForm>)} onTitle={(v) => { args.onTitle?.(v); update({ title: v }); }} onBody={(v) => { args.onBody?.(v); update({ body: v }); }} /><X.NoticePreview title={args.title} body={args.body} /></div>; },
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -25,11 +26,11 @@ export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 디스코드 없이 제목·내용 · 알림 · 올리기 */
 export const Composed: Story = {
-  render: function Render(args: Record<string, any>) {
+  render: function Render(args) {
     const [, update] = useArgs();
     return (
       <div className="grid w-[960px] grid-cols-2 gap-12">
-        <X.NoticeForm {...(args as any)} onTitle={(v) => { args.onTitle?.(v); update({ title: v }); }} onBody={(v) => { args.onBody?.(v); update({ body: v }); }}>
+        <X.NoticeForm {...(args as ComponentProps<typeof X.NoticeForm>)} onTitle={(v) => { args.onTitle?.(v); update({ title: v }); }} onBody={(v) => { args.onBody?.(v); update({ body: v }); }}>
           <X.NoticeForm.Fields /><X.ListGroup><X.NoticeForm.Notify /></X.ListGroup><X.NoticeForm.Submit />
         </X.NoticeForm>
         <X.NoticePreview title={args.title} body={args.body} />

@@ -26,7 +26,7 @@ const meta: Meta = {
     onOpenChange: event(),
     className: { table: { disable: true } },
   },
-  render: function Render({ value, min, max, disabledDates, today, onChange, onOpenChange, ...args }: Record<string, any>) {
+  render: function Render({ value, min, max, disabledDates, today, onChange, onOpenChange, ...args }) {
     const [, update] = useArgs();
     return (
       <X.DatePicker {...args} value={toDate(value)} min={toDate(min)} max={toDate(max)} disabledDates={(disabledDates as string[]).map((s) => toDate(s))} today={toDate(today)}

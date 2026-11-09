@@ -11,9 +11,9 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Sheet,
   args: { open: false, title: '후기 남기기', floating: false, onOpenChange: fn() },
-  
-  render: function Render({ title, floating, ...args }: Record<string, any>) { const [, update] = useArgs(); return <X.Sheet open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }}><X.SheetTrigger asChild><X.Button variant="mint">시트 열기</X.Button></X.SheetTrigger><X.SheetContent floating={floating}><X.SheetHeader title={title} /><p className="py-4 text-body text-muted-foreground">내용</p></X.SheetContent></X.Sheet>; },
-  
+
+  render: function Render({ title, floating, ...args }) { const [, update] = useArgs(); return <X.Sheet open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }}><X.SheetTrigger asChild><X.Button variant="mint">시트 열기</X.Button></X.SheetTrigger><X.SheetContent floating={floating}><X.SheetHeader title={title} /><p className="py-4 text-body text-muted-foreground">내용</p></X.SheetContent></X.Sheet>; },
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

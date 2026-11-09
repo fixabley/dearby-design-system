@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-activityrow',
   component: X.ActivityRow,
   args: { a: D.ACTIVITIES[2], selected: false, onSelect: fn(), onTimetable: fn() },
-  
-  
+
+
   parameters: { width: 480 },
 };
 export default meta;

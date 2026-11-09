@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { content, event, iconArgType, look, state } from '@/stories/argTypes';
+import { content, iconArgType, look } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Molecules/Shared/MetaLine',
@@ -12,7 +13,7 @@ const meta: Meta = {
   component: X.MetaLine,
   args: { icon: 'calendar', label: '모집', value: '11월 9일 (월) 17:00 마감', dday: '', wrap: false },
   argTypes: { label: content('굵은 라벨'), value: content('값. 날짜는 M월 d일 (요일) HH:mm'), dday: content('있으면 값 대신 D-day'), icon: iconArgType(false, '맨 앞 아이콘'), wrap: look('길면 줄바꿈(끄면 말줄임)') },
-  
+
   parameters: { width: 300 },
 };
 export default meta;
@@ -24,4 +25,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 라벨 없이 아이콘과 D-day만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.MetaLine {...(args as any)} dday="D-6"><X.MetaLine.Icon /><X.MetaLine.Value /></X.MetaLine> };
+export const Composed: Story = { render: (args) => <X.MetaLine {...(args as ComponentProps<typeof X.MetaLine>)} dday="D-6"><X.MetaLine.Icon /><X.MetaLine.Value /></X.MetaLine> };

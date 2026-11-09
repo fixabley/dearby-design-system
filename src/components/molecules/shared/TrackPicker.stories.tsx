@@ -10,9 +10,9 @@ const meta: Meta = {
   id: 'molecules-trackpicker',
   component: X.TrackPicker,
   args: { value: undefined, placeholder: '캠퍼스·트랙을 선택해주세요' },
-  
-  
-  
+
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -15,7 +15,7 @@ const meta: Meta = {
     variant: { control: 'inline-radio', options: ['default', 'inline'], ...look('default 입력 칸 · inline 목록 행 오른쪽 값') },
     disabled: { table: { category: '상태' } }, onValueChange: event(),
   },
-  render: function Render({ options, placeholder, variant, disabled, ...args }: Record<string, any>) {
+  render: function Render({ options, placeholder, variant, disabled, ...args }) {
     const [, update] = useArgs();
     return (
       <X.Select value={args.value} disabled={disabled} onValueChange={(v) => { args.onValueChange?.(v); update({ value: v }); }}>

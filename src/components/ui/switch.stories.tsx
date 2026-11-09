@@ -11,9 +11,9 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Switch,
   args: { checked: true, disabled: false, 'aria-label': '알림', onCheckedChange: fn() },
-  
+
   render: controlled(X.Switch, 'checked', 'onCheckedChange'),
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

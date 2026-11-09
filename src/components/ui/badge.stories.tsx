@@ -4,7 +4,7 @@ import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
 import * as D from '@/data';
 import { controlled } from '@/stories/controlled';
-import { content, event, iconArgType, look, state } from '@/stories/argTypes';
+import { content, iconArgType, look } from '@/stories/argTypes';
 
 const meta: Meta = {
   title: 'Atoms/shadcn/Badge',
@@ -19,8 +19,8 @@ const meta: Meta = {
     size: { control: 'inline-radio', options: ['default', 'sm', 'dot'], ...look('default 24 · sm 20 · dot 16(알림 개수)') },
     asChild: { table: { disable: true } },
   },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -30,7 +30,7 @@ const meta: Meta = {
     onSelect: event(),
     onMonthChange: event(),
   },
-  render: function Render({ mode, selected, dates, range, month, today, enabledDates, onSelect, onMonthChange, ...args }: Record<string, any>) {
+  render: function Render({ mode, selected, dates, range, month, today, enabledDates, onSelect, onMonthChange, ...args }) {
     const [, update] = useArgs();
     const only = enabledDates as string[];
     const common = {

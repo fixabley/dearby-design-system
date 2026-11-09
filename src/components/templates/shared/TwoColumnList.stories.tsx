@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.TwoColumnList,
   args: { screenTitle: '홈', height: 600, rows: 6 },
   argTypes: { rows: { control: { type: 'range', min: 1, max: 12 } } },
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.TwoColumnList><X.TwoColumnList.Items>{Array.from({ length: args.rows }, (_, i) => <div key={i} className="py-3"><Ph t={`Row ${i + 1}`} h={96} /></div>)}</X.TwoColumnList.Items></X.TwoColumnList></X.WebShell.Main></X.WebShell>; },
+  render: function Render(args) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.TwoColumnList><X.TwoColumnList.Items>{Array.from({ length: args.rows }, (_, i) => <div key={i} className="py-3"><Ph t={`Row ${i + 1}`} h={96} /></div>)}</X.TwoColumnList.Items></X.TwoColumnList></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 채운 실제 화면: 머리(분할 전환) + 내 활동 두 열 */
 export const Composed: Story = {
-  render: (args: Record<string, any>) => (
+  render: (args) => (
     <X.WebShell height={args.height ?? 600}>
       <X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar>
       <X.WebShell.Main>

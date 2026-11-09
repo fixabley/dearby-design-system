@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -10,8 +11,8 @@ const meta: Meta = {
   id: 'molecules-submissionrow',
   component: X.SubmissionRow,
   args: { s: D.SUBMISSIONS[0], selected: false, onSelect: fn() },
-  
-  render: (args: Record<string, any>) => <X.ListGroup><X.SubmissionRow {...(args as any)} /></X.ListGroup>,
+
+  render: (args) => <X.ListGroup><X.SubmissionRow {...(args as ComponentProps<typeof X.SubmissionRow>)} /></X.ListGroup>,
   parameters: { width: 393 },
 };
 export default meta;

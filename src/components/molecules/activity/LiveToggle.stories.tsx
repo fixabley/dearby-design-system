@@ -10,9 +10,9 @@ const meta: Meta = {
   id: 'molecules-livetoggle',
   component: X.LiveToggle,
   args: { pressed: true, onPressedChange: fn() },
-  
+
   render: controlled(X.LiveToggle, 'pressed', 'onPressedChange'),
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

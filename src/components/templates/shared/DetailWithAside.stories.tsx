@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.DetailWithAside,
   args: { screenTitle: '', height: 600, main: 'Body', aside: 'Sticky card 340' },
 
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.DetailWithAside><X.DetailWithAside.Main><Ph t={args.main} h={900} /></X.DetailWithAside.Main><X.DetailWithAside.Aside><Ph t={args.aside} h={260} /></X.DetailWithAside.Aside></X.DetailWithAside></X.WebShell.Main></X.WebShell>; },
+  render: function Render(args) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.DetailWithAside><X.DetailWithAside.Main><Ph t={args.main} h={900} /></X.DetailWithAside.Main><X.DetailWithAside.Aside><Ph t={args.aside} h={260} /></X.DetailWithAside.Aside></X.DetailWithAside></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 채운 실제 화면: 활동 상세(날짜·행동은 빼고) + 오른쪽 신청 카드 */
 export const Composed: Story = {
-  render: (args: Record<string, any>) => (
+  render: (args) => (
     <X.WebShell height={args.height ?? 600}>
       <X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar>
       <X.WebShell.Main>

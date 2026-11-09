@@ -10,7 +10,7 @@ const meta: Meta = {
   component: X.ButtonGroup,
   args: { variant: 'glass', separator: true, count: 3 },
   argTypes: { variant: { control: 'inline-radio', options: ['default', 'glass'] }, count: { control: { type: 'range', min: 1, max: 4 } } },
-  render: ({ separator, count, ...args }: Record<string, any>) => <X.ButtonGroup {...args}>{(['share', 'add', 'settings', 'bell'] as const).slice(0, count).map((n, i) => [separator && i === count - 2 && <X.ButtonGroupSeparator key="s" />, <X.Button key={n} variant={args.variant === 'glass' ? 'plain' : 'mint'} size="icon-sm" aria-label={n} icon={n} />])}</X.ButtonGroup>,
+  render: ({ separator, count, ...args }) => <X.ButtonGroup {...args}>{(['share', 'add', 'settings', 'bell'] as const).slice(0, count).map((n, i) => [separator && i === count - 2 && <X.ButtonGroupSeparator key="s" />, <X.Button key={n} variant={args.variant === 'glass' ? 'plain' : 'mint'} size="icon-sm" aria-label={n} icon={n} />])}</X.ButtonGroup>,
 };
 export default meta;
 void fn; void useArgs;

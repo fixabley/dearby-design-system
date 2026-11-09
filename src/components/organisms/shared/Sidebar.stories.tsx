@@ -12,7 +12,7 @@ const meta: Meta = {
   args: { active: 'home', hosted: ['온디바이스 AI 앱 만들기'], onNavigate: fn() },
   argTypes: { active: { control: 'select', options: ['home', 'discover', 'cards', 'profile', '온디바이스 AI 앱 만들기'] } },
   render: controlled(X.Sidebar, 'active', 'onNavigate'),
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 로고 아래 탭 두 개만 */
 export const Composed: Story = {
-  render: function Render(args: Record<string, any>) {
+  render: function Render(args) {
     const [, update] = useArgs();
     return (
       <X.Sidebar active={args.active} onNavigate={(k) => { args.onNavigate?.(k); update({ active: k }); }}>

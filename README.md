@@ -90,7 +90,18 @@ npm run build-storybook  # storybook-static/
 npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepare로도 돈다
 ```
 
-`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다.
+`main`에 올리면 GitHub Actions가 Storybook을 빌드해 Pages에 배포합니다. PR에서는 lint · 타입 검사 · 층 검사 · Storybook 빌드만 돌립니다.
+
+## 린트
+
+```sh
+npm run lint    # ESLint
+npm run hooks   # 처음 한 번: 커밋할 때 lint가 돌게 훅 경로를 잡는다
+```
+
+- 설정은 `eslint.config.js`입니다: JS·TS 권장 규칙, Storybook, React hooks(웹과 같은 recommended), 따옴표. 모양 규칙은 따옴표뿐이고(문자열은 작은따옴표, 이스케이프를 피할 때만 큰따옴표, JSX 속성은 큰따옴표로 웹과 같음) 나머지 모양은 `.editorconfig`를 따릅니다. `npm run lint -- --fix`로 고칠 수 있습니다.
+- 저장할 때: 편집기의 ESLint 연동을 켭니다. IntelliJ는 Settings › Languages & Frameworks › JavaScript › Code Quality Tools › ESLint에서 자동 구성과 `Run eslint --fix on save`를 켭니다.
+- 커밋할 때: `npm run hooks`가 `git config core.hooksPath .githooks`를 잡으면 커밋마다 `.githooks/pre-commit`이 `npm run lint`를 돌리고, 실패하면 커밋이 막힙니다. git 의존성으로 받아 쓰는 쪽(웹)의 설치에서 돌지 않게 `prepare` · `postinstall`에는 넣지 않았습니다. 이 설정은 저장소의 모든 worktree에 함께 적용됩니다.
 
 ## 패키지로 받아 쓰기
 
@@ -112,7 +123,6 @@ npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepa
 | `@dearby/design-system` | 컴포넌트 · 타입 · 아이콘 · `cn` · `renderLite` |
 | `@dearby/design-system/data` | 시안 예시 데이터(`ACTIVITIES` 등) |
 | `@dearby/design-system/styles.css` | 토큰(@theme) · Pretendard · 다크(.dk) · 기본 스타일 |
-| `@dearby/design-system/fonts/*` | Pretendard 파일 |
 
 ### 스타일
 
@@ -125,8 +135,8 @@ npm run build            # dist/ 라이브러리(ESM과 .d.ts). npm ci 때 prepa
 
 - `styles.css`는 Tailwind를 부르지 않으니 받아 쓰는 쪽이 `@import "tailwindcss"`를 먼저 합니다.
 - Tailwind는 node_modules를 스스로 읽지 않습니다. `@source`로 dist를 알려 줘야 컴포넌트가 쓰는 클래스가 만들어집니다. 경로는 그 CSS 파일 기준입니다.
-- 글꼴은 `styles.css` 기준 상대 경로로 적혀 있어 Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 경로를 다시 잡고, 번들러가 파일을 내보냅니다. 따로 손댈 것은 없습니다.
-- 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다.
+- 글꼴은 `styles.css`가 상대 경로로 부르는 Pretendard 가변 다이나믹 서브셋([글꼴](#글꼴))입니다. Tailwind 4(@tailwindcss/postcss · @tailwindcss/vite)가 그 CSS를 펼치며 글꼴 주소를 다시 잡고, 번들러가 woff2 92개를 내보냅니다. 브라우저는 화면에 있는 글자가 든 조각만 받습니다. 따로 손댈 것은 없습니다.
+- 다크는 문서 루트(`<html>`)에 `.dk`를 붙입니다. 모달 · 메뉴 같은 포털까지 이어집니다. `.dk`는 `color-scheme: dark`도 켜서 브라우저 기본 컨트롤과 스크롤바도 어두워집니다(기본은 `light`).
 
 ### 컴포넌트
 
@@ -139,6 +149,23 @@ import { ACTIVITIES } from "@dearby/design-system/data";
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 
+## 글꼴
+
+`static/fonts/pretendard/`에는 Pretendard 글꼴과 라이선스가 받은 그대로 있습니다. 한 바이트도 바꾸지 않습니다.
+
+- `pretendardvariable-dynamic-subset.css` · `woff2-dynamic-subset/`(woff2 92개): [Pretendard](https://github.com/orioncactus/pretendard) npm 패키지 1.3.9의 `dist/web/variable/`에서 같은 구조로 복사했습니다. 저작권자가 만든 파일 그대로라 글꼴 이름 `Pretendard Variable`을 그대로 씁니다. 레포 의존성에는 넣지 않습니다(패키지 전체가 압축 약 72MB).
+- `LICENSE.txt`(SIL OFL 1.1 전문, 예약 글꼴 이름과 원 글꼴 저작권 줄 포함): 원본 저장소 main의 `LICENSE`(커밋 0189074 "Add missing copyright notices")를 그대로 가져왔습니다. 1.3.9 패키지의 라이선스에 빠져 있던 Adobe · Inter · M+ 저작권 줄을 저작권자가 나중에 더한 판이라 지금 쓰는 글꼴에도 해당합니다.
+- 패키지(`files`의 `static/fonts`)에는 글꼴과 함께 들어가고, Storybook 결과물에는 `licenses/Pretendard-LICENSE.txt`로 나갑니다. 글꼴을 다시 내보내는 받아 쓰는 쪽도 이 파일(`node_modules/@dearby/design-system/static/fonts/pretendard/LICENSE.txt`)을 함께 둡니다.
+
+버전을 올릴 때는 작업 공간 밖 임시 폴더에서 패키지를 받아 덮어쓰고 라이선스도 원본 저장소에서 다시 받은 뒤, `npm run build-storybook`으로 글꼴이 나오는지 확인합니다.
+
+```sh
+cd "$(mktemp -d)" && npm pack pretendard@<버전> && tar -xzf pretendard-<버전>.tgz
+rm -r <레포>/static/fonts/pretendard/woff2-dynamic-subset
+cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/dist/web/variable/woff2-dynamic-subset <레포>/static/fonts/pretendard/
+gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
+```
+
 ## 원칙
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
@@ -147,4 +174,4 @@ import { ACTIVITIES } from "@dearby/design-system/data";
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.
 
-글꼴은 [Pretendard](https://github.com/orioncactus/pretendard)(SIL OFL 1.1)입니다. 예시에 나오는 기관 이름·로고는 시안 확인용이며 각 기관에 권리가 있습니다.
+글꼴은 [Pretendard](https://github.com/orioncactus/pretendard)(SIL OFL 1.1, [글꼴](#글꼴))입니다. 예시에 나오는 기관 이름·로고는 시안 확인용이며 각 기관에 권리가 있습니다.

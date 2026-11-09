@@ -34,7 +34,7 @@ const meta: Meta = {
     onValueChange: event('검색어 바뀜'),
     onSelect: event('행 고름'),
   },
-  render: function Render({ value, placeholder, heading, keys, suggest, variant, loop, onValueChange, onSelect }: Record<string, any>) {
+  render: function Render({ value, placeholder, heading, keys, suggest, variant, loop, onValueChange, onSelect }) {
     const [, update] = useArgs();
     return (
       <X.Command label="자격 검색" loop={loop}>
@@ -68,7 +68,7 @@ export const Playground: Story = {};
 export const Programs: Story = {
   args: { value: 'SSAFY', placeholder: '', chosen: 'SSAFY' },
   argTypes: { chosen: state('고른 프로그램'), heading: { table: { disable: true } }, keys: { table: { disable: true } }, suggest: { table: { disable: true } } },
-  render: function Render({ value, placeholder, variant, loop, chosen, onValueChange, onSelect }: Record<string, any>) {
+  render: function Render({ value, placeholder, variant, loop, chosen, onValueChange, onSelect }) {
     const [, update] = useArgs();
     return (
       <X.Command label="연관 프로그램" shouldFilter={false} loop={loop}>

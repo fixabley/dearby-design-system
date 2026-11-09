@@ -11,8 +11,8 @@ const meta: Meta = {
   tags: ['manage'],
   component: X.ChannelTemplate,
   args: { channels: D.CHANNELS },
-  
-  
+
+
   parameters: { width: 420 },
 };
 export default meta;
@@ -24,4 +24,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 글을 올릴 수 있는 채널만, 추가 줄 없이 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ChannelTemplate channels={args.channels}>{(args.channels as X.Channel[]).filter((c) => c.type !== 'voice').map((c) => <X.ChannelTemplate.Channel key={c.name} channel={c} />)}</X.ChannelTemplate> };
+export const Composed: Story = { render: (args) => <X.ChannelTemplate channels={args.channels}>{(args.channels as X.Channel[]).filter((c) => c.type !== 'voice').map((c) => <X.ChannelTemplate.Channel key={c.name} channel={c} />)}</X.ChannelTemplate> };

@@ -21,7 +21,7 @@ const meta: Meta = {
     className: { table: { disable: true } },
     children: { table: { disable: true } },
   },
-  render: function Render({ start, end, today, onStartChange, onEndChange, onAllDayChange, ...args }: Record<string, any>) {
+  render: function Render({ start, end, today, onStartChange, onEndChange, onAllDayChange, ...args }) {
     const [, update] = useArgs();
     return (
       <X.DateTimeField {...args} start={toDate(start)} end={toDate(end)} today={toDate(today)}

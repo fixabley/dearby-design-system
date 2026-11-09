@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'organisms-tabbar',
   component: X.TabBar,
   args: { active: 'home', onNavigate: fn() },
-  argTypes: { active: { control: "inline-radio", options: ["home", "discover", "cards", "profile"] } },
+  argTypes: { active: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
   render: controlled(X.TabBar, 'active', 'onNavigate'),
   parameters: { width: 361 },
 };
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 탭 세 개만 */
 export const Composed: Story = {
-  render: function Render(args: Record<string, any>) {
+  render: function Render(args) {
     const [, update] = useArgs();
     return (
       <X.TabBar active={args.active} onNavigate={(k) => { args.onNavigate?.(k); update({ active: k }); }}>

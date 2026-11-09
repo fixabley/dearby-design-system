@@ -11,8 +11,8 @@ const meta: Meta = {
   component: X.KindLabel,
   args: { kind: 'BOOTCAMP' },
   argTypes: { kind: { control: 'select', options: Object.keys(X.KINDS) } },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

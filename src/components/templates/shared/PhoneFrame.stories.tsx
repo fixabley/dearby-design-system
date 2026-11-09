@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'templates-phoneframe',
   component: X.PhoneFrame,
   args: { title: '홈', unread: 2, tab: 'home' },
-  argTypes: { tab: { control: "inline-radio", options: ["home", "discover", "cards", "profile"] } },
-  render: ({ title, unread, tab }: Record<string, any>) => <X.PhoneFrame><X.PhoneFrame.Header title={title}><X.GlassGroup unread={unread} /></X.PhoneFrame.Header><X.PhoneFrame.Body><X.QueueCard covers={['img/cover-22.jpg', 'img/cover-13.jpg', 'img/cover-42.jpg']} sub="프로그램 7개 중 3개 봤어요" /><h2 className="mb-1 mt-4 text-section">내 활동</h2><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.PhoneFrame.Body><X.PhoneFrame.TabBar><X.TabBar active={tab} /></X.PhoneFrame.TabBar></X.PhoneFrame>,
+  argTypes: { tab: { control: 'inline-radio', options: ['home', 'discover', 'cards', 'profile'] } },
+  render: ({ title, unread, tab }) => <X.PhoneFrame><X.PhoneFrame.Header title={title}><X.GlassGroup unread={unread} /></X.PhoneFrame.Header><X.PhoneFrame.Body><X.QueueCard covers={['img/cover-22.jpg', 'img/cover-13.jpg', 'img/cover-42.jpg']} sub="프로그램 7개 중 3개 봤어요" /><h2 className="mb-1 mt-4 text-section">내 활동</h2><X.RowList>{D.ACTIVITIES.map((a) => <X.ActivityRow key={a.id} a={a} />)}</X.RowList></X.PhoneFrame.Body><X.PhoneFrame.TabBar><X.TabBar active={tab} /></X.PhoneFrame.TabBar></X.PhoneFrame>,
 
 };
 export default meta;

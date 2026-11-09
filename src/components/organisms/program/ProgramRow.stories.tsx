@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-programrow',
   component: X.ProgramRow,
   args: { p: D.PROGRAMS[0], selected: false, onSelect: fn() },
-  
-  
+
+
   parameters: { width: 480 },
 };
 export default meta;

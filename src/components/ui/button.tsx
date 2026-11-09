@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 // shadcn Button + Dearby: 누를 수 있는 컨트롤에만 그림자, 고정 CTA(lg)만 17/600, 눌리면 살짝 작아짐
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  'inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap font-semibold outline-none transition-[transform,box-shadow,background-color,color] duration-150 ease-out-soft active:scale-[.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {

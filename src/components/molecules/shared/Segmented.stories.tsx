@@ -10,7 +10,7 @@ const meta: Meta = {
   id: 'molecules-segmented',
   component: X.Segmented,
   args: { items: ['activity', 'follow', 'projects'], labels: { activity: '활동', follow: '팔로우', projects: '프로젝트' }, value: 'activity', label: '프로필 탭', onChange: fn() },
-  
+
   render: controlled(X.Segmented, 'value', 'onChange'),
   parameters: { width: 345 },
 };

@@ -1,15 +1,16 @@
 /* Dearby 스타일: 토큰(@theme) · 글꼴 · 다크(.dk) · 기본 스타일. Tailwind는 부르지 않는다.
    받아 쓰는 쪽은 @import "tailwindcss" 다음에 이 파일을 부르고, Storybook은 globals.css가 같은 순서로 부른다 */
 @import "tw-animate-css";
-
-/* 이 파일 기준 상대 경로. 받아 쓰는 쪽 번들러가 글꼴 파일을 찾아 내보낸다 */
-@font-face { font-family: "Pretendard Variable"; font-weight: 45 920; font-style: normal; font-display: swap; src: url("../static/fonts/PretendardVariable.ttf") format("truetype"); }
+/* 글꼴: 저작권자가 만든 Pretendard 가변 다이나믹 서브셋(바꾸지 않고 복사, README "글꼴"). 화면에 있는 글자가 든 woff2 조각만 받는다.
+   이 파일 기준 상대 경로라 받아 쓰는 쪽 번들러가 글꼴 파일을 찾아 내보낸다 */
+@import "../static/fonts/pretendard/pretendardvariable-dynamic-subset.css";
 
 /* 다크는 시스템 설정을 따르는 .dk(앱 시안과 같은 이름) */
 @custom-variant dark (&:is(.dk *, .dk));
 
 /* ── Dearby 토큰(시안 11월 3일 체계)을 shadcn 이름에 덮어씌움 ── */
 :root {
+  color-scheme: light;           /* 브라우저 기본 컨트롤·스크롤바 */
   --background: #FFFFFF;
   --foreground: #111113;
   --card: #FFFFFF;
@@ -40,6 +41,7 @@
   --ease-out: cubic-bezier(.2, .8, .2, 1);
 }
 .dk {
+  color-scheme: dark;            /* 기본 컨트롤·스크롤바도 어둡게 */
   --background: #0F1112;
   --foreground: #F2F4F5;
   --card: #202427;

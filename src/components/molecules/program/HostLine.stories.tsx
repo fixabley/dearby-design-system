@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'molecules-hostline',
   component: X.HostLine,
   args: { logo: 'img/logo-13.png', initial: '', text: '삼성 · SSAFY', count: 1 },
-  argTypes: { logo: { control: "select", options: ["", "img/logo-13.png", "img/logo-22.png", "img/logo-pytorch.png"] } },
-  
+  argTypes: { logo: { control: 'select', options: ['', 'img/logo-13.png', 'img/logo-22.png', 'img/logo-pytorch.png'] } },
+
   parameters: { width: 300 },
 };
 export default meta;

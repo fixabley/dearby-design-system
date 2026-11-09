@@ -11,10 +11,10 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Dialog,
   args: { open: false, title: '파이토치 데이 코리아 2026 · 오후 세션', description: '11월 21일 (토) 13:30 ~ 17:30 · 코엑스 그랜드볼룸', showClose: true, onOpenChange: fn() },
-  
-  render: function Render({ title, description, showClose, ...args }: Record<string, any>) { const [, update] = useArgs(); return <X.Dialog open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }}><X.DialogTrigger asChild><X.Button variant="mint">모달 열기</X.Button></X.DialogTrigger>
+
+  render: function Render({ title, description, showClose, ...args }) { const [, update] = useArgs(); return <X.Dialog open={args.open} onOpenChange={(o) => { args.onOpenChange?.(o); update({ open: o }); }}><X.DialogTrigger asChild><X.Button variant="mint">모달 열기</X.Button></X.DialogTrigger>
   <X.DialogContent showClose={showClose} className="h-[480px] max-w-[720px]"><X.DialogHeader><X.DialogTitle>{title}</X.DialogTitle><X.DialogDescription>{description}</X.DialogDescription></X.DialogHeader><div className="px-6 text-body text-muted-foreground">내용</div></X.DialogContent></X.Dialog>; },
-  
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

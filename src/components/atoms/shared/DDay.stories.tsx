@@ -10,9 +10,9 @@ const meta: Meta = {
   id: 'atoms-dday',
   component: X.DDay,
   args: { children: 'D-6', past: false },
-  
-  
-  
+
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

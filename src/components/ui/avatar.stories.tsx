@@ -11,9 +11,9 @@ const meta: Meta = {
   tags: ['shadcn'],
   component: X.Avatar,
   args: { fallback: '김', size: 'md', src: '' },
-  argTypes: { size: { control: "inline-radio", options: ["mark", "dot", "sm", "md", "lg"] }, src: { control: "select", options: ["", "img/logo-13.png", "img/logo-22.png", "img/logo-pytorch.png"] } },
-  
-  
+  argTypes: { size: { control: 'inline-radio', options: ['mark', 'dot', 'sm', 'md', 'lg'] }, src: { control: 'select', options: ['', 'img/logo-13.png', 'img/logo-22.png', 'img/logo-pytorch.png'] } },
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

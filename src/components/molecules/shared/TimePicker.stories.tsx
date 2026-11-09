@@ -18,7 +18,7 @@ const meta: Meta = {
     onOpenChange: event(),
     className: { table: { disable: true } },
   },
-  render: function Render({ onChange, onOpenChange, ...args }: Record<string, any>) {
+  render: function Render({ onChange, onOpenChange, ...args }) {
     const [, update] = useArgs();
     return (
       <X.TimePicker {...args}

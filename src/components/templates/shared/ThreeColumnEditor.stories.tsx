@@ -11,7 +11,7 @@ const meta: Meta = {
   component: X.ThreeColumnEditor,
   args: { screenTitle: '시간표 편집', height: 600, left: 'Settings 280', center: 'Grid', right: 'Selected 300' },
 
-  render: function Render(args: Record<string, any>) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.ThreeColumnEditor><X.ThreeColumnEditor.Left><Ph t={args.left} h={460} /></X.ThreeColumnEditor.Left><X.ThreeColumnEditor.Center><Ph t={args.center} h={460} /></X.ThreeColumnEditor.Center><X.ThreeColumnEditor.Right><Ph t={args.right} h={460} /></X.ThreeColumnEditor.Right></X.ThreeColumnEditor></X.WebShell.Main></X.WebShell>; },
+  render: function Render(args) { const [, update] = useArgs(); void update; return <X.WebShell height={args.height ?? 600}><X.WebShell.Sidebar><X.Sidebar active="home" hosted={['온디바이스 AI 앱 만들기']} /></X.WebShell.Sidebar><X.WebShell.Main><X.TopBar title={args.screenTitle ?? 'Title'} right={<X.GlassGroup unread={2} />} /><X.ThreeColumnEditor><X.ThreeColumnEditor.Left><Ph t={args.left} h={460} /></X.ThreeColumnEditor.Left><X.ThreeColumnEditor.Center><Ph t={args.center} h={460} /></X.ThreeColumnEditor.Center><X.ThreeColumnEditor.Right><Ph t={args.right} h={460} /></X.ThreeColumnEditor.Right></X.ThreeColumnEditor></X.WebShell.Main></X.WebShell>; },
   parameters: { layout: 'fullscreen' },
 };
 export default meta;
@@ -24,7 +24,7 @@ export const Playground: Story = {};
 
 /** 컴파운드로 채운 실제 화면: 기간 설정 | 주간 시간표(편집) | 고른 블록 편집 */
 export const Composed: Story = {
-  render: function Render(args: Record<string, any>) {
+  render: function Render(args) {
     const [{ selected = 14 }, update] = useArgs();
     return (
       <X.WebShell height={args.height ?? 600}>

@@ -11,8 +11,8 @@ const meta: Meta = {
   component: X.ReviewSummary,
   args: { ratio: 75, count: 16 },
   argTypes: { ratio: { control: { type: 'range', min: 0, max: 100 } }, count: { control: { type: 'number', min: 0 } } },
-  
-  
+
+
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -10,8 +10,8 @@ const meta: Meta = {
   id: 'organisms-profileheader',
   component: X.ProfileHeader,
   args: { p: D.SEOYEON },
-  
-  
+
+
   parameters: { width: 360 },
 };
 export default meta;
@@ -23,4 +23,4 @@ void useArgs; void fn; void controlled; void D;
 export const Playground: Story = {};
 
 /** 컴파운드로 바꿔 조립: 소개·가입 없이 사진 · 이름 · 소셜만 */
-export const Composed: Story = { render: (args: Record<string, any>) => <X.ProfileHeader p={args.p}><div className="flex items-center gap-4"><X.ProfileHeader.Avatar /><X.ProfileHeader.Name /></div><X.ProfileHeader.Social /></X.ProfileHeader> };
+export const Composed: Story = { render: (args) => <X.ProfileHeader p={args.p}><div className="flex items-center gap-4"><X.ProfileHeader.Avatar /><X.ProfileHeader.Name /></div><X.ProfileHeader.Social /></X.ProfileHeader> };

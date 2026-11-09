@@ -33,7 +33,8 @@
   --destructive: #D93025;        /* 탈락·오류 전용 */
   --amber: #9A5B00;              /* 상태 캡션(선발 중)만 */
   --success: #34C759;            /* iOS 스위치 켬 */
-  --toast: rgba(0, 0, 0, .85);   /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
+  /* 토스트 캡슐: 두 모드 모두 검정 85% + 흰 글자(primary-foreground) */
+  --toast: rgba(0, 0, 0, .85);
   --toast-action: #5FD4D2;       /* 토스트 위 행동 글자(밝은 청록) */
   --radius: 12px;
   --shadow-control: 0 2px 14px rgba(20, 32, 31, .08), 0 0 0 .5px rgba(0, 0, 0, .03);
@@ -100,14 +101,22 @@
   --shadow-primary: var(--shadow-primary);
   /* 글자 계층 열 가지 */
   /* 글자 계층(2026-11-08 확정): 크기·줄 높이·기본 굵기. 이 값을 쓰는 곳은 Text 아톰과 shadcn 키트뿐 */
-  --text-title: 26px;    --text-title--line-height: 1.22;   --text-title--font-weight: 700;     /* 화면 제목 */
-  --text-section: 22px;  --text-section--line-height: 1.25; --text-section--font-weight: 700;   /* 섹션 제목 */
-  --text-headline: 17px; --text-headline--line-height: 1.28; --text-headline--font-weight: 600; /* 소제목·행 제목·고정 CTA */
-  --text-body-lg: 17px;  --text-body-lg--line-height: 1.4;                                      /* 입력·목록 행(플랫폼 기본 폼) */
-  --text-body: 15px;     --text-body--line-height: 1.6;                                         /* 본문(행 안 제목은 600) */
-  --text-caption: 13px;  --text-caption--line-height: 1.4;                                      /* 보조(컨트롤은 600) */
-  --text-badge: 12px;    --text-badge--line-height: 1;      --text-badge--font-weight: 700;     /* 배지 */
-  --text-micro: 11px;    --text-micro--line-height: 1.2;                                        /* 마이크로 */
+  /* 화면 제목 */
+  --text-title: 26px;    --text-title--line-height: 1.22;   --text-title--font-weight: 700;
+  /* 섹션 제목 */
+  --text-section: 22px;  --text-section--line-height: 1.25; --text-section--font-weight: 700;
+  /* 소제목·행 제목·고정 CTA */
+  --text-headline: 17px; --text-headline--line-height: 1.28; --text-headline--font-weight: 600;
+  /* 입력·목록 행(플랫폼 기본 폼) */
+  --text-body-lg: 17px;  --text-body-lg--line-height: 1.4;
+  /* 본문(행 안 제목은 600) */
+  --text-body: 15px;     --text-body--line-height: 1.6;
+  /* 보조(컨트롤은 600) */
+  --text-caption: 13px;  --text-caption--line-height: 1.4;
+  /* 배지 */
+  --text-badge: 12px;    --text-badge--line-height: 1;      --text-badge--font-weight: 700;
+  /* 마이크로 */
+  --text-micro: 11px;    --text-micro--line-height: 1.2;
   --ease-spring: var(--ease-spring);
   --ease-out-soft: var(--ease-out);
 }

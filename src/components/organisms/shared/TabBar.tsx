@@ -87,7 +87,7 @@ function TabBarRoot({
         {index >= 0 && (
           <span
             aria-hidden
-            className="absolute inset-y-1 left-1 -z-10 w-[calc((100%-8px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-primary/10 transition-transform duration-[360ms] ease-spring"
+            className="absolute inset-y-1 left-1 -z-10 w-[calc((100%-8px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-primary/10 transition-transform duration-300 ease-spring"
           />
         )}
         {tabs}

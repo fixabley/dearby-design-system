@@ -49,7 +49,7 @@ function ToggleGroup({
     >
       <span
         aria-hidden
-        className="absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-transform duration-[360ms] ease-spring"
+        className="absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-transform duration-300 ease-spring"
       />
       <VariantCtx.Provider value="segmented">{children}</VariantCtx.Provider>
     </ToggleGroupPrimitive.Root>

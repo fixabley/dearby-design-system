@@ -104,27 +104,27 @@ export const ICONS = {
 export type IconName = keyof typeof ICONS;
 export const STATUS = {
   participating: {
-    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.4" fill="var(--teal)"/></svg>',
+    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.4" fill="currentColor"/></svg>',
     label: '참여 중',
     cls: 'on',
   },
   waiting: {
-    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6.3" fill="none" stroke="var(--teal)" stroke-width="1.2"/><circle cx="7" cy="7" r="3.6" fill="var(--teal)"/></svg>',
+    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6.3" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="3.6" fill="currentColor"/></svg>',
     label: '대기 중',
     cls: 'wait',
   },
   selecting: {
-    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="var(--amber)" stroke-width="1.6"/><path d="M7 2.4a4.6 4.6 0 0 0 0 9.2z" fill="var(--amber)"/></svg>',
+    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 2.4a4.6 4.6 0 0 0 0 9.2z" fill="currentColor"/></svg>',
     label: '지원',
     cls: 'sel',
   },
   ended: {
-    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.4" fill="#8E8E93"/></svg>',
+    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.4" fill="currentColor"/></svg>',
     label: '끝남',
     cls: 'end',
   },
   applying: {
-    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="#8E8E93" stroke-width="1.6"/></svg>',
+    svg: '<svg class="sg" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     label: '찜',
     cls: 'pick',
   },

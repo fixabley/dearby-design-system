@@ -41,6 +41,8 @@ src/
 | `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
 | `molecules/timetable/`     | TimetableButton · WeekdayPicker                                                                                                                                                                    |
 | `molecules/notice/`        | Notice                                                                                                                                                                                             |
+| `molecules/notification/`  | NotificationRow                                                                                                                                                                                    |
+| `molecules/participant/`   | ExchangeButton                                                                                                                                                                                     |
 | `molecules/discord/`       | ChannelSelect                                                                                                                                                                                      |
 | `molecules/team/`          | TeamColumn                                                                                                                                                                                         |
 | `organisms/shared/`        | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList                                                                                                                          |
@@ -50,6 +52,7 @@ src/
 | `organisms/submission/`    | SubmissionList · EvaluationForm                                                                                                                                                                    |
 | `organisms/timetable/`     | ConferenceTimetable · WeeklyTimetable · ScheduleItemDialog · BlockEditor                                                                                                                           |
 | `organisms/notice/`        | NoticeComposer(NoticeForm · NoticePreview)                                                                                                                                                         |
+| `organisms/participant/`   | ParticipantRow                                                                                                                                                                                     |
 | `organisms/discord/`       | ChannelTemplate · ServerPicker                                                                                                                                                                     |
 | `organisms/team/`          | TeamBoard                                                                                                                                                                                          |
 | `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
@@ -339,6 +342,56 @@ import { LockToggle } from '@dearby/design-system';
   - 해제 항목 빨강은 `destructive` 토큰입니다(시안 #FF3B30).
   - 펼치는 내용 칸은 옆으로 16 넓혀 카드 그림자가 잘리지 않게 했습니다(맨 위 그림자는 2px 여백 안에서 약간 잘림).
 - 스켈레톤은 `FollowCardSkeleton`만 있습니다.
+
+### 알림 행 · 참여자 행 · 교환 상태 버튼
+
+2026-11-10 이슈 #71(시안 ㉗-g · ㉗-g2 · ㉘-d2 · ㉘-f). 알림 목록의 정렬 · 날짜 묶기 · 읽음 처리, 교환 요청을 보내고 받는 일은 쓰는 쪽 몫입니다. 세 부품 모두 `li`를 그리니 `<ul role="list">` 안에 놓고, 날짜 소제목은 기존 `DateHeader`를 목록 위에 둡니다.
+
+```tsx
+<DateHeader date={new Date(2026, 10, 9)} />
+<ul role="list">
+  <NotificationRow
+    kind="result"
+    logo="/logos/ssafy.png"
+    initial="S"
+    subject="SSAFY 17기"
+    message=" 서류 발표일이에요. 결과를 남겨 주세요"
+    time="17:02"
+    thumb="/covers/ssafy.jpg"
+    unread
+    action={<Button size="sm">통과</Button>}
+  />
+</ul>
+
+<ul role="list">
+  <ParticipantRow
+    name="이서연"
+    handle="@seoyeon"
+    job="프론트엔드 개발자"
+    intro="웹 접근성과 디자인 시스템에 관심이 많아요."
+    state="request"
+    onExchange={…}
+  />
+</ul>
+```
+
+- `NotificationRow`(molecules, 컴파운드): `Unread`(안 읽음 점) · `Media`(로고 또는 이니셜 원 44 + 오른쪽 아래 종류 배지 20) · `Message`(굵은 주어 + 나머지) · `Time` · `Cover`(오른쪽 썸네일 52, `thumb`이 있을 때만). 행 사이 .5px 구분선은 행이 가집니다(마지막 제외). 행 전체는 누르는 요소가 아니고(시안에 없음), 행 안 버튼은 `action`에 넣으면 시각 아래 8에 놓입니다.
+  - `kind`: `result`(선발 · 깃발) · `open`(새 모집 · 반짝임) · `deadline`(마감 · 시계) · `event`(행사 · 점 찍힌 달력) · `card`(명함 교환). 배지는 청록 채움 원이고 종류 이름(`NOTIFICATION_KINDS`)이 화면 읽기에 `sr-only` 글자로 먼저 읽힙니다.
+  - `subject`(굵게) 바로 뒤에 `message`가 이어 붙습니다. 조사로 시작하면 붙여 쓰고(`'에서 새 모집을 열었어요'`), 아니면 앞에 공백을 넣습니다(`' 행사 D-13'`).
+  - 안 읽음 점은 행 왼쪽 바깥 14에 있어(시안 `.nun`) 목록 왼쪽에 14 이상 여백이 있어야 잘리지 않습니다(화면 옆 여백 24 안). 점은 색만으로 전하지 않도록 `sr-only` "읽지 않음"이 따릅니다.
+  - 로고가 없거나 사람이면 `initial`(이름 첫 글자)로 이니셜 원을 그립니다. 시각은 `HH:mm` 실제 시각만 씁니다(날짜는 `DateHeader`가 맡음).
+  - 빈 상태(㉗-g2)는 기존 `Empty`(민트 원 아이콘 + 제목 + 설명)가 시안과 같아 따로 만들지 않았습니다.
+- `ParticipantRow`(organisms, 컴파운드): `Avatar`(이니셜 원 44) · `Name`(이름 + 핸들, 한 줄이고 넘치면 핸들이 먼저 말줄임) · `Job` · `Intro`(한 줄 말줄임) · `Exchange`(오른쪽 교환 상태). 직업 · 소개는 없으면 그리지 않습니다. 이니셜 원은 이름이 옆에 있어 화면 읽기에서 숨깁니다.
+- `ExchangeButton`(molecules): 상태 `request`(교환 요청, 민트 알약) · `sent`(요청함) · `accept`(수락, 청록 채움 알약) · `done`(교환함, 체크 + 청록 글자). 시안에서 `요청함` · `교환함`은 버튼이 아니라 글자라 누를 수 없는 표시로 그립니다. 누르는 둘만 `onClick`을 받고, 이름이 목록에서 겹치지 않게 `ParticipantRow`가 "이서연에게 교환 요청" · "이서연 교환 수락"으로 이름을 붙입니다(보이는 글자가 이름 안에 들어 있음).
+- 스켈레톤: `NotificationRowSkeleton`(`cover`로 썸네일 자리) · `ParticipantRowSkeleton`.
+- 시안과 다른 점
+  - 글자는 가까운 `Text` 역할로 맞췄습니다: 알림 문장 15/1.4 → `innerTitle`(15, 줄 높이 1.35), 시각 12 → `caption`(13), 참여자 이름 16 → `rowTitle`(17), 직업 14 → `innerTitle`(15), 핸들 13 · 소개 13 → `caption`.
+  - 교환 요청 알약은 `Button mint sm`이라 가로 여백이 14(시안 12)이고 컨트롤 그림자가 있습니다(시안은 없음, README 원칙의 "누를 수 있는 컨트롤에만 그림자"). 글자색은 시안 청록 `#007F80` 대신 `mint-foreground`(`#007172`)입니다(민트 면 위 4.5:1). 수락 알약은 `Button default sm`이라 높이 32 · 그림자 `shadow-primary`이고, 알림 행 안 수락 · 통과 버튼(시안 높이 34, 그림자 6/18)도 같은 `Button sm`을 씁니다.
+  - 행 안 버튼 줄(`action`)은 시안의 통과 · 탈락 · 아직 몰라요 · 수락 모양을 `Button`으로 짠 예일 뿐 부품에 넣지 않았습니다(선발 결과 묻기는 다른 화면 단위).
+  - 종류 배지의 행사 아이콘은 시안의 점 찍힌 달력(`calendarDot`)이고 선발 깃발(`flag`)과 함께 시안 원문으로 더했습니다.
+  - 문장 · 상태 글자의 정확한 색은 토큰으로 맞췄습니다(시안 `--sec` → `muted-foreground`, 청록 → `accent-foreground`).
+  - 눌러서 들어가는 행(`onClick` · `asChild`), 참여자 행 길게 누르기 · ⋯ 메뉴(㉘-d3), 교환 요청 30일 만료 표시는 시안 틀에 행 모양이 없어 만들지 않았습니다.
+- `Avatar`에 `xs`(44, 글자 17)를 더했습니다(shadcn 원본 수정, 알림 · 참여자 행의 이니셜 원).
 
 ## 글꼴
 

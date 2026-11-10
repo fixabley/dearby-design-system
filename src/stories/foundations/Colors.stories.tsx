@@ -7,6 +7,7 @@ const COLORS = [
   ['primary', '청록 채움 · 두 모드 모두 #007F80'],
   ['accent', '민트 · 선택 면·민트 배지·태그'],
   ['accent-foreground', '청록 글자·아이콘'],
+  ['wordmark-ear', '워드마크의 ear와 입 · 청록 50% + 글자색 50%'],
   ['mint', '민트 채움 컨트롤 면 · 다크는 불투명 #142b2c'],
   ['mint-foreground', '민트 채움 컨트롤 글자 · 라이트 #007172(4.5:1)'],
   ['foreground', '글자'],

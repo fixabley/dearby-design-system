@@ -6,5 +6,6 @@ export * from './shared/Thumbnail';
 export * from './shared/RowList';
 export * from './shared/Pane';
 export * from './shared/LockToggle';
+export * from './shared/NewDot';
 export * from './activity/KindLabel';
 export * from './activity/StatusGlyph';

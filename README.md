@@ -31,10 +31,11 @@ src/
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| `atoms/shared/`            | Text · Wordmark · LogoSymbol · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle                                                                                            |
+| `atoms/shared/`            | Text · Wordmark · LogoSymbol · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle · NewDot                                                                                            |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
-| `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker                 |
+| `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker · AccordionSection                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
+| `molecules/follow/`        | FollowCard(FollowCards · BrowseCard)                                                                                                                                                               |
 | `molecules/program/`       | HostLine                                                                                                                                                                                           |
 | `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
 | `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
@@ -155,7 +156,7 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 - 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 깜빡임은 동작 줄이기 설정이면 꺼집니다.
-- 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
+- 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · FollowCard · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
 - 스켈레톤은 화면 읽기에서 숨습니다. 화면 읽기 사용자에게는 불러오는 영역(목록 · 화면)마다 하나씩 알립니다: 그 영역에 불러오는 동안 `aria-busy="true"`를 달고, 바로 옆(aria-busy 영역 밖)의 화면에 안 보이는 `role="status"` 글자를 "불러오는 중"으로 채웁니다. 다 불러오면 aria-busy를 떼고 글자를 비웁니다. status 요소는 처음부터 두고 글자만 바꿉니다: 알림 영역은 바뀌기 전에 DOM에 있어야 읽힌다(MDN "ARIA live regions")라서, 글자가 든 채로 새로 붙이면 읽기 프로그램에 따라 읽히지 않습니다. 항목 스켈레톤마다 두면 여러 번 읽히니 영역에 하나만 둡니다. status를 busy 영역 안에 두면 읽기 프로그램이 바뀌는 중인 영역의 알림을 미룰 수 있어 밖에 둡니다. 따로 부품은 두지 않습니다(Tailwind `sr-only` 글자 하나).
 
 ```tsx
@@ -304,6 +305,41 @@ import { LockToggle } from '@dearby/design-system';
 />;
 ```
 
+### 팔로우 카드 · 둘러보기 카드 · 접히는 섹션
+
+2026-11-10 이슈 #69(시안 ⑧-0c · ⑧-0e · ⑧-0g · ⑧-0g2 · ⑧-0h). 앱 로직(팔로우 목록 정렬, 해제 뒤 사라짐과 되돌리기 알림, 펼침 기억)은 쓰는 쪽 몫입니다: `onUnfollow`는 알리기만 하고 카드를 지우지 않으며, 새 모집이 열린 것을 먼저 놓는 정렬도 하지 않습니다.
+
+```tsx
+<FollowCards aria-label="팔로우 중">
+  <FollowCard kind="org" name="카카오" logo="/logos/kakao.png" fresh asChild>
+    <a href="/orgs/kakao" />
+  </FollowCard>
+  <FollowCard kind="region" name="서울" fresh onClick={…} />
+  <BrowseCard kind="org" sub="조직 42곳" onClick={…} />
+</FollowCards>
+
+<AccordionSection icon="group" title="조직" count={3} fresh defaultOpen>
+  <FollowCards layout="grid">
+    <FollowCard kind="org" name="카카오" level="all" onLevelChange={…} onUnfollow={…} />
+  </FollowCards>
+</AccordionSection>
+```
+
+- `FollowCards`(ul): `strip`은 가로로 넘기는 한 줄(카드 폭 107, `-mx-6 px-6`으로 화면 옆 여백 24까지 번짐), `grid`는 3열(사이 12). 여백이 24가 아닌 화면은 className으로 `-mx-N px-N`을 덮어씁니다. 카드는 `li`라 이 안에 놓습니다.
+- `FollowCard`(컴파운드): 로고 44(조직 · 프로그램, 없으면 이름 첫 글자) 또는 종류 아이콘 원(지역 · 분야), 이름 두 줄, 종류 글자. `level`을 주면 종류 글자 대신 알림 종(전체 꽉 찬 종 · 신청일만 선 종 · 없음 사선 종)을 그리고, `onLevelChange` · `onUnfollow`를 주면 오른쪽 위 ⋯ 메뉴(알림 수준 고르기 · 팔로우 해제)가 생기며 새 모집 점은 오른쪽 아래로 옮깁니다. 누르는 요소가 카드 전체를 덮고(`onClick` 또는 `asChild` 링크), ⋯는 그 밖의 형제 버튼이라 링크 안에 버튼이 들어가지 않습니다. 이름 · 종류 또는 알림 수준 · 새 모집이 한 이름으로 읽힙니다(예: "카카오 알림 전체 새 모집 있음"). `onClick`도 `asChild`도 없으면 누르는 요소 없이 그리기만 합니다. 새 모집 점은 알림 수준 줄이 있는 카드는 오른쪽 아래, 없으면 오른쪽 위입니다.
+- `BrowseCard`(민트 면, 라이트는 그림자 없음 · 다크는 .5px 테두리): + 원 · 제목(기본 `<종류> 둘러보기`) · 보조(`조직 42곳`).
+- `AccordionSection`(컴파운드): 머리 행 56 전체가 버튼(`aria-expanded` · `aria-controls`, 제목 안의 button)이고 내용은 `region`입니다. 닫히면 `inert`라 초점도 읽기도 받지 않고, 높이는 0.25초에 열리고 닫힙니다(꺾쇠 회전도 0.25초). `open` · `onOpenChange`로 제어하거나 `defaultOpen`으로 시작만 정합니다. Radix Accordion 의존성은 더하지 않고 이 패턴을 직접 구현했습니다. 섹션 사이 .5px 구분선은 각 섹션의 아래 선(마지막 제외)입니다.
+- `NewDot` 아톰: 청록 점(카드 8 · 섹션 머리 7)에 `sr-only` "새 모집 있음"을 함께 둡니다.
+- 시안과 다른 점
+  - 둘러보기 카드의 제목 · 보조 글자는 청록 불투명(`mint-foreground`)입니다. 시안의 청록 75%는 민트 면 위 대비가 2.8:1(보조 11px)이라 4.5:1에 못 미칩니다.
+  - 카드 이름은 13/600 줄 높이 1.2(`Text` `control`)이고 시안은 1.3입니다. 카드 최소 높이가 같아 높이는 그대로입니다.
+  - 카드 · 아코디언 머리의 누름 덧칠(`pressable`)은 시안에 없고 README 원칙을 따랐습니다. 시안의 길게 누르기 확대(`.lp`)와 contextMenu 미리보기는 iOS 표현이라 웹에 넣지 않았고 ⋯ 메뉴만 있습니다.
+  - 아코디언 머리의 누름 덧칠 모서리는 `rounded-xl`(20)이고 시안에는 없습니다. strip 아래의 14 여백(`.fstrip` margin)은 목록이 갖지 않으니 쓰는 쪽이 다음 요소와의 간격으로 둡니다.
+  - 아코디언의 조직 아이콘은 기존 `group`을 씁니다(시안과 원 위치가 1px 다름).
+  - 해제 항목 빨강은 `destructive` 토큰입니다(시안 #FF3B30).
+  - 펼치는 내용 칸은 옆으로 16 넓혀 카드 그림자가 잘리지 않게 했습니다(맨 위 그림자는 2px 여백 안에서 약간 잘림).
+- 스켈레톤은 `FollowCardSkeleton`만 있습니다.
+
 ## 글꼴
 
 `static/fonts/pretendard/`에는 Pretendard 글꼴과 라이선스가 받은 그대로 있습니다. 한 바이트도 바꾸지 않습니다.
@@ -340,6 +376,7 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - 시안에는 이 모양들이 없습니다. 시안의 연락처 행은 이메일에 말풍선(`chat`, ㉗-b), 전화에 사람과 음파(㉗-j 명함 화면)를 썼고, 사용자가 봉투 · 수화기로 정했습니다.
 - `trash`(뚜껑 선 + 둥근 ㄷ자 손잡이 + 아래로 좁아지는 통 한 획 + 세로 줄 둘): 2026-11-10 고치기 시트의 지우기 버튼을 위해 그렸습니다(사용자 결정 "하단에 정사각형 버튼에 쓰레기통 아이콘이면 충분"). 시안에는 휴지통이 없고 지우기는 빨간 글자(`계정 삭제` · `일정 삭제`)로만 나옵니다. 좌표는 세로 중심선(x 12)에 대칭으로 직접 잡았습니다: 뚜껑 4.5 ~ 19.5, 통 위 6.5 ~ 17.5 · 아래 모서리 반지름 2, 손잡이 9.5 ~ 14.5 · 모서리 반지름 1.5.
 - `unlock`(열린 자물쇠): 2026-11-10 자물쇠 토글을 위해 그렸습니다(사용자 결정 "lottie 자물쇠 락 언락 아이콘을 버튼으로"). 시안에는 열린 자물쇠가 없습니다. `lock`의 몸통은 그대로 두고 고리만 왼발(8, 11)을 축으로 25° 젖혔습니다(`transform="rotate(-25 8 11)"`). 몸통이 같은 자리라 `lock`과 바꿔 그려도 튀지 않고, 자물쇠 토글 Lottie의 끝 프레임과 같은 그림입니다.
+- `bellFill` · `bellOff` · `more` · `layers` · `sparkle`은 시안(⑧-0g2 팔로우 카드와 ⑧-0g 섹션 머리)의 SVG 원문 그대로입니다(꽉 찬 종 · 사선 종 · ⋯ · 프로그램 · 분야). 팔로우 대상 종류와 알림 수준의 이름 · 아이콘 표는 `icons.ts`의 `FOLLOW_KINDS` · `FOLLOW_LEVELS`입니다.
 - `info`(ⓘ)는 새로 그리지 않았습니다. 시안의 원문 그대로입니다(추천 카드의 `자세히` 버튼, 원 반지름 9.5에 안쪽 획만 선 2.4).
 
 ## 서비스 로고

@@ -20,7 +20,8 @@
   "files": [
     "dist",
     "src/styles.css",
-    "static/fonts"
+    "static/fonts",
+    "static/logo"
   ],
   "scripts": {
     "storybook": "storybook dev -p 6008",

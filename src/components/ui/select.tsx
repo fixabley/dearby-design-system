@@ -25,13 +25,15 @@ const selectTriggerVariants = cva(
   },
 );
 
+/** icon은 오른쪽 표시. 기본 꺾쇠(열리면 뒤집힘)이고, 위아래 꺾쇠(chevronUpDown)는 묶음 목록 행의 고르기 표시 */
 function SelectTrigger({
   className,
   variant,
+  icon = 'chevronDown',
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> &
-  VariantProps<typeof selectTriggerVariants>) {
+  VariantProps<typeof selectTriggerVariants> & { icon?: IconName }) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -40,8 +42,14 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <span className="text-muted-foreground [&_svg]:transition-transform group-data-[state=open]:[&_svg]:rotate-180">
-          <Icon name="chevronDown" />
+        <span
+          className={cn(
+            'text-muted-foreground',
+            icon === 'chevronDown' &&
+              '[&_svg]:transition-transform group-data-[state=open]:[&_svg]:rotate-180',
+          )}
+        >
+          <Icon name={icon} />
         </span>
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>

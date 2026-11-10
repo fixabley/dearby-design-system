@@ -47,7 +47,7 @@ src/
 | `molecules/participant/`   | ExchangeButton                                                                                                                                                                                     |
 | `molecules/discord/`       | ChannelSelect                                                                                                                                                                                      |
 | `molecules/team/`          | TeamColumn                                                                                                                                                                                         |
-| `organisms/shared/`        | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList                                                                                                                          |
+| `organisms/shared/`        | FilterSheet · Sidebar · TabBar · TopBar · DateTimeField · DateSectionList · PickerRow                                                                                                                          |
 | `organisms/activity/`      | ActivityRow · ActivityDetail · DetailHeader · ApplyCard · ScheduleCard, 관리 탭 상수(`constants.ts`)                                                                                               |
 | `organisms/program/`       | ProgramDetail · ProgramRow                                                                                                                                                                         |
 | `organisms/review/`        | ReviewSection                                                                                                                                                                                      |
@@ -59,6 +59,7 @@ src/
 | `organisms/team/`          | TeamBoard                                                                                                                                                                                          |
 | `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
 | `organisms/card/`          | CardRow · CardFields                                                                                                                                                                               |
+| `organisms/schedule/`      | RepeatField · RepeatCustom · SkipDates, 반복 규칙 타입과 도우미(`repeat.ts`)                                                                                                            |
 | `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
@@ -499,6 +500,51 @@ import { LockToggle } from '@dearby/design-system';
   - 고르기 시트의 바텀 닫기 · CTA 모양은 `SheetHeader` · `Button lg`를 따라 시안의 `닫기` 글자와 알약 CTA와 다릅니다.
   - 고르기 시트 행 이름은 17/600(`rowTitle`)이고 시안은 16/600입니다. 활동 칩 꺾쇠는 14(시안 15)입니다.
   - 알약 · 칩 글자는 글자 토큰에 맞춰 15/600 · 15/600이고 시안 활동 칩은 14/600입니다. 명함 · 활동 고르기 메뉴는 시안에 모양이 없어 기존 `DropdownMenu` 라디오를 썼습니다.
+
+### 일정 반복 부품
+
+2026-11-10 이슈 #74(시안 ㉙-c3 · ㉙-c4 · ㉙-c6 · ㉙-c7 · ㉙-c8). 직접 개설의 일정 입력 시트에서 날짜 · 시각(기존 `DateTimeField`) 아래에 놓는 반복 입력입니다. 시트 안 화면 이동(주 화면 ↔ 사용자 지정 ↔ 건너뛸 날), 반복 규칙으로 실제 일정 날짜를 펼치는 일, 건너뛸 날이 실제 반복일인지 확인하는 일, 저장은 쓰는 쪽 몫입니다. 값은 쓰는 쪽이 갖는 제어형입니다.
+
+```tsx
+const [rule, setRule] = useState<RepeatRule | null>(null);
+
+<DateTimeField start={start} end={end} … />
+<RepeatField
+  value={rule}
+  start={start}
+  today={today}
+  onChange={setRule}
+  onCustomize={() => setPage('custom')}
+  onEditSkipDates={() => setPage('skip')}
+/>
+
+{/* 같은 시트(SheetContent) 안의 다른 화면 */}
+<RepeatCustom value={rule} start={start} onChange={setRule} onBack={back} onDone={back} />
+<SkipDates value={rule.skipDates} min={start} max={until} onChange={…} onBack={back} onDone={back} />
+```
+
+- 값 모양(`organisms/schedule/repeat.ts`): `RepeatRule`은 `frequency`(`daily` · `weekly` · `monthly` · `yearly`) · `interval`(n일 · 주 · 개월 · 년마다) · `weekdays`(`sun` ~ `sat`, 매주) · `monthly`(`{ by: 'day', day }` 또는 `{ by: 'weekday', nth, weekday }`, 매월 · 매년) · `month`(1~12, 매년) · `end`(`never` · `until` + `date` · `count` + `count`) · `skipDates`입니다. 반복 안 함은 규칙이 아니라 값 `null`입니다. `weekdays` · `monthly` · `month`가 없으면 일정 시작 날짜(`start`)와 같은 요일 · 날 · 달입니다. **서버 계약이 아직 없어 시안의 낱말을 영문으로 옮긴 최소한이고, 계약이 생기면 맞춘다**(이름 · 값 · 날짜를 `Date`로 둔 것 · `last`(마지막 주)를 비롯해 모두 바뀔 수 있음). 짐작되는 대응은 iCalendar RRULE입니다: `frequency` FREQ · `interval` INTERVAL · `weekdays` BYDAY · `monthly` BYMONTHDAY 또는 서수 붙은 BYDAY(`last`는 -1) · `month` BYMONTH · `end` UNTIL · COUNT · `skipDates` EXDATE. `monthly`는 매년에도 쓰입니다. 서버로 보낼 때 비워 둔 요일 · 날 · 달은 쓰는 쪽이 `start`로 풀어서 보냅니다(빈도를 바꾼 뒤 남은 관련 없는 칸도 그때 버립니다). 사용자 지정 화면에서 손댄 값은 시작 날짜와 같아도 명시로 저장되어 시작 날짜를 옮겨도 따라가지 않고, 메뉴로 만든 규칙은 비워 두어 따라갑니다.
+- `RepeatField`(유기체, 컴파운드, `ListGroup` 안): `Repeat`(반복 행) · `End`(반복 종료) · `Skip`(건너뛸 날). 반복 종료와 건너뛸 날은 반복일 때만 보입니다(시안 ㉙-c6 "반복일 때만").
+  - 반복 행은 행 전체가 메뉴 버튼이고(`DropdownMenu` 라디오) 값 칸에 규칙 요약(`매주 월·목`)이 보입니다. 메뉴는 안 함 · 매일 · 매주 · 2주마다 · 매월 · 매년, 구분선, 사용자 지정입니다. 체크는 빈도와 간격만 보고 정합니다(시안은 `매주 월·목`에서도 `매주`에 체크). 해당하는 항목이 없으면(3주마다 등) 사용자 지정에 체크가 갑니다. 사용자 지정은 값이 아니라 동작이라 이미 사용자 지정일 때도 고를 때마다 `onCustomize`가 불립니다(Select는 같은 값이면 알리지 않아 메뉴로 했습니다). 항목을 바꿔도 반복 종료와 건너뛸 날은 그대로 둡니다.
+  - 반복 종료는 안 함 · 날짜까지 · n회 뒤 `Select`이고, 값 칸에 고른 종류(`안 함` · `날짜까지` · `n회 뒤`)가 보이고, 날짜까지는 날짜 행(기존 `DatePicker`, 시작 날짜 전은 못 고름), n회 뒤는 횟수 행(1~99회)이 아래에 더해져 값을 갖습니다. 처음 고를 때 날짜는 시작 날짜, 횟수는 5회입니다.
+  - 건너뛸 날은 값 칸에 날짜순 첫 날(`11월 19일 (목)`)과 개수(`외 2개`)가 보이고 없으면 `없음`입니다. 누르면 `onEditSkipDates`로 `SkipDates` 화면에 갑니다.
+- `RepeatCustom`(유기체, 컴파운드, 시트 안 화면): `Header`(뒤로 · 제목 · 완료) · `Basics`(빈도 · 간격) · `Weekdays`(기존 `WeekdayPicker`, 매주) · `Monthly`(기존 `Segmented` 날짜 | n째 주 요일, 매년이면 월 행이 위에 더해짐). 기본 조립은 빈도에 맞는 칸만 보입니다. 빈도를 바꾸면 요일 · 날 · 달은 시작 날짜를 따르도록 비웁니다. 요일은 하나는 남겨야 해서 마지막 하나는 끌 수 없습니다. `날짜`는 1~31일 `Select`이고 몇째 주는 첫째 ~ 넷째 · 마지막 주, 간격은 1~30입니다.
+- `SkipDates`(유기체, 컴파운드, 시트 안 화면): `Header` · `Dates`(고른 날 목록, 줄 끝 X로 지움, 끝에 `날짜 추가` 행에 기존 `DatePicker`). `min` · `max`로 고를 수 있는 날을 좁힙니다(시작 날짜 ~ 종료 날짜).
+- `PickerRow`(`organisms/shared`, 유기체): 시안 `.srow`. `ListRow` 위에 `Select`를 행 전체로 펼쳐 얹은 고르기 행(아이콘 · 제목 · 값 + 위아래 꺾쇠)입니다. 행 어디를 눌러도 목록이 열립니다. `display`로 값 칸 글자를 덮을 수 있습니다.
+- 아이콘 `calendarGrid`(시안 ㉙-c7 빈도 행 · ㉙-c6 종류 행의 표 모양) · `chevronUpDown`(시안 `.updn`, 시안 원문이라 선 굵기 2를 유지)을 더했고, `SelectTrigger`에 `icon`(기본 `chevronDown`, 위아래 꺾쇠는 열려도 뒤집지 않음)을, `ui/sheet`에 `SheetTitle`을 더했습니다. 하위 화면 머리는 시트 머리(`SheetHeader`)가 아니라 뒤로 · 완료가 있는 머리라 제목 요소를 스스로 둡니다.
+- 날짜는 달력을 새로 그리지 않고 기존 `DatePicker`(Popover + Calendar)를 씁니다. 날짜 · 시각의 네이티브 입력은 앱(iOS · Android)의 전제이고 웹 부품은 기존 입력 부품입니다.
+- 시안과 다른 점
+  - 시안에 틀이 없어 추천안으로 만든 것: 건너뛸 날 화면(`SkipDates`), 반복 종료 날짜 · 횟수 행(시안은 반복 종료 행의 값 칸에 날짜만 보이고 어떻게 고르는지 틀이 없음), 간격 1~30 · 횟수 1~99 범위, n째 주의 마지막 주, 매년에서 날짜 | n째 주 요일을 함께 고르는 것(시안은 "월 선택이 더해짐"만), 날짜 행의 1~31일.
+  - 반복 종료 행의 값 칸에 시안은 날짜가 바로 보이지만 여기는 종류(`날짜까지`)이고 날짜는 아래 행에 있습니다(같은 날짜를 두 번 보이지 않으려고).
+  - 시작 · 끝 행(`DateTimeField`)은 오른쪽 값만 누르고, 이 부품의 고르기 행은 행 전체를 누릅니다(시안 `.srow`). 한 시트 안에 두 범위가 섞입니다.
+  - 고르기 행의 이름은 `제목, 고른 값`입니다. 메뉴 폭은 두 메뉴 모두 최소 200(시안 cmenu 200)입니다.
+  - 하위 화면 머리의 뒤로 · 완료 글자는 `Button link`라 15/600이고 시안은 뒤로 16/400 · 완료 15/600입니다. 제목은 시안 17/600이 `Text` `rowTitle`(17/600)입니다.
+  - 행 높이 · 글자는 `ListRow` 값(44 · 17)이고 시안 `.prow`는 48 · 16입니다. 메뉴 항목은 기존 `DropdownMenu`(높이 44 · 열릴 때 누른 자리에서 커짐)라 시안의 iOS 컨텍스트 메뉴와 모양이 약간 다릅니다(체크 위치 · 구분선 폭).
+  - 요일 원은 기존 `WeekdayPicker`(정사각 · 7열 · 간격 6)라 폭에 따라 지름이 시안 40과 다릅니다. 고른 면은 `primary` 토큰(`#007F80`)으로 시안과 같습니다.
+  - 눌러서 여는 고르기 행에는 hover · 누름 덧칠(`pressable`)을 줬습니다(원칙은 Select 트리거에 넣지 않지만 이 행은 줄 전체가 누르는 요소라 눌리는 줄과 맞춤. 시안에는 없음).
+  - 반복 행이 눌린 채 강조되는 시안 `.srow.on`(메뉴가 열린 동안 행 배경)은 따로 그리지 않았습니다.
+- 화면을 옮긴 뒤 초점(뒤로 버튼이나 머리 제목)은 쓰는 쪽이 옮깁니다. 메뉴 · 목록은 키보드로 끝까지 됩니다(Tab, 화살표, Enter, Esc).
+- 움직임은 모두 기존 부품의 것(메뉴 0.2초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
 
 ## 글꼴
 

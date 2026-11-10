@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { dayKey, fromDayKey } from '@/lib/date';
 import { cn } from '@/lib/utils';
 import { PickerRow } from '@/components/organisms/shared/PickerRow';
 import {
@@ -57,9 +58,9 @@ const DEFAULT_COUNT = 5;
  * 행 전체가 메뉴 버튼이고 값 칸에는 규칙 요약(`매주 월·목`)이 보인다. 사용자 지정은 값이 아니라 동작이라 고를 때마다 `onCustomize`를 부른다.
  */
 function Repeat({ className }: { className?: string }) {
-  const { value, onChange, onCustomize } = useRepeatField('Repeat');
+  const { value, start, onChange, onCustomize } = useRepeatField('Repeat');
   const preset = presetOf(value);
-  const text = value ? formatRepeat(value) : '안 함';
+  const text = value ? formatRepeat(value, start) : '안 함';
   return (
     <ListRow
       icon="repeat"
@@ -84,6 +85,8 @@ function Repeat({ className }: { className?: string }) {
               value={preset}
               onValueChange={(v) => {
                 const p = v as RepeatPreset;
+                // Radix 라디오 항목은 이미 체크된 항목을 다시 골라도 알리므로 무시한다(사용자 지정 세부가 지워지지 않게)
+                if (p === preset) return;
                 if (p === 'none') onChange?.(null);
                 else if (p !== 'custom')
                   onChange?.(
@@ -132,7 +135,7 @@ function End() {
         onValueChange={(v) =>
           setEnd(
             v === 'until'
-              ? { type: 'until', date: start }
+              ? { type: 'until', date: fromDayKey(dayKey(start)) }
               : v === 'count'
                 ? { type: 'count', count: DEFAULT_COUNT }
                 : { type: 'never' },

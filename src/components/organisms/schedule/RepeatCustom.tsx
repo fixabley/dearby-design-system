@@ -26,6 +26,7 @@ type RepeatCustomContextValue = {
   onChange?: (rule: RepeatRule) => void;
   onBack?: () => void;
   onDone?: () => void;
+  autoFocus?: boolean;
   backLabel: string;
 };
 const RepeatCustomContext = createContext<RepeatCustomContextValue | null>(
@@ -65,13 +66,14 @@ const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
 
 /** 머리: 뒤로(이전 화면 이름) · 제목 `사용자 지정` · 완료 */
 function Header({ className }: { className?: string }) {
-  const { onBack, onDone, backLabel } = useRepeatCustom('Header');
+  const { onBack, onDone, autoFocus, backLabel } = useRepeatCustom('Header');
   return (
     <PageHeader
       title="사용자 지정"
       backLabel={backLabel}
       onBack={onBack}
       onDone={onDone}
+      autoFocus={autoFocus}
       className={className}
     />
   );
@@ -211,6 +213,7 @@ function RepeatCustomRoot({
   onChange,
   onBack,
   onDone,
+  autoFocus,
   backLabel = '반복',
   className,
   children,
@@ -222,13 +225,15 @@ function RepeatCustomRoot({
   /** 뒤로(이전 화면 이름이 `backLabel`) */
   onBack?: () => void;
   onDone?: () => void;
+  /** 화면을 옮긴 직후 초점을 뒤로 버튼에 둔다 */
+  autoFocus?: boolean;
   backLabel?: string;
   className?: string;
   children?: ReactNode;
 }) {
   return (
     <RepeatCustomContext.Provider
-      value={{ value, start, onChange, onBack, onDone, backLabel }}
+      value={{ value, start, onChange, onBack, onDone, autoFocus, backLabel }}
     >
       <div className={className}>
         {children ?? (

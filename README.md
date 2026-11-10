@@ -59,7 +59,7 @@ src/
 | `organisms/team/`          | TeamBoard                                                                                                                                                                                          |
 | `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
 | `organisms/card/`          | CardRow · CardFields                                                                                                                                                                               |
-| `organisms/schedule/`      | RepeatField · RepeatCustom · SkipDates, 반복 규칙 타입과 도우미(`repeat.ts`)                                                                                                            |
+| `organisms/schedule/`      | RepeatField · RepeatCustom · SkipDates, 반복 규칙 타입과 도우미(`repeat.ts`), 두 화면 머리의 내부 부품 `PageHeader`(내보내지 않음)                                                                                                            |
 | `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
@@ -528,9 +528,9 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 반복 행은 행 전체가 메뉴 버튼이고(`DropdownMenu` 라디오) 값 칸에 규칙 요약(`매주 월·목`)이 보입니다. 메뉴는 안 함 · 매일 · 매주 · 2주마다 · 매월 · 매년, 구분선, 사용자 지정입니다. 체크는 빈도와 간격만 보고 정합니다(시안은 `매주 월·목`에서도 `매주`에 체크). 해당하는 항목이 없으면(3주마다 등) 사용자 지정에 체크가 갑니다. 사용자 지정은 값이 아니라 동작이라 이미 사용자 지정일 때도 고를 때마다 `onCustomize`가 불립니다(Select는 같은 값이면 알리지 않아 메뉴로 했습니다). 항목을 바꿔도 반복 종료와 건너뛸 날은 그대로 둡니다.
   - 반복 종료는 안 함 · 날짜까지 · n회 뒤 `Select`이고, 값 칸에 고른 종류(`안 함` · `날짜까지` · `n회 뒤`)가 보이고, 날짜까지는 날짜 행(기존 `DatePicker`, 시작 날짜 전은 못 고름), n회 뒤는 횟수 행(1~99회)이 아래에 더해져 값을 갖습니다. 처음 고를 때 날짜는 시작 날짜, 횟수는 5회입니다.
   - 건너뛸 날은 값 칸에 날짜순 첫 날(`11월 19일 (목)`)과 개수(`외 2개`)가 보이고 없으면 `없음`입니다. 누르면 `onEditSkipDates`로 `SkipDates` 화면에 갑니다.
-- `RepeatCustom`(유기체, 컴파운드, 시트 안 화면): `Header`(뒤로 · 제목 · 완료) · `Basics`(빈도 · 간격) · `Weekdays`(기존 `WeekdayPicker`, 매주) · `Monthly`(기존 `Segmented` 날짜 | n째 주 요일, 매년이면 월 행이 위에 더해짐). 기본 조립은 빈도에 맞는 칸만 보입니다. 빈도를 바꾸면 요일 · 날 · 달은 시작 날짜를 따르도록 비웁니다. 요일은 하나는 남겨야 해서 마지막 하나는 끌 수 없습니다. `날짜`는 1~31일 `Select`이고 몇째 주는 첫째 ~ 넷째 · 마지막 주, 간격은 1~30입니다.
+- `RepeatCustom`(유기체, 컴파운드, 시트 안 화면): `Header`(뒤로 · 제목 · 완료) · `Basics`(빈도 · 간격) · `Weekdays`(기존 `WeekdayPicker`, 매주) · `Monthly`(기존 `Segmented` 날짜 | n째 주 요일, 매년이면 월 행이 위에 더해짐). 기본 조립은 빈도에 맞는 칸만 보입니다. 빈도를 바꾸면 요일 · 날 · 달은 시작 날짜를 따르도록 비웁니다. 요일은 하나는 남겨야 해서 마지막 하나는 눌러도 반응이 없습니다(`WeekdayPicker`가 항목별 비활성을 받지 않아 표시는 그대로). `날짜`는 1~31일 `Select`이고 몇째 주는 첫째 ~ 넷째 · 마지막 주, 간격은 1~30입니다.
 - `SkipDates`(유기체, 컴파운드, 시트 안 화면): `Header` · `Dates`(고른 날 목록, 줄 끝 X로 지움, 끝에 `날짜 추가` 행에 기존 `DatePicker`). `min` · `max`로 고를 수 있는 날을 좁힙니다(시작 날짜 ~ 종료 날짜).
-- `PickerRow`(`organisms/shared`, 유기체): 시안 `.srow`. `ListRow` 위에 `Select`를 행 전체로 펼쳐 얹은 고르기 행(아이콘 · 제목 · 값 + 위아래 꺾쇠)입니다. 행 어디를 눌러도 목록이 열립니다. `display`로 값 칸 글자를 덮을 수 있습니다.
+- `PickerRow`(`organisms/shared`, 유기체): 시안 `.srow`. `ListRow` 위에 `Select`를 행 전체로 펼쳐 얹은 고르기 행(아이콘 · 제목 · 값 + 위아래 꺾쇠)입니다. 행 어디를 눌러도 목록이 열립니다.
 - 아이콘 `calendarGrid`(시안 ㉙-c7 빈도 행 · ㉙-c6 종류 행의 표 모양) · `chevronUpDown`(시안 `.updn`, 시안 원문이라 선 굵기 2를 유지)을 더했고, `SelectTrigger`에 `icon`(기본 `chevronDown`, 위아래 꺾쇠는 열려도 뒤집지 않음)을, `ui/sheet`에 `SheetTitle`을 더했습니다. 하위 화면 머리는 시트 머리(`SheetHeader`)가 아니라 뒤로 · 완료가 있는 머리라 제목 요소를 스스로 둡니다.
 - 날짜는 달력을 새로 그리지 않고 기존 `DatePicker`(Popover + Calendar)를 씁니다. 날짜 · 시각의 네이티브 입력은 앱(iOS · Android)의 전제이고 웹 부품은 기존 입력 부품입니다.
 - 시안과 다른 점
@@ -539,11 +539,12 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 시작 · 끝 행(`DateTimeField`)은 오른쪽 값만 누르고, 이 부품의 고르기 행은 행 전체를 누릅니다(시안 `.srow`). 한 시트 안에 두 범위가 섞입니다.
   - 고르기 행의 이름은 `제목, 고른 값`입니다. 메뉴 폭은 두 메뉴 모두 최소 200(시안 cmenu 200)입니다.
   - 하위 화면 머리의 뒤로 · 완료 글자는 `Button link`라 15/600이고 시안은 뒤로 16/400 · 완료 15/600입니다. 제목은 시안 17/600이 `Text` `rowTitle`(17/600)입니다.
-  - 행 높이 · 글자는 `ListRow` 값(44 · 17)이고 시안 `.prow`는 48 · 16입니다. 메뉴 항목은 기존 `DropdownMenu`(높이 44 · 열릴 때 누른 자리에서 커짐)라 시안의 iOS 컨텍스트 메뉴와 모양이 약간 다릅니다(체크 위치 · 구분선 폭).
+  - 행 높이 · 글자는 `ListRow` 값(44 · 17)이고 시안 `.prow`는 48 · 16입니다. 메뉴 항목은 기존 `DropdownMenu`(높이 44 · 열릴 때 누른 자리에서 커짐)라 시안의 iOS 컨텍스트 메뉴와 모양이 약간 다릅니다(체크 모양 · 위치 · 구분선 폭).
   - 요일 원은 기존 `WeekdayPicker`(정사각 · 7열 · 간격 6)라 폭에 따라 지름이 시안 40과 다릅니다. 고른 면은 `primary` 토큰(`#007F80`)으로 시안과 같습니다.
+  - 값 글자는 15(시안 14), 요일 글자는 15/600(시안 14/600), 건너뛸 날 꺾쇠는 16(시안 13, 다른 행과 같은 값)입니다. 고르기 행의 `PickerRow` 값 타입은 문자열이라 쓰는 쪽 타입으로 되돌리는 변환이 `RepeatCustom` 안에 있습니다. `날짜 추가` 행은 오른쪽 `선택` 버튼만 눌립니다(`DatePicker` 모양이 고정이라 행 전체로 펼치지 못함).
   - 눌러서 여는 고르기 행에는 hover · 누름 덧칠(`pressable`)을 줬습니다(원칙은 Select 트리거에 넣지 않지만 이 행은 줄 전체가 누르는 요소라 눌리는 줄과 맞춤. 시안에는 없음).
   - 반복 행이 눌린 채 강조되는 시안 `.srow.on`(메뉴가 열린 동안 행 배경)은 따로 그리지 않았습니다.
-- 화면을 옮긴 뒤 초점(뒤로 버튼이나 머리 제목)은 쓰는 쪽이 옮깁니다. 메뉴 · 목록은 키보드로 끝까지 됩니다(Tab, 화살표, Enter, Esc).
+- 화면을 옮기면 메뉴가 닫히며 초점이 사라지니 `RepeatCustom` · `SkipDates`에 `autoFocus`를 줘 뒤로 버튼(이름 `뒤로, 반복`)으로 옮깁니다. 메뉴 · 목록은 키보드로 끝까지 됩니다(Tab, 화살표, Enter, Esc).
 - 움직임은 모두 기존 부품의 것(메뉴 0.2초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
 
 ## 글꼴

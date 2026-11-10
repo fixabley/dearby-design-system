@@ -12,12 +12,15 @@ export function PageHeader({
   backLabel,
   onBack,
   onDone,
+  autoFocus,
   className,
 }: {
   title: string;
   backLabel: string;
   onBack?: () => void;
   onDone?: () => void;
+  /** 화면을 옮긴 직후 초점을 뒤로 버튼에 둔다(메뉴가 닫히며 초점이 사라지므로) */
+  autoFocus?: boolean;
   className?: string;
 }) {
   return (
@@ -27,7 +30,15 @@ export function PageHeader({
         className,
       )}
     >
-      <Button variant="link" icon="back" onClick={onBack}>
+      <Button
+        variant="link"
+        size="auto"
+        icon="back"
+        autoFocus={autoFocus}
+        aria-label={`뒤로, ${backLabel}`}
+        onClick={onBack}
+        className="-mx-1 gap-0.5 rounded-md px-1 [&_svg]:size-4"
+      >
         {backLabel}
       </Button>
       <SheetTitle asChild>
@@ -35,7 +46,12 @@ export function PageHeader({
           {title}
         </Text>
       </SheetTitle>
-      <Button variant="link" onClick={onDone}>
+      <Button
+        variant="link"
+        size="auto"
+        onClick={onDone}
+        className="-mx-1 rounded-md px-1"
+      >
         완료
       </Button>
     </div>

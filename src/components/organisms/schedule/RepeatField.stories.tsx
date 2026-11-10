@@ -133,6 +133,7 @@ function Flow() {
             onChange={setRule}
             onBack={back}
             onDone={back}
+            autoFocus
           />
         )}
         {page === 'skip' && rule && (
@@ -144,6 +145,7 @@ function Flow() {
             onChange={(skipDates) => setRule({ ...rule, skipDates })}
             onBack={back}
             onDone={back}
+            autoFocus
           />
         )}
       </X.SheetContent>

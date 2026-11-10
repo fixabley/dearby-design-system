@@ -27,6 +27,7 @@ export type RepeatRule = {
   monthly?: RepeatMonthly;
   /** 매년의 달(1~12) */
   month?: number;
+  /** `until`의 날짜도 날짜 단위(시각 없음) */
   end: RepeatEnd;
   /** 건너뛸 날(날짜 단위) */
   skipDates: Date[];
@@ -142,7 +143,7 @@ const monthlyText = (m: RepeatMonthly) =>
     : `${NTH_LABEL[m.nth]} ${WEEKDAY_SHORT[m.weekday]}요일`;
 
 /** 반복 행의 값 글자: `매주 월·목` · `2주마다` · `매월 셋째 주 토요일` · `매년 3월 15일` */
-export function formatRepeat(rule: RepeatRule): string {
+export function formatRepeat(rule: RepeatRule, start: Date): string {
   const head =
     rule.interval === 1
       ? FREQUENCY_LABEL[rule.frequency]
@@ -155,11 +156,11 @@ export function formatRepeat(rule: RepeatRule): string {
         .map((w) => WEEKDAY_SHORT[w])
         .join('·'),
     );
-  if (rule.frequency === 'yearly' && rule.month) parts.push(`${rule.month}월`);
-  if (
-    (rule.frequency === 'monthly' || rule.frequency === 'yearly') &&
-    rule.monthly
-  )
+  // 매년은 달과 날을 함께 보인다(둘 중 하나만 정했어도 나머지는 시작 날짜를 따라 풀어서)
+  if (rule.frequency === 'yearly' && (rule.month || rule.monthly)) {
+    parts.push(`${rule.month ?? start.getMonth() + 1}월`);
+    parts.push(monthlyText(monthlyOf(rule, start)));
+  } else if (rule.frequency === 'monthly' && rule.monthly)
     parts.push(monthlyText(rule.monthly));
   return [head, ...parts].join(' ');
 }

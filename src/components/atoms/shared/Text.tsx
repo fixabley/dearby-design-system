@@ -6,12 +6,13 @@ import { cn } from '@/lib/utils';
 /**
  * 글자 아톰. 글자 크기·굵기·줄 높이를 정하는 유일한 곳(shadcn 키트 제외).
  * 분자 이상은 글자 스타일 클래스를 쓰지 않고 Text(또는 Text를 품은 아톰)로만 글자를 그린다.
- * variant는 역할(글자 계층 11가지), weight는 같은 크기 안에서 강조, tone은 글자 색.
+ * variant는 역할(글자 계층 12가지), weight는 같은 크기 안에서 강조, tone은 글자 색.
  * leading은 줄 높이만 줄인다. tight(1.25)는 아바타 옆 한 줄 메타(HostLine)만 쓴다.
  */
 export const textVariants = cva('', {
   variants: {
     variant: {
+      display: 'text-display tracking-[-0.01em]', // 배너 큰 이름 34/800
       title: 'text-title tracking-[-0.01em]', // 화면 제목 26/700
       section: 'text-section', // 섹션 제목 22/700
       subtitle: 'text-headline', // 소제목 17/600
@@ -51,6 +52,7 @@ export const textVariants = cva('', {
 
 type Variant = NonNullable<VariantProps<typeof textVariants>['variant']>;
 const TAG: Record<Variant, React.ElementType> = {
+  display: 'span',
   title: 'h1',
   section: 'h2',
   subtitle: 'h3',

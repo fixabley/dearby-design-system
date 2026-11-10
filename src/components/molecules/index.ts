@@ -20,6 +20,8 @@ export * from './discord/ChannelSelect';
 export * from './card/CardPickerSheet';
 export * from './card/CardQr';
 export * from './follow/FollowCard';
+export * from './follow/TopicRow';
+export * from './follow/TopicHeader';
 export * from './notice/Notice';
 export * from './notification/NotificationRow';
 export * from './participant/ExchangeButton';

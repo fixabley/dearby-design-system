@@ -9,7 +9,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 **만든 순서**
 
 1. 화면 요소마다 바꿔 쓸 수 있는 shadcn·Radix 컴포넌트를 골랐습니다. 코드는 `components/ui/`(shadcn 기본 위치)에 두고, Storybook에서는 `shadcn` 태그를 달아 층마다 맨 앞 묶음(Atoms › shadcn, Molecules › shadcn)에 넣었습니다.
-2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 토큰 8개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
+2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 토큰 9개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
 3. Radix를 직접 쓰는 곳은 `ui/` 안뿐이고, 나머지 컴포넌트는 모두 shadcn 컴포넌트를 조립합니다.
 4. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
 
@@ -31,7 +31,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 
 - **같은 층에서는 shadcn 원본만 감싸 쓸 수 있습니다.** 위 층은 참조하지 않습니다. shadcn 원본의 층은 스토리 제목(`Atoms/shadcn/…`, `Molecules/shadcn/…`)으로 정합니다.
 - **부품을 조합할 때만 한 층 올라갑니다.** Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
-- **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기·굵기·줄 높이·자간 클래스를 쓰지 않습니다. shadcn 원본은 예외입니다. 글자 토큰 8개(`Foundations › Typography`)는 Text의 역할 11가지(`Atoms › Shared › Text › Scale`)로 쓰고, 계층 밖 크기는 쓰지 않습니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
+- **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기·굵기·줄 높이·자간 클래스를 쓰지 않습니다. shadcn 원본은 예외입니다. 글자 토큰 9개(`Foundations › Typography`)는 Text의 역할 12가지(`Atoms › Shared › Text › Scale`)로 쓰고, 계층 밖 크기는 쓰지 않습니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
 - **분자 이상은 컴파운드 컴포넌트.** 루트가 데이터·상태를 쥐고 부품(`ActivityRow.Media`, `ActivityRow.Title` …)이 그것을 꺼내 씁니다. 루트에 children을 주지 않으면 기본 조립으로 그려지고, 부품을 직접 놓으면 순서를 바꾸거나 뺄 수 있습니다(각 컴포넌트의 `Composed` 스토리). 하나의 shadcn 컴포넌트를 미리 맞춘 얇은 부품(TimetableButton, LiveToggle, TrackPicker, ChannelSelect, WeekdayPicker, TextField, ActionTile, ReviewSummary, DatePicker, TimePicker)은 나눌 부품이 없어 그대로 둡니다.
 
 ## 폴더와 도메인

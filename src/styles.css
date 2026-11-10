@@ -122,8 +122,12 @@
   --radius-xl: 20px; /* 커버·카드 */
   --shadow-control: var(--shadow-control);
   --shadow-primary: var(--shadow-primary);
-  /* 글자 계층 열 가지 */
+  /* 글자 계층 아홉 가지 */
   /* 글자 계층(2026-11-08 확정): 크기·줄 높이·기본 굵기. 이 값을 쓰는 곳은 Text 아톰과 shadcn 키트뿐 */
+  /* 배너 큰 이름: 지역 · 분야 머리 배너의 큰 이름(시안 ⑦-R 34/800) */
+  --text-display: 34px;
+  --text-display--line-height: 1.2;
+  --text-display--font-weight: 800;
   /* 화면 제목 */
   --text-title: 26px;
   --text-title--line-height: 1.22;

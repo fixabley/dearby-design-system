@@ -25,7 +25,7 @@ export function StatusGlyph({
         className,
       )}
     >
-      <Svg src={STATUS[status].svg} />
+      <Svg src={STATUS[status].svg} size={14} />
       {STATUS[status].label}
     </span>
   );

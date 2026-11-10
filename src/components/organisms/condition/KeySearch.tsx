@@ -85,7 +85,11 @@ function Propose() {
         onSelect={onPropose}
         className="text-accent-foreground"
       >
-        <Icon name="addCircle" />새 자격 제안
+        <Icon name="addCircle" />
+        <span className="min-w-0 flex-1 truncate">새 자격 제안</span>
+        <CommandShortcut>
+          <Icon name="chevronRight" />
+        </CommandShortcut>
       </CommandItem>
     </CommandGroup>
   );

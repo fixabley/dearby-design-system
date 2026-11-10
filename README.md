@@ -79,7 +79,7 @@ src/
 - Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 부품을 조합할 때만 한 층 올라갑니다.
   재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
 - **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기 · 굵기 · 줄 높이 · 자간 클래스를 쓰지 않고 `Text`로 그립니다. shadcn 원본은 예외입니다.
-  글자 토큰 9개(Foundations › Typography)는 `Text`의 역할 12가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
+  글자 토큰 9개(Foundations › Typography)는 `Text`의 역할 12가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine · HostedLine)만 씁니다.
 - 분자 이상은 컴파운드 컴포넌트(루트 + 부품, children이 없으면 기본 조립)로 만듭니다.
 
 ```sh
@@ -628,17 +628,17 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
 <Badge variant="muted" size="sm">직접 개설</Badge>
 <HostedLine initial="김" text="@doyun · SSAFY 17기 교육생" />
 <ConditionCheck met>김도윤님과 명함 맞교환</ConditionCheck>
-<ConditionCheck met={false} onVerify={verify}>{formatConditionSummary(cond)}</ConditionCheck>
+<ConditionCheck met={false} onVerify={verify}>{conditionTitle(cond)} {formatConditionSummary(cond)}</ConditionCheck>
 ```
 
 - 직접 개설 캡슐: 새 부품 없이 `Badge`의 `muted` · `sm`(흰 바탕 가는 테두리, 회색 채움 없음)입니다.
 - `HostedLine`(분자, `molecules/program`): 이니셜 원(`Avatar` dot 18) + `@핸들 · 소속`(`Text` caption, 넘치면 말줄임) + 캡슐. 조직 줄 `HostLine`은 네모 로고라 원 모양인 개설자 줄은 따로 뒀습니다. `hosted={false}`면 캡슐 없이 줄만 그립니다(활동 상세 위 줄 · 프로그램 행의 회차 줄).
-- `ConditionCheck`(분자, `molecules/activity`): 충족이면 청록 체크(`check` 아이콘), 아니면 빈 원 + `인증하기`(`Button` link). `onVerify`가 없으면 인증하기 없이 줄만 그립니다. 문구는 받는 쪽이 정하고, 조건 값에서 만들 때는 `formatConditionSummary`를 씁니다.
+- `ConditionCheck`(분자, `molecules/activity`): 충족이면 청록 체크(`check` 아이콘), 아니면 빈 원 + `인증하기`(`Button` link). `onVerify`가 없으면 인증하기 없이 줄만 그립니다. 문구는 받는 쪽이 정합니다. 조건 값에서 만들 때는 `conditionTitle`(키 이름)과 `formatConditionSummary`(값)를 이어 씁니다. 인증하기 누르는 자리는 글자보다 위아래 8 넓습니다.
 - 개설자 행(`㉙-d`): 새 부품 없이 `ListRow`(`Avatar` row 44 + 이름 + 핸들 + 오른쪽 꺾쇠, `asChild` 링크)입니다.
 - 접근성: 충족 여부를 색과 모양에만 맡기지 않도록 줄 앞에 화면 읽기용 글 `충족: ` · `미충족: `을 붙이고, `인증하기`의 읽기 이름은 `인증하기 : 조건 글`입니다. 체크 · 원 아이콘은 숨깁니다. 키보드는 `Button`의 초점 고리를 따릅니다. 화면 읽기 실제 낭독은 확인하지 못했습니다.
 - 움직임은 `Button`의 누름 전환(0.15초)뿐입니다.
 - 시안과 다른 점
-  - 캡슐 글자는 `Badge` sm · muted의 11/700 · 높이 20 · 안쪽 8(시안 11/600)입니다.
+  - 캡슐 글자는 `Badge` sm · muted의 11/500 · 높이 20 · 안쪽 8(시안 11/600)입니다.
   - 조건 줄 글자는 15이고 시안은 14, 아이콘과 글 사이 12(시안 10), 인증하기는 `Text` control 13/600(시안 14/600)입니다. 시안의 흰 카드 바탕과 구역 머리(`참여 조건 · 모두 충족`)는 쓰는 쪽(활동 상세)의 몫이라 부품에 넣지 않았습니다.
   - 개설자 행은 `ListRow`라 시안의 흰 그림자 카드 대신 `ListGroup`의 회색 면이고 원이 44입니다.
   - 아래는 틀에 없어 만들지 않았습니다: 프로그램 화면(㉙-p)의 `아이콘 + @핸들 · 소속 + 꺾쇠 + 캡슐` 줄(`HostedLine`은 이니셜 원 줄이라 아이콘 줄은 `Icon` + `Text` + `Badge` 조립), 하단 `단계 인증하기` CTA와 안내 줄(`Button` lg + 쓰는 쪽 글).

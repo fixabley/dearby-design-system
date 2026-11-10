@@ -53,7 +53,7 @@ export const Assembly: Story = {
         <X.Text variant="caption" tone="muted">
           ㉙-d 위 줄: 개설자 · 프로그램(눌러서 프로그램 화면으로)
         </X.Text>
-        <a href="#hosted" className="rounded-sm focus-visible:ring-2">
+        <a href="#hosted" className="block rounded-sm focus-visible:ring-2">
           <X.HostedLine
             initial="김"
             text="@doyun · SSAFY 17기 면접 스터디"

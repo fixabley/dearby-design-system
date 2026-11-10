@@ -41,7 +41,7 @@ export const Section: Story = {
       </X.Text>
       <X.ConditionCheck met>김도윤님과 명함 맞교환</X.ConditionCheck>
       <X.ConditionCheck met={false} onVerify={fn()}>
-        {X.formatConditionSummary(AGE)}
+        {X.conditionTitle(AGE)} {X.formatConditionSummary(AGE)}
       </X.ConditionCheck>
     </section>
   ),

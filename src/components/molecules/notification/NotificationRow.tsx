@@ -70,7 +70,7 @@ function Media({ className }: { className?: string }) {
   return (
     <span className={cn('relative size-11 shrink-0', className)}>
       <Avatar
-        size="xs"
+        size="row"
         src={logo}
         fallback={initial ?? ''}
         aria-hidden
@@ -123,13 +123,7 @@ function Time({ className }: { className?: string }) {
 function Cover({ className }: { className?: string }) {
   const { thumb } = useNotificationRow('Cover');
   if (!thumb) return null;
-  return (
-    <Thumbnail
-      thumb={{ cover: thumb }}
-      size="sm"
-      className={cn('size-13 rounded-[10px]', className)}
-    />
-  );
+  return <Thumbnail thumb={{ cover: thumb }} size="xs" className={className} />;
 }
 
 function NotificationRowRoot({
@@ -204,7 +198,7 @@ function NotificationRowRoot({
 /**
  * 알림 행(컴파운드, 시안 ㉗-g · ㉘-f, `<ul>` 안에 놓는다): Unread(안 읽음 점) · Media(로고 또는 이니셜 원 + 종류 배지) · Message(굵은 주어 문장) · Time(시각) · Cover(오른쪽 썸네일).
  * 기본 조립은 `<NotificationRow kind="open" logo="…" subject="카카오" message="에서 새 모집을 열었어요 · 카카오테크 부트캠프 6기" time="09:00" thumb="…" unread />`.
- * 행 전체는 누르는 요소가 아니다. 행 안 버튼은 `action`에 넣는다.
+ * 행 전체는 누르는 요소가 아니다. 행 안 버튼은 `action`에 넣는다(나중에 행을 눌러 들어가게 하면 `action`은 누르는 영역 밖 형제로 옮긴다: 버튼 안에 버튼이 들어가지 않게).
  * 바꿔 조립하려면 부품을 직접 놓는다: `<NotificationRow …><NotificationRow.Media /><NotificationRow.Message /></NotificationRow>`
  */
 export const NotificationRow = Object.assign(NotificationRowRoot, {

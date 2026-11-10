@@ -376,7 +376,7 @@ import { LockToggle } from '@dearby/design-system';
 ```
 
 - `NotificationRow`(molecules, 컴파운드): `Unread`(안 읽음 점) · `Media`(로고 또는 이니셜 원 44 + 오른쪽 아래 종류 배지 20) · `Message`(굵은 주어 + 나머지) · `Time` · `Cover`(오른쪽 썸네일 52, `thumb`이 있을 때만). 행 사이 .5px 구분선은 행이 가집니다(마지막 제외). 행 전체는 누르는 요소가 아니고(시안에 없음), 행 안 버튼은 `action`에 넣으면 시각 아래 8에 놓입니다.
-  - `kind`: `result`(선발 · 깃발) · `open`(새 모집 · 반짝임) · `deadline`(마감 · 시계) · `event`(행사 · 점 찍힌 달력) · `card`(명함 교환). 배지는 청록 채움 원이고 종류 이름(`NOTIFICATION_KINDS`)이 화면 읽기에 `sr-only` 글자로 먼저 읽힙니다.
+  - `kind`: `result`(선발 · 깃발) · `open`(새 모집 · 반짝임) · `deadline`(마감 · 시계) · `event`(행사 · 점 찍힌 달력) · `card`(명함 교환). 배지는 청록 채움 원이고 종류 이름(`NOTIFICATION_KINDS`, 부품 옆에 둠)이 화면 읽기에 `sr-only` 글자로 먼저 읽힙니다.
   - `subject`(굵게) 바로 뒤에 `message`가 이어 붙습니다. 조사로 시작하면 붙여 쓰고(`'에서 새 모집을 열었어요'`), 아니면 앞에 공백을 넣습니다(`' 행사 D-13'`).
   - 안 읽음 점은 행 왼쪽 바깥 14에 있어(시안 `.nun`) 목록 왼쪽에 14 이상 여백이 있어야 잘리지 않습니다(화면 옆 여백 24 안). 점은 색만으로 전하지 않도록 `sr-only` "읽지 않음"이 따릅니다.
   - 로고가 없거나 사람이면 `initial`(이름 첫 글자)로 이니셜 원을 그립니다. 시각은 `HH:mm` 실제 시각만 씁니다(날짜는 `DateHeader`가 맡음).
@@ -391,7 +391,8 @@ import { LockToggle } from '@dearby/design-system';
   - 종류 배지의 행사 아이콘은 시안의 점 찍힌 달력(`calendarDot`)이고 선발 깃발(`flag`)과 함께 시안 원문으로 더했습니다.
   - 문장 · 상태 글자의 정확한 색은 토큰으로 맞췄습니다(시안 `--sec` → `muted-foreground`, 청록 → `accent-foreground`).
   - 눌러서 들어가는 행(`onClick` · `asChild`), 참여자 행 길게 누르기 · ⋯ 메뉴(㉘-d3), 교환 요청 30일 만료 표시는 시안 틀에 행 모양이 없어 만들지 않았습니다.
-- `Avatar`에 `xs`(44, 글자 17)를 더했습니다(shadcn 원본 수정, 알림 · 참여자 행의 이니셜 원).
+- `Avatar`에 `row`(44, 글자 17), `Thumbnail`에 `xs`(52, 모서리 10)를 더했습니다(알림 · 참여자 행. Avatar는 shadcn 원본 수정).
+  - 날짜 묶음마다 `ul`을 따로 두면 각 목록의 마지막 행에는 구분선이 없어, 시안에서 날짜 소제목 바로 위에 보이는 선이 빠집니다(날짜 소제목이 이미 나눔).
 
 ## 글꼴
 

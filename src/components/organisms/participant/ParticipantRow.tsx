@@ -41,7 +41,7 @@ function ParticipantAvatar({ className }: { className?: string }) {
   const { name } = useParticipantRow('Avatar');
   return (
     <Avatar
-      size="xs"
+      size="row"
       fallback={name.slice(0, 1)}
       aria-hidden
       className={cn('dark:ring-[.5px] dark:ring-white/6', className)}
@@ -54,7 +54,7 @@ function Name({ className }: { className?: string }) {
   const { name, handle } = useParticipantRow('Name');
   return (
     <div className={cn('flex items-baseline gap-1.5', className)}>
-      <Text as="b" variant="rowTitle" nowrap className="max-w-full truncate">
+      <Text as="b" variant="rowTitle" nowrap className="shrink-0">
         {name}
       </Text>
       <Text variant="caption" tone="muted" truncate>

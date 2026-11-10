@@ -61,6 +61,7 @@ src/
 | `organisms/card/`          | CardRow · CardFields                                                                                                                                                                               |
 | `organisms/schedule/`      | RepeatField · RepeatCustom · SkipDates, 반복 규칙 타입과 도우미(`repeat.ts`), 두 화면 머리의 내부 부품 `PageHeader`(내보내지 않음)                                                                                                            |
 | `organisms/condition/`     | ConditionRow · ConditionList · KeySearch · ConditionValueInput · ConditionGroupEditor, 조건 값 타입과 도우미(`condition.ts`) |
+| `organisms/form/`          | FormQuestionRow · FormQuestionList · FormQuestionEditor · FormAnswerInput · FormProjectList, 참여 폼 값 타입과 도우미(`form.ts`), 내부 부품 `ChoiceRows`(내보내지 않음) |
 | `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
@@ -87,7 +88,7 @@ npm run check   # 위 층 참조, 같은 층 참조(shadcn 원본 빼고), 유�
 
 ## manage 태그
 
-개설자가 활동을 운영하는 화면에만 쓰는 컴포넌트에는 Storybook 태그 `manage`를 붙입니다: BlockEditor · ChannelTemplate · EvaluationForm · NoticeComposer · ServerPicker · SubmissionList · TeamBoard · ManageLayout. 사이드바의 태그 거르기로 모아 보거나 뺄 수 있습니다.
+개설자가 활동을 운영하는 화면에만 쓰는 컴포넌트에는 Storybook 태그 `manage`를 붙입니다: BlockEditor · ChannelTemplate · EvaluationForm · FormQuestionEditor · FormQuestionList · FormQuestionRow · NoticeComposer · ServerPicker · SubmissionList · TeamBoard · ManageLayout. 사이드바의 태그 거르기로 모아 보거나 뺄 수 있습니다.
 manage라는 도메인은 따로 두지 않습니다. 관리 탭 목록과 이름(`MANAGE_TABS`, `MANAGE_TAB_LABEL`)은 활동 도메인(`organisms/activity/constants.ts`)이 갖고, `ManageLayout`은 `tabs` · `labels`로 받기만 합니다.
 
 ## 실행
@@ -580,6 +581,44 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 눌러서 여는 행의 hover · 누름 덧칠은 `ListRow`의 것입니다(시안에는 없음).
 - 접근성: 행은 누르는 `button`(이름은 `제목 요약`)입니다. 검색 입력은 cmdk의 combobox(이름 `자격 검색`)이고 결과 개수 알림은 따로 두지 않았습니다. 키보드로 끝까지 됩니다(Tab, Enter, 방향 · 문자 입력).
 - 움직임은 모두 기존 부품의 것(분할 전환 면 0.3초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
+
+### 참여 폼 부품
+
+2026-11-10 이슈 #76(시안 ㉙-i · ㉙-i2 · ㉙-i3 · ㉙-i4 · ㉙-j · ㉙-j5). 개설자가 만드는 참여 폼(질문 목록 · 질문 편집 시트)과 참여자가 채우는 답 입력입니다. 시트 머리 · `완료` · `제출` · `고르기` 버튼, 시트 안 화면 이동, 저장, 제출, 새 프로젝트를 만드는 화면, 질문 순서 바꾸기(시안 "편집에서 끌기"는 오른쪽 위 `편집` 버튼 틀이 없음), 민감 정보 문구를 검사하는 일은 쓰는 쪽 몫이거나 이 이슈 밖입니다. 값은 모두 쓰는 쪽이 갖는 제어형입니다.
+
+```tsx
+<FormQuestionList value={questions} onEdit={edit} onAdd={add} />
+
+<FormQuestionEditor value={q} onChange={setQ} warning={hasSensitive} />
+<Button disabled={warning || !isFormQuestionComplete(q)}>완료</Button>
+
+<FormAnswerInput question={q} value={v} onChange={setV} projects={projects} onPickProject={open} />
+<FormProjectList projects={projects} value={id} onChange={setId} onCreate={create} />
+```
+
+- 값 모양(`organisms/form/form.ts`): `FormQuestionKind`(`short` · `long` · `one` · `many` · `bool` · `link` · `project`, 시안 ㉙-i4 종류 메뉴 순서) · `FormQuestion`(`text` · `kind` · `required` · `options`(고르기 선택지 글자) · `passAnswer`: 있으면 `조건으로 쓰기`가 켜진 것이고 예/아니오는 `'yes'` | `'no'`, 하나 고르기는 선택지 글자) · `FormAnswerValue`(글 · 예/아니오 `boolean`(`null`은 아직 답하지 않음) · 고른 글자 · 고른 글자들 · 프로젝트 id) · `FormProject`(`id` · `name` · `verified` · `platforms` · `released`, 시안 ㉙-j5의 태그). **서버 계약(참여 폼 이슈)이 아직 없어 시안의 낱말을 영문으로 옮긴 최소한이고, 계약이 생기면 맞춘다**(통과 답을 질문의 필드로 두는지 · 예/아니오를 문자열로 두는 표기 · 선택지를 글자로 두는 것 · 프로젝트 모양이 모두 바뀔 수 있음).
+- 도우미: `FORM_KINDS` · `FORM_KIND_LABEL` · `canUseAsCondition`(조건으로 쓸 수 있는지: 예/아니오, 선택지가 있는 하나 고르기) · `setFormCondition`(켜면 통과 답이 예/아니오는 `예`, 하나 고르기는 첫 선택지, 끄면 지움) · `changeFormKind`(종류를 바꾸면 통과 답을 지우고 선택지는 하나 · 여러 개 고르기 사이에서만 남김) · `formatFormPass`(`예만 참여`) · `hasFormCondition`(통과 답이 있는지, 스위치 · 조건 태그가 같은 판정을 씀) · `isFormQuestionComplete`(문구가 있고, 고르기는 글자 있는 선택지 둘 이상이고, 통과 답이 있으면 그 종류가 받는 값) · `isHttpsUrl` · `emptyFormAnswer` · `isFormAnswerComplete`(필수면 값이 있어야 하고 링크는 https).
+- `FormQuestionRow`(유기체, `ListGroup` 안): `ListRow`의 바꿔 조립 경로 위에 번호 원 22(민트 면) · 질문 글(여러 줄) · 종류 글자 + `Badge` 태그(`필수` muted, `조건 · 예만 참여` mint + 체크) · 꺾쇠. 누르면 `onEdit`. 읽기 이름은 `1번 질문, 글, 종류, 필수, 조건 …`이고 번호 원은 숨깁니다. `warning`이면 `민감 정보 확인` 태그(빨강 + ⓘ + 글자)가 붙습니다.
+- `FormQuestionList`(컴파운드): `Rows` · `Add`(`질문 추가`). 질문에 id가 없어 행은 자리로 구분합니다(`ConditionList`와 같음).
+- `FormQuestionEditor`(컴파운드): `Text`(질문 입력, `InputGroup` 채움) · `Warning`(기존 `Alert destructive`: 빨강 ⓘ + 제목 + 보조 글, 경고가 없으면 그리지 않음) · `Settings`(`Kind` · `Required` · `Condition`) · `PassAnswer`(`통과 답` 머리 + 라디오 줄 + 안내 글). `Kind`는 기존 `PickerRow`(`Select`)에 일곱 종류를 담고 링크 앞에 구분선을 둡니다(`PickerRow` 옵션에 `separatorBefore`를 더함). `Required` · `Condition`은 `ListRow` 오른쪽에 `Switch`(이름은 행 제목). 종류를 바꾸면 `changeFormKind`로 통과 답이 정리됩니다.
+  - `warning`은 쓰는 쪽이 문구를 검사해 넘깁니다. 검사 규칙(시안 캡션: 주민등록번호 · 계좌 · 카드 · 건강 · 종교 · 정치 성향)은 서버 계약이 정할 일이라 부품에 넣지 않았고 스토리에 정규식 예시만 있습니다. 경고가 있으면 질문 칸이 `aria-invalid` + `aria-describedby`로 경고 글을 가리킵니다. 완료를 막는 것도 쓰는 쪽 몫입니다(시안 ㉙-i3).
+  - `조건으로 쓰기`는 짧은 답에서도 행을 보이되(시안 ㉙-i3) 꺼진 채 비활성입니다. `many`(여러 개 고르기)는 통과 답이 하나인 모델과 맞지 않아 켤 수 없게 둡니다(시안 캡션 "예/아니오·고르기만"을 하나 고르기로 읽은 해석).
+- `FormAnswerInput`(컴파운드): `Label`(질문 글 17/600 + `필수` 11) · `Answer`(종류에 맞는 입력 하나). 예/아니오는 `Segmented`(처음엔 고른 칸이 없음), 하나 고르기는 `RadioGroup` 줄, 여러 개 고르기는 `Checkbox` 줄(`role="group"`), 짧은 답 · 링크는 `Input`, 긴 답은 `Textarea`, 프로젝트는 고른 이름(없으면 `프로젝트 고르기`)을 보이는 `ListRow`입니다. 예/아니오 · 라디오 · 체크박스 묶음 · 짧은 답 · 긴 답 · 링크의 이름은 보이는 질문 글(`aria-labelledby`, `필수` 포함)에서 오고, 프로젝트 줄은 `ListRow`가 버튼에 이름을 줄 길이 없어 `질문 글, 고른 이름` 형태의 숨은 글자로 이름을 만듭니다(`필수`는 이름에 안 들어감). 링크는 https 주소만 받고 틀린 형식은 포커스를 떠난 뒤에 `role="alert"` 글로 알립니다(타이핑 중에는 울리지 않음).
+- `FormProjectList`(유기체): 시안 ㉙-j5 시트 안쪽. `RadioGroup` 줄(글자 원 34 · 이름 · `확인됨`(GitHub 로고 대신 `github`) · 플랫폼 · `출시` 태그)과 라디오 묶음 밖 자기 목록의 `새 프로젝트`(ServerPicker의 초대 줄과 같은 이유). 라디오 줄의 읽기 이름에 태그 글자가 함께 들어갑니다(ServerPicker와 같음).
+- 층: 종류 행이 `PickerRow`(유기체)를 쓰고 `ListRow` · `Segmented`(분자)와 한 도메인에서 조립하므로 모두 유기체로 둡니다(분자끼리 import 금지). `ChoiceRows`(라디오 · 체크박스 줄)는 편집의 통과 답, 답 입력, 프로젝트 고르기가 함께 쓰는 내부 부품입니다.
+- 기존 부품에 더한 것: `ToggleGroup`은 `index`가 음수면 고른 면을 숨기고 `Segmented`는 `value: null`과 `labelledBy`를 받습니다(아직 답하지 않은 예/아니오). `PickerRow` 옵션의 `separatorBefore`. 아이콘 `table`(시안 ㉙-i2 `종류` 행의 원문).
+- 시안과 다른 점
+  - 시안에 틀이 없어 추천안으로 만든 것: 행의 경고 태그(`warning`, 시안의 경고는 시트에만 있고 경고가 있으면 완료가 막혀 목록에 들어오지 않을 수 있음), 링크 · 짧은 답 · 여러 개 고르기의 답 입력, 링크 형식 오류 글, 질문 칸 placeholder(`질문을 입력하세요`), 조건으로 쓸 수 없는 종류의 비활성 스위치, 프로젝트 질문의 닫힌 모양(`프로젝트 고르기` 줄).
+  - 만들지 않은 것: 선택지를 고치는 칸(시안에 틀이 없음. 통과 답 줄과 답 입력은 `options`를 읽기만 하므로 고르기 질문을 편집기만으로 완성할 수는 없고, `isFormQuestionComplete`는 선택지 둘 이상을 요구함), 질문 순서 끌기, 새 프로젝트 화면, 제출 확인 시트(㉙-j2) · 승인 대기(㉙-j3) · 거절(㉙-j4, 이슈 범위의 시안 틀이 아님).
+  - 질문 입력 칸은 `InputGroup`이라 높이 44(시안 52)이고, 시안의 깜빡이는 커서 막대는 없습니다. 행 높이 · 글자는 `ListRow` 값이고 질문 글은 17(시안 16)이라 시안이 한 줄인 글이 두 줄로 접힐 수 있습니다. 번호 원 · 태그는 시안 값(22 · 20)이고 태그 글자는 `Badge` sm이 700(시안 600, muted는 500)입니다.
+  - 종류 행의 오른쪽은 `PickerRow`의 위아래 꺾쇠이고 시안은 오른쪽 꺾쇠입니다(메뉴를 여는 행이라 위아래가 맞음). 종류 메뉴는 `Select`라 시안의 메뉴 모양(240 폭 · 14 모서리)과 다릅니다.
+  - 예/아니오의 면은 처음 고를 때 첫 칸에서 둘째 칸으로 미끄러지며 나타납니다(숨은 면은 첫 칸 자리에 있음). `FormProjectList` 글자 원은 이름의 첫 글자입니다.
+  - 수치 1~2px 차이: 태그 안쪽 8 · 간격 4 · 아이콘 12(시안 7 · 3 · 11), 질문 입력 좌우 16(시안 14), 경고와 입력 사이 12(시안 10), 긴 답 안쪽 10/16(시안 9/14), `통과 답` 머리 위 20(시안 22), 질문 글 줄 높이 1.28(시안 1.4), 행 안 글 사이 2(시안 3).
+  - 경고는 `Alert destructive`라 제목 15/600 · 보조 13(시안 14/600 · 12)이고 모서리 14 · 여백 12/14는 같습니다. 안내 글 12는 13입니다.
+  - 답의 질문 글은 `rowTitle` 17/600(시안 16/600), 아래 여백 10 그대로, `필수`는 11/600 청록 글자입니다(시안과 같음, 라이트 청록 대비 계산은 하지 않음). 긴 답 칸은 최소 76, 글자는 `Textarea`의 15(시안 16)입니다.
+  - 프로젝트 글자 원은 청록 그러데이션(시안 `.apic`)이고 `확인됨` 태그는 시안의 GitHub 로고 대신 `github` 아이콘(시안의 로고 원문)입니다. 플랫폼 · `출시` 태그는 `Badge` muted · mint입니다.
+- 접근성: 필수는 `필수` 글자, 경고는 글자 + ⓘ + 빨강으로 전해 색만으로 전하지 않습니다. 라디오 · 체크박스 줄은 label로 감싸 줄 어디를 눌러도 고르고, 묶음 이름은 보이는 글자에서 옵니다. 키보드로 끝까지 됩니다(Tab, Space, 방향키). 화면 읽기 실제 낭독은 확인하지 못했습니다.
+- 움직임은 모두 기존 부품의 것(시트 · 스위치 · 라디오 · 분할 전환 0.3초 이내)이고 동작 줄이기에서 꺼집니다.
 
 ## 글꼴
 

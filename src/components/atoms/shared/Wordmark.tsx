@@ -35,7 +35,7 @@ const MARKS = {
       </>
     ),
   },
-  /** 작은 판(머리용): 입이 없고 e의 가로획이 가늘다. 획 24 · 엄지 29 · e 가로획 15 */
+  /** 작은 판(머리용): e의 가로획이 가늘고 입은 그보다 가늘다. 획 24 · 엄지 29 · e 가로획 15 · 입 13 */
   small: {
     box: [-4, -49, 673.249, 190],
     strokeWidth: 24,
@@ -67,6 +67,7 @@ const MARKS = {
         </g>
         <path d="M577.249,12V50A38,38 0 0 0 653.249,50" />
         <path d="M653.249,12V98A28,28 0 0 1 625.249,126H611.249" />
+        <path d="M183,121Q228,143 273,121" className={EAR} strokeWidth={13} />
       </>
     ),
   },
@@ -74,12 +75,12 @@ const MARKS = {
 
 /**
  * dearby 로고(워드마크) 그림. 글자 계층 밖의 브랜드 표시라 아톰 하나로 묶었다.
- * variant는 머리용 작은 판(small, 기본)과 로그인 같은 큰 자리의 큰 판(large). 크기는 height(그림 상자 높이, 기본 22)로 정하고 폭은 비율대로다.
+ * variant는 머리용 작은 판(small, 기본)과 로그인 같은 큰 자리의 큰 판(large). 크기는 height(그림 상자 높이, 기본 26)로 정하고 폭은 비율대로다.
  * 색은 토큰을 따라 라이트 · 다크가 저절로 맞는다: d · b · y는 accent-foreground(className의 글자색으로 바꿀 수 있음), ear와 입은 wordmark-ear
  */
 export function Wordmark({
   variant = 'small',
-  height = 22,
+  height = 26,
   className,
 }: {
   variant?: keyof typeof MARKS;

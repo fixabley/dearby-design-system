@@ -6,7 +6,7 @@ const meta: Meta<typeof X.Wordmark> = {
   title: 'Atoms/Shared/Wordmark',
   id: 'atoms-wordmark',
   component: X.Wordmark,
-  args: { variant: 'small', height: 22 },
+  args: { variant: 'small', height: 26 },
   argTypes: {
     variant: { control: 'inline-radio', options: ['small', 'large'] },
     height: { control: { type: 'number', min: 12, max: 240 } },
@@ -26,7 +26,7 @@ const Sized = ({ children, label }: { children: ReactNode; label: string }) => (
   </div>
 );
 
-/** dearby 로고 그림(글자 계층 밖의 브랜드 표시). 기본은 머리용 작은 판 22 */
+/** dearby 로고 그림(글자 계층 밖의 브랜드 표시). 기본은 머리용 작은 판 26 */
 export const Playground: Story = {};
 
 /** 큰 판: 윙크하는 e와 입이 있다. 로그인처럼 로고가 주인공인 자리 */
@@ -48,7 +48,7 @@ export const Small: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Row>
-      {[28, 24, 22, 20].map((h) => (
+      {[28, 26, 24, 22].map((h) => (
         <Sized key={h} label={`small ${h}`}>
           <X.Wordmark height={h} />
         </Sized>
@@ -68,7 +68,7 @@ export const LightAndDark: Story = {
           className={`${mode} flex flex-col items-start gap-6 rounded-xl bg-background p-6 ring-1 ring-border`}
         >
           <X.Wordmark variant="large" height={84} />
-          <X.Wordmark height={22} />
+          <X.Wordmark />
         </div>
       ))}
     </div>

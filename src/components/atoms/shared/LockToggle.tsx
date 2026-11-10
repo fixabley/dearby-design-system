@@ -11,7 +11,7 @@ const fixed = <T,>(k: T) => ({ a: 0, k });
 const layer = (pivot: number[], r: object, shape: object) => ({
   ty: 4,
   ip: 0,
-  op: 21,
+  op: 19,
   st: 0,
   sr: 1,
   ks: {
@@ -35,13 +35,13 @@ const layer = (pivot: number[], r: object, shape: object) => ({
 });
 
 // 자물쇠가 열리는 Lottie(직접 만듦, README 자물쇠 토글): lock 아이콘과 같은 고리 · 몸통(24 격자, 선 1.8, 둥근 끝).
-// 고리가 왼발(8,11)을 축으로 25° 젖혀진다. 60fps 20프레임(0.33초), 빠르기는 ease-spring 토큰. 끝 프레임이 unlock 아이콘이다.
+// 고리가 왼발(8,11)을 축으로 25° 젖혀진다. 60fps 18프레임(0.3초), 빠르기는 ease-spring 토큰. 끝 프레임이 unlock 아이콘이다.
 // 색은 검정으로 두고 CSS(stroke-current)로 글자색을 입힌다. lottie-web이 받은 자료를 고쳐 쓰므로 부를 때마다 새로 만든다
 const lockAnimation = () => ({
   v: '5.13.0',
   fr: 60,
   ip: 0,
-  op: 21,
+  op: 19,
   w: 24,
   h: 24,
   layers: [
@@ -56,7 +56,7 @@ const lockAnimation = () => ({
             o: { x: [0.3], y: [1.25] },
             i: { x: [0.45], y: [1] },
           },
-          { t: 20, s: [-25] },
+          { t: 18, s: [-25] },
         ],
       },
       {

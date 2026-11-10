@@ -49,7 +49,7 @@ function ParticipantAvatar({ className }: { className?: string }) {
   );
 }
 
-/** 이름(굵게) 옆에 핸들(흐리게). 한 줄이고 넘치면 핸들이 먼저 말줄임 */
+/** 이름(굵게) 옆에 핸들(흐리게). 한 줄이고 핸들만 말줄임(이름은 시안처럼 줄지 않는다) */
 function Name({ className }: { className?: string }) {
   const { name, handle } = useParticipantRow('Name');
   return (

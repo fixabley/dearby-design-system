@@ -61,15 +61,21 @@ export const Playground: Story = {
 
 const choice = (
   <div className="flex items-center gap-2">
-    <X.Button size="sm" onClick={fn()}>
+    <X.Button size="sm" aria-label="SSAFY 17기 통과" onClick={fn()}>
       통과
     </X.Button>
-    <X.Button size="sm" variant="outline" onClick={fn()}>
+    <X.Button
+      size="sm"
+      variant="outline"
+      aria-label="SSAFY 17기 탈락"
+      onClick={fn()}
+    >
       탈락
     </X.Button>
     <X.Button
       size="sm"
       variant="plain"
+      aria-label="SSAFY 17기 아직 몰라요"
       className="px-1.5 text-muted-foreground"
       onClick={fn()}
     >

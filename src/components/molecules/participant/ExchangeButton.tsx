@@ -19,7 +19,7 @@ export const EXCHANGE_LABEL: Record<ExchangeState, string> = {
  * 명함 교환 상태(참여자 행 오른쪽 · 교환 요청 알림 행, 시안 ㉘-d2 · ㉘-f).
  * `request`(민트 알약)와 `accept`(청록 채움 알약)는 누르는 버튼이고 `onClick`으로 알린다.
  * `sent`(요청함)와 `done`(교환함)은 시안에서 버튼이 아니라 글자라 누를 수 없는 표시로 그린다(done은 체크가 앞에 붙는다).
- * 이름이 목록에서 겹치지 않게 쓰는 쪽이 `aria-label`로 누구인지 덧붙인다(예: "이서연에게 교환 요청"). 보이는 글자가 이름 안에 들어 있게 쓴다
+ * `sent` · `done`은 글자라 `className`만 받는다(버튼 속성은 버린다). 이름이 목록에서 겹치지 않게 쓰는 쪽이 `aria-label`로 누구인지 덧붙인다(예: "이서연에게 교환 요청"). 보이는 글자가 이름 안에 들어 있게 쓴다
  */
 export function ExchangeButton({
   state,

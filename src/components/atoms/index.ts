@@ -1,5 +1,6 @@
 export * from './shared/Text';
 export * from './shared/Wordmark';
+export * from './shared/LogoSymbol';
 export * from './shared/DDay';
 export * from './shared/Thumbnail';
 export * from './shared/RowList';

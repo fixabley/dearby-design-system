@@ -31,7 +31,7 @@ src/
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
-| `atoms/shared/`            | Text · Wordmark · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle                                                                                                         |
+| `atoms/shared/`            | Text · Wordmark · LogoSymbol · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle                                                                                            |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
@@ -120,7 +120,7 @@ npm run hooks         # 처음 한 번: 커밋할 때 포맷 확인과 lint가 �
 }
 ```
 
-- npm은 git 의존성을 설치할 때 이 레포를 받아 devDependencies를 깔고 `prepare`(`npm run build`)로 `dist`를 만든 뒤, `files`에 적은 것(dist · src/styles.css · static/fonts)만 담습니다. dist는 커밋하지 않습니다.
+- npm은 git 의존성을 설치할 때 이 레포를 받아 devDependencies를 깔고 `prepare`(`npm run build`)로 `dist`를 만든 뒤, `files`에 적은 것(dist · src/styles.css · static/fonts · static/logo)만 담습니다. dist는 커밋하지 않습니다.
 - npm 11.19부터는 git 의존성의 `prepare`도 허용 목록(`allowScripts`)으로 확인합니다. 지금은 경고만 내지만 막히지 않게 위처럼 적어 둡니다. 커밋 없이 적었으니 버전을 올려도 고칠 필요가 없습니다.
 - 버전을 올릴 때는 커밋 해시를 바꾸고 `npm install`로 package-lock.json을 함께 갱신합니다.
 
@@ -320,6 +320,17 @@ rm -r <레포>/static/fonts/pretendard/woff2-dynamic-subset
 cp -R package/dist/web/variable/pretendardvariable-dynamic-subset.css package/dist/web/variable/woff2-dynamic-subset <레포>/static/fonts/pretendard/
 gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d > <레포>/static/fonts/pretendard/LICENSE.txt
 ```
+
+## 로고
+
+2026-11-10 사용자가 고른 로고(이슈 #59)입니다. d · b가 엄지를 든 손, ear가 얼굴처럼 보이는 그림이고 path는 시안 SVG 그대로입니다.
+
+- `Wordmark`: 글자 로고 그림. `variant`는 머리용 작은 판 `small`(기본, 입이 없고 e의 가로획이 가늚)과 큰 판 `large`(윙크하는 e와 입), 크기는 `height`(그림 상자 높이, 기본 22)로 정하고 폭은 비율대로입니다. 화면 머리 · 사이드바는 `<Wordmark />`, 로그인처럼 로고가 주인공인 자리는 `<Wordmark variant="large" height={84} />`.
+  - 색은 토큰을 따라 라이트 · 다크가 저절로 맞습니다. d · b · y는 `accent-foreground`, ear와 입은 `wordmark-ear`(청록 50% + 글자색 50%, 라이트 `#09484a` · 다크 `#91d4d5`).
+  - 블록 요소로 그립니다(글줄 안에 놓아도 줄 높이의 영향을 받지 않음). 가운데에 두려면 부모를 flex로 맞춥니다.
+- `LogoSymbol`: 심벌(엄지를 든 d와 얼굴, 배 16 · 엄지 21). 크기는 `size`(정사각 한 변, 기본 32). `variant`는 바탕 없는 `bare`(기본, `accent-foreground`)와 `appIcon`(둥근 사각 `primary` 바탕에 흰 그림, 여백 사방 20% · 모서리 22.5%, 두 모드에서 같은 색).
+- 두 부품 모두 화면 읽기 이름은 `dearby`(`role="img"`)입니다.
+- 파비콘 · 앱 아이콘 파일을 만드는 쪽을 위해 색이 박힌 SVG 원본을 `static/logo/`에 시안 그대로 둡니다(패키지 `files`에 포함): `symbol-app-icon.svg`(모서리 없는 정사각, OS가 모서리를 깎는 앱 아이콘용) · `symbol-icon-rounded.svg`(둥근 사각, 파비콘용). `LogoSymbol`의 `appIcon`과 같은 그림입니다.
 
 ## 아이콘
 

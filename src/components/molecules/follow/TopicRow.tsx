@@ -83,7 +83,7 @@ function Count({ className }: { className?: string }) {
       tone="muted"
       tabular
       nowrap
-      className={cn('ml-auto pl-2', className)}
+      className={cn('ml-auto', className)}
     >
       프로그램 {count}개
     </Text>

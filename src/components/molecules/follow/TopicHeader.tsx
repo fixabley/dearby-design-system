@@ -1,4 +1,10 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from 'react';
 import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { Button } from '@/components/ui/button';
@@ -88,9 +94,20 @@ const FOLLOW_BUTTON = 'h-10 px-4.5';
 function Follow({ className }: { className?: string }) {
   const { name, level, onFollow, onLevelChange, onUnfollow } =
     useTopicHeader('Follow');
+  // 팔로우 전 버튼과 팔로우 중 메뉴 트리거는 서로 다른 요소라 바뀔 때 초점을 잃는다(해제로 메뉴가 닫힐 때도 같다).
+  // 초점이 body로 빠졌으면 새 버튼으로 돌려준다
+  const button = useRef<HTMLButtonElement>(null);
+  const following = !!level;
+  const was = useRef(following);
+  useEffect(() => {
+    if (was.current === following) return;
+    was.current = following;
+    if (document.activeElement === document.body) button.current?.focus();
+  }, [following]);
   if (!level)
     return (
       <Button
+        ref={button}
         type="button"
         variant="mint"
         size="sm"
@@ -105,6 +122,7 @@ function Follow({ className }: { className?: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          ref={button}
           type="button"
           variant="mint"
           size="sm"
@@ -301,9 +319,15 @@ function CountsSkeleton({ className }: { className?: string }) {
   );
 }
 
-function TopicHeaderSkeletonRoot({ children }: { children?: ReactNode }) {
+function TopicHeaderSkeletonRoot({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   return (
-    <div aria-hidden>
+    <div aria-hidden className={className}>
       {children ?? (
         <>
           <BannerSkeleton />

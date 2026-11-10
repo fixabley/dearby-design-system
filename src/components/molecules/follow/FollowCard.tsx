@@ -80,6 +80,7 @@ function Media({ className }: { className?: string }) {
       )}
       <AvatarFallback
         delayMs={logo ? 300 : 0}
+        aria-hidden
         className="flex size-full items-center justify-center bg-accent text-mint-foreground"
       >
         <Text variant="rowTitle" weight="bold">
@@ -142,16 +143,15 @@ function Level({ className }: { className?: string }) {
   );
 }
 
-/** 새 모집 점: ⋯ 메뉴가 있으면 오른쪽 아래, 없으면 오른쪽 위 */
+/** 새 모집 점: 알림 수준 줄이 있는 격자 카드는 오른쪽 아래(오른쪽 위는 ⋯ 자리), 한 줄 카드는 오른쪽 위 */
 function Dot({ className }: { className?: string }) {
-  const { fresh, onLevelChange, onUnfollow } = useFollowCard('Dot');
+  const { fresh, level } = useFollowCard('Dot');
   if (!fresh) return null;
-  const hasMenu = onLevelChange || onUnfollow;
   return (
     <NewDot
       className={cn(
         'absolute',
-        hasMenu ? 'bottom-3 right-3' : 'right-2.5 top-2.5',
+        level ? 'bottom-3 right-3' : 'right-2.5 top-2.5',
         className,
       )}
     />
@@ -248,18 +248,21 @@ function FollowCardRoot({
       <Dot />
     </>
   );
-  const Comp = asChild ? Slot : 'button';
+  const interactive = asChild || !!onClick;
+  const Comp = asChild ? Slot : onClick ? 'button' : 'div';
   return (
     <FollowCardContext.Provider
       value={{ kind, name, logo, fresh, level, onLevelChange, onUnfollow }}
     >
       <li className={cn(SURFACE, className)}>
         <Comp
-          type={asChild ? undefined : 'button'}
+          type={onClick && !asChild ? 'button' : undefined}
           onClick={onClick}
           className={cn(
             INNER,
-            'min-w-0 flex-1 rounded-lg text-left outline-none pressable focus-visible:ring-2 focus-visible:ring-ring',
+            'min-w-0 flex-1 rounded-lg text-left outline-none',
+            interactive &&
+              'pressable focus-visible:ring-2 focus-visible:ring-ring',
           )}
         >
           {body}
@@ -405,7 +408,8 @@ function BrowseCardRoot({
       <BrowseSub />
     </>
   );
-  const Comp = asChild ? Slot : 'button';
+  const interactive = asChild || !!onClick;
+  const Comp = asChild ? Slot : onClick ? 'button' : 'div';
   return (
     <BrowseCardContext.Provider value={{ title: heading, sub }}>
       <li
@@ -415,9 +419,13 @@ function BrowseCardRoot({
         )}
       >
         <Comp
-          type={asChild ? undefined : 'button'}
+          type={onClick && !asChild ? 'button' : undefined}
           onClick={onClick}
-          className="flex min-w-0 flex-1 flex-col items-start gap-1.5 rounded-lg px-2.5 pb-2.5 pt-3 text-left text-mint-foreground outline-none pressable focus-visible:ring-2 focus-visible:ring-ring"
+          className={cn(
+            'flex min-w-0 flex-1 flex-col items-start gap-1.5 rounded-lg px-2.5 pb-2.5 pt-3 text-left text-mint-foreground outline-none',
+            interactive &&
+              'pressable focus-visible:ring-2 focus-visible:ring-ring',
+          )}
         >
           {body}
           {asChild && <Slottable>{children}</Slottable>}

@@ -36,7 +36,7 @@ export const Playground: Story = {
   ),
 };
 
-/** 팔로우 탭의 가로 한 줄(strip): 종류 글자, 새 모집이 열린 것 먼저. 지역 · 분야는 아이콘 원 */
+/** 팔로우 탭의 가로 한 줄(strip): 종류 글자(예시 순서이고 정렬은 쓰는 쪽 몫). 지역 · 분야는 아이콘 원 */
 export const Strip: Story = {
   parameters: { width: 393 },
   render: () => (
@@ -76,7 +76,7 @@ function GridDemo() {
           fresh={fresh}
           level={levels[name] ?? 'all'}
           onLevelChange={(l) => setLevels({ ...levels, [name]: l })}
-          onUnfollow={() => {}}
+          onUnfollow={fn()}
         />
       ))}
       <X.BrowseCard kind="org" sub="조직 42곳" />
@@ -126,7 +126,7 @@ export const Composed: Story = {
 
 /** 불러오는 동안(FollowCardSkeleton): 같은 면과 간격 */
 export const Skeleton: Story = {
-  parameters: { width: 258 },
+  parameters: { width: 400 },
   render: () => (
     <div className="flex items-start gap-8">
       <X.FollowCards>

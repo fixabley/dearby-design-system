@@ -35,7 +35,7 @@ src/
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker · AccordionSection                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
-| `molecules/follow/`        | FollowCard(FollowCards · BrowseCard) |
+| `molecules/follow/`        | FollowCard(FollowCards · BrowseCard)                                                                                                                                                               |
 | `molecules/program/`       | HostLine                                                                                                                                                                                           |
 | `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
 | `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
@@ -326,14 +326,15 @@ import { LockToggle } from '@dearby/design-system';
 ```
 
 - `FollowCards`(ul): `strip`은 가로로 넘기는 한 줄(카드 폭 107, `-mx-6 px-6`으로 화면 옆 여백 24까지 번짐), `grid`는 3열(사이 12). 여백이 24가 아닌 화면은 className으로 `-mx-N px-N`을 덮어씁니다. 카드는 `li`라 이 안에 놓습니다.
-- `FollowCard`(컴파운드): 로고 44(조직 · 프로그램, 없으면 이름 첫 글자) 또는 종류 아이콘 원(지역 · 분야), 이름 두 줄, 종류 글자. `level`을 주면 종류 글자 대신 알림 종(전체 꽉 찬 종 · 신청일만 선 종 · 없음 사선 종)을 그리고, `onLevelChange` · `onUnfollow`를 주면 오른쪽 위 ⋯ 메뉴(알림 수준 고르기 · 팔로우 해제)가 생기며 새 모집 점은 오른쪽 아래로 옮깁니다. 누르는 요소가 카드 전체를 덮고(`onClick` 또는 `asChild` 링크), ⋯는 그 밖의 형제 버튼이라 링크 안에 버튼이 들어가지 않습니다. 이름 · 종류 · 알림 수준 · 새 모집이 한 이름으로 읽힙니다(예: "카카오 알림 전체 새 모집 있음").
-- `BrowseCard`(민트 면, 그림자 없음): + 원 · 제목(기본 `<종류> 둘러보기`) · 보조(`조직 42곳`).
+- `FollowCard`(컴파운드): 로고 44(조직 · 프로그램, 없으면 이름 첫 글자) 또는 종류 아이콘 원(지역 · 분야), 이름 두 줄, 종류 글자. `level`을 주면 종류 글자 대신 알림 종(전체 꽉 찬 종 · 신청일만 선 종 · 없음 사선 종)을 그리고, `onLevelChange` · `onUnfollow`를 주면 오른쪽 위 ⋯ 메뉴(알림 수준 고르기 · 팔로우 해제)가 생기며 새 모집 점은 오른쪽 아래로 옮깁니다. 누르는 요소가 카드 전체를 덮고(`onClick` 또는 `asChild` 링크), ⋯는 그 밖의 형제 버튼이라 링크 안에 버튼이 들어가지 않습니다. 이름 · 종류 또는 알림 수준 · 새 모집이 한 이름으로 읽힙니다(예: "카카오 알림 전체 새 모집 있음"). `onClick`도 `asChild`도 없으면 누르는 요소 없이 그리기만 합니다. 새 모집 점은 알림 수준 줄이 있는 카드는 오른쪽 아래, 없으면 오른쪽 위입니다.
+- `BrowseCard`(민트 면, 라이트는 그림자 없음 · 다크는 .5px 테두리): + 원 · 제목(기본 `<종류> 둘러보기`) · 보조(`조직 42곳`).
 - `AccordionSection`(컴파운드): 머리 행 56 전체가 버튼(`aria-expanded` · `aria-controls`, 제목 안의 button)이고 내용은 `region`입니다. 닫히면 `inert`라 초점도 읽기도 받지 않고, 높이는 0.25초에 열리고 닫힙니다(꺾쇠 회전도 0.25초). `open` · `onOpenChange`로 제어하거나 `defaultOpen`으로 시작만 정합니다. Radix Accordion 의존성은 더하지 않고 이 패턴을 직접 구현했습니다. 섹션 사이 .5px 구분선은 각 섹션의 아래 선(마지막 제외)입니다.
 - `NewDot` 아톰: 청록 점(카드 8 · 섹션 머리 7)에 `sr-only` "새 모집 있음"을 함께 둡니다.
 - 시안과 다른 점
   - 둘러보기 카드의 제목 · 보조 글자는 청록 불투명(`mint-foreground`)입니다. 시안의 청록 75%는 민트 면 위 대비가 2.8:1(보조 11px)이라 4.5:1에 못 미칩니다.
   - 카드 이름은 13/600 줄 높이 1.2(`Text` `control`)이고 시안은 1.3입니다. 카드 최소 높이가 같아 높이는 그대로입니다.
   - 카드 · 아코디언 머리의 누름 덧칠(`pressable`)은 시안에 없고 README 원칙을 따랐습니다. 시안의 길게 누르기 확대(`.lp`)와 contextMenu 미리보기는 iOS 표현이라 웹에 넣지 않았고 ⋯ 메뉴만 있습니다.
+  - 아코디언 머리의 누름 덧칠 모서리는 `rounded-xl`(20)이고 시안에는 없습니다. strip 아래의 14 여백(`.fstrip` margin)은 목록이 갖지 않으니 쓰는 쪽이 다음 요소와의 간격으로 둡니다.
   - 아코디언의 조직 아이콘은 기존 `group`을 씁니다(시안과 원 위치가 1px 다름).
   - 해제 항목 빨강은 `destructive` 토큰입니다(시안 #FF3B30).
   - 펼치는 내용 칸은 옆으로 16 넓혀 카드 그림자가 잘리지 않게 했습니다(맨 위 그림자는 2px 여백 안에서 약간 잘림).

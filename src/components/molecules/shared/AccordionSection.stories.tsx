@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 import { useArgs } from 'storybook/preview-api';
 import * as X from '@/index';
@@ -14,7 +15,7 @@ const meta: Meta = {
     title: '조직',
     count: 3,
     fresh: true,
-    defaultOpen: false,
+    open: false,
     onOpenChange: fn(),
   },
   parameters: { width: 345 },
@@ -60,18 +61,16 @@ const cards = (
 
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {
-  render: (args) => (
-    <X.AccordionSection
-      icon={args.icon}
-      title={args.title}
-      count={args.count}
-      fresh={args.fresh}
-      defaultOpen={args.defaultOpen}
-      onOpenChange={args.onOpenChange}
-    >
-      {cards}
-    </X.AccordionSection>
-  ),
+  render: (args) => {
+    const Render = controlled(
+      (p: ComponentProps<typeof X.AccordionSection>) => (
+        <X.AccordionSection {...p}>{cards}</X.AccordionSection>
+      ),
+      'open',
+      'onOpenChange',
+    );
+    return <Render {...args} />;
+  },
 };
 
 /** 팔로우 관리: 네 섹션, 조직 · 지역은 펼침. 섹션 사이 구분선은 각 섹션의 아래 선 */

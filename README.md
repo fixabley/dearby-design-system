@@ -35,10 +35,10 @@ src/
 | `atoms/card/`              | CardGlyph                                                                                                                                                                                          |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker · AccordionSection                 |
-| `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle · StageQuestion                                                                                                                               |
+| `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle · StageQuestion · ConditionCheck                                                                                                                               |
 | `molecules/follow/`        | FollowCard(FollowCards · BrowseCard) · TopicRow · TopicHeader                                                                                                                                      |
 | `molecules/card/`          | CardPickerSheet · CardQr                                                                                                                                                                           |
-| `molecules/program/`       | HostLine                                                                                                                                                                                           |
+| `molecules/program/`       | HostLine · HostedLine                                                                                                                                                                                           |
 | `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
 | `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
 | `molecules/timetable/`     | TimetableButton · WeekdayPicker                                                                                                                                                                    |
@@ -619,6 +619,29 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 프로젝트 글자 원은 청록 그러데이션(시안 `.apic`)이고 `확인됨` 태그는 시안의 GitHub 로고 대신 `github` 아이콘(시안의 로고 원문)입니다. 플랫폼 · `출시` 태그는 `Badge` muted · mint입니다.
 - 접근성: 필수는 `필수` 글자, 경고는 글자 + ⓘ + 빨강으로 전해 색만으로 전하지 않습니다. 라디오 · 체크박스 줄은 label로 감싸 줄 어디를 눌러도 고르고, 묶음 이름은 보이는 글자에서 옵니다. 키보드로 끝까지 됩니다(Tab, Space, 방향키). 화면 읽기 실제 낭독은 확인하지 못했습니다.
 - 움직임은 모두 기존 부품의 것(시트 · 스위치 · 라디오 · 분할 전환 0.3초 이내)이고 동작 줄이기에서 꺼집니다.
+
+### 직접 개설 표시 부품
+
+사람이 직접 연 프로그램 · 활동(시안 ㉙-a · ㉙-d · ㉙-d2 · ㉙-p)에 붙는 표시입니다. 새 부품은 둘이고 나머지는 기존 부품의 조립입니다(스토리 `HostedLine › Assembly`).
+
+```tsx
+<Badge variant="muted" size="sm">직접 개설</Badge>
+<HostedLine initial="김" text="@doyun · SSAFY 17기 교육생" />
+<ConditionCheck met>김도윤님과 명함 맞교환</ConditionCheck>
+<ConditionCheck met={false} onVerify={verify}>{formatConditionSummary(cond)}</ConditionCheck>
+```
+
+- 직접 개설 캡슐: 새 부품 없이 `Badge`의 `muted` · `sm`(흰 바탕 가는 테두리, 회색 채움 없음)입니다.
+- `HostedLine`(분자, `molecules/program`): 이니셜 원(`Avatar` dot 18) + `@핸들 · 소속`(`Text` caption, 넘치면 말줄임) + 캡슐. 조직 줄 `HostLine`은 네모 로고라 원 모양인 개설자 줄은 따로 뒀습니다. `hosted={false}`면 캡슐 없이 줄만 그립니다(활동 상세 위 줄 · 프로그램 행의 회차 줄).
+- `ConditionCheck`(분자, `molecules/activity`): 충족이면 청록 체크(`check` 아이콘), 아니면 빈 원 + `인증하기`(`Button` link). `onVerify`가 없으면 인증하기 없이 줄만 그립니다. 문구는 받는 쪽이 정하고, 조건 값에서 만들 때는 `formatConditionSummary`를 씁니다.
+- 개설자 행(`㉙-d`): 새 부품 없이 `ListRow`(`Avatar` row 44 + 이름 + 핸들 + 오른쪽 꺾쇠, `asChild` 링크)입니다.
+- 접근성: 충족 여부를 색과 모양에만 맡기지 않도록 줄 앞에 화면 읽기용 글 `충족: ` · `미충족: `을 붙이고, `인증하기`의 읽기 이름은 `인증하기 : 조건 글`입니다. 체크 · 원 아이콘은 숨깁니다. 키보드는 `Button`의 초점 고리를 따릅니다. 화면 읽기 실제 낭독은 확인하지 못했습니다.
+- 움직임은 `Button`의 누름 전환(0.15초)뿐입니다.
+- 시안과 다른 점
+  - 캡슐 글자는 `Badge` sm · muted의 11/700 · 높이 20 · 안쪽 8(시안 11/600)입니다.
+  - 조건 줄 글자는 15이고 시안은 14, 아이콘과 글 사이 12(시안 10), 인증하기는 `Text` control 13/600(시안 14/600)입니다. 시안의 흰 카드 바탕과 구역 머리(`참여 조건 · 모두 충족`)는 쓰는 쪽(활동 상세)의 몫이라 부품에 넣지 않았습니다.
+  - 개설자 행은 `ListRow`라 시안의 흰 그림자 카드 대신 `ListGroup`의 회색 면이고 원이 44입니다.
+  - 아래는 틀에 없어 만들지 않았습니다: 프로그램 화면(㉙-p)의 `아이콘 + @핸들 · 소속 + 꺾쇠 + 캡슐` 줄(`HostedLine`은 이니셜 원 줄이라 아이콘 줄은 `Icon` + `Text` + `Badge` 조립), 하단 `단계 인증하기` CTA와 안내 줄(`Button` lg + 쓰는 쪽 글).
 
 ## 글꼴
 

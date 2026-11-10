@@ -5,7 +5,6 @@ import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
 import { Icon } from '@/components/foundations/Icon';
 import { Item, ItemContent, ItemMedia } from '@/components/ui/item';
 import { Skeleton } from '@/components/ui/skeleton';
-import { cn } from '@/lib/utils';
 
 /**
  * 명함 목록 행(ListRow 위에 조립): 명함 글리프 · 이름 · 오른쪽에 무엇이 담겼는지 한 줄(`summary`: `모든 항목` · `소셜 링크만` · `항목 4개`) · 꺾쇠.
@@ -33,7 +32,13 @@ export function CardRow({
       title={name}
       trailing={
         <>
-          <Text as="span" variant="body" tone="muted" truncate>
+          <Text
+            as="span"
+            variant="body"
+            tone="muted"
+            truncate
+            className="max-w-44"
+          >
             {summary}
           </Text>
           <Icon name="chevronRight" className="size-4" />
@@ -51,9 +56,9 @@ export function CardRow({
 /** 불러오는 동안의 명함 행: 같은 높이 · 글리프 자리 · 이름 줄 · 요약 줄 */
 export function CardRowSkeleton({ className }: { className?: string }) {
   return (
-    <Item aria-hidden className={cn(className)}>
+    <Item aria-hidden className={className}>
       <ItemMedia>
-        <Skeleton className="h-[22px] w-[34px] rounded-[5px]" />
+        <Skeleton className="h-[22px] w-[34px] rounded-[4px]" />
       </ItemMedia>
       <ItemContent>
         <TextSkeleton variant="bodyLarge" className="w-24" />

@@ -146,12 +146,12 @@ function Name({ className }: { className?: string }) {
 function Activity({ className }: { className?: string }) {
   const { activities, activityId, onActivityIdChange } = useCardQr('Activity');
   const current = activities.find((a) => a.id === activityId);
-  if (!current) return null;
+  if (activities.length === 0) return null;
   return (
     <div className={cn('mt-[26px] max-w-full first:mt-0', className)}>
       <PillMenu
         label="활동"
-        current={current.title}
+        current={current?.title ?? '활동 고르기'}
         value={activityId}
         onValueChange={onActivityIdChange}
         options={activities.map((a) => ({ id: a.id, text: a.title }))}

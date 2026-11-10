@@ -55,7 +55,7 @@ function Options({ className }: { className?: string }) {
         >
           <CardGlyph />
           <span className="flex min-w-0 flex-1 flex-col">
-            <Text variant="bodyLarge" truncate>
+            <Text variant="rowTitle" truncate>
               {c.name}
             </Text>
             <Text variant="caption" tone="muted" truncate>

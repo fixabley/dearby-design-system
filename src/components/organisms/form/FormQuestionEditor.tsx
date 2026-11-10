@@ -20,6 +20,7 @@ import {
   FORM_KINDS,
   FORM_KIND_LABEL,
   canUseAsCondition,
+  hasFormCondition,
   changeFormKind,
   setFormCondition,
   type FormQuestion,
@@ -67,22 +68,16 @@ function QuestionText({ className }: { className?: string }) {
  * 민감 정보 경고(시안 ㉙-i3 `.nwarn`): 기존 `Alert destructive`. 빨강 아이콘 + 제목 + 보조 글이라 색만으로 전하지 않는다.
  * 경고가 없으면 그리지 않는다. 문구를 검사하는 일은 쓰는 쪽 몫이고 `warning`으로만 알린다
  */
-function Warning({
-  title = '민감한 개인정보는 물을 수 없어요',
-  detail = '주민등록번호·계좌·카드·건강·종교·정치 성향',
-  className,
-}: {
-  title?: string;
-  detail?: string;
-  className?: string;
-}) {
+function Warning({ className }: { className?: string }) {
   const { warning, warningId } = useFormQuestionEditor('Warning');
   if (!warning) return null;
   return (
     <Alert variant="destructive" id={warningId} className={className}>
       <Icon name="info" />
-      <AlertTitle>{title}</AlertTitle>
-      <AlertDescription>{detail}</AlertDescription>
+      <AlertTitle>민감한 개인정보는 물을 수 없어요</AlertTitle>
+      <AlertDescription>
+        주민등록번호·계좌·카드·건강·종교·정치 성향
+      </AlertDescription>
     </Alert>
   );
 }
@@ -140,7 +135,7 @@ function Condition({ className }: { className?: string }) {
         <Switch
           aria-label="조건으로 쓰기"
           disabled={!canUseAsCondition(value)}
-          checked={value.passAnswer !== undefined}
+          checked={hasFormCondition(value)}
           onCheckedChange={(on) => onChange?.(setFormCondition(value, on))}
         />
       }
@@ -175,7 +170,7 @@ function Settings({
  */
 function PassAnswer({ className }: { className?: string }) {
   const { value, onChange, passTitleId } = useFormQuestionEditor('PassAnswer');
-  if (value.passAnswer === undefined) return null;
+  if (!hasFormCondition(value)) return null;
   const choices: [string, string][] =
     value.kind === 'bool'
       ? [
@@ -195,7 +190,7 @@ function PassAnswer({ className }: { className?: string }) {
         통과 답
       </Text>
       <RadioChoices
-        value={value.passAnswer}
+        value={value.passAnswer ?? null}
         labelledBy={passTitleId}
         onChange={(passAnswer) => onChange?.({ ...value, passAnswer })}
       >

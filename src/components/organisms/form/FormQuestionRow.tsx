@@ -50,6 +50,7 @@ export function FormQuestionRow({
         </Text>
         <span className="flex flex-wrap items-center gap-1.5">
           <Text as="span" variant="caption" tone="muted">
+            <span className="sr-only">, </span>
             {FORM_KIND_LABEL[question.kind]}
           </Text>
           {question.required && (

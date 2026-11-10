@@ -46,7 +46,7 @@ export function FormProjectList({
                   aria-hidden
                   className="grid size-[34px] shrink-0 place-items-center rounded-[9px] bg-linear-[140deg] from-primary to-[#2fb3b4]"
                 >
-                  {p.name.slice(0, 1)}
+                  {[...p.name][0]}
                 </Text>
               }
               meta={

@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 // 통과 답(편집)과 고르기 답(입력)이 함께 쓰는 내부 부품이라 내보내지 않는다.
 // 라디오 · 체크박스 줄은 ServerPicker처럼 label 안에 두어 줄 어디를 눌러도 고른다
 
+// ItemGroup의 묶음 모양(채움 면 · 둥근 모서리 · 줄 사이 선)을 RadioGroup · group에 입힌 것: RadioGroup 루트가 role=radiogroup이라 ItemGroup(role=list)을 겹칠 수 없다
 const GROUP =
   'overflow-hidden rounded-md bg-muted [&>*+*]:border-t [&>*+*]:border-border';
 

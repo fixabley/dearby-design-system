@@ -59,7 +59,17 @@ export type FormProject = {
 /** 통과 답을 조건으로 쓸 수 있는 종류(시안 ㉙-i2 "예/아니오·고르기만"): 통과 답이 하나인 예/아니오와 하나 고르기만 둔다 */
 export function canUseAsCondition(question: FormQuestion): boolean {
   if (question.kind === 'bool') return true;
-  return question.kind === 'one' && (question.options?.length ?? 0) > 0;
+  return question.kind === 'one' && filledOptions(question).length > 0;
+}
+
+/** 글자가 있는 선택지 */
+function filledOptions(question: FormQuestion): string[] {
+  return (question.options ?? []).filter((o) => o.trim());
+}
+
+/** `조건으로 쓰기`가 켜져 있는지: 통과 답이 있다(편집의 스위치 · 행의 조건 태그가 같은 판정을 쓴다) */
+export function hasFormCondition(question: FormQuestion): boolean {
+  return !!question.passAnswer;
 }
 
 /** `조건으로 쓰기`를 켜고 끈다. 켤 때 통과 답은 예/아니오는 `예`, 하나 고르기는 첫 선택지 */
@@ -74,7 +84,7 @@ export function setFormCondition(
   }
   return {
     ...question,
-    passAnswer: question.kind === 'bool' ? 'yes' : question.options![0],
+    passAnswer: question.kind === 'bool' ? 'yes' : filledOptions(question)[0],
   };
 }
 
@@ -111,7 +121,14 @@ export function formatFormPass(question: FormQuestion): string {
 export function isFormQuestionComplete(question: FormQuestion): boolean {
   if (!question.text.trim()) return false;
   if (question.kind === 'one' || question.kind === 'many')
-    return (question.options ?? []).filter((o) => o.trim()).length >= 2;
+    if (filledOptions(question).length < 2) return false;
+  // 통과 답이 있으면 그 종류가 받는 값이어야 한다(밖에서 선택지를 바꿔 어긋난 경우)
+  if (question.passAnswer) {
+    if (!canUseAsCondition(question)) return false;
+    if (question.kind === 'bool')
+      return question.passAnswer === 'yes' || question.passAnswer === 'no';
+    return filledOptions(question).includes(question.passAnswer);
+  }
   return true;
 }
 

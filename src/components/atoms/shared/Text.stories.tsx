@@ -3,6 +3,7 @@ import * as X from '@/index';
 import { content, look } from '@/stories/argTypes';
 
 const VARIANTS = [
+  'display',
   'title',
   'section',
   'subtitle',
@@ -16,6 +17,7 @@ const VARIANTS = [
   'micro',
 ] as const;
 const LABEL: Record<(typeof VARIANTS)[number], string> = {
+  display: '배너 큰 이름 34/800',
   title: '화면 제목 26/700',
   section: '섹션 제목 22/700',
   subtitle: '소제목 17/600',
@@ -100,7 +102,7 @@ type Story = StoryObj<typeof meta>;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
-/** 글자 계층 11가지: 역할 · 쓰는 토큰 */
+/** 글자 계층 12가지: 역할 · 쓰는 토큰 */
 export const Scale: Story = {
   parameters: { width: 760 },
   render: () => (

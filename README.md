@@ -36,7 +36,7 @@ src/
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker · AccordionSection                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle · StageQuestion                                                                                                                               |
-| `molecules/follow/`        | FollowCard(FollowCards · BrowseCard)                                                                                                                                                               |
+| `molecules/follow/`        | FollowCard(FollowCards · BrowseCard) · TopicRow · TopicHeader                                                                                                                                      |
 | `molecules/card/`          | CardPickerSheet · CardQr                                                                                                                                                                           |
 | `molecules/program/`       | HostLine                                                                                                                                                                                           |
 | `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
@@ -76,7 +76,7 @@ src/
 - Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 부품을 조합할 때만 한 층 올라갑니다.
   재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
 - **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기 · 굵기 · 줄 높이 · 자간 클래스를 쓰지 않고 `Text`로 그립니다. shadcn 원본은 예외입니다.
-  글자 토큰 8개(Foundations › Typography)는 `Text`의 역할 11가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
+  글자 토큰 9개(Foundations › Typography)는 `Text`의 역할 12가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine)만 씁니다.
 - 분자 이상은 컴파운드 컴포넌트(루트 + 부품, children이 없으면 기본 조립)로 만듭니다.
 
 ```sh
@@ -162,7 +162,7 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 파일 구조를 그대로 내보내므로 쓰지 않는 컴포넌트는 받아 쓰는 쪽 번들에서 빠집니다.
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 - 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 깜빡임은 동작 줄이기 설정이면 꺼집니다.
-- 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · FollowCard · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
+- 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · FollowCard · TopicRow · TopicHeader(컴파운드) · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
 - 스켈레톤은 화면 읽기에서 숨습니다. 화면 읽기 사용자에게는 불러오는 영역(목록 · 화면)마다 하나씩 알립니다: 그 영역에 불러오는 동안 `aria-busy="true"`를 달고, 바로 옆(aria-busy 영역 밖)의 화면에 안 보이는 `role="status"` 글자를 "불러오는 중"으로 채웁니다. 다 불러오면 aria-busy를 떼고 글자를 비웁니다. status 요소는 처음부터 두고 글자만 바꿉니다: 알림 영역은 바뀌기 전에 DOM에 있어야 읽힌다(MDN "ARIA live regions")라서, 글자가 든 채로 새로 붙이면 읽기 프로그램에 따라 읽히지 않습니다. 항목 스켈레톤마다 두면 여러 번 읽히니 영역에 하나만 둡니다. status를 busy 영역 안에 두면 읽기 프로그램이 바뀌는 중인 영역의 알림을 미룰 수 있어 밖에 둡니다. 따로 부품은 두지 않습니다(Tailwind `sr-only` 글자 하나).
 
 ```tsx
@@ -345,6 +345,48 @@ import { LockToggle } from '@dearby/design-system';
   - 해제 항목 빨강은 `destructive` 토큰입니다(시안 #FF3B30).
   - 펼치는 내용 칸은 옆으로 16 넓혀 카드 그림자가 잘리지 않게 했습니다(맨 위 그림자는 2px 여백 안에서 약간 잘림).
 - 스켈레톤은 `FollowCardSkeleton`만 있습니다.
+
+### 지역 · 분야 행과 머리
+
+2026-11-10 이슈 #73(시안 ⑦-R · ⑦-RL · ⑦-F · ⑦-FL). Topic은 지역(`region`) · 분야(`field`)를 묶어 부르는 말입니다(`TopicKind`). 팔로우 · 알림 수준 · 해제의 저장, 지역 · 분야 이름 눌렀을 때의 이동, 지도 화면은 쓰는 쪽 몫입니다.
+
+```tsx
+<ul role="list" aria-labelledby={id}>
+  <TopicRow kind="region" name="서울" count={31} following asChild>
+    <a href="/regions/seoul" />
+  </TopicRow>
+</ul>
+
+<TopicHeader
+  kind="region"
+  name="서울"
+  programs={4}
+  open={3}
+  level={level}
+  onFollow={…}
+  onLevelChange={…}
+  onUnfollow={…}
+  map={<Button variant="outline" size="icon-sm" icon="map" aria-label="서울 활동 지도로 보기" onClick={…} />}
+/>
+```
+
+- `TopicRow`(molecules, 컴파운드, li): Media(청록 아이콘 원 36) · Name · Following(`팔로우 중`) · Count(오른쪽 끝 `프로그램 n개`). 누르는 요소가 행 전체를 덮고(`onClick` 또는 `asChild` 링크), 행 사이 .5px 구분선은 행이 가집니다(마지막 제외). 이름 · 팔로우 중 · 개수가 한 이름으로 읽힙니다(예: "서울 팔로우 중 프로그램 31개").
+  - 아이콘은 종류 기본(지역 `place`, 분야 `sparkle`)이고 분야마다 다르면 `icon`으로 덮습니다. 시안 ⑦-FL의 분야 아이콘 가운데 일부는 다른 뜻의 아이콘을 임시로 쓴 것이라 더하지 않았고, 분야 이름과 아이콘의 짝은 쓰는 쪽(어드민 필터 구성)이 정합니다.
+  - 묶음 제목(`팔로우 중` · `모든 지역`)은 부품을 두지 않았습니다. 알림 행처럼 목록 위에 `<Text as="h3" variant="caption" weight="semibold" tone="muted" id={id} className="mb-1 mt-2">`를 두고 `ul`에 `aria-labelledby`를 줍니다(시안 위 8 · 아래 4, 목록 아래 16은 쓰는 쪽 간격). 팔로우한 지역은 시안처럼 두 묶음에 다 나옵니다.
+- `TopicHeader`(molecules, 컴파운드): Banner(청록 그러데이션 170 + 큰 이름, 화면 읽기에서는 숨김) · Tile(종류 아이콘 76, 배너에 20쯤 걸침) · Actions(Follow + `map`) · Title(h2) · Counts(`4 프로그램 · 3 모집 중`, 숫자만 굵게).
+  - `level`이 없으면 `팔로우` 버튼(`onFollow`), 있으면 팔로우 중이라 `팔로우 중 ⌄` 메뉴(알림 수준 전체 · 신청일만 · 없음, 팔로우 해제)입니다. 팔로우 중인데 알림 수준이 없는 상태는 없어 따로 `following`을 받지 않습니다. 팔로우 버튼이 메뉴 트리거로 바뀌며 키보드 초점이 빠질 수 있으니 필요하면 쓰는 쪽이 초점을 돌려줍니다.
+  - `map`은 팔로우 옆 지도 버튼 자리입니다. 지도를 웹에서 그릴지가 정해지지 않아(계획 Q11) 지도 그림은 없고 버튼도 부품으로 만들지 않았습니다. 지역만 넣고 분야는 주지 않습니다(시안 ⑦-F). 아이콘만 있는 버튼이라 `aria-label`을 꼭 줍니다. 시안의 지도 미리보기는 그리지 않았습니다.
+  - 팔로우 버튼은 `Button mint sm`에 높이 40 · 옆 18을 덮은 것이라 옆 지도 버튼(`icon-sm` 40)과 줄이 맞습니다.
+- 글자 토큰 `text-display`(34/800, `Text` `display`)를 더했습니다. 시안 ⑦-R 배너의 지역 이름에만 쓰는 근거 있는 값이고, `check`의 글자 클래스 검사에도 넣었습니다.
+- 아이콘 `map`(시안 ⑦-R 지도 원형 버튼 원문)을 더했습니다.
+- 스켈레톤: `TopicRowSkeleton` · `TopicHeaderSkeleton`(컴파운드, 팔로우 버튼 자리만 둠).
+- 시안과 다른 점
+  - 행 이름은 17/600(`Text` `rowTitle`)이고 시안은 16/700입니다(참여자 행과 같은 맞춤). `팔로우 중` 글자는 12/700(`badge`, 굵기 semibold를 줘도 토큰 줄 높이 1)이고 시안 12/600입니다. 개수는 숫자 폭이 흔들리지 않게 `tabular`를 줬습니다.
+  - 팔로우 글자색은 `mint-foreground`(`#007172`)이고 시안은 `#007F80`입니다(민트 면 위 대비). 지도 버튼은 `Button outline icon-sm`이라 아이콘이 22이고 시안 20입니다.
+  - 배너 이름의 흰색은 92%(시안 그대로)이고 배너 그러데이션은 시안의 hex(`#007F80` → `#2FB3B4`, 다크도 같음)를 그대로 썼습니다. 타일은 토큰만(`card` · `border`, 다크는 `shadow-control`)으로 시안 다크 값과 같습니다.
+  - 시안의 누름 덧칠은 없어서 행에만 `pressable`을 줬습니다. 배너 이름이 길면 말줄임입니다(시안에 없음).
+  - 프로그램 화면 머리(`ProgramDetail`)의 팔로우는 `Toggle follow` 높이 32이고 이 머리는 시안 ⑦-R대로 40입니다. 같은 기능이 두 높이로 있어 시안 정리 때 맞출 일로 남깁니다(이 이슈에서는 건드리지 않음).
+  - FollowCard의 분야 카드는 `icon` 덮기가 없어 분야마다 다른 아이콘이 카드와 행에서 어긋날 수 있습니다(이 이슈 밖).
 
 ### 선발 결과 질문
 
@@ -594,7 +636,7 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
 ## 원칙
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
-- 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 8개(`text-title` … `text-micro`), 화면에서는 `Text` 역할 11가지로 씁니다.
+- 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.
 - 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄 · 활동 · 프로그램 목록 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
   - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
   - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(그림자 + 축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).

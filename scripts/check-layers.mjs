@@ -26,7 +26,7 @@ const RANK = {
 const KIT_RANK = { Atoms: 1, Molecules: 2 };
 const NAME = { 0: '기반', 1: '아톰', 2: '분자', 3: '유기체', 4: '템플릿' };
 const TYPO =
-  /(?<![\w-])(text-(?:title|section|headline|body-lg|body|caption|badge|micro)|text-\[\d+(?:\.\d+)?(?:px|rem)\]|font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)|leading-[\w.[\]-]+|tracking-[\w.[\]-]+)(?![\w-])/g;
+  /(?<![\w-])(text-(?:display|title|section|headline|body-lg|body|caption|badge|micro)|text-\[\d+(?:\.\d+)?(?:px|rem)\]|font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)|leading-[\w.[\]-]+|tracking-[\w.[\]-]+)(?![\w-])/g;
 
 const walk = (d) =>
   readdirSync(d, { withFileTypes: true }).flatMap((e) =>

@@ -56,6 +56,8 @@ export const ICONS = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5h4v15H5zM10 4.5h4v15h-4zM15.5 5.6l3.9-1 3.7 14.5-3.9 1z"/></svg>',
   calendarAlt:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.8h17M8 3v4M16 3v4"/></svg>',
+  // 지역 화면 머리의 지도 버튼(시안 ⑦-R 원문)
+  map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5 9 4.5l6 2 5.5-2v13l-5.5 2-6-2-5.5 2z"/><path d="M9 4.5v15M15 6.5v15"/></svg>',
   place:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.9-6.5-11a6.5 6.5 0 0 1 13 0c0 5.1-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>',
   description:
@@ -190,6 +192,8 @@ export const FOLLOW_KINDS = {
   { label: string; icon: keyof typeof ICONS }
 >;
 export type FollowKind = keyof typeof FOLLOW_KINDS;
+/** 지역 · 분야(Topic): 목록 행과 화면 머리(TopicRow · TopicHeader)가 다루는 종류 */
+export type TopicKind = Extract<FollowKind, 'region' | 'field'>;
 
 /** 알림 수준: 전체는 꽉 찬 종, 신청일만은 선 종, 없음은 사선 종 */
 export const FOLLOW_LEVELS = {

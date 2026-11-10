@@ -32,10 +32,12 @@ src/
 | `ui/` · Atoms › shadcn     | Avatar · Badge · Button · Checkbox · Input · Label · ScrollArea · Separator · Skeleton · Switch · Toggle                                                                                           |
 | `ui/` · Molecules › shadcn | Alert · ButtonGroup · Calendar · Card · Command · ContextMenu · Dialog · DropdownMenu · Empty · Field · InputGroup · Item · Popover · RadioGroup · Select · Sheet · Sonner · ToggleGroup · Tooltip |
 | `atoms/shared/`            | Text · Wordmark · LogoSymbol · DDay · Thumbnail · RowList · Pane(PaneFooter · FloatingBar) · LockToggle · NewDot                                                                                            |
+| `atoms/card/`              | CardGlyph                                                                                                                                                                                          |
 | `atoms/activity/`          | KindLabel · StatusGlyph                                                                                                                                                                            |
 | `molecules/shared/`        | ListGroup(ListRow) · TextField · Timeline · MetaLine(MetaList) · TrackPicker · SearchBar · QueueCard · GlassGroup · Segmented · SocialLinks · DateHeader · DatePicker · TimePicker · AccordionSection                 |
 | `molecules/activity/`      | ActionTile(ActionTiles) · ProgressTrack · LiveToggle                                                                                                                                               |
 | `molecules/follow/`        | FollowCard(FollowCards · BrowseCard)                                                                                                                                                               |
+| `molecules/card/`          | CardPickerSheet · CardQr                                                                                                                                                                           |
 | `molecules/program/`       | HostLine                                                                                                                                                                                           |
 | `molecules/review/`        | ReviewCard · ReviewSummary                                                                                                                                                                         |
 | `molecules/submission/`    | SubmissionRow                                                                                                                                                                                      |
@@ -56,6 +58,7 @@ src/
 | `organisms/discord/`       | ChannelTemplate · ServerPicker                                                                                                                                                                     |
 | `organisms/team/`          | TeamBoard                                                                                                                                                                                          |
 | `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
+| `organisms/card/`          | CardRow · CardFields                                                                                                                                                                               |
 | `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
@@ -394,6 +397,38 @@ import { LockToggle } from '@dearby/design-system';
   - 눌러서 들어가는 행(`onClick` · `asChild`), 참여자 행 길게 누르기 · ⋯ 메뉴(㉘-d3), 교환 요청 30일 만료 표시는 시안 틀에 행 모양이 없어 만들지 않았습니다.
 - `Avatar`에 `row`(44, 글자 17), `Thumbnail`에 `xs`(52, 모서리 10)를 더했습니다(알림 · 참여자 행. Avatar는 shadcn 원본 수정).
   - 날짜 묶음마다 `ul`을 따로 두면 각 목록의 마지막 행에는 구분선이 없어, 시안에서 날짜 소제목 바로 위에 보이는 선이 빠집니다(날짜 소제목이 이미 나눔).
+
+### 명함 부품
+
+2026-11-10 이슈 #70(시안 ㉗-j2 · ㉗-j · ㉗-j3 · ㉗-j4 · ㉘-a · ㉘-c · ㉘-e2 · ㉘-f2). 명함 만들기 · 고치기 · 교환 로직(새 명함은 늘 보이는 네 항목 외 모두 꺼짐, 기본 선택 SNS와 SNS를 지웠을 때의 대체, 명함이 한 장이면 시트 없이 바로, QR 5분 코드)은 쓰는 쪽 몫입니다.
+
+```tsx
+<ListGroup>
+  <CardRow name="SNS" summary="소셜 링크만" onClick={…} />
+</ListGroup>
+
+<CardFields fixed={{ name, handle, job, bio }} groups={groups} onCheckedChange={(key, on) => …} />
+
+<Sheet open={open} onOpenChange={setOpen}>
+  <SheetContent>
+    <CardPickerSheet cards={cards} defaultValue="sns" title="건넬 명함" actionLabel="건네기" onSubmit={(id) => …} />
+  </SheetContent>
+</Sheet>
+
+<CardQr cards={cards} cardId={cardId} onCardIdChange={…} qr={<img src={qrUrl} alt="" />} name="김도윤" handle="doyun" activities={today} activityId={a} onActivityIdChange={…} />
+```
+
+- `CardGlyph`(아톰): 명함 모양 34 x 22. 목록 행과 고르기 시트가 같이 씁니다.
+- `CardRow`(유기체, `ListRow` 위): 글리프 · 이름 · 오른쪽 요약(`모든 항목` 등) · 꺾쇠. `ListGroup` 안에 놓고 `onClick` 또는 `asChild`로 고치러 갑니다. 새 명함 줄은 기존 `ListRow add`입니다. `CardRowSkeleton`이 있습니다.
+- `CardFields`(유기체, 컴파운드): `Fixed`는 `항상 보임` 묶음(이름 · 핸들 · 직업 · 소개, 라벨은 부품이 고정으로 갖고 값은 `fixed`로 받음, 잠금 아이콘은 끌 수 없다는 장식이라 누르지 못함), `Group`은 묶음마다 항목 줄과 `LockToggle`입니다. 켜짐(`checked`) = 이 명함에 보임이고 이름은 `<항목> 공개`입니다. 값은 쓰는 쪽이 갖는 제어형입니다.
+- `CardPickerSheet`(분자, 컴파운드): 시트 안에 넣는 내용입니다(`FilterSheet`과 같은 방식). `Header`(`SheetHeader`) · `Options`(한 장을 고르는 `RadioGroup`, 줄 전체가 라벨) · `Footer`(`Button size="lg"`). 머리 제목과 버튼 글자는 `건넬 명함` · `건네기`, `건넬 명함` · `교환 요청`, `돌려줄 명함` · `수락`처럼 쓰는 쪽이 정합니다. `value` · `defaultValue`로 제어 · 비제어 모두 됩니다.
+- `CardQr`(분자, 컴파운드): `CardPicker`(위 명함 알약, 누르면 메뉴) · `Code`(QR 자리 250, 흰 바탕은 다크에서도 흰색) · `Name`(이름 · @핸들) · `Activity`(활동 칩, 누르면 활동 바꾸기 메뉴, 활동이 없으면 없음). QR 그림은 만들지 않고 `qr`에 svg · img를 넘깁니다(스토리의 격자는 자리 표시용). 닫기 · QR 새로 만들기 버튼은 화면 몫입니다.
+- 시안과 다른 점
+  - 명함 글리프는 시안의 마지막 정의(흰 면 · 회색 줄 둘, 다크는 청록 줄 하나)를 따랐습니다. 시안 CSS에 `.pcard`가 두 번 정의되어 앞의 민트 면은 덮어써집니다.
+  - 토글은 시안의 iOS 스위치가 아니라 자물쇠 토글(`LockToggle`, 이슈 지시)입니다. 목록 행 높이 · 글자 크기는 `ListRow` 값(44 · 17)이고 시안은 48 · 16입니다.
+  - 고르기 시트의 바텀 닫기 · CTA 모양은 `SheetHeader` · `Button lg`를 따라 시안의 `닫기` 글자와 알약 CTA와 다릅니다.
+  - 고르기 시트 행 이름은 17/600(`rowTitle`)이고 시안은 16/600입니다. 활동 칩 꺾쇠는 14(시안 15)입니다.
+  - 알약 · 칩 글자는 글자 토큰에 맞춰 15/600 · 15/600이고 시안 활동 칩은 14/600입니다. 명함 · 활동 고르기 메뉴는 시안에 모양이 없어 기존 `DropdownMenu` 라디오를 썼습니다.
 
 ## 글꼴
 

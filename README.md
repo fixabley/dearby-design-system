@@ -344,7 +344,7 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 
 ## 서비스 로고
 
-아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료를 우선합니다(2026-11-09 · 11-10에 받음). 공식 자료를 받을 수 없거나 허락 없이 쓸 수 없는 Instagram · Threads · Facebook · TikTok · Notion · Behance 여섯은 사용자 결정(2026-11-10 "무료 SVG 쓰자" · "노션도" · "Behance도")으로 출처가 분명한 무료 모음 simple-icons에서 판을 고정해 경로를 그대로 가져옵니다([공식 자료 대신 무료 SVG를 쓴 로고](#공식-자료-대신-무료-svg를-쓴-로고)). 상표권은 각 회사에 있고 모음의 라이선스는 그림에만 해당하므로, 회사가 요청하면 그 로고를 내립니다. 출처가 불분명한 아이콘 모음에서 베끼지 않고, 우리가 다시 그리지 않습니다.
+아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료를 우선합니다(2026-11-09 · 11-10에 받음). 공식 자료를 받을 수 없거나 허락 없이 쓸 수 없는 Instagram · Threads · Facebook · TikTok · Notion · Behance 여섯은 사용자 결정(2026-11-10 "무료 SVG 쓰자" · "노션도" · "Behance도")으로 출처가 분명한 무료 모음 simple-icons에서 판을 고정해 경로를 그대로 가져옵니다([공식 자료 대신 무료 SVG를 쓴 로고](#공식-자료-대신-무료-svg를-쓴-로고)). 상표권은 각 회사에 있고 모음의 라이선스는 그림에만 해당하므로, 회사가 요청하면 그 로고를 내립니다. 출처가 불분명한 아이콘 모음에서 베끼지 않고, 우리가 다시 그리지 않습니다. LINE · WhatsApp 둘은 이 공식 자료 우선 규칙과 달리 사용자 지시(2026-11-10)로 처음부터 Bootstrap Icons의 그림을 씁니다([Bootstrap Icons에서 가져온 로고](#bootstrap-icons에서-가져온-로고)).
 
 - 공식 경로와 viewBox는 한 글자도 바꾸지 않고, 24 격자 안에 안쪽 `<svg>`(x · y · 크기)로 놓아 다른 아이콘과 크기만 맞춥니다.
 - 색은 글자색을 따르지 않습니다. 기본은 라이트 검정(`#000`) · 다크 흰색(`#fff`)이고(공식 자료를 받은 다섯 회사 모두 단색은 검정 · 흰색만 허용), 쓰는 쪽이 CSS 변수 `--logo-color`로 그 회사 지침이 허락하는 다른 색을 고릅니다(안쪽 `<svg>`의 `fill-[var(--logo-color,#000)] dark:fill-[var(--logo-color,#fff)]`). 변수는 `Icon`이나 그 위 요소 어디에 줘도 이어집니다.
@@ -403,7 +403,41 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
   - Behance: Behance는 Adobe 제품이고, [Adobe 상표 지침](https://www.adobe.com/legal/permissions/trademarks.html)은 라이선스 없이는 Adobe 제품 로고를 쓸 수 없고 소프트웨어 제품 · 서비스 안에 넣으려면 서면 허가가 필요하다고 합니다. Behance가 따로 공개한 로고 자료도 찾지 못했습니다. 허락은 같은 페이지의 요청 양식으로 묻습니다.
 - 내리기: 회사가 요청하면 그 로고를 `icons.ts`에서 지우고 웹은 일반 링크 아이콘(`link`)으로 돌립니다. 공식 자료를 받을 수 있게 되면(사용자가 Meta 묶음을 받아 오는 등) 그 자료로 바꿉니다.
 
-GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Instagram · Threads · Facebook과 그 로고는 Meta의, TikTok과 그 로고는 TikTok의, Notion과 그 로고는 Notion의, Behance와 그 로고는 Adobe의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의 상표입니다.
+### Bootstrap Icons에서 가져온 로고
+
+`line` · `whatsapp`(2026-11-10, 사용자 지시 "Bootstrap Icons의 브랜드 묶음을 참고"). 위 로고들과 달리 공식 자료를 먼저 찾지 않고 Bootstrap Icons의 그림을 원본으로 씁니다. 아이콘 그림은 Bootstrap Icons(MIT)이고, 상표 사용 조건은 확인하지 않았습니다.
+
+- 원천: [Bootstrap Icons](https://github.com/twbs/icons) v1.13.2(커밋 `afbfcbc`)의 `icons/line.svg` · `icons/whatsapp.svg`(viewBox `0 0 16 16`, [브랜드 묶음](https://icons.getbootstrap.com/icons/category/brand/)에 속함). 저장소의 공개 원문 파일 둘과 `LICENSE`만 받았고(2026-11-10, 로그인 · 동의 없음) 패키지를 의존성으로 들이지 않았습니다. 경로와 viewBox는 그대로이고 바깥 `<svg>`의 `xmlns` · `width` · `height` · `class` · `fill`만 뺐습니다. 판을 올리면 이 절의 판과 경로를 함께 바꿉니다.
+- 크기: 둘 다 16 격자를 꽉 채우는 둥근 말풍선이라 GitHub · Pinterest와 같은 19(x · y 2.5)에 놓습니다.
+- 쓰임 · 색: 기본 흑백으로 둡니다. 화면 읽기 이름(`label`)은 LINE · WhatsApp입니다. 연락처 줄의 브랜드색은 확인한 지침이 없어 정하지 않았습니다(Instagram처럼 기본 흑백).
+- 상표: 그림의 저작권은 MIT로 풀려 있지만 상표권은 각 회사에 있고, 두 회사의 로고 지침(허락되는 색 · 최소 크기 · 여백 · 금지 사항 · 승인)은 확인하지 않았습니다. 회사가 요청하면 `icons.ts`에서 지우고 일반 링크 아이콘(`link`)으로 돌립니다. 참고로 출처를 바꾸기 전에 [LINE 로고 안내](https://www.line.me/en/logo)를 요약으로 한 번 읽었을 때는 색 바꾸기를 금지하고 PC 최소 크기를 20px로 둔다고 나와, 검정 · 흰색 단색과 16 크기가 그 지침과 맞지 않을 수 있습니다(원문 대조는 하지 않음). WhatsApp(Meta 브랜드 리소스)은 읽지 못했습니다.
+- 라이선스(MIT가 요구하는 저작권 · 허락 고지, 받은 `LICENSE` 그대로):
+
+  ```text
+  The MIT License (MIT)
+
+  Copyright (c) 2019-2024 The Bootstrap Authors
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  ```
+
+GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Instagram · Threads · Facebook과 그 로고는 Meta의, TikTok과 그 로고는 TikTok의, Notion과 그 로고는 Notion의, Behance와 그 로고는 Adobe의, Discord와 Clyde 로고는 Discord Inc.의, LinkedIn과 [in] 로고는 LinkedIn Corporation의, Pinterest와 그 배지는 Pinterest, Inc.의, LINE과 그 로고는 LY Corporation의, WhatsApp과 그 로고는 WhatsApp LLC의 상표입니다.
 
 ## 원칙
 

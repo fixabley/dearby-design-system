@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 const avatarVariants = cva('relative flex shrink-0 overflow-hidden', {
   variants: {
     size: {
+      xs: 'size-11 rounded-full text-[17px]', // 알림 · 참여자 행 44
       sm: 'size-9 rounded-full text-[14px]',
       md: 'size-12 rounded-full text-[18px]',
       lg: 'size-20 rounded-full text-[30px]',

@@ -14,7 +14,7 @@ const meta: Meta = {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['mark', 'dot', 'sm', 'md', 'lg'],
+      options: ['mark', 'dot', 'xs', 'sm', 'md', 'lg'],
     },
     src: {
       control: 'select',
@@ -42,6 +42,7 @@ export const Sizes: Story = {
     <div className="flex items-end gap-3">
       <X.Avatar size="mark" fallback="현" />
       <X.Avatar size="dot" fallback="김" />
+      <X.Avatar size="xs" fallback="김" />
       <X.Avatar size="sm" fallback="김" />
       <X.Avatar size="md" fallback="김" />
       <X.Avatar size="lg" fallback="김" />

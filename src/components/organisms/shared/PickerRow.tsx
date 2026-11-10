@@ -1,9 +1,11 @@
+import { Fragment } from 'react';
 import type { IconName } from '@/icons';
 import { ListRow } from '@/components/molecules/shared/ListGroup';
 import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
@@ -24,7 +26,8 @@ export function PickerRow({
   icon?: IconName;
   title: string;
   value: string;
-  options: { value: string; label: string }[];
+  /** `separatorBefore`: 이 항목 앞에 구분선(시안 ㉙-i4 종류 메뉴의 링크 앞) */
+  options: { value: string; label: string; separatorBefore?: boolean }[];
   onValueChange?: (value: string) => void;
   className?: string;
 }) {
@@ -45,9 +48,10 @@ export function PickerRow({
           </SelectTrigger>
           <SelectContent align="end" className="min-w-[200px]">
             {options.map((o) => (
-              <SelectItem key={o.value} value={o.value}>
-                {o.label}
-              </SelectItem>
+              <Fragment key={o.value}>
+                {o.separatorBefore && <SelectSeparator />}
+                <SelectItem value={o.value}>{o.label}</SelectItem>
+              </Fragment>
             ))}
           </SelectContent>
         </Select>

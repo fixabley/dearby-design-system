@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 type Variant = 'segmented' | 'circle' | 'plain';
 const VariantCtx = React.createContext<Variant>('segmented');
 
-/** variant: segmented(분할 전환, 미끄러지는 면) · circle(요일 같은 원 버튼) · plain(겉모양 없이 고르기만) */
+/** index가 음수면 고른 칸이 없어 면을 숨긴다. variant: segmented(분할 전환, 미끄러지는 면) · circle(요일 같은 원 버튼) · plain(겉모양 없이 고르기만) */
 function ToggleGroup({
   className,
   children,
@@ -44,12 +44,20 @@ function ToggleGroup({
         'relative isolate flex h-9 rounded-full bg-muted p-[3px]',
         className,
       )}
-      style={{ ...style, ['--n' as string]: count, ['--i' as string]: index }}
+      style={{
+        ...style,
+        ['--n' as string]: count,
+        ['--i' as string]: Math.max(0, index),
+      }}
       {...props}
     >
       <span
         aria-hidden
-        className="absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-transform duration-300 ease-spring"
+        className={cn(
+          'absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-[transform,opacity] duration-300 ease-spring',
+          // 고른 칸이 없으면(index가 음수) 면을 숨긴다
+          index < 0 && 'opacity-0',
+        )}
       />
       <VariantCtx.Provider value="segmented">{children}</VariantCtx.Provider>
     </ToggleGroupPrimitive.Root>

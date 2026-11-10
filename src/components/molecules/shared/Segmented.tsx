@@ -10,23 +10,28 @@ export function Segmented<T extends string>({
   className,
   style,
   label,
+  labelledBy,
 }: {
   items: readonly T[];
-  value: T;
+  /** 고른 값. `null`이면 고른 칸이 없다(아직 답하지 않은 예/아니오) */
+  value: T | null;
   onChange?: (v: T) => void;
   labels?: Partial<Record<T, string>>;
   className?: string;
   style?: CSSProperties;
   label?: string;
+  /** 이름을 가진 글자의 id. `label` 대신 보이는 글자를 이름으로 삼을 때 */
+  labelledBy?: string;
 }) {
   return (
     <ToggleGroup
       type="single"
-      value={value}
+      value={value ?? ''}
       onValueChange={(v) => v && onChange?.(v as T)}
       count={items.length}
-      index={Math.max(0, items.indexOf(value))}
+      index={value == null ? -1 : items.indexOf(value)}
       aria-label={label}
+      aria-labelledby={labelledBy}
       className={className}
       style={style}
     >

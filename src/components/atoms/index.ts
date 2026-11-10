@@ -9,3 +9,4 @@ export * from './shared/LockToggle';
 export * from './shared/NewDot';
 export * from './activity/KindLabel';
 export * from './activity/StatusGlyph';
+export * from './card/CardGlyph';

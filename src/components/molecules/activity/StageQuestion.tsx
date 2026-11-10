@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useId,
   type ComponentProps,
   type ReactNode,
 } from 'react';
@@ -21,7 +20,6 @@ type StageQuestionContextValue = {
   onPass?: () => void;
   onFail?: () => void;
   onLater?: () => void;
-  titleId: string;
 };
 const StageQuestionContext = createContext<StageQuestionContextValue | null>(
   null,
@@ -57,11 +55,10 @@ function Label({ className }: { className?: string }) {
 
 /** 질문 글: 행은 15/600, 카드는 17/600 */
 function Question({ className }: { className?: string }) {
-  const { variant, question, titleId } = useStageQuestion('Question');
+  const { variant, question } = useStageQuestion('Question');
   return (
     <Text
       as="p"
-      id={titleId}
       variant={variant === 'row' ? 'innerTitle' : 'subtitle'}
       className={cn(variant === 'row' ? 'mb-2' : 'mb-3', className)}
     >
@@ -132,7 +129,6 @@ function StageQuestionRoot({
   onLater?: () => void;
   children?: ReactNode;
 }) {
-  const titleId = useId();
   return (
     <StageQuestionContext.Provider
       value={{
@@ -146,11 +142,10 @@ function StageQuestionRoot({
         onPass,
         onFail,
         onLater,
-        titleId,
       }}
     >
       <section
-        aria-labelledby={titleId}
+        aria-label={question}
         data-variant={variant}
         className={cn(
           // 행: 활동 행 왼쪽 열(64) + 간격(12)만큼 들여 글 열에 맞추고 앞 행에 6 붙인다

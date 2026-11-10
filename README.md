@@ -356,7 +356,7 @@ import { LockToggle } from '@dearby/design-system';
 <StageQuestion question="면접이 시작됐어요. 서류는 통과로 표시할까요?" canFail={false} passLabel="통과로 표시" onPass={…} onLater={…} />
 ```
 
-- `StageQuestion`(컴파운드, 분자): Label(깃발 + 라벨, 카드만) · Question · Actions. `row`는 활동 행의 형제로 바로 아래에 놓고(왼쪽 76 들임, 위로 6), 민트 면 둥근 14. `card`는 면 없이 활동 상세 머리 아래 일정 카드 위에 놓으며 바깥 간격은 쓰는 쪽이 줍니다. `section`이 질문 글로 이름을 얻고 버튼은 `통과` · `탈락` · `아직 몰라요`입니다.
+- `StageQuestion`(컴파운드, 분자): Label(깃발 + 라벨, 카드만) · Question · Actions. `row`는 활동 행의 형제로 바로 아래에 놓고(왼쪽 76 들임, 위로 6), 민트 면 둥근 14. `card`는 면 없이 활동 상세 머리 아래 일정 카드 위에 놓으며 바깥 간격은 쓰는 쪽이 줍니다. `section`은 질문 글을 `aria-label`로 이름 삼고(바꿔 조립해 Question을 빼도 이름이 남음) 버튼은 `통과` · `탈락` · `아직 몰라요`입니다.
 - 버튼은 셋 고정입니다. 통과 = 그 단계의 PASSED 종류, 탈락 = FAILED 종류, 아직 몰라요 = 기록 없이 둠. 어드민이 더한 OTHER 상태는 질문에서 고르지 않습니다(상세 일정 카드의 단계 상태 메뉴 몫). 다음 단계를 묻는 꼴은 `canFail={false}`로 탈락을 뺍니다.
 - 조립: `Text`(innerTitle · subtitle · badge) · `Button`(sm: 통과 `default`, 탈락 `outline`, 아직 몰라요 `plain`) · `Icon flag`(시안 아이콘 추가).
 - 시안과 다른 점
@@ -364,6 +364,8 @@ import { LockToggle } from '@dearby/design-system';
   - `아직 몰라요` 글자색은 `foreground` 70%입니다. 시안의 `sec`(#86868B)는 민트 면 위 대비가 3:1이라 4.5:1에 못 미칩니다.
   - 버튼 높이 34는 시안 그대로(`Button` sm 32보다 2 큼)이고 누르는 면은 44에 못 미칩니다. 시안을 따랐습니다.
   - 통과 버튼 그림자는 `shadow-primary`(0 4px 16px)이고 시안은 0 6px 18px입니다.
+  - 탈락 버튼 윤곽은 `Button` outline의 `shadow-control`입니다(시안은 1px sep 안쪽 선 + 0 2px 14px 그림자). 카드 질문 글은 `subtitle` 17/600 줄 높이 1.28입니다(시안 1.35).
+  - `아직 몰라요` 대비는 계산했습니다: foreground 70%가 민트 면 위 라이트 6.6:1 · 다크 7.3:1(시안 sec는 3.1:1).
   - 시안의 누름 윤곽(`.tap`)은 시연용이라 뺐고 `Button`의 누름 · 초점 규칙을 씁니다.
 
 ### 명함 부품

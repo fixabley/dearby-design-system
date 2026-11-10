@@ -20,7 +20,10 @@ const meta: Meta = {
     onFail: fn(),
     onLater: fn(),
   },
-  argTypes: { variant: { control: 'inline-radio', options: ['row', 'card'] } },
+  argTypes: {
+    variant: { control: 'inline-radio', options: ['row', 'card'] },
+    label: { if: { arg: 'variant', eq: 'card' } },
+  },
   parameters: { width: 393 },
 };
 export default meta;

@@ -60,6 +60,7 @@ src/
 | `organisms/profile/`       | ProfileHeader                                                                                                                                                                                      |
 | `organisms/card/`          | CardRow · CardFields                                                                                                                                                                               |
 | `organisms/schedule/`      | RepeatField · RepeatCustom · SkipDates, 반복 규칙 타입과 도우미(`repeat.ts`), 두 화면 머리의 내부 부품 `PageHeader`(내보내지 않음)                                                                                                            |
+| `organisms/condition/`     | ConditionRow · ConditionList · KeySearch · ConditionValueInput · ConditionGroupEditor, 조건 값 타입과 도우미(`condition.ts`) |
 | `templates/shared/`        | WebShell · Layouts(TwoPane · EvenSplit · TwoColumnList · DetailWithAside · SidebarDetail · ThreeColumnEditor · ManageLayout) · Modal · PhoneFrame                                                  |
 
 ## 층 규칙
@@ -546,6 +547,39 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 반복 행이 눌린 채 강조되는 시안 `.srow.on`(메뉴가 열린 동안 행 배경)은 따로 그리지 않았습니다.
 - 화면을 옮기면 메뉴가 닫히며 초점이 사라지니 `RepeatCustom` · `SkipDates`에 `autoFocus`를 줘 뒤로 버튼(이름 `뒤로, 반복`)으로 옮깁니다. 메뉴 · 목록은 키보드로 끝까지 됩니다(Tab, 화살표, Enter, Esc).
 - 움직임은 모두 기존 부품의 것(메뉴 0.2초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
+
+### 참여 조건 · 자격 부품
+
+2026-11-10 이슈 #75(시안 ㉙-c2 · ㉙-l · ㉙-l2 · ㉙-l3 · ㉙-l4). 직접 개설의 참여 조건 시트 안 `자격` 구역입니다. 자격 키를 검색해 고르고, 그 키의 값(범위 · 예/아니오)을 넣고, 여러 자격을 `모두` 또는 `하나라도`로 묶습니다. 시트 머리 · `추가` · `완료` 버튼, 시트 안 화면 이동(목록 → 키 검색 → 값 입력 → 목록), 저장, 명함 맞교환 · 단계 통과 인증 행, 새 자격 제안 화면(㉙-l5, 이슈 범위 문구에 없어 만들지 않음)은 쓰는 쪽 몫이거나 이 이슈 밖입니다. 값은 모두 쓰는 쪽이 갖는 제어형입니다.
+
+```tsx
+<ConditionList title="자격" value={nodes} onEdit={edit} onAdd={() => setPage('search')} />
+
+<KeySearch keys={keys} query={q} onQueryChange={setQ} onSelect={pick} onPropose={propose} />
+
+<ConditionValueInput keyDef={key} value={value} onChange={setValue} />
+<Button disabled={!isConditionValueComplete(value)}>추가</Button>
+
+<ConditionGroupEditor value={group} onChange={setGroup} onEdit={edit} onAdd={add} />
+```
+
+- 값 모양(`organisms/condition/condition.ts`): `ConditionKey`(`id` · `label` · `valueKind` `range` | `many` | `one` | `bool` · `unit` · `proposal` `approved`(승인된 사용자 제안 키) | `pending`(승인 전)) · `ConditionValue`(`{ kind: 'range', from?, to? }` · `{ kind: 'bool', value }` · `{ kind: 'one', value }` · `{ kind: 'many', values }`, 고르는 값은 화면에 보이는 글자) · `Condition`(`key` + `value`) · `ConditionGroup`(`match` `all` | `any` + `items`) · `ConditionNode`(조건 또는 묶음, 재귀). 시안에 연산(같다 · 이상 …) 낱말이 없어 값 종류가 연산을 대신합니다(범위는 `from` ~ `to`, 예/아니오는 일치). **서버 계약(자격 정보 이슈)이 아직 없어 시안의 낱말을 영문으로 옮긴 최소한이고, 계약이 생기면 맞춘다**(이름 · 값 · 선택지를 글자로 둔 것 · 연산을 따로 두는지 모두 바뀔 수 있음).
+- 도우미: `conditionTitle` · `formatConditionValue` · `formatConditionSummary`(행의 제목과 요약) · `formatKeyKind`(키 목록의 값 종류) · `isConditionValueComplete`(추가를 열 수 있는지) · `emptyConditionValue`(키를 막 골랐을 때의 값) · `conditionDepth` · `MAX_CONDITION_DEPTH`(3, 시안 ㉙-l4의 "깊이 3까지", 맨 위 목록이 1) · `isGroup`.
+- `ConditionRow`(유기체, `ListGroup` 안): `ListRow` 위에 사람 원 아이콘 · 키 이름 · 요약 · 꺾쇠. 누르면 `onEdit`. 묶음은 제목이 안의 키 이름들(`재학상태 · 취업상태`)이고 요약이 `모두` · `하나라도`, 승인 전 제안 키는 요약 뒤에 `제안 중`입니다. `icon={null}`이면 아이콘이 없습니다(묶음 안). 지우기는 행에 두지 않고 고치기 시트의 CTA 줄(왼쪽 정사각 휴지통 + `완료`, 시트 결정과 같음)에 둡니다. 스토리 `InSheet`가 그 조립을 보입니다.
+- `ConditionList`(유기체, 컴파운드, `ListGroup` 안): `Rows` · `Add`(`자격 추가` 행). 같은 키가 여러 번 들 수 있고 조건에 고유한 id가 없어 행은 자리(순서)로 구분합니다.
+- `KeySearch`(컴파운드): 기존 `Command`(cmdk, 스토리 ㉙-l 자격 키 검색) 위에 조립했습니다. `Input`(`CommandInput` filled) · `Results`(이름 부분 일치로 거른 키 목록, 행마다 키 이름 · 값 종류 · 꺾쇠) · `Propose`(별도 묶음의 `새 자격 제안`, 검색어와 상관없이 늘 보임). 맞는 키가 없으면 `새 자격 제안`만 남습니다. 목록은 쓰는 쪽이 주고(`keys`, 승인된 키만 넘깁니다) 거르기는 cmdk의 흐릿한 일치가 아니라 이 부품이 이름 부분 일치로 합니다(`shouldFilter={false}`). 서버 검색이 필요해지면 쓰는 쪽이 `keys`를 바꿔 주면 됩니다. combobox · listbox · 화살표 이동은 cmdk가 줍니다.
+- `ConditionValueInput`(유기체, 컴파운드): `Range`(`부터` · `까지` 칸 둘 + `~` + 키의 단위, 기존 `Field` · `Input`) · `Bool`(기존 `Segmented` `예 | 아니오`). 기본 조립은 `value.kind`에 맞는 하나만 그립니다. 범위는 숫자만 받고(문자 입력에서 숫자만 남김) 한쪽을 비울 수 있으며, 부터가 까지보다 크면 두 칸이 `aria-invalid` · `data-invalid`(라벨이 붉은색)로 표시되고 한 줄 안내(`role="alert"`, 두 칸이 `aria-describedby`로 가리킴)가 뜹니다. 칸 둘은 `fieldset`에 묶이고 보이지 않는 `legend`가 `나이 (세) 범위`입니다.
+- `ConditionGroupEditor`(유기체, 컴파운드): `Match`(`Segmented` `모두 | 하나라도`) · `Items`(아이콘 없는 `ConditionList`). 안의 행을 누르면 `onEdit`을 부르니 안에 묶음이 있으면 쓰는 쪽이 그 묶음의 편집으로 갑니다. 중첩 깊이를 막는 일은 쓰는 쪽이 합니다: 새 묶음을 더해도 되는지는 (그 묶음이 맨 위에서 몇 층인가) + `conditionDepth`(더할 노드) 가 `MAX_CONDITION_DEPTH` 이하인지로 셉니다(맨 위 목록이 1층, 예시 스토리 `Nested`는 묶음 안의 묶음까지). 비어 있는 묶음의 행 제목은 `자격 묶음`입니다.
+- 층: 행이 `ListRow`(분자)를 쓰므로 모두 유기체입니다(분자끼리 import 금지). `PickerRow`와 같은 이유입니다.
+- 시안과 다른 점
+  - 시안에 틀이 없어 추천안으로 만든 것: 조건 지우기(시안에는 지우는 길이 없어 고치기 시트의 휴지통으로 둠), 범위의 한쪽 요약(`19세 이상` · `34세 이하`), 범위 순서가 어긋났을 때의 표시와 안내, 값이 다 채워졌는지 보는 `isConditionValueComplete`, 키 목록의 이름 부분 일치 거르기.
+  - 만들지 않은 것(시안에 틀이 없거나 이슈 밖): 하나 · 여러 개 고르기(`one` · `many`) 값 입력 화면, 새 자격 제안 화면(㉙-l5), 묶음을 새로 만드는 진입(시안에 길이 없음, 부품은 만들어진 묶음을 보이고 고칠 수 있음), 명함 맞교환 · 단계 통과 인증 행과 `같은 프로그램 다른 기수에도` 토글(㉙-c2의 위쪽, 이슈 범위의 `자격` 구역이 아님), 시트 안 화면 이동(스토리 `InSheet`가 한 가지 조립을 보임).
+  - 행 높이 · 글자는 `ListRow` 값(44 · 17)이고 시안은 48 · 16, 요약 글자는 15(시안 14)입니다. 검색 입력은 `CommandInput`이라 높이 44(시안 52), 글자 17은 같고 모서리 12도 같습니다. 범위 칸 글자는 `Input`의 17(시안 16)이고 `~` · 단위는 `rowTitle` 17/600(시안 16/600)입니다. 요약 글자는 최대 192 폭에서 줄여 보입니다(시안은 행 폭의 55%).
+  - 시안 각주(`고른 조건을 모두 충족해야 참여할 수 있어요`)는 부품에 넣지 않고 스토리에서 `Text`로 둡니다(맨 위 목록의 의미라 쓰는 쪽 화면이 정합니다). 각주 글자는 13(시안 12)입니다.
+  - 꺾쇠는 16(`KeySearch` 행은 `CommandShortcut`의 14, 시안 13)이고 `자격 추가` · `새 자격 제안` 행에도 둡니다(시안 ㉙-c2 · l과 같음). 범위 칸 안쪽 여백은 `Field`의 10/16(시안 9/14), 칸 라벨은 `FieldLabel` 13(시안 12)입니다. 키 검색 목록은 cmdk가 첫 행을 옅은 민트로 강조해 두고 시작합니다(시안은 강조 없음, 기존 `Command`의 모양). 키 이름 · `새 자격 제안` 글자는 `CommandItem`이 정합니다(17).
+  - 눌러서 여는 행의 hover · 누름 덧칠은 `ListRow`의 것입니다(시안에는 없음).
+- 접근성: 행은 누르는 `button`(이름은 `제목 요약`)입니다. 검색 입력은 cmdk의 combobox(이름 `자격 검색`)이고 결과 개수 알림은 따로 두지 않았습니다. 키보드로 끝까지 됩니다(Tab, Enter, 방향 · 문자 입력).
+- 움직임은 모두 기존 부품의 것(분할 전환 면 0.3초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
 
 ## 글꼴
 

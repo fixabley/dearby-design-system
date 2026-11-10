@@ -10,6 +10,8 @@ import { buttonVariants } from './button';
 const Sheet = SheetPrimitive.Root;
 const SheetTrigger = SheetPrimitive.Trigger;
 const SheetClose = SheetPrimitive.Close;
+/** 머리를 따로 그리는 시트 화면의 제목(Radix가 시트마다 제목을 요구한다) */
+const SheetTitle = SheetPrimitive.Title;
 
 function SheetContent({
   className,
@@ -89,4 +91,11 @@ function SheetHeader({
   );
 }
 
-export { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger };
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+};

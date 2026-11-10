@@ -36,14 +36,17 @@ export const NoResult: Story = {
 
 /** 컴파운드로 바꿔 조립: 입력과 목록만 */
 export const Composed: Story = {
-  render: (args) => (
-    <X.KeySearch keys={args.keys} query="">
-      <X.KeySearch.Input />
-      <X.CommandList>
-        <X.KeySearch.Results />
-      </X.CommandList>
-    </X.KeySearch>
-  ),
+  render: function Render(args) {
+    const [query, setQuery] = useState('');
+    return (
+      <X.KeySearch keys={args.keys} query={query} onQueryChange={setQuery}>
+        <X.KeySearch.Input />
+        <X.CommandList>
+          <X.KeySearch.Results />
+        </X.CommandList>
+      </X.KeySearch>
+    );
+  },
 };
 
 /** 바텀 시트 안(㉙-l) */

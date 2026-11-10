@@ -62,11 +62,10 @@ export function conditionDepth(node: ConditionNode): number {
   return isGroup(node) ? 1 + Math.max(0, ...node.items.map(conditionDepth)) : 1;
 }
 
-/** 조건 행의 제목: 조건은 키 이름, 묶음은 안의 제목을 ` · `로 이은 것(`재학상태 · 취업상태`) */
+/** 조건 행의 제목: 조건은 키 이름, 묶음은 안의 제목을 ` · `로 이은 것(`재학상태 · 취업상태`, 비어 있으면 `자격 묶음`) */
 export function conditionTitle(node: ConditionNode): string {
-  return isGroup(node)
-    ? node.items.map(conditionTitle).join(' · ')
-    : node.key.label;
+  if (!isGroup(node)) return node.key.label;
+  return node.items.map(conditionTitle).join(' · ') || '자격 묶음';
 }
 
 /**

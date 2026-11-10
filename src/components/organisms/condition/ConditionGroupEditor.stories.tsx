@@ -32,7 +32,7 @@ export const Nested: Story = {
   args: {
     value: {
       match: 'all',
-      items: [AGE, STATUS_GROUP, { match: 'all', items: [STATUS_GROUP, AGE] }],
+      items: [AGE, STATUS_GROUP, { match: 'all', items: [AGE] }],
     },
   },
   render: (args) => <Demo {...args} />,

@@ -1,4 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react';
+import { Icon } from '@/components/foundations/Icon';
 import { ListGroup, ListRow } from '@/components/molecules/shared/ListGroup';
 import { ConditionRow } from './ConditionRow';
 import type { ConditionNode } from './condition';
@@ -41,7 +42,15 @@ function Rows() {
 /** 끝의 `자격 추가` 행(청록 ⊕, 누르면 `onAdd`) */
 function Add() {
   const { onAdd } = useConditionList('Add');
-  return <ListRow add icon="addCircle" title="자격 추가" onClick={onAdd} />;
+  return (
+    <ListRow
+      add
+      icon="addCircle"
+      title="자격 추가"
+      onClick={onAdd}
+      trailing={<Icon name="chevronRight" className="size-4" />}
+    />
+  );
 }
 
 function ConditionListRoot({

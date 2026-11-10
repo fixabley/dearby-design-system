@@ -39,8 +39,10 @@ function RangeBox({
   label,
   value,
   invalid,
+  errorId,
   onChange,
 }: {
+  errorId: string;
   label: string;
   value?: number;
   invalid: boolean;
@@ -48,7 +50,10 @@ function RangeBox({
 }) {
   const id = useId();
   return (
-    <Field className="rounded-md bg-muted focus-within:ring-2 focus-within:ring-ring">
+    <Field
+      data-invalid={invalid || undefined}
+      className="rounded-md bg-muted focus-within:ring-2 focus-within:ring-ring"
+    >
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Input
         id={id}
@@ -56,6 +61,7 @@ function RangeBox({
         inputMode="numeric"
         autoComplete="off"
         aria-invalid={invalid || undefined}
+        aria-describedby={invalid ? errorId : undefined}
         value={value ?? ''}
         onChange={(e) => onChange(toNumber(e.target.value))}
       />
@@ -69,6 +75,7 @@ function RangeBox({
  */
 function Range({ className }: { className?: string }) {
   const { keyDef, value, onChange } = useConditionValueInput('Range');
+  const errorId = useId();
   if (value.kind !== 'range') return null;
   const invalid =
     value.from != null && value.to != null && value.from > value.to;
@@ -87,6 +94,7 @@ function Range({ className }: { className?: string }) {
         label="부터"
         value={value.from}
         invalid={invalid}
+        errorId={errorId}
         onChange={(from) => onChange?.({ ...value, from })}
       />
       <Text as="span" variant="rowTitle" aria-hidden>
@@ -96,13 +104,14 @@ function Range({ className }: { className?: string }) {
         label="까지"
         value={value.to}
         invalid={invalid}
+        errorId={errorId}
         onChange={(to) => onChange?.({ ...value, to })}
       />
       <Text as="span" variant="rowTitle">
         {keyDef.unit}
       </Text>
       {invalid && (
-        <FieldError className="col-span-4">
+        <FieldError id={errorId} className="col-span-4">
           부터는 까지보다 클 수 없어요
         </FieldError>
       )}

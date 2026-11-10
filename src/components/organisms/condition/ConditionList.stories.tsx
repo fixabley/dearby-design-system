@@ -53,6 +53,7 @@ function Flow() {
   const [groupIndex, setGroupIndex] = useState<number | null>(null);
 
   const startValue = (key: X.ConditionKey, v?: X.ConditionValue) => {
+    setQuery('');
     setPicked(key);
     setValue(v ?? X.emptyConditionValue(key));
     setPage('value');
@@ -60,7 +61,6 @@ function Flow() {
   const close = () => {
     setQuery('');
     setPage(groupIndex != null && page === 'search' ? 'group' : 'main');
-    if (page === 'group') setGroupIndex(null);
   };
   const group =
     groupIndex != null ? (nodes[groupIndex] as X.ConditionGroup) : null;
@@ -122,7 +122,7 @@ function Flow() {
       modal={false}
       onOpenChange={(open) => {
         if (open) return;
-        // 닫기는 한 단계 위 화면으로(맨 위에서는 아무 일 없음)
+        // 닫기: 값 시트는 그 키를 고르기 전 목록(묶음 안이면 묶음)으로, 키 검색과 묶음은 한 단계 위로, 맨 위에서는 아무 일 없음
         if (page === 'value') {
           setEditing(null);
           setPage(groupIndex != null ? 'group' : 'main');
@@ -220,7 +220,7 @@ function Flow() {
   );
 }
 
-/** 참여 조건 시트 전체 흐름(㉙-c2 → l → l2 · l3, 묶음 ㉙-l4): 자격 추가에서 키를 찾아 값을 넣고 추가하면 목록에 더해진다. 묶음 행을 누르면 묶음 편집으로 간다. 닫기는 한 단계 위로 */
+/** 참여 조건 시트 전체 흐름(㉙-c2 → l → l2 · l3, 묶음 ㉙-l4): 자격 추가에서 키를 찾아 값을 넣고 추가하면 목록에 더해진다. 묶음 행을 누르면 묶음 편집으로 간다. 닫기는 한 단계 위로(값 시트에서는 키 검색을 건너뛰고 연 목록으로) */
 export const InSheet: Story = {
   parameters: { layout: 'fullscreen', width: undefined },
   render: () => <Flow />,

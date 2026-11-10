@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { fn } from 'storybook/test';
 import * as X from '@/index';
 
 const FIXED: X.CardFixedFields = {
@@ -87,29 +86,16 @@ export const SnsOnly: Story = {
   render: () => <Demo on={(k) => k === 'github' || k === 'instagram'} />,
 };
 
-/** 비활성 항목과 긴 값 */
-export const Disabled: Story = {
+/** 긴 값은 말줄임, 직업 · 소개가 비면 값 칸만 비운다 */
+export const LongValue: Story = {
   render: () => (
     <X.CardFields
       fixed={{
-        ...FIXED,
+        name: '김도윤',
+        handle: 'doyun',
         bio: '웹 접근성과 디자인 시스템, 그리고 온디바이스 AI에 관심이 많은 개발자입니다',
       }}
-      groups={[
-        {
-          title: '연락처·링크',
-          items: [
-            {
-              key: 'mail',
-              label: 'doyun@example.com',
-              icon: 'mail',
-              checked: true,
-              disabled: true,
-            },
-          ],
-        },
-      ]}
-      onCheckedChange={fn()}
+      groups={[]}
     />
   ),
 };

@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils';
 export type CardFixedFields = {
   name: string;
   handle: string;
-  job: string;
-  bio: string;
+  job?: string;
+  bio?: string;
 };
 
 /** 켜고 끌 수 있는 항목 하나: `checked`가 켜짐(= 이 명함에 보임 = 열린 자물쇠) */
@@ -20,7 +20,6 @@ export type CardFieldItem = {
   label: string;
   icon?: IconName;
   checked: boolean;
-  disabled?: boolean;
 };
 
 export type CardFieldGroup = { title: string; items: CardFieldItem[] };
@@ -79,10 +78,9 @@ function Group({ index, className }: { index: number; className?: string }) {
           trailing={
             <LockToggle
               checked={it.checked}
-              disabled={it.disabled}
               onCheckedChange={(v) => onCheckedChange?.(it.key, v)}
               aria-label={`${it.label} 공개`}
-              className="-mr-[9px]"
+              className="-my-2 -mr-[9px]"
             />
           }
         />

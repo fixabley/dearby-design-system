@@ -40,10 +40,10 @@ function Header({
 
 /** 명함 목록: 한 장만 고르는 라디오 묶음. 줄 전체가 라벨이라 어디를 눌러도 고른다 */
 function Options({ className }: { className?: string }) {
-  const { cards, value, setValue } = useCardPicker('Options');
+  const { cards, value, setValue, title } = useCardPicker('Options');
   return (
     <RadioGroup
-      aria-label="명함"
+      aria-label={title}
       value={value}
       onValueChange={setValue}
       className={cn('mt-3.5 overflow-hidden rounded-md bg-muted', className)}

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { ListRow } from '@/components/molecules/shared/ListGroup';
 import { CardGlyph } from '@/components/atoms/card/CardGlyph';
 import { Text, TextSkeleton } from '@/components/atoms/shared/Text';
@@ -24,7 +25,7 @@ export function CardRow({
   onClick?: () => void;
   asChild?: boolean;
   className?: string;
-  children?: React.ReactElement;
+  children?: ReactNode;
 }) {
   return (
     <ListRow
@@ -35,7 +36,7 @@ export function CardRow({
           <Text as="span" variant="body" tone="muted" truncate>
             {summary}
           </Text>
-          <Icon name="chevronRight" className="size-[13px]" />
+          <Icon name="chevronRight" className="size-4" />
         </>
       }
       onClick={onClick}

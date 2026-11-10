@@ -10,6 +10,8 @@ export * from './activity/DetailHeader';
 export * from './activity/ApplyCard';
 export * from './activity/ScheduleCard';
 export * from './activity/constants';
+export * from './card/CardRow';
+export * from './card/CardFields';
 export * from './discord/ChannelTemplate';
 export * from './discord/ServerPicker';
 export * from './notice/NoticeComposer';

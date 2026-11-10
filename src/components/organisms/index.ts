@@ -15,6 +15,7 @@ export * from './card/CardFields';
 export * from './discord/ChannelTemplate';
 export * from './discord/ServerPicker';
 export * from './notice/NoticeComposer';
+export * from './participant/ParticipantRow';
 export * from './profile/ProfileHeader';
 export * from './program/ProgramDetail';
 export * from './program/ProgramRow';

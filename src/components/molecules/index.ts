@@ -20,6 +20,8 @@ export * from './card/CardPickerSheet';
 export * from './card/CardQr';
 export * from './follow/FollowCard';
 export * from './notice/Notice';
+export * from './notification/NotificationRow';
+export * from './participant/ExchangeButton';
 export * from './program/HostLine';
 export * from './review/ReviewCard';
 export * from './review/ReviewSummary';

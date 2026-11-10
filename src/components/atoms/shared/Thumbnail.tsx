@@ -6,8 +6,9 @@ import {
 } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
-/** 썸네일 네모 크기: 56 · 64 · 76 · 96 */
+/** 썸네일 네모 크기: 52(알림 행) · 56 · 64 · 76 · 96 */
 const SIZE = {
+  xs: 'size-13 rounded-[10px] text-[14px]',
   sm: 'size-14 rounded-md text-[16px]',
   md: 'size-16 rounded-md text-[18px]',
   lg: 'size-[76px] rounded-md text-[20px]',

@@ -15,6 +15,7 @@ export * from './shared/AccordionSection';
 export * from './activity/ActionTile';
 export * from './activity/ProgressTrack';
 export * from './activity/LiveToggle';
+export * from './activity/StageQuestion';
 export * from './discord/ChannelSelect';
 export * from './card/CardPickerSheet';
 export * from './card/CardQr';

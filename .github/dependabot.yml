@@ -1,0 +1,25 @@
+# 의존성 갱신(2026-11-11 사용자 지시: 보안 취약점 대비로 하루에 한 번). 보안 갱신은 이와 별도로 GitHub가 바로 연다
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "05:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 5
+    groups:
+      # 작은 갱신(minor · patch)은 하루 한 PR로 묶는다. major는 따로 열려 사람이 본다
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "05:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 5
+    groups:
+      # 작은 갱신(minor · patch)은 하루 한 PR로 묶는다. major는 따로 열려 사람이 본다
+      github-actions-minor-patch:
+        update-types: ["minor", "patch"]

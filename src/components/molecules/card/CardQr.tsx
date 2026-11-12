@@ -99,7 +99,7 @@ function CardPicker({ className }: { className?: string }) {
         value={cardId}
         onValueChange={onCardIdChange}
         options={cards.map((c) => ({ id: c.id, text: c.name }))}
-        triggerClassName="bg-muted text-foreground [&_svg]:text-muted-foreground"
+        triggerClassName="border border-border text-foreground [&_svg]:text-muted-foreground"
       />
     </div>
   );

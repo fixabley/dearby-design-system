@@ -41,7 +41,7 @@ function ToggleGroup({
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
       className={cn(
-        'relative isolate flex h-9 rounded-full bg-muted p-[3px]',
+        'relative isolate flex h-9 rounded-full border border-border p-[3px]',
         className,
       )}
       style={{
@@ -54,7 +54,7 @@ function ToggleGroup({
       <span
         aria-hidden
         className={cn(
-          'absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb shadow-[0_1px_4px_rgba(0,0,0,.12)] transition-[transform,opacity] duration-300 ease-spring',
+          'absolute inset-y-[3px] left-[3px] -z-10 w-[calc((100%-6px)/var(--n))] translate-x-[calc(var(--i)*100%)] rounded-full bg-segment-thumb transition-[transform,opacity] duration-300 ease-spring',
           // 고른 칸이 없으면(index가 음수) 면을 숨긴다
           index < 0 && 'opacity-0',
         )}
@@ -67,7 +67,7 @@ function ToggleGroup({
 const ITEM: Record<Variant, string> = {
   segmented: '',
   circle:
-    'grid aspect-square place-items-center rounded-full bg-muted text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:bg-primary data-[state=on]:text-white',
+    'grid aspect-square place-items-center rounded-full border border-border text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:bg-primary data-[state=on]:text-white',
   plain: 'outline-none focus-visible:ring-2 focus-visible:ring-ring',
 };
 function ToggleGroupItem({

@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 // ItemGroup의 묶음 모양(채움 면 · 둥근 모서리 · 줄 사이 선)을 RadioGroup · group에 입힌 것: RadioGroup 루트가 role=radiogroup이라 ItemGroup(role=list)을 겹칠 수 없다
 const GROUP =
-  'overflow-hidden rounded-md bg-muted [&>*+*]:border-t [&>*+*]:border-border';
+  'overflow-hidden rounded-md border border-border [&>*+*]:border-t [&>*+*]:border-border';
 
 /** 라디오 묶음: 이름은 `labelledBy`(보이는 글자의 id) 또는 `label` */
 export function RadioChoices({

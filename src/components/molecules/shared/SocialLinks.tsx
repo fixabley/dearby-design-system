@@ -28,7 +28,7 @@ function Link({
           variant="plain"
           size="icon-sm"
           icon={icon}
-          className={cn('bg-muted', className)}
+          className={cn('border border-border', className)}
         >
           <a
             href={href}

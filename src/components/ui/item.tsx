@@ -17,7 +17,7 @@ function ItemGroup({
       className={cn(
         'flex flex-col',
         variant === 'grouped' &&
-          'overflow-hidden rounded-md bg-muted [&>[data-slot=item]+[data-slot=item]]:border-t [&>[data-slot=item]+[data-slot=item]]:border-border',
+          'overflow-hidden rounded-md border border-border [&>[data-slot=item]+[data-slot=item]]:border-t [&>[data-slot=item]+[data-slot=item]]:border-border',
         className,
       )}
       {...props}
@@ -45,7 +45,7 @@ const itemVariants = cva(
       variant: {
         default: 'bg-transparent',
         outline: 'rounded-md ring-1 ring-inset ring-border',
-        muted: 'rounded-md bg-muted',
+        muted: 'rounded-md border border-border',
       },
       size: {
         default: 'min-h-11 px-4 py-2',

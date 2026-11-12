@@ -94,7 +94,7 @@ function Social({ className }: { className?: string }) {
               variant="outline"
               size="icon"
               aria-label={s.label}
-              className="size-9 bg-muted shadow-none [&_svg]:size-[18px]"
+              className="size-9 shadow-none [&_svg]:size-[18px]"
               icon={s.icon}
             />
           </TooltipTrigger>

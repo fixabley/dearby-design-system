@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const SEG = {
   past: 'bg-primary',
   cur: 'bg-background ring-[1.5px] ring-inset ring-primary',
-  up: 'bg-muted',
+  up: 'bg-accent',
 };
 
 type ProgressTrackContextValue = { steps: Step[]; more?: number };

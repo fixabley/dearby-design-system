@@ -8,9 +8,6 @@
   "categories": {
     "correctness": "off"
   },
-  "env": {
-    "builtin": true
-  },
   "options": {
     "reportUnusedDisableDirectives": "warn"
   },
@@ -19,23 +16,17 @@
     "storybook-static"
   ],
   "rules": {
-    "constructor-super": "error",
     "for-direction": "error",
-    "getter-return": "error",
     "no-async-promise-executor": "error",
     "no-case-declarations": "error",
-    "no-class-assign": "error",
     "no-compare-neg-zero": "error",
     "no-cond-assign": "error",
-    "no-const-assign": "error",
     "no-constant-binary-expression": "error",
     "no-constant-condition": "error",
     "no-control-regex": "error",
     "no-debugger": "error",
     "no-delete-var": "error",
-    "no-dupe-class-members": "error",
     "no-dupe-else-if": "error",
-    "no-dupe-keys": "error",
     "no-duplicate-case": "error",
     "no-empty": "error",
     "no-empty-character-class": "error",
@@ -44,28 +35,19 @@
     "no-ex-assign": "error",
     "no-extra-boolean-cast": "error",
     "no-fallthrough": "error",
-    "no-func-assign": "error",
     "no-global-assign": "error",
-    "no-import-assign": "error",
     "no-invalid-regexp": "error",
     "no-irregular-whitespace": "error",
     "no-loss-of-precision": "error",
     "no-misleading-character-class": "error",
-    "no-new-native-nonconstructor": "error",
     "no-nonoctal-decimal-escape": "error",
-    "no-obj-calls": "error",
     "no-prototype-builtins": "error",
-    "no-redeclare": "error",
     "no-regex-spaces": "error",
     "no-self-assign": "error",
-    "no-setter-return": "error",
     "no-shadow-restricted-names": "error",
     "no-sparse-arrays": "error",
-    "no-this-before-super": "error",
     "no-unassigned-vars": "error",
-    "no-unreachable": "error",
     "no-unsafe-finally": "error",
-    "no-unsafe-negation": "error",
     "no-unsafe-optional-chaining": "error",
     "no-unused-labels": "error",
     "no-unused-private-class-members": "error",
@@ -73,7 +55,6 @@
     "no-useless-backreference": "error",
     "no-useless-catch": "error",
     "no-useless-escape": "error",
-    "no-with": "error",
     "preserve-caught-error": "error",
     "require-yield": "error",
     "use-isnan": "error",
@@ -111,38 +92,13 @@
     "typescript/prefer-as-const": "error",
     "typescript/prefer-namespace-keyword": "error",
     "typescript/triple-slash-reference": "error",
-    "no-useless-assignment": "error"
+    "no-useless-assignment": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error"
   },
   "overrides": [
-    // typescript-eslint의 eslint-recommended와 같다: tsc가 잡는 코어 규칙은 TS 파일에서 끄고(no-redeclare는 같은 이름의 타입과 값을 잘못 잡는다), var · const 규칙은 켠다
-    {
-      "files": [
-        "**/*.ts",
-        "**/*.tsx"
-      ],
-      "rules": {
-        "constructor-super": "off",
-        "getter-return": "off",
-        "no-class-assign": "off",
-        "no-const-assign": "off",
-        "no-dupe-class-members": "off",
-        "no-dupe-keys": "off",
-        "no-func-assign": "off",
-        "no-import-assign": "off",
-        "no-new-native-nonconstructor": "off",
-        "no-obj-calls": "off",
-        "no-redeclare": "off",
-        "no-setter-return": "off",
-        "no-this-before-super": "off",
-        "no-unreachable": "off",
-        "no-unsafe-negation": "off",
-        "no-var": "error",
-        "no-with": "off",
-        "prefer-const": "error",
-        "prefer-rest-params": "error",
-        "prefer-spread": "error"
-      }
-    },
     // eslint-plugin-storybook의 no-renderer-packages를 대신한다(플러그인은 eslint를 peer로 끌고 와 뺐다)
     {
       "files": [
@@ -162,7 +118,7 @@
         ]
       }
     },
-    // 노드에서 도는 스크립트. no-undef는 TS 파일에서 타입을 잘못 잡아 여기만 켠다(ESLint도 같았다)
+    // TS 파일이 아닌 곳(노드 스크립트)에만 켜는 규칙. tsc가 잡는 것이고, no-redeclare · no-undef는 TS의 같은 이름 타입 · 값과 타입 이름을 잘못 잡는다
     {
       "files": [
         "scripts/**"
@@ -171,6 +127,22 @@
         "node": true
       },
       "rules": {
+        "constructor-super": "error",
+        "getter-return": "error",
+        "no-class-assign": "error",
+        "no-const-assign": "error",
+        "no-dupe-class-members": "error",
+        "no-dupe-keys": "error",
+        "no-func-assign": "error",
+        "no-import-assign": "error",
+        "no-new-native-nonconstructor": "error",
+        "no-obj-calls": "error",
+        "no-redeclare": "error",
+        "no-setter-return": "error",
+        "no-this-before-super": "error",
+        "no-unreachable": "error",
+        "no-unsafe-negation": "error",
+        "no-with": "error",
         "no-undef": "error"
       }
     }

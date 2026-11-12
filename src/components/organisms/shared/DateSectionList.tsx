@@ -119,8 +119,7 @@ function DateSectionListRoot<T>({
   getDate,
   renderItem,
   pickable = false,
-  // 렌더마다 새 Date지만 효과는 날짜 키(todayKey)로만 다시 돈다. ESLint react-hooks/purity는 잡지 않던 곳이라 동작은 그대로 두고 이 줄만 끈다
-  // oxlint-disable-next-line react/purity
+  // oxlint-disable-next-line react/purity -- 렌더마다 새 Date지만 효과는 todayKey로만 돈다. ESLint는 잡지 않던 곳이라 동작은 그대로 둔다
   today = new Date(),
   className,
   children,

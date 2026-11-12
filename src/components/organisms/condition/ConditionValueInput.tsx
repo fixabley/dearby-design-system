@@ -52,7 +52,7 @@ function RangeBox({
   return (
     <Field
       data-invalid={invalid || undefined}
-      className="rounded-md bg-muted focus-within:ring-2 focus-within:ring-ring"
+      className="rounded-md border border-border focus-within:ring-2 focus-within:ring-ring"
     >
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Input

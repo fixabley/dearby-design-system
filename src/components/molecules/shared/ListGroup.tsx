@@ -193,7 +193,7 @@ function ListRowRoot({
             onClick={onClick}
             className={cn(
               itemVariants(),
-              'min-h-0 min-w-0 flex-1 self-stretch group-hover/item:bg-foreground/5 active:bg-foreground/10 active:transition-none [-webkit-tap-highlight-color:transparent]',
+              'min-h-0 min-w-0 flex-1 self-stretch group-hover/item:bg-accent/60 active:bg-accent active:transition-none [-webkit-tap-highlight-color:transparent]',
               className,
             )}
           >
@@ -201,7 +201,7 @@ function ListRowRoot({
             {asChild && <Slottable>{children}</Slottable>}
           </Comp>
           {action && (
-            <div className="flex shrink-0 items-center self-stretch pr-1.5 transition-colors duration-200 group-hover/item:bg-foreground/5">
+            <div className="flex shrink-0 items-center self-stretch pr-1.5 transition-colors duration-200 group-hover/item:bg-accent/60">
               {action}
             </div>
           )}

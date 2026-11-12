@@ -13,7 +13,7 @@ function Toaster({ toastOptions, ...props }: ToasterProps) {
         ...toastOptions,
         classNames: {
           toast: [
-            'flex w-fit! max-w-[min(330px,calc(100vw-32px))] items-center gap-3 rounded-full bg-toast px-4.5 py-2.75 font-sans text-primary-foreground shadow-control',
+            'flex w-fit! max-w-[min(330px,calc(100vw-32px))] items-center gap-3 rounded-full border border-transparent bg-toast px-4.5 dark:border-white/15 py-2.75 font-sans text-primary-foreground shadow-control',
             'data-[x-position=center]:inset-x-0 data-[x-position=center]:mx-auto data-[x-position=right]:ml-auto max-[601px]:right-[calc(var(--mobile-offset-left)*2)]!',
           ].join(' '),
           content: 'flex min-w-0 flex-col gap-0.5',

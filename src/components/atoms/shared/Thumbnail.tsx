@@ -34,7 +34,7 @@ export function Thumbnail({
     return (
       <AvatarRoot className={root}>
         <AvatarImage src={t.cover} alt="" className="size-full object-cover" />
-        <AvatarFallback className="size-full bg-muted" />
+        <AvatarFallback className="size-full bg-accent" />
       </AvatarRoot>
     );
   }
@@ -43,7 +43,7 @@ export function Thumbnail({
       className={cn(root, 'grid place-items-center')}
       style={{ background: `linear-gradient(140deg,${t.color},${t.color}AA)` }}
     >
-      <span className="grid size-[58%] place-items-center overflow-hidden rounded-[10px] bg-white text-[18px] font-bold text-[#0E5E66] dark:bg-[#2A2E31] dark:text-white">
+      <span className="grid size-[58%] place-items-center overflow-hidden rounded-[10px] bg-white text-[18px] font-bold text-[#0E5E66] dark:bg-background dark:text-white">
         {t.logo ? (
           <AvatarImage
             src={t.logo}

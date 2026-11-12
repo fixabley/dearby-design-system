@@ -187,7 +187,7 @@ export function TimePicker({
               role="option"
               aria-selected={i === active}
               data-active={i === active || undefined}
-              className="flex min-h-11 cursor-default select-none items-center justify-between rounded-[10px] px-3 hover:bg-muted data-[active]:bg-muted"
+              className="flex min-h-11 cursor-default select-none items-center justify-between rounded-[10px] px-3 hover:bg-accent data-[active]:bg-accent"
               onClick={() => choose(t)}
             >
               <Text

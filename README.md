@@ -93,6 +93,8 @@ manage라는 도메인은 따로 두지 않습니다. 관리 탭 목록과 이�
 
 ## 실행
 
+Node는 26 이상입니다(`package.json` `engines.node`). CI는 가장 새 LTS(`lts/*`)로 돌고, 새 LTS가 나오면 따로 고치지 않아도 따라 올라갑니다.
+
 ```sh
 npm ci
 npm run storybook        # http://localhost:6008

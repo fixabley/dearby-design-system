@@ -22,7 +22,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # engines.node(>=26)에 맞는 가장 새 LTS. 받아 쓰는 웹 · 어드민의 Vercel도 LTS 판(22 · 24 · 26)만 두고 범위에 맞는 가장 새 판을 고른다.
+          # engines를 그대로 읽으면(node-version-file) 2027년 4월 27.0.0이 LTS가 되기 전에 27로 올라가 Vercel(26)과 어긋난다
+          node-version: lts/*
           cache: npm
       - run: npm ci
       - run: npm run format:check

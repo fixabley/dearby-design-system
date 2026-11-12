@@ -76,7 +76,7 @@ function Media({ className }: { className?: string }) {
         aria-hidden
         className={
           logo
-            ? 'bg-white ring-[.5px] ring-black/8 dark:bg-[#2A2E31] dark:ring-white/6'
+            ? 'bg-white ring-[.5px] ring-black/8 dark:bg-background dark:ring-white/6'
             : 'dark:ring-[.5px] dark:ring-white/6'
         }
       />

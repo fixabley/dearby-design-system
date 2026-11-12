@@ -13,8 +13,8 @@ export const menuMotion =
   'duration-200 ease-spring data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95';
 /** 메뉴 행·구분선. ContextMenu도 같은 모양 */
 export const menuItem =
-  'flex min-h-11 cursor-default select-none items-center gap-2 rounded-[10px] px-3 text-body outline-none data-[highlighted]:bg-muted [&_svg]:size-4';
-export const menuSeparator = '-mx-1 my-1 h-1.5 bg-muted';
+  'flex min-h-11 cursor-default select-none items-center gap-2 rounded-[10px] px-3 text-body outline-none data-[highlighted]:bg-accent [&_svg]:size-4';
+export const menuSeparator = '-mx-1 my-1.5 h-px bg-border';
 
 function DropdownMenuContent({
   className,
@@ -49,7 +49,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        'relative flex min-h-11 cursor-default select-none flex-col justify-center rounded-[10px] py-1.5 pl-8 pr-3 outline-none data-[highlighted]:bg-muted',
+        'relative flex min-h-11 cursor-default select-none flex-col justify-center rounded-[10px] py-1.5 pl-8 pr-3 outline-none data-[highlighted]:bg-accent',
         className,
       )}
       {...props}

@@ -71,7 +71,7 @@ function Media({ className }: { className?: string }) {
   return (
     <AvatarRoot
       className={cn(
-        'relative flex size-11 shrink-0 overflow-hidden rounded-md bg-white ring-[.5px] ring-black/6 dark:bg-[#2A2E31] dark:ring-white/6',
+        'relative flex size-11 shrink-0 overflow-hidden rounded-md bg-white ring-[.5px] ring-black/6 dark:bg-background dark:ring-white/6',
         className,
       )}
     >

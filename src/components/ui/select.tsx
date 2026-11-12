@@ -16,7 +16,7 @@ const selectTriggerVariants = cva(
     variants: {
       variant: {
         default:
-          'h-11 w-full rounded-md bg-muted px-4 text-body-lg [&_svg]:size-[18px]',
+          'h-11 w-full rounded-md border border-border px-4 text-body-lg [&_svg]:size-[18px]',
         inline:
           'h-auto rounded-sm bg-transparent p-0 text-body text-muted-foreground [&_svg]:size-4', // 묶음 목록 행 오른쪽 값
       },
@@ -115,7 +115,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        'relative flex min-h-11 cursor-default select-none flex-col justify-center rounded-[10px] py-1.5 pl-8 pr-3 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-muted data-[disabled]:opacity-45',
+        'relative flex min-h-11 cursor-default select-none flex-col justify-center rounded-[10px] py-1.5 pl-8 pr-3 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[disabled]:opacity-45',
         className,
       )}
       {...props}
@@ -142,7 +142,7 @@ function SelectSeparator({
 }: React.ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
-      className={cn('-mx-1 my-1 h-1.5 bg-muted', className)}
+      className={cn('-mx-1 my-1.5 h-px bg-border', className)}
       {...props}
     />
   );

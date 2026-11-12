@@ -46,7 +46,10 @@ function Options({ className }: { className?: string }) {
       aria-label={title}
       value={value}
       onValueChange={setValue}
-      className={cn('mt-3.5 overflow-hidden rounded-md bg-muted', className)}
+      className={cn(
+        'mt-3.5 overflow-hidden rounded-md border border-border',
+        className,
+      )}
     >
       {cards.map((c) => (
         <label

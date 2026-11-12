@@ -19,10 +19,7 @@ export function renderLite(md: string, key = 'm'): ReactNode[] {
     const k = `${key}-${n++}`;
     if (m[1])
       out.push(
-        <code
-          key={k}
-          className="rounded-[4px] bg-muted px-1 font-mono text-[13px]"
-        >
+        <code key={k} className="rounded-[4px] bg-accent px-1 text-[13px]">
           {m[1].slice(1, -1)}
         </code>,
       );

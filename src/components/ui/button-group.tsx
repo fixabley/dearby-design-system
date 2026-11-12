@@ -10,7 +10,7 @@ const buttonGroupVariants = cva('flex w-fit items-center', {
       default: 'gap-2',
       // 유리는 시안 .glass · .dk .glass(다크는 그림자 대신 .5px 링). button · input-group · dialog 닫기의 유리와 같은 값
       glass:
-        'h-11 rounded-full border-[.5px] border-black/8 bg-white/74 px-1 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:bg-[rgba(36,40,43,.72)] dark:shadow-control',
+        'h-11 rounded-full border-[.5px] border-black/8 bg-white/74 px-1 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:bg-[rgba(15,17,18,.72)] dark:shadow-control',
     },
     orientation: { horizontal: 'flex-row', vertical: 'flex-col' },
   },

@@ -32,7 +32,7 @@
   --muted: #ffffff; /* 채움 없음: 바탕과 같다(회색 바탕 채움 금지, 구분은 선 · 여백) */
   --switch-off: #e5e5ea; /* 꺼진 스위치 바탕 */
   --segment-thumb: #e2f1f0; /* 분할 전환의 고른 면: 브랜드 옅은 채움 */
-  --muted-foreground: #86868b;
+  --muted-foreground: #6e6e73; /* 흰 바탕 5.1:1(시안 --sec #86868B는 3.6:1) */
   --border: #d8d8dc;
   --input: #ffffff;
   --ring: #007f80;

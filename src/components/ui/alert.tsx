@@ -11,7 +11,7 @@ const alertVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-card text-card-foreground shadow-control [&>svg]:text-accent-foreground', // 카드 면
+          'bg-card text-card-foreground shadow-card [&>svg]:text-accent-foreground', // 카드 면
         destructive:
           'bg-destructive/10 text-foreground dark:bg-destructive/16 [&>svg]:text-destructive', // 빨강 틴트(오류·꺼짐)
       },

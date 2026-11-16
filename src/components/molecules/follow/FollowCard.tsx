@@ -31,9 +31,8 @@ import {
   type FollowLevel,
 } from '@/icons';
 
-/** 카드 면(원래 부품과 스켈레톤이 함께 쓴다): 흰 바탕 + 그림자(다크는 0.5px 테두리), 모서리 16, 최소 높이 132 */
-const SURFACE =
-  'relative flex min-h-33 rounded-lg bg-background shadow-control';
+/** 카드 면(원래 부품과 스켈레톤이 함께 쓴다): 카드 면 + 그림자(다크는 한 단계 밝은 면 + 0.5px 테두리), 모서리 16, 최소 높이 132 */
+const SURFACE = 'relative flex min-h-33 rounded-lg bg-card shadow-card';
 /** 안쪽: 위 12 · 옆 10 · 아래 10, 간격 6 */
 const INNER = 'flex flex-col gap-1.5 px-2.5 pb-2.5 pt-3';
 
@@ -414,7 +413,7 @@ function BrowseCardRoot({
     <BrowseCardContext.Provider value={{ title: heading, sub }}>
       <li
         className={cn(
-          'relative flex min-h-33 rounded-lg bg-accent shadow-none dark:shadow-control',
+          'relative flex min-h-33 rounded-lg bg-accent shadow-none dark:shadow-card',
           className,
         )}
       >

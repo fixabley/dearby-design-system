@@ -64,13 +64,14 @@ export const ProfileHeader: Story = {
   ),
 };
 
-/** 바탕 · 카드 · 채움(muted) 묶음 위에서 모두 보이는지 라이트·다크로 확인한다 */
+/** 바탕 · 카드 · 조작 면 · 채움(muted) 묶음 위에서 모두 보이는지 라이트·다크로 확인한다 */
 export const Surfaces: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       {[
         ['바탕', 'bg-background ring-1 ring-inset ring-border'],
-        ['카드', 'bg-card shadow-control'],
+        ['카드', 'bg-card shadow-card'],
+        ['조작 면', 'bg-control shadow-control'],
         ['채움 묶음', 'bg-muted'],
       ].map(([name, surface]) => (
         <div

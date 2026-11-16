@@ -167,7 +167,7 @@ export const Programs: Story = {
                 <img
                   src={p.logo}
                   alt=""
-                  className="size-[34px] shrink-0 rounded-[9px] bg-card object-contain shadow-control"
+                  className="size-[34px] shrink-0 rounded-[9px] bg-card object-contain shadow-card"
                 />
                 <div className="flex min-w-0 flex-1 flex-col">
                   <span className="truncate font-semibold">{p.name}</span>

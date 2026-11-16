@@ -13,7 +13,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground shadow-primary',
         mint: 'bg-mint text-mint-foreground shadow-control',
-        outline: 'bg-background text-foreground shadow-control',
+        outline: 'bg-control text-foreground shadow-control',
         ghost: 'bg-transparent text-accent-foreground',
         destructive: 'bg-transparent font-normal text-destructive',
         // 지우기·탈퇴처럼 되돌릴 수 없는 동작의 확인 버튼
@@ -21,10 +21,10 @@ const buttonVariants = cva(
           'bg-destructive-fill text-primary-foreground shadow-control',
         link: 'h-auto bg-transparent px-0 text-accent-foreground shadow-none',
         plain: 'bg-transparent text-foreground shadow-none',
-        tile: 'bg-card text-foreground shadow-control',
-        // 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass)
+        tile: 'bg-control text-foreground shadow-control',
+        // 유리는 button-group의 glass와 같은 값(glass 토큰: 라이트 흰색 74% · 다크 조작 면 72%)
         glass:
-          'border-[.5px] border-black/8 bg-white/74 text-foreground shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:bg-[rgba(15,17,18,.72)] dark:shadow-control',
+          'border-[.5px] border-black/8 bg-glass text-foreground shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:shadow-control',
       },
       size: {
         lg: 'h-13 rounded-[14px] px-6 text-headline [&_svg]:size-5', // 고정 CTA 17/600

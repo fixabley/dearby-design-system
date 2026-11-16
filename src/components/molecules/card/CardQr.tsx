@@ -113,7 +113,7 @@ function Code({ className, label }: { className?: string; label?: string }) {
       role="img"
       aria-label={label ?? `${name}의 명함 QR 코드`}
       className={cn(
-        'mt-[22px] size-[250px] shrink-0 rounded-3xl bg-white p-[18px] shadow-control first:mt-0 [&>img]:block [&>img]:size-full [&>svg]:block [&>svg]:size-full',
+        'mt-[22px] size-[250px] shrink-0 rounded-3xl bg-white p-[18px] shadow-card first:mt-0 [&>img]:block [&>img]:size-full [&>svg]:block [&>svg]:size-full',
         className,
       )}
     >

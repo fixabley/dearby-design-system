@@ -17,6 +17,11 @@
   --card-foreground: #111113;
   --popover: #ffffff;
   --popover-foreground: #111113;
+  /* 조작 면: 누를 수 있는 중립 면(Button outline · tile, Toggle tile, TimePicker). 라이트는 바탕 · 카드와 같은 흰색이고 그림자로 띄운다.
+     다크는 밝기로 높이를 나타낸다(2026-11-16 사용자 결정): 바탕 #0f1112 → 카드 #171a1b → 조작 면 · 떠 있는 면(popover · toast) #1f2325 */
+  --control: #ffffff;
+  /* 유리(Button glass · ButtonGroup · InputGroup · Dialog 닫기): backdrop-blur 뒤에 까는 반투명 면. 다크는 조작 면 #1f2325의 72% */
+  --glass: rgba(255, 255, 255, 0.74);
   --primary: #007f80; /* 청록 채움 면: 두 모드 모두 #007F80 + 흰 글자 */
   --primary-foreground: #ffffff;
   --accent: #e2f1f0; /* 민트 */
@@ -46,7 +51,11 @@
   --toast: rgba(0, 0, 0, 0.85);
   --toast-action: #5fd4d2; /* 토스트 위 행동 글자(밝은 청록) */
   --radius: 12px;
+  /* 조작 면의 그림자. 다크는 그림자 대신 위쪽 안쪽 밝은 선 + 0.5px 테두리(.dk) */
   --shadow-control:
+    0 2px 14px rgba(20, 32, 31, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.03);
+  /* 카드처럼 누르지 않는 면(Card · Alert · Popover · Toast · FollowCard)의 그림자. 라이트는 control과 같은 값, 다크는 0.5px 테두리만 */
+  --shadow-card:
     0 2px 14px rgba(20, 32, 31, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.03);
   --shadow-primary: 0 4px 16px rgba(0, 127, 128, 0.25);
   --ease-spring: cubic-bezier(0.3, 1.25, 0.45, 1);
@@ -56,22 +65,25 @@
   color-scheme: dark; /* 기본 컨트롤·스크롤바도 어둡게 */
   --background: #0f1112;
   --foreground: #f2f4f5;
-  --card: #0f1112;
+  /* 다크는 그림자가 보이지 않아 밝기로 높이를 나타낸다: 바탕 → 카드(한 단계) → 조작 면 · 떠 있는 면(두 단계). 외곽선은 쓰지 않는다 */
+  --card: #171a1b;
   --card-foreground: #f2f4f5;
-  --popover: #0f1112;
+  --popover: #1f2325; /* 메뉴 · 팝오버: 카드 위에서도 떠 보이게 조작 면과 같은 밝기 */
   --popover-foreground: #f2f4f5;
+  --control: #1f2325;
+  --glass: rgba(31, 35, 37, 0.72);
   --accent: rgba(47, 179, 180, 0.16);
   --accent-foreground: #2fb3b4;
   --wordmark-ear: #91d4d5;
-  /* 민트 채움 컨트롤: accent 16%를 바탕(#0f1112) 위에 합친 불투명 색이라 떠 있는 버튼 뒤가 비치지 않는다. 청록 글자 쉼 5.83 · hover 5.07 · 누름 4.36 */
+  /* 민트 채움 컨트롤: accent 16%를 바탕(#0f1112) 위에 합친 불투명 색이라 떠 있는 버튼 뒤가 비치지 않는다(카드 · 조작 면 위에서도 같은 색). 청록 글자 쉼 5.83 · hover 5.07 · 누름 4.36 */
   --mint: #142b2c;
   --mint-foreground: #2fb3b4;
   --secondary: rgba(47, 179, 180, 0.16);
   --secondary-foreground: #2fb3b4;
   --muted: #0f1112;
   --switch-off: #39393d; /* 꺼진 상태 표시(비활성 예외) */
-  /* 토스트 캡슐: 다크는 회색 대신 바탕과 같은 검은색에 옅은 테두리(sonner.tsx)로 구분한다 */
-  --toast: #0f1112;
+  /* 토스트 캡슐: 다크는 떠 있는 면(조작 면과 같은 #1f2325)에 옅은 테두리(sonner.tsx). 바탕색이면 카드(#171a1b) 위에서 구멍처럼 어두워 보인다 */
+  --toast: #1f2325;
   --segment-thumb: rgba(
     47,
     179,
@@ -84,7 +96,11 @@
   --ring: #2fb3b4;
   --destructive: #ff6b5f;
   --amber: #f0b44c;
-  --shadow-control: 0 0 0 0.5px rgba(255, 255, 255, 0.06); /* 다크는 그림자 대신 가는 테두리 */
+  /* 다크 조작 면: 그림자 대신 위쪽 안쪽 밝은 선 + 가는 테두리 */
+  --shadow-control:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --shadow-card: 0 0 0 0.5px rgba(255, 255, 255, 0.06); /* 다크 카드: 그림자 대신 가는 테두리 */
   --shadow-primary: none;
 }
 
@@ -98,6 +114,8 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-control: var(--control);
+  --color-glass: var(--glass);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
@@ -125,6 +143,7 @@
   --radius-lg: 16px; /* 섹션 카드 */
   --radius-xl: 20px; /* 커버·카드 */
   --shadow-control: var(--shadow-control);
+  --shadow-card: var(--shadow-card);
   --shadow-primary: var(--shadow-primary);
   /* 글자 계층 아홉 가지 */
   /* 글자 계층(2026-11-08 확정): 크기·줄 높이·기본 굵기. 이 값을 쓰는 곳은 Text 아톰과 shadcn 키트뿐 */

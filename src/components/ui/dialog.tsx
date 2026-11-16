@@ -39,7 +39,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-background shadow-[0_20px_60px_rgba(0,0,0,.25)] outline-none',
+          'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-background shadow-[0_20px_60px_rgba(0,0,0,.25)] outline-none dark:shadow-card',
           'duration-300 ease-spring data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[.97] data-[state=open]:slide-in-from-bottom-3',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[.98] data-[state=closed]:duration-150',
           className,
@@ -47,9 +47,9 @@ function DialogContent({
         {...props}
       >
         {children}
-        {/* 닫기의 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass) */}
+        {/* 닫기의 유리는 button-group의 glass와 같은 값(glass 토큰) */}
         {showClose && (
-          <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full border-[.5px] border-black/8 bg-white/74 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 transition-transform active:scale-95 pressable dark:border-white/8 dark:bg-[rgba(15,17,18,.72)] dark:shadow-control [&_svg]:size-5">
+          <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full border-[.5px] border-black/8 bg-glass shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 transition-transform active:scale-95 pressable dark:border-white/8 dark:shadow-control [&_svg]:size-5">
             <Icon name="close" />
             <span className="sr-only">닫기</span>
           </DialogPrimitive.Close>

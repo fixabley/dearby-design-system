@@ -87,7 +87,7 @@ const meta: Meta = {
             onSelect?.(v);
             update({ dates: (v ?? []).map(toIso) });
           }}
-          className="rounded-lg bg-card shadow-control"
+          className="rounded-lg bg-card shadow-card"
         />
       );
     }
@@ -101,7 +101,7 @@ const meta: Meta = {
             onSelect?.(v);
             update({ range: { from: toIso(v?.from), to: toIso(v?.to) } });
           }}
-          className="rounded-lg bg-card shadow-control"
+          className="rounded-lg bg-card shadow-card"
         />
       );
     }
@@ -114,7 +114,7 @@ const meta: Meta = {
           onSelect?.(v);
           update({ selected: toIso(v) });
         }}
-        className="rounded-lg bg-card shadow-control"
+        className="rounded-lg bg-card shadow-card"
       />
     );
   },

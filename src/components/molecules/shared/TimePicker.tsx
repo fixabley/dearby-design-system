@@ -125,7 +125,7 @@ export function TimePicker({
         <InputGroup
           ref={anchorRef}
           className={cn(
-            'w-20 bg-background px-3 text-foreground shadow-control',
+            'w-20 bg-control px-3 text-foreground shadow-control',
             className,
           )}
         >

@@ -242,7 +242,7 @@ function All({ className }: { className?: string }) {
                 as="div"
                 variant="caption"
                 tone="muted"
-                className="grid place-items-center rounded-md bg-card py-2.5 shadow-control"
+                className="grid place-items-center rounded-md bg-card py-2.5 shadow-card"
                 style={{ gridColumn: `2 / span ${tracks.length}` }}
               >
                 {s.band}
@@ -318,7 +318,7 @@ function Mine({ className }: { className?: string }) {
                 as="div"
                 variant="caption"
                 tone="muted"
-                className="grid place-items-center rounded-md bg-card py-2.5 shadow-control"
+                className="grid place-items-center rounded-md bg-card py-2.5 shadow-card"
               >
                 {r.band}
               </Text>

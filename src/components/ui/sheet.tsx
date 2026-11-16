@@ -28,9 +28,9 @@ function SheetContent({
         data-slot="sheet-content"
         data-floating={floating || undefined}
         className={cn(
-          // 그림자는 시안 .fsheet · .tksheet, 다크는 .dk .sheet처럼 그림자 대신 .5px 링
+          // 그림자는 시안 .fsheet · .tksheet, 다크는 그림자 대신 .5px 링(shadow-card). 면은 바탕색 그대로라 안의 카드 · 조작 면이 한 단계씩 밝다
           // 최대 높이는 dvh: 휴대폰에서 주소창이 펼쳐져 있어도 보이는 화면의 15%가 위에 남아 바깥을 눌러 닫을 수 있다(vh는 주소창이 접힌 큰 화면 기준)
-          'fixed z-50 flex max-h-[85dvh] flex-col bg-background px-5 pt-2 shadow-[0_-8px_30px_rgba(20,32,31,.16)] outline-none dark:shadow-control',
+          'fixed z-50 flex max-h-[85dvh] flex-col bg-background px-5 pt-2 shadow-[0_-8px_30px_rgba(20,32,31,.16)] outline-none dark:shadow-card',
           // 아래에 붙는 시트만 홈 인디케이터만큼 아래 여백을 더한다. env(safe-area-inset-bottom)은 받아 쓰는 쪽이 viewport-fit=cover일 때만 값이 있고 아니면 0
           floating
             ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px] pb-6'

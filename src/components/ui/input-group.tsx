@@ -9,9 +9,9 @@ const inputGroupVariants = cva(
   {
     variants: {
       variant: {
-        // 유리는 button-group의 glass와 같은 값(시안 .glass · .dk .glass)
+        // 유리는 button-group의 glass와 같은 값(glass 토큰)
         glass:
-          'h-11 rounded-full border-[.5px] border-black/8 bg-white/74 px-4 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:bg-[rgba(15,17,18,.72)] dark:shadow-control',
+          'h-11 rounded-full border-[.5px] border-black/8 bg-glass px-4 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:shadow-control',
         filled: 'min-h-11 rounded-md border border-border px-4',
       },
     },

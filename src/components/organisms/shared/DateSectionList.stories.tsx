@@ -181,7 +181,7 @@ export const Composed: Story = {
                 <X.Avatar
                   src={n.logo}
                   fallback={n.who[0]}
-                  className="bg-card shadow-control"
+                  className="bg-card shadow-card"
                 />
                 <div className="min-w-0 flex-1">
                   <X.Text variant="body" block>

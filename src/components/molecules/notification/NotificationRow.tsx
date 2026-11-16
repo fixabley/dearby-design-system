@@ -82,7 +82,7 @@ function Media({ className }: { className?: string }) {
       />
       <span
         aria-hidden
-        className="absolute -right-[3px] -bottom-[3px] grid size-5 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_0_0_2px_var(--background)] dark:shadow-control [&_svg]:size-[11px]"
+        className="absolute -right-[3px] -bottom-[3px] grid size-5 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_0_0_2px_var(--background)] dark:shadow-card [&_svg]:size-[11px]"
       >
         <Icon name={icon} />
       </span>

@@ -28,11 +28,11 @@ function useProgramRow(part: string) {
   return ctx;
 }
 
-/** 왼쪽 열: 종류 · 썸네일 */
+/** 왼쪽 열: 종류 · 썸네일. 썸네일이 행의 세로 가운데에 온다(ItemMedia stack) */
 function Media({ className }: { className?: string }) {
   const { p } = useProgramRow('Media');
   return (
-    <ItemMedia className={cn('w-16 flex-col gap-[5px]', className)}>
+    <ItemMedia variant="stack" className={className}>
       <KindLabel kind={p.kind} />
       <Thumbnail thumb={p.thumb} />
     </ItemMedia>
@@ -118,7 +118,8 @@ function ProgramRowRoot({
         size="row"
         selected={selected}
         // 고른 면 · 누름 덧칠은 글 자리 밖으로 좌우 12씩 넓힌다(글 자리는 그대로)
-        className="-mx-3 w-[calc(100%+24px)] px-3 py-3.5 pressable"
+        // 썸네일과 글 열은 세로 가운데로 맞춘다(2026-11-17 사용자 결정)
+        className="-mx-3 w-[calc(100%+24px)] items-center px-3 py-3.5 pressable"
       >
         <a
           href={`/programs/${p.id}`}
@@ -156,8 +157,8 @@ export const ProgramRow = Object.assign(ProgramRowRoot, {
 /** 불러오는 동안의 프로그램 행: 같은 칸과 간격(종류 · 썸네일 | 조직 줄 · 이름 한 줄 · 소개 두 줄) */
 export function ProgramRowSkeleton() {
   return (
-    <Item size="row" aria-hidden className="py-3.5">
-      <ItemMedia className="w-16 flex-col gap-[5px]">
+    <Item size="row" aria-hidden className="items-center py-3.5">
+      <ItemMedia variant="stack">
         <KindLabelSkeleton />
         <Skeleton className="size-16" />
       </ItemMedia>

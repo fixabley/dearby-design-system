@@ -39,11 +39,11 @@ function useActivityRow(part: string) {
   return ctx;
 }
 
-/** 왼쪽 열: 종류 · 썸네일 · 상태 */
+/** 왼쪽 열: 종류 · 썸네일 · 상태. 썸네일이 행의 세로 가운데에 온다(ItemMedia stack) */
 function Media({ className }: { className?: string }) {
   const { a } = useActivityRow('Media');
   return (
-    <ItemMedia className={cn('w-16 flex-col gap-[5px]', className)}>
+    <ItemMedia variant="stack" className={className}>
       <KindLabel kind={a.kind} />
       <Thumbnail thumb={a.thumb} />
       {a.status && <StatusGlyph status={a.status} />}
@@ -142,7 +142,8 @@ function ActivityRowRoot({
         size="row"
         selected={selected}
         // 고른 면 · 누름 덧칠은 글 자리 밖으로 좌우 12씩 넓힌다(글 자리는 그대로)
-        className="-mx-3 w-[calc(100%+24px)] px-3 pressable"
+        // 썸네일과 글 열은 세로 가운데로 맞춘다(2026-11-17 사용자 결정)
+        className="-mx-3 w-[calc(100%+24px)] items-center px-3 pressable"
       >
         <a
           href={`/activities/${a.id}`}
@@ -182,8 +183,8 @@ export const ActivityRow = Object.assign(ActivityRowRoot, {
 /** 불러오는 동안의 활동 행: 같은 칸과 간격(종류 · 썸네일 | 조직 줄 · 이름 한 줄 · 메타 두 줄). 상태 · 시간표 · 트랙은 있을 때만이라 뺀다 */
 export function ActivityRowSkeleton() {
   return (
-    <Item size="row" aria-hidden>
-      <ItemMedia className="w-16 flex-col gap-[5px]">
+    <Item size="row" aria-hidden className="items-center">
+      <ItemMedia variant="stack">
         <KindLabelSkeleton />
         <Skeleton className="size-16" />
       </ItemMedia>

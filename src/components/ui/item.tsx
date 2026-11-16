@@ -87,6 +87,10 @@ const itemMediaVariants = cva('flex shrink-0 items-center justify-center', {
       default: 'bg-transparent',
       icon: 'text-accent-foreground [&_svg]:size-[22px]',
       image: 'overflow-hidden rounded-md',
+      // 활동 · 프로그램 행의 왼쪽 열(위 종류 라벨 · 가운데 썸네일 · 아래 상태). 위아래 칸을 같은 높이로 잡아(1fr 둘)
+      // 썸네일이 열의 세로 가운데에 오고, 행이 items-center라 썸네일과 글 열의 가운데가 맞는다
+      stack:
+        'grid w-16 grid-rows-[1fr_auto_1fr] justify-items-center gap-y-[5px] [&>:first-child]:self-end [&>:nth-child(3)]:self-start',
     },
   },
   defaultVariants: { variant: 'default' },

@@ -13,7 +13,7 @@ const meta: Meta = {
   argTypes: {
     tab: {
       control: 'inline-radio',
-      options: ['home', 'discover', 'cards', 'profile'],
+      options: ['home', 'discover', 'qr', 'contacts', 'profile'],
     },
   },
   render: ({ title, unread, tab }) => (

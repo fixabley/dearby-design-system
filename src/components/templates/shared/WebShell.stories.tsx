@@ -13,7 +13,7 @@ const meta: Meta = {
   argTypes: {
     active: {
       control: 'inline-radio',
-      options: ['home', 'discover', 'cards', 'profile'],
+      options: ['home', 'discover', 'qr', 'contacts', 'profile'],
     },
   },
   render: ({ height, active, title }) => (

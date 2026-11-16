@@ -20,7 +20,8 @@ const meta: Meta = {
       options: [
         'home',
         'discover',
-        'cards',
+        'qr',
+        'contacts',
         'profile',
         '온디바이스 AI 앱 만들기',
       ],

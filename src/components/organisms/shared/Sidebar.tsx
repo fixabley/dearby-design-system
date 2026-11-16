@@ -68,7 +68,7 @@ function NavItem({
   );
 }
 
-/** 앱 탭(홈 · 발견 · 명함 · 내 프로필) */
+/** 앱 탭(홈 · 발견 · QR · 연락처 · 내 프로필) */
 function Nav() {
   return (
     <>

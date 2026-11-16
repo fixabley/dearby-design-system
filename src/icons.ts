@@ -12,6 +12,8 @@ export const ICONS = {
   explore:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4 13.5 13.5 8.4 15.6 10.5 10.5z"/></svg>',
   card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2"/><path d="M6.3 16.2c.6-1.3 1.6-2 2.7-2s2.1.7 2.7 2M14 10h4M14 13.5h4"/></svg>',
+  // QR 탭(2026-11-17 계약 "QR 교환": 탭 막대 가운데의 평범한 탭). 찾기 무늬 셋과 오른쪽 아래 모듈
+  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.5"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.5"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.5"/><path d="M6.75 6.75h.01M17.25 6.75h.01M6.75 17.25h.01M14 14h2.5v2.5M20.5 14v.01M14 20.5h.01M17.5 20.5h3v-3"/></svg>',
   profile:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.6 18.3c1.3-1.9 3.2-2.9 5.4-2.9s4.1 1 5.4 2.9"/></svg>',
   settings:

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@/lib/utils';
 
-// shadcn Card + Dearby 섹션 카드: 흰 면 + 얇은 테두리(페이지 바탕은 옅은 회색이라 면 대비가 보인다), 모서리 16, 안쪽 18·20, 소제목 15/600
+// shadcn Card + Dearby 섹션 카드: 테두리 없는 옅은 면 #f4f6f6(라이트, 다크는 한 단계 밝은 면 + 가는 테두리), 모서리 16, 안쪽 18·20, 소제목 15/600
 function Card({
   className,
   asChild,

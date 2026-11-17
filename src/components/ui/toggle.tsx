@@ -15,10 +15,10 @@ const toggleVariants = cva(
         tileMint:
           'h-[66px] flex-col gap-1.5 rounded-lg bg-mint text-caption font-semibold text-mint-foreground [&_svg]:size-[22px]',
         icon: 'size-7 rounded-full text-accent-foreground [&_svg]:size-[18px] data-[state=on]:[&_svg]:animate-[ds-pop_.3s_var(--ease-spring)]',
-        live: 'h-7 w-14 gap-[5px] rounded-full bg-card dark:bg-background text-micro font-bold tracking-wider text-accent-foreground ring-[1.5px] ring-inset ring-primary data-[state=on]:bg-primary data-[state=on]:text-white data-[state=on]:ring-0',
+        live: 'h-7 w-14 gap-[5px] rounded-full bg-background text-micro font-bold tracking-wider text-accent-foreground ring-[1.5px] ring-inset ring-primary data-[state=on]:bg-primary data-[state=on]:text-white data-[state=on]:ring-0',
         follow:
           'h-8 gap-1 rounded-full bg-mint px-3.5 text-caption font-semibold text-mint-foreground [&_svg]:size-4',
-        chip: 'bg-card text-body text-foreground ring-1 ring-inset ring-[#C4C4C7] dark:bg-transparent data-[state=on]:bg-mint dark:data-[state=on]:bg-mint data-[state=on]:font-semibold data-[state=on]:text-mint-foreground data-[state=on]:ring-2 data-[state=on]:ring-primary dark:ring-border',
+        chip: 'bg-card in-data-[slot=card]:bg-background text-body text-foreground ring-inset dark:ring-1 dark:bg-transparent data-[state=on]:bg-mint dark:data-[state=on]:bg-mint data-[state=on]:font-semibold data-[state=on]:text-mint-foreground data-[state=on]:ring-2 data-[state=on]:ring-primary dark:ring-border',
       },
       size: { default: 'h-10 px-3.5', auto: '' },
     },

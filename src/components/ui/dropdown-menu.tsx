@@ -27,7 +27,7 @@ function DropdownMenuContent({
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          'z-50 min-w-[230px] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-[14px] bg-popover p-1 text-popover-foreground shadow-card',
+          'z-50 min-w-[230px] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-[14px] bg-popover p-1 text-popover-foreground shadow-float',
           menuMotion,
           className,
         )}

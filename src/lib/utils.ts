@@ -17,7 +17,7 @@ const twMerge = extendTailwindMerge({
         'micro',
       ],
     },
-    classGroups: { shadow: [{ shadow: ['control', 'primary'] }] },
+    classGroups: { shadow: [{ shadow: ['control', 'primary', 'float'] }] },
   },
 });
 

@@ -122,7 +122,7 @@ function ServerPickerRoot({
         >
           서버
         </Text>
-        <div className="overflow-hidden rounded-md border border-border [&>*+*]:border-t [&>*+*]:border-border">
+        <div className="overflow-hidden rounded-md bg-card dark:bg-transparent dark:border dark:border-border [&>*+*]:border-t [&>*+*]:border-border">
           {children ?? (
             <>
               <Servers />

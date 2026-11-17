@@ -39,7 +39,7 @@ function DialogContent({
           forceMount
           data-slot="dialog-content"
           className={cn(
-            'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-sheet shadow-card outline-none',
+            'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-sheet shadow-float outline-none',
             className,
           )}
           {...props}

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const SEG = {
   past: 'bg-primary',
-  cur: 'bg-card dark:bg-background ring-[1.5px] ring-inset ring-primary',
+  cur: 'bg-background ring-[1.5px] ring-inset ring-primary',
   up: 'bg-accent',
 };
 

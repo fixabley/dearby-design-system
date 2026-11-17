@@ -6,7 +6,7 @@ const meta: Meta = {
 };
 export default meta;
 
-/** 모서리 넷과 면의 가장자리(그림자 없이 1px 테두리 선). 아래 줄은 면 둘: 바탕 위 카드(shadow-card), 카드 위 조작 면(shadow-control). 구분은 면 색과 테두리로 한다 */
+/** 모서리 넷과 컨트롤 그림자(누를 수 있는 것에만). 아래 줄은 면 셋: 바탕 위 카드(shadow-card), 카드 위 조작 면(shadow-control). 다크는 그림자 대신 밝기와 위쪽 밝은 선 */
 export const RadiusShadow: StoryObj = {
   name: 'Radius & Shadow',
   render: () => (

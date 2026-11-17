@@ -9,10 +9,10 @@ const inputGroupVariants = cva(
   {
     variants: {
       variant: {
-        // glass는 이름만 남은 별칭: button-group의 glass와 같은 평평한 조작 면
-        glass: 'h-11 rounded-full bg-control px-4 shadow-control',
-        filled:
-          'min-h-11 rounded-md border border-border bg-input px-4 dark:bg-transparent',
+        // 유리는 button-group의 glass와 같은 값(glass 토큰)
+        glass:
+          'h-11 rounded-full border-[.5px] border-black/8 bg-glass px-4 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:shadow-control',
+        filled: 'min-h-11 rounded-md border border-border px-4',
       },
     },
     defaultVariants: { variant: 'filled' },

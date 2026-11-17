@@ -8,8 +8,9 @@ const buttonGroupVariants = cva('flex w-fit items-center', {
   variants: {
     variant: {
       default: 'gap-2',
-      // glass는 이름만 남은 별칭: 평평한 조작 면 + 얇은 테두리(button · input-group · dialog 닫기와 같은 값)
-      glass: 'h-11 rounded-full bg-control px-1 shadow-control',
+      // 유리는 glass 토큰(라이트 흰색 74% · 다크 조작 면 72%), 다크는 그림자 대신 위쪽 밝은 선 + .5px 링. button · input-group · dialog 닫기의 유리와 같은 값
+      glass:
+        'h-11 rounded-full border-[.5px] border-black/8 bg-glass px-1 shadow-[0_4px_16px_rgba(0,0,0,.08)] backdrop-blur-[18px] backdrop-saturate-160 dark:border-white/8 dark:shadow-control',
     },
     orientation: { horizontal: 'flex-row', vertical: 'flex-col' },
   },

@@ -17,7 +17,7 @@ function ContextMenuContent({
       <ContextMenuPrimitive.Content
         data-slot="context-menu-content"
         className={cn(
-          'z-50 min-w-[230px] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-[14px] bg-popover p-1 text-popover-foreground shadow-float',
+          'z-50 min-w-[230px] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-[14px] bg-popover/95 p-1 text-popover-foreground shadow-float backdrop-blur-xl',
           menuMotion,
           className,
         )}

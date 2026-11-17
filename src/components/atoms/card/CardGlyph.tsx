@@ -9,7 +9,7 @@ export function CardGlyph({ className }: { className?: string }) {
     <span
       aria-hidden
       className={cn(
-        'relative inline-block h-[22px] w-[34px] shrink-0 rounded-[4px] bg-[linear-gradient(140deg,#F2F4F5,#fff)] shadow-[0_0_0_.5px_rgba(0,0,0,.12)] dark:bg-[linear-gradient(140deg,#202427,#2A2E31)] dark:shadow-[0_0_0_.5px_rgba(255,255,255,.06)]',
+        'relative inline-block h-[22px] w-[34px] shrink-0 rounded-[4px] bg-[linear-gradient(140deg,#F2F4F5,#fff)] shadow-[0_0_0_.5px_rgba(0,0,0,.12),0_1px_3px_rgba(0,0,0,.08)] dark:bg-[linear-gradient(140deg,#202427,#2A2E31)] dark:shadow-[0_0_0_.5px_rgba(255,255,255,.06)]',
         className,
       )}
     >

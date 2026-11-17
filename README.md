@@ -393,7 +393,7 @@ import { LockToggle } from '@dearby/design-system';
   - 행 이름은 17/600(`Text` `rowTitle`)이고 시안은 16/700입니다(참여자 행과 같은 맞춤). `팔로우 중`은 `badge` 12에 semibold를 줘 시안과 같은 12/600이고 줄 높이만 토큰의 1입니다. 개수는 숫자 폭이 흔들리지 않게 `tabular`를 줬습니다.
   - 팔로우 글자색은 `mint-foreground`(`#007172`)이고 시안은 `#007F80`입니다(민트 면 위 대비). 지도 버튼은 `Button outline icon-sm`이라 아이콘이 22이고 시안 20입니다.
   - 배너 이름의 흰색은 92%(시안 그대로)이고 배너 그러데이션은 시안의 hex(`#007F80` → `#2FB3B4`, 다크도 같음)를 그대로 썼습니다. 타일은 토큰만(`card` · `border`, 다크는 `shadow-card`)으로 시안 다크 값과 같습니다.
-  - 배너 그림자(시안 `.cover`의 0 10px 30px)는 넣지 않았습니다(그림자는 쓰지 않음, `ProgramDetail` 배너와 같음). 팔로우 버튼 ⊕ 선 굵기는 시안 2.6이고 공통 아이콘 1.8입니다. 지도 버튼은 `shadow-control`(1px 테두리)이고, 팔로우 버튼 다크 면은 `mint` 토큰(`#142b2c`)이라 시안의 반투명 청록 16%와 계산값이 같은 불투명색입니다.
+  - 배너 그림자(시안 `.cover`의 0 10px 30px)는 넣지 않았습니다(`ProgramDetail` 배너와 같음). 팔로우 버튼 ⊕ 선 굵기는 시안 2.6이고 공통 아이콘 1.8입니다. 지도 버튼은 `shadow-control`이고, 팔로우 버튼 다크 면은 `mint` 토큰(`#142b2c`)이라 시안의 반투명 청록 16%와 계산값이 같은 불투명색입니다.
   - 메뉴 항목(알림 수준 · 해제)은 `level` 하나로 모두 나옵니다(FollowCard처럼 핸들러 유무로 숨기지 않음).
   - 글자 토큰 목록은 `styles.css` · `scripts/check-layers.mjs` · `src/lib/utils.ts`(twMerge) 세 곳에 따로 있어 토큰을 더할 때 세 곳을 함께 고칩니다.
   - 시안의 누름 덧칠은 없어서 행에만 `pressable`을 줬습니다. 배너 이름이 길면 말줄임입니다(시안에 없음).
@@ -788,24 +788,25 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
 ## 원칙
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
-- 평평한 면 + 얇은 테두리(2026-11-17 사용자 결정): 그림자(뉴모피즘)와 유리(반투명 + `backdrop-blur`)는 쓰지 않습니다. 가장자리는 1px 테두리 선(`--border`)이 내고, 높이는 면 색이 나타냅니다. 다크는 밝기로 높이를 나타냅니다(2026-11-16).
+- 시안 NT7 모양(2026-11-17 사용자 결정, 홈 탭 · 활동 상세 시안): 흰 바탕 + 구분선 목록, 카드 · 조작 면은 흰 면 + 넓고 옅은 그림자, 탭 막대 · 머리 · 입력 캡슐은 유리(반투명 + `backdrop-blur`)입니다. 같은 날의 "평평한 면 + 얇은 테두리" · "회색 바탕" · "옅은 카드 면 #f4f6f6"은 폐기했습니다. 다크는 그림자 대신 밝기로 높이를 나타냅니다(2026-11-16, 외곽선은 쓰지 않음).
 
-  | 면 | 토큰(클래스) | 라이트 | 다크 | 가장자리 |
+  | 면 | 토큰(클래스) | 라이트 | 다크 | 그림자 토큰(라이트 / 다크) |
   | --- | --- | --- | --- | --- |
-  | 바탕(페이지) | `--background`(`bg-background`) | `#ffffff` | `#0f1112` | 없음 |
-  | 카드 · 줄 묶음 · 칩 | `--card`(`bg-card`) | `#f4f6f6`(청록 기운, 테두리 없음) | `#171a1b` | 라이트 없음 · 다크 `--shadow-card` = `0 0 0 1px var(--border)` |
-  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control` = `0 0 0 1px var(--border)` |
-  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff` | `#1f2325` | `--shadow-float`(1px 선, 불투명 면, 흐림 없음) |
-  | 시트 · 대화상자 | `--sheet`(`bg-sheet`) | `#ffffff` | `#0f1112` | `--shadow-float` |
+  | 바탕 | `--background`(`bg-background`) | `#ffffff` | `#0f1112` | 없음 |
+  | 카드 | `--card`(`bg-card`) | `#ffffff` | `#171a1b` | `--shadow-card`: `0 2px 14px rgba(20,32,31,.08), 0 0 0 .5px rgba(0,0,0,.03)` / `0 0 0 .5px rgba(255,255,255,.06)` |
+  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control`: 라이트는 카드와 같은 값 / `inset 0 1px 0 rgba(255,255,255,.08), 0 0 0 .5px rgba(255,255,255,.06)` |
+  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff`(메뉴는 95% + 흐림) | `#1f2325` | `--shadow-float`: `0 10px 40px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.04)` / `0 0 0 .5px rgba(255,255,255,.1)` |
+  | 시트 · 대화상자 | `--sheet`(`bg-sheet`) | `#ffffff` | `#0f1112` | 시트 `0 -8px 30px rgba(20,32,31,.16)`, 대화상자 `0 20px 60px rgba(0,0,0,.25)` / 다크 `shadow-float` |
   | 입력 칸 | `--input`(`bg-input`) | `#ffffff` + 테두리 | 투명 + 테두리 | `border-border` |
-  | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | 라이트는 검정 면 그대로 |
+  | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | 없음 |
+  | 유리 | `--glass`(`bg-glass`) | 흰색 74% | `rgba(31,35,37,.72)` | 라이트 `0 4px 16px rgba(0,0,0,.08)` + `.5px` 선 / 다크 `shadow-control` |
 
-  - `shadow-control` · `shadow-float`(다크는 `shadow-card`도)는 이름만 남은 값입니다. 실제로는 번지는 그림자가 아니라 1px 선(`box-shadow` 링이라 크기가 변하지 않고 모서리를 따름)이고 `--shadow-primary`는 `none`입니다. `--glass` 토큰과 `bg-glass`는 없앴고, `Button` · `ButtonGroup` · `InputGroup`의 `glass`는 이름만 남은 별칭으로 평평한 조작 면(`bg-control shadow-control`)입니다.
-  - 면 대비(2026-11-17 사용자 결정, 회색 페이지 바탕을 되돌림): 라이트는 흰 페이지 바탕 위에 카드 · 줄 묶음(`ItemGroup` · `Field` 묶음 · 선택 행) · 칩 · 배지 · 분할 전환을 테두리 없는 옅은 면 `#f4f6f6`으로 그립니다(흰 바탕과 1.085:1이라 구분은 면 색과 모양이 합니다). 떠 있는 층(시트 · 팝오버 · 메뉴 · 대화상자)과 입력 칸은 흰 면 + 테두리입니다. 다크는 그대로입니다. 눌림(`pressable`)과 3:1 포커스 링, chevron, 44 대상은 유지합니다. 청록 글자 `accent-foreground`는 옅은 카드 면 위 4.5:1을 위해 `#007a7b`(카드 4.76 · 흰 바탕 5.16)로 조금 진하게 했고 채움 면 `primary`는 `#007f80` 그대로입니다. 받아 쓰는 쪽이 면을 직접 만들 때 카드면은 `bg-card`, 떠 있는 층은 `bg-popover shadow-float`입니다.
-  - 누르는 대상 크기와 글자: 눈에 보이는 모양이 44보다 작아도 `touch-target`(`styles.css`, `relative`와 함께)이 누르는 자리를 44 × 44까지 넓힙니다(Button · Toggle · 체크 · 라디오 · 스위치 · 분할 전환 칸 · 달력 이동 · 알림 행동). 분할 전환 높이는 44이고 달력 날짜 칸은 44입니다. 판단에 쓰는 작은 라벨은 12px 이상이라 `text-micro`가 12px이고(Avatar 글자 포함), 달력 오늘은 `mint-foreground`(민트 면 5:1)입니다.
-  - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`) · 청록 채움(`primary`) · 빨강 채움은 면 색이 이미 달라 선도 없습니다.
-  - 카드처럼 누르지 않는 면(`Card` · `Alert` · `Popover` · `ContextMenu` · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`입니다.
-  - 떠 있는 층(팝오버 · 메뉴 · 시트 · 대화상자 · 토스트)은 테두리와 면 색으로 구분합니다. 시트 · 대화상자는 바탕색(`bg-background`)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
+  - 유리(`Button` · `ButtonGroup` · `InputGroup`의 `glass`, `Dialog` 닫기, 탭 막대)는 `bg-glass` + `backdrop-blur-[18px] backdrop-saturate-160` + `.5px` 선입니다(시안 `.glass`).
+  - 눌림(`pressable`)과 3:1 포커스 링, 44 대상(`touch-target`)은 유지합니다. 목록 행(`ActivityRow` · `ProgramRow`)은 시안대로 끝 화살표 없이 간결 행이고(`Chevron` 부품은 필요할 때만 직접 놓음), 설정 같은 이동 줄은 화살표를 둡니다.
+  - 누르는 대상 크기와 글자: 눈에 보이는 모양이 44보다 작아도 `touch-target`(`styles.css`, `relative`와 함께)이 누르는 자리를 44 × 44까지 넓힙니다(Button · Toggle · 체크 · 라디오 · 스위치 · 분할 전환 칸 · 달력 이동 · 알림 행동). 분할 전환 높이는 44이고 달력 날짜 칸은 44입니다. 판단에 쓰는 작은 라벨은 12px 이상이라 `text-micro`가 12px이고(Avatar 글자 포함), 달력 오늘은 `mint-foreground`(민트 면 5:1)입니다. 흐린 글자 `muted-foreground`는 `#636366`(흰 바탕 6.0:1)입니다.
+  - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`)과 청록 채움(`primary`)은 면 색이 이미 달라 그대로이고, `shadow-control`을 쓰는 민트 · 빨강 채움 버튼은 다크에서 위쪽 밝은 선만 함께 받습니다.
+  - 카드처럼 누르지 않는 면(`Card` · `Alert` · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`, 떠 있는 층은 `bg-popover shadow-float`, 유리는 `bg-glass backdrop-blur-[18px]`입니다.
+  - 시트 · 대화상자는 `--sheet`(라이트 흰색, 다크 바탕색)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
   - 입력 칸 · 묶음 · 고르는 칩 · 테두리 배지는 면을 올리지 않고 선(`border`)으로 구분합니다. 칩과 테두리 배지는 다크에서 바탕이 투명이라 카드 위에서도 구멍처럼 어둡게 보이지 않습니다.
   - 대비(다크): 본문 `#f2f4f5`는 카드 위 15.9:1 · 조작 면 위 14.4:1, 보조 `#9aa3a8`는 6.8:1 · 6.2:1, 청록 글자 `#2fb3b4`는 6.9:1 · 6.2:1입니다. 면끼리의 경계 대비는 카드/바탕 1.08:1 · 조작 면/바탕 1.19:1 · 조작 면/카드 1.10:1로 3:1에 못 미치고, 글자와 아이콘으로 식별합니다.
 - 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.

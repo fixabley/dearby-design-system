@@ -78,7 +78,7 @@ function Tile({ className }: { className?: string }) {
       aria-hidden
       className={cn(
         TILE,
-        'grid shrink-0 place-items-center border-[3px] border-background bg-card text-accent-foreground shadow-card dark:border-border [&_svg]:size-9',
+        'grid shrink-0 place-items-center border-[3px] border-background bg-card text-accent-foreground shadow-[0_4px_14px_rgba(0,0,0,.14)] dark:border-border dark:shadow-card [&_svg]:size-9',
         className,
       )}
     >

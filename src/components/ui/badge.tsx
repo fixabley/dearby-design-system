@@ -14,9 +14,9 @@ const badgeVariants = cva(
         default: 'bg-primary text-primary-foreground',
         mint: 'bg-accent text-mint-foreground',
         outline:
-          'bg-card text-foreground in-data-[slot=card]:bg-background dark:bg-transparent dark:ring-1 dark:ring-inset dark:ring-border',
+          'bg-background text-foreground ring-1 dark:bg-transparent ring-inset ring-border',
         muted:
-          'bg-card font-medium text-muted-foreground in-data-[slot=card]:bg-background dark:bg-transparent dark:ring-1 dark:ring-inset dark:ring-border',
+          'bg-background font-medium text-muted-foreground ring-1 ring-inset ring-border dark:bg-transparent',
         destructive: 'bg-destructive/10 text-destructive',
         count: 'bg-[#FF3B30] text-white', // 알림 개수(iOS 관례)
       },

@@ -87,7 +87,7 @@ function CommandGroup({
       data-slot="command-group"
       className={cn(
         '[&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:text-muted-foreground',
-        '[&_[cmdk-group-items]]:overflow-hidden [&_[cmdk-group-items]]:rounded-md [&_[cmdk-group-items]]:bg-card dark:[&_[cmdk-group-items]]:bg-transparent dark:[&_[cmdk-group-items]]:border dark:[&_[cmdk-group-items]]:border-border [&_[cmdk-item]+[cmdk-item]]:border-t',
+        '[&_[cmdk-group-items]]:overflow-hidden [&_[cmdk-group-items]]:rounded-md [&_[cmdk-group-items]]:border [&_[cmdk-group-items]]:border-border [&_[cmdk-item]+[cmdk-item]]:border-t',
         className,
       )}
       {...props}

@@ -134,7 +134,6 @@ function ProgramRowRoot({
             <>
               <Media />
               <Body />
-              <Chevron />
             </>
           )}
         </a>
@@ -148,7 +147,7 @@ function ProgramRowRoot({
  * 기본 조립은 `<ProgramRow p={p} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ProgramRow p={p}><ProgramRow.Media /><ProgramRow.Body><ProgramRow.Title /><ProgramRow.Description /></ProgramRow.Body></ProgramRow>`
  */
-/** 다른 화면으로 가는 줄의 끝 화살표(누를 수 있음 신호, 2026-11-17 UI/UX 평가 반영). 바꿔 조립할 때도 같은 모양으로 둔다 */
+/** 끝 화살표(선택): 시안의 간결 행에는 없어서 기본 조립은 그리지 않는다. 이동 줄로 쓰는 화면이 바꿔 조립할 때 놓는다 */
 function Chevron() {
   return (
     <Icon

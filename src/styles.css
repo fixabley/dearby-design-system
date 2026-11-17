@@ -17,11 +17,10 @@
   --card-foreground: #111113;
   --popover: #ffffff;
   --popover-foreground: #111113;
-  /* 조작 면: 누를 수 있는 중립 면(Button outline · tile, Toggle tile, TimePicker). 라이트는 바탕 · 카드와 같은 흰색이고 그림자로 띄운다.
-     다크는 밝기로 높이를 나타낸다(2026-11-16 사용자 결정): 바탕 #0f1112 → 카드 #171a1b → 조작 면 · 떠 있는 면(popover · toast) #1f2325 */
+  /* 조작 면: 누를 수 있는 중립 면(Button outline · tile, Toggle tile, TimePicker). 라이트는 바탕 · 카드와 같은 흰색이고 얇은 테두리로 가장자리를 낸다.
+     평평한 면(2026-11-17 사용자 결정): 그림자(뉴모피즘) · 유리(반투명 + 흐림) 없이 면 색 + 얇은 테두리(--border)로 구분한다.
+     다크는 밝기로 높이를 나타낸다(2026-11-16): 바탕 #0f1112 → 카드 #171a1b → 조작 면 · 떠 있는 면(popover · toast) #1f2325 */
   --control: #ffffff;
-  /* 유리(Button glass · ButtonGroup · InputGroup · Dialog 닫기): backdrop-blur 뒤에 까는 반투명 면. 다크는 조작 면 #1f2325의 72% */
-  --glass: rgba(255, 255, 255, 0.74);
   --primary: #007f80; /* 청록 채움 면: 두 모드 모두 #007F80 + 흰 글자 */
   --primary-foreground: #ffffff;
   --accent: #e2f1f0; /* 민트 */
@@ -51,13 +50,11 @@
   --toast: rgba(0, 0, 0, 0.85);
   --toast-action: #5fd4d2; /* 토스트 위 행동 글자(밝은 청록) */
   --radius: 12px;
-  /* 조작 면의 그림자. 다크는 그림자 대신 위쪽 안쪽 밝은 선 + 0.5px 테두리(.dk) */
-  --shadow-control:
-    0 2px 14px rgba(20, 32, 31, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.03);
-  /* 카드처럼 누르지 않는 면(Card · Alert · Popover · Toast · FollowCard)의 그림자. 라이트는 control과 같은 값, 다크는 0.5px 테두리만 */
-  --shadow-card:
-    0 2px 14px rgba(20, 32, 31, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.03);
-  --shadow-primary: 0 4px 16px rgba(0, 127, 128, 0.25);
+  /* 면의 가장자리: 그림자가 아니라 1px 테두리 선(box-shadow 링이라 크기가 변하지 않고 모서리를 따른다). 이름만 shadow-*로 남겼다.
+     조작 면(shadow-control)과 누르지 않는 면(shadow-card)은 같은 선이고, 구분은 면 색(--control · --card)이 한다. 채움 버튼(primary · mint)에는 선도 없다 */
+  --shadow-control: 0 0 0 1px var(--border);
+  --shadow-card: 0 0 0 1px var(--border);
+  --shadow-primary: none;
   --ease-spring: cubic-bezier(0.3, 1.25, 0.45, 1);
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -71,7 +68,6 @@
   --popover: #1f2325; /* 메뉴 · 팝오버: 카드 위에서도 떠 보이게 조작 면과 같은 밝기 */
   --popover-foreground: #f2f4f5;
   --control: #1f2325;
-  --glass: rgba(31, 35, 37, 0.72);
   --accent: rgba(47, 179, 180, 0.16);
   --accent-foreground: #2fb3b4;
   --wordmark-ear: #91d4d5;
@@ -96,12 +92,6 @@
   --ring: #2fb3b4;
   --destructive: #ff6b5f;
   --amber: #f0b44c;
-  /* 다크 조작 면: 그림자 대신 위쪽 안쪽 밝은 선 + 가는 테두리 */
-  --shadow-control:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 0 0 0.5px rgba(255, 255, 255, 0.06);
-  --shadow-card: 0 0 0 0.5px rgba(255, 255, 255, 0.06); /* 다크 카드: 그림자 대신 가는 테두리 */
-  --shadow-primary: none;
 }
 
 @theme inline {
@@ -115,7 +105,6 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-control: var(--control);
-  --color-glass: var(--glass);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);

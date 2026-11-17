@@ -64,7 +64,7 @@ function PhoneFrameTabBar({
 
 function PhoneFrameRoot({ children }: { children: ReactNode }) {
   return (
-    <div className="relative h-[852px] w-[393px] overflow-hidden rounded-[55px] bg-background shadow-[0_0_0_10px_#101012,0_0_0_11px_#2c2c2e,0_28px_60px_rgba(20,32,31,.22)]">
+    <div className="relative h-[852px] w-[393px] overflow-hidden rounded-[55px] bg-background shadow-[0_0_0_10px_#101012,0_0_0_11px_#2c2c2e]">
       <div className="absolute left-1/2 top-3 h-[34px] w-[124px] -translate-x-1/2 rounded-full bg-black" />
       {children}
     </div>

@@ -109,8 +109,7 @@ function SessionCard({
     <Card
       className={cn(
         'relative flex flex-col gap-1 rounded-md p-2.5',
-        s.desc &&
-          'transition-[box-shadow,transform] duration-150 hover:shadow-[0_4px_18px_rgba(20,32,31,.14)] active:scale-[.99]',
+        s.desc && 'transition-transform duration-150 active:scale-[.99]',
         className,
       )}
     >

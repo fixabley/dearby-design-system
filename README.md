@@ -68,7 +68,7 @@ src/
 
 | 층          | 순위 | 참조할 수 있는 것                                  |
 | ----------- | ---- | -------------------------------------------------- |
-| Foundations | 0    | 토큰(색 · 글자 · 모서리 · 그림자 · 움직임), `Icon` |
+| Foundations | 0    | 토큰(색 · 글자 · 모서리 · 테두리 · 움직임), `Icon` |
 | Atoms       | 1    | Foundations, Atoms 층 shadcn 원본                  |
 | Molecules   | 2    | 그 아래 전부, Molecules 층 shadcn 원본             |
 | Organisms   | 3    | 그 아래 전부, 다른 Organism(순환 금지)             |
@@ -292,7 +292,7 @@ const copy = (value: string) => () =>
 - 디스코드 연락처는 사용자가 공개로 켠 경우에만 다른 사람에게 보입니다. 디스코드 개발자 약관 5(b)가 디스코드에서 받은 사용자 이름 · id 같은 API Data를 사용자가 명시적으로 공유하라고 할 때만("when a user of your Application expressly directs you to share") 제3자에게 보이게 하기 때문입니다.
 - 시트 머리(`SheetHeader`)는 왼쪽 제목과 닫기입니다. 닫기는 머리가 놓인 곳에 따라 다르게 그립니다(2026-11-10 사용자 결정 "닫기 버튼 필요없고 바텀시트 기본동작처럼 다른 곳 누르면 닫기", "넓은화면에는 x 아이콘 표시해줘"). 시안의 시트 머리는 어디서나 오른쪽이 `닫기` 글자(핸들 바꾸기 · 건넬 명함 시트의 `.hsh`, 시간표 시트의 `.tsheet .close`)라 이 점이 시안과 다릅니다.
   - 좁은 화면의 바텀시트(`SheetContent`): 보이는 닫기가 없고 바깥을 누르거나 Esc로 닫습니다.
-  - 넓은 화면의 떠 있는 카드(`SheetContent floating`)와 대화상자(`DialogContent showClose={false}` 안): 머리 오른쪽에 X 버튼이 보입니다(`close` 아이콘, 아이콘 버튼 `Button variant="plain" size="icon-sm"`과 같은 모양). 화면 폭이 아니라 머리가 무엇 안에 놓였는지로 정하므로 쓰는 쪽이 따로 넘길 것은 없습니다. 대화상자에는 `showClose={false}`를 줘야 유리 닫기와 겹치지 않습니다.
+  - 넓은 화면의 떠 있는 카드(`SheetContent floating`)와 대화상자(`DialogContent showClose={false}` 안): 머리 오른쪽에 X 버튼이 보입니다(`close` 아이콘, 아이콘 버튼 `Button variant="plain" size="icon-sm"`과 같은 모양). 화면 폭이 아니라 머리가 무엇 안에 놓였는지로 정하므로 쓰는 쪽이 따로 넘길 것은 없습니다. 대화상자에는 `showClose={false}`를 줘야 둥근 닫기와 겹치지 않습니다.
   - 두 닫기 가운데 하나만 그립니다(다른 하나는 `display: none`). 그래서 화면 읽기와 Tab 순서에는 닫기가 하나만 잡힙니다. 머리 높이(40)와 제목 자리는 어느 쪽이든 같고, X 아이콘의 오른쪽 끝이 내용 끝에 맞습니다.
   - 바텀시트의 닫기 버튼은 지우지 않고 숨겼습니다. 화면 읽기에는 늘 `닫기` 버튼으로 있고, 초점이 있으면서 브라우저가 초점 표시를 켤 때(`:focus-visible`)만 머리 오른쪽에 시안의 닫기 모양으로 나타납니다. 열릴 때 첫 초점은 닫기에 갑니다(Radix는 첫 번째 누를 수 있는 요소에 초점을 줍니다. WAI-ARIA 대화상자 패턴: "Generally, focus is initially set on the first focusable element"). 버튼을 마우스 · 터치로 눌러 열면 초점이 닫기에 있어도 보이지 않고, 키보드로 열거나 Tab으로 닫기에 가면 보입니다.
   - `:focus-visible`은 브라우저가 정하는 어림 규칙이라 키보드로 열지 않아도 닫기가 보이는 때가 있습니다: 누르지 않아도 화면이 뜨면서 스스로 열리는 시트(주소로 바로 들어온 로그인 시트 등), 마우스로 연 뒤 아무 키(Shift 포함)나 누른 때(둘 다 Chrome에서 확인). 브라우저마다 다를 수 있고 Safari · Firefox는 확인하지 못했습니다.
@@ -342,7 +342,7 @@ import { LockToggle } from '@dearby/design-system';
 
 - `FollowCards`(ul): `strip`은 가로로 넘기는 한 줄(카드 폭 107, `-mx-6 px-6`으로 화면 옆 여백 24까지 번짐), `grid`는 3열(사이 12). 여백이 24가 아닌 화면은 className으로 `-mx-N px-N`을 덮어씁니다. 카드는 `li`라 이 안에 놓습니다.
 - `FollowCard`(컴파운드): 로고 44(조직 · 프로그램, 없으면 이름 첫 글자) 또는 종류 아이콘 원(지역 · 분야), 이름 두 줄, 종류 글자. `level`을 주면 종류 글자 대신 알림 종(전체 꽉 찬 종 · 신청일만 선 종 · 없음 사선 종)을 그리고, `onLevelChange` · `onUnfollow`를 주면 오른쪽 위 ⋯ 메뉴(알림 수준 고르기 · 팔로우 해제)가 생기며 새 모집 점은 오른쪽 아래로 옮깁니다. 누르는 요소가 카드 전체를 덮고(`onClick` 또는 `asChild` 링크), ⋯는 그 밖의 형제 버튼이라 링크 안에 버튼이 들어가지 않습니다. 이름 · 종류 또는 알림 수준 · 새 모집이 한 이름으로 읽힙니다(예: "카카오 알림 전체 새 모집 있음"). `onClick`도 `asChild`도 없으면 누르는 요소 없이 그리기만 합니다. 새 모집 점은 알림 수준 줄이 있는 카드는 오른쪽 아래, 없으면 오른쪽 위입니다.
-- `BrowseCard`(민트 면, 라이트는 그림자 없음 · 다크는 .5px 테두리): + 원 · 제목(기본 `<종류> 둘러보기`) · 보조(`조직 42곳`).
+- `BrowseCard`(민트 면, 라이트는 테두리 없음 · 다크는 1px 테두리): + 원 · 제목(기본 `<종류> 둘러보기`) · 보조(`조직 42곳`).
 - `AccordionSection`(컴파운드): 머리 행 56 전체가 버튼(`aria-expanded` · `aria-controls`, 제목 안의 button)이고 내용은 `region`입니다. 닫히면 `inert`라 초점도 읽기도 받지 않고, 높이는 0.25초에 열리고 닫힙니다(꺾쇠 회전도 0.25초). `open` · `onOpenChange`로 제어하거나 `defaultOpen`으로 시작만 정합니다. Radix Accordion 의존성은 더하지 않고 이 패턴을 직접 구현했습니다. 섹션 사이 .5px 구분선은 각 섹션의 아래 선(마지막 제외)입니다.
 - `NewDot` 아톰: 청록 점(카드 8 · 섹션 머리 7)에 `sr-only` "새 모집 있음"을 함께 둡니다.
 - 시안과 다른 점
@@ -352,7 +352,7 @@ import { LockToggle } from '@dearby/design-system';
   - 아코디언 머리의 누름 덧칠 모서리는 `rounded-xl`(20)이고 시안에는 없습니다. strip 아래의 14 여백(`.fstrip` margin)은 목록이 갖지 않으니 쓰는 쪽이 다음 요소와의 간격으로 둡니다.
   - 아코디언의 조직 아이콘은 기존 `group`을 씁니다(시안과 원 위치가 1px 다름).
   - 해제 항목 빨강은 `destructive` 토큰입니다(시안 #FF3B30).
-  - 펼치는 내용 칸은 옆으로 16 넓혀 카드 그림자가 잘리지 않게 했습니다(맨 위 그림자는 2px 여백 안에서 약간 잘림).
+  - 펼치는 내용 칸은 옆으로 16 넓혀 카드 테두리가 잘리지 않게 했습니다.
 - 스켈레톤은 `FollowCardSkeleton`만 있습니다.
 
 ### 지역 · 분야 행과 머리
@@ -393,7 +393,7 @@ import { LockToggle } from '@dearby/design-system';
   - 행 이름은 17/600(`Text` `rowTitle`)이고 시안은 16/700입니다(참여자 행과 같은 맞춤). `팔로우 중`은 `badge` 12에 semibold를 줘 시안과 같은 12/600이고 줄 높이만 토큰의 1입니다. 개수는 숫자 폭이 흔들리지 않게 `tabular`를 줬습니다.
   - 팔로우 글자색은 `mint-foreground`(`#007172`)이고 시안은 `#007F80`입니다(민트 면 위 대비). 지도 버튼은 `Button outline icon-sm`이라 아이콘이 22이고 시안 20입니다.
   - 배너 이름의 흰색은 92%(시안 그대로)이고 배너 그러데이션은 시안의 hex(`#007F80` → `#2FB3B4`, 다크도 같음)를 그대로 썼습니다. 타일은 토큰만(`card` · `border`, 다크는 `shadow-card`)으로 시안 다크 값과 같습니다.
-  - 배너 그림자(시안 `.cover`의 0 10px 30px)는 넣지 않았습니다(README 원칙: 그림자는 누를 수 있는 컨트롤에만, `ProgramDetail` 배너와 같음). 팔로우 버튼 ⊕ 선 굵기는 시안 2.6이고 공통 아이콘 1.8입니다. 지도 버튼 그림자는 `shadow-control`이라 시안(.1 · .04)보다 약간 옅고, 팔로우 버튼 다크 면은 `mint` 토큰(`#142b2c`)이라 시안의 반투명 청록 16%와 계산값이 같은 불투명색입니다.
+  - 배너 그림자(시안 `.cover`의 0 10px 30px)는 넣지 않았습니다(그림자는 쓰지 않음, `ProgramDetail` 배너와 같음). 팔로우 버튼 ⊕ 선 굵기는 시안 2.6이고 공통 아이콘 1.8입니다. 지도 버튼은 `shadow-control`(1px 테두리)이고, 팔로우 버튼 다크 면은 `mint` 토큰(`#142b2c`)이라 시안의 반투명 청록 16%와 계산값이 같은 불투명색입니다.
   - 메뉴 항목(알림 수준 · 해제)은 `level` 하나로 모두 나옵니다(FollowCard처럼 핸들러 유무로 숨기지 않음).
   - 글자 토큰 목록은 `styles.css` · `scripts/check-layers.mjs` · `src/lib/utils.ts`(twMerge) 세 곳에 따로 있어 토큰을 더할 때 세 곳을 함께 고칩니다.
   - 시안의 누름 덧칠은 없어서 행에만 `pressable`을 줬습니다. 배너 이름이 길면 말줄임입니다(시안에 없음).
@@ -420,8 +420,8 @@ import { LockToggle } from '@dearby/design-system';
   - 행 질문 글은 15/600입니다(시안 14/600, 글자 토큰에 14가 없음). 라벨은 12/600 그대로입니다.
   - `아직 몰라요` 글자색은 `foreground` 70%입니다. 시안의 `sec`(#86868B)는 민트 면 위 대비가 3:1이라 4.5:1에 못 미칩니다.
   - 버튼 높이 34는 시안 그대로(`Button` sm 32보다 2 큼)이고 누르는 면은 44에 못 미칩니다. 시안을 따랐습니다.
-  - 통과 버튼 그림자는 `shadow-primary`(0 4px 16px)이고 시안은 0 6px 18px입니다.
-  - 탈락 버튼 윤곽은 `Button` outline의 `shadow-control`입니다(시안은 1px sep 안쪽 선 + 0 2px 14px 그림자). 카드 질문 글은 `subtitle` 17/600 줄 높이 1.28입니다(시안 1.35).
+  - 통과 버튼은 그림자 없이 청록 면입니다.
+  - 탈락 버튼 윤곽은 `Button` outline의 `shadow-control`입니다(시안은 1px sep 안쪽 선 + 그림자). 카드 질문 글은 `subtitle` 17/600 줄 높이 1.28입니다(시안 1.35).
   - `아직 몰라요` 대비는 계산했습니다: foreground 70%가 민트 면 위 라이트 6.6:1 · 다크 7.3:1(시안 sec는 3.1:1).
   - 시안의 누름 윤곽(`.tap`)은 시연용이라 뺐고 `Button`의 누름 · 초점 규칙을 씁니다.
 
@@ -468,7 +468,7 @@ import { LockToggle } from '@dearby/design-system';
 - 스켈레톤: `NotificationRowSkeleton`(`cover`로 썸네일 자리) · `ParticipantRowSkeleton`.
 - 시안과 다른 점
   - 글자는 가까운 `Text` 역할로 맞췄습니다: 알림 문장 15/1.4 → `innerTitle`(15, 줄 높이 1.35), 시각 12 → `caption`(13), 참여자 이름 16 → `rowTitle`(17), 직업 14 → `innerTitle`(15), 핸들 13 · 소개 13 → `caption`.
-  - 교환 요청 알약은 `Button mint sm`이라 가로 여백이 14(시안 12)이고 컨트롤 그림자가 있습니다(시안은 없음, README 원칙의 "누를 수 있는 컨트롤에만 그림자"). 글자색은 시안 청록 `#007F80` 대신 `mint-foreground`(`#007172`)입니다(민트 면 위 4.5:1). 수락 알약은 `Button default sm`이라 높이 32 · 그림자 `shadow-primary`이고, 알림 행 안 수락 · 통과 버튼(시안 높이 34, 그림자 6/18)도 같은 `Button sm`을 씁니다.
+  - 교환 요청 알약은 `Button mint sm`이라 가로 여백이 14(시안 12)입니다. 글자색은 시안 청록 `#007F80` 대신 `mint-foreground`(`#007172`)입니다(민트 면 위 4.5:1). 수락 알약은 `Button default sm`이라 높이 32이고, 알림 행 안 수락 · 통과 버튼(시안 높이 34)도 같은 `Button sm`을 씁니다.
   - 행 안 버튼 줄(`action`)은 시안의 통과 · 탈락 · 아직 몰라요 · 수락 모양을 `Button`으로 짠 예일 뿐 부품에 넣지 않았습니다(선발 결과 묻기는 다른 화면 단위).
   - 종류 배지의 행사 아이콘은 시안의 점 찍힌 달력(`calendarDot`)이고 선발 깃발(`flag`)과 함께 시안 원문으로 더했습니다.
   - 대비 기록: 흐린 글자 `muted-foreground`는 시안 `--sec`(#86868B, 흰 바탕 약 3.6:1) 대신 #6E6E73(약 5.1:1)이라 13px 글자(시각 · 핸들 · 소개 · 요청함)도 4.5:1을 넘깁니다(2026-11-13 체계 값 변경, 다크는 그대로).
@@ -646,7 +646,7 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
 - 시안과 다른 점
   - 캡슐 글자는 `Badge` sm · muted의 11/500 · 높이 20 · 안쪽 8(시안 11/600)입니다.
   - 조건 줄 글자는 15이고 시안은 14, 아이콘과 글 사이 12(시안 10), 인증하기는 `Text` control 13/600(시안 14/600)입니다. 시안의 흰 카드 바탕과 구역 머리(`참여 조건 · 모두 충족`)는 쓰는 쪽(활동 상세)의 몫이라 부품에 넣지 않았습니다.
-  - 개설자 행은 `ListRow`라 시안의 흰 그림자 카드 대신 `ListGroup`의 회색 면이고 원이 44입니다.
+  - 개설자 행은 `ListRow`라 시안의 흰 그림자 카드 대신 `ListGroup`의 면이고 원이 44입니다.
   - 아래는 틀에 없어 만들지 않았습니다: 프로그램 화면(㉙-p)의 `아이콘 + @핸들 · 소속 + 꺾쇠 + 캡슐` 줄(`HostedLine`은 이니셜 원 줄이라 아이콘 줄은 `Icon` + `Text` + `Badge` 조립), 하단 `단계 인증하기` CTA와 안내 줄(`Button` lg + 쓰는 쪽 글).
 
 ## 글꼴
@@ -788,26 +788,26 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
 ## 원칙
 
 - 배지는 모두 캡슐. 청록 채움·민트·흰 바탕 테두리만 쓰고 빨강은 오류 전용, 회색 채움 배지는 없습니다.
-- 다크는 그림자 대신 밝기로 높이를 나타냅니다(2026-11-16 사용자 결정, 외곽선은 쓰지 않음). 라이트는 흰 면 + 넓고 옅은 그림자 그대로입니다.
+- 평평한 면 + 얇은 테두리(2026-11-17 사용자 결정): 그림자(뉴모피즘)와 유리(반투명 + `backdrop-blur`)는 쓰지 않습니다. 가장자리는 1px 테두리 선(`--border`)이 내고, 높이는 면 색이 나타냅니다. 다크는 밝기로 높이를 나타냅니다(2026-11-16).
 
-  | 면 | 토큰(클래스) | 라이트 | 다크 | 그림자 토큰(라이트 / 다크) |
+  | 면 | 토큰(클래스) | 라이트 | 다크 | 가장자리 |
   | --- | --- | --- | --- | --- |
   | 바탕 | `--background`(`bg-background`) | `#ffffff` | `#0f1112` | 없음 |
-  | 카드 | `--card`(`bg-card`) | `#ffffff` | `#171a1b` | `--shadow-card`: `0 2px 14px rgba(20,32,31,.08), 0 0 0 .5px rgba(0,0,0,.03)` / `0 0 0 .5px rgba(255,255,255,.06)` |
-  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control`: 라이트는 카드와 같은 값 / `inset 0 1px 0 rgba(255,255,255,.08), 0 0 0 .5px rgba(255,255,255,.06)` |
-  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff` | `#1f2325` | 부품마다(팝오버 · 컨텍스트 메뉴는 `shadow-card`) |
-  | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | `shadow-card` |
-  | 유리 | `--glass`(`bg-glass`) | 흰색 74% | `rgba(31,35,37,.72)` | 다크 `shadow-control` |
+  | 카드 | `--card`(`bg-card`) | `#ffffff` | `#171a1b` | `--shadow-card` = `0 0 0 1px var(--border)` |
+  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control` = 위와 같은 선 |
+  | 메뉴 · 팝오버 · 시트 · 대화상자 | `--popover`(`bg-popover`) · `bg-background` | `#ffffff` | `#1f2325` · `#0f1112` | `shadow-card`(불투명 면, 흐림 없음) |
+  | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | 라이트는 검정 면 그대로 |
 
-  - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`)과 청록 채움(`primary`)은 면 색이 이미 달라 그대로이고, `shadow-control`을 쓰는 민트 · 빨강 채움 버튼은 다크에서 위쪽 밝은 선만 함께 받습니다.
-  - 카드처럼 누르지 않는 면(`Card` · `Alert` · `Popover` · `ContextMenu` · 토스트 · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`입니다.
-  - 시트 · 대화상자는 바탕색(`bg-background`) 그대로이고 다크에서 0.5px 선(`shadow-card`)으로 가장자리를 냅니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
+  - `shadow-card` · `shadow-control`은 이름만 남은 값입니다. 실제로는 번지는 그림자가 아니라 1px 선(`box-shadow` 링이라 크기가 변하지 않고 모서리를 따름)이고 `--shadow-primary`는 `none`입니다. `--glass` 토큰과 `bg-glass`는 없앴고, `Button` · `ButtonGroup` · `InputGroup`의 `glass`는 이름만 남은 별칭으로 평평한 조작 면(`bg-control shadow-control`)입니다.
+  - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`) · 청록 채움(`primary`) · 빨강 채움은 면 색이 이미 달라 선도 없습니다.
+  - 카드처럼 누르지 않는 면(`Card` · `Alert` · `Popover` · `ContextMenu` · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`입니다.
+  - 떠 있는 층(팝오버 · 메뉴 · 시트 · 대화상자 · 토스트)은 테두리와 면 색으로 구분합니다. 시트 · 대화상자는 바탕색(`bg-background`)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
   - 입력 칸 · 묶음 · 고르는 칩 · 테두리 배지는 면을 올리지 않고 선(`border`)으로 구분합니다. 칩과 테두리 배지는 다크에서 바탕이 투명이라 카드 위에서도 구멍처럼 어둡게 보이지 않습니다.
   - 대비(다크): 본문 `#f2f4f5`는 카드 위 15.9:1 · 조작 면 위 14.4:1, 보조 `#9aa3a8`는 6.8:1 · 6.2:1, 청록 글자 `#2fb3b4`는 6.9:1 · 6.2:1입니다. 면끼리의 경계 대비는 카드/바탕 1.08:1 · 조작 면/바탕 1.19:1 · 조작 면/카드 1.10:1로 3:1에 못 미치고, 글자와 아이콘으로 식별합니다.
-- 누를 수 있는 컨트롤에만 그림자. 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.
+- 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.
 - 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄 · 활동 · 프로그램 목록 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
   - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
-  - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(그림자 + 축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).
+  - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).
   - 활동 · 프로그램 목록 줄(ActivityRow · ProgramRow)은 덧칠 면을 글 자리 밖 좌우 12까지 넓힙니다(`-mx-3 px-3`, 고른 면도 같음). 스크롤 칸 안에 둘 때는 칸 안쪽에 12 이상 여백이 있어야 잘리지 않습니다(TwoPane 목록 칸 · TwoColumnList는 맞춰 둠).
 - 날짜는 `M월 d일 (요일)`(올해가 아니면 앞에 `yyyy년`), 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다. 표기 도우미는 `lib/date`에 있습니다.
 - 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.

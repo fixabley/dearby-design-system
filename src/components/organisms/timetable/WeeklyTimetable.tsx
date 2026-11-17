@@ -24,7 +24,7 @@ const hh = (h: number) => `${String(h).padStart(2, '0')}:00`;
 const BASE =
   'absolute flex w-[calc(20%-4px)] flex-col gap-px overflow-hidden rounded-[8px] px-[5px] py-1 text-left';
 const PRESS =
-  'outline-none transition-[box-shadow,transform] duration-200 active:scale-[.98] focus-visible:ring-2 focus-visible:ring-ring';
+  'outline-none transition-transform duration-200 active:scale-[.98] focus-visible:ring-2 focus-visible:ring-ring';
 
 type Mode = 'view' | 'edit';
 type WeeklyTimetableContextValue = {
@@ -131,13 +131,7 @@ function BlockItem({
         type="button"
         aria-label={`${DAYS[b.day]}요일 ${b.name} 자세히`}
         onClick={() => setOpen(index)}
-        className={cn(
-          BASE,
-          PRESS,
-          SHAPE[b.shape],
-          'cursor-pointer hover:shadow-[0_2px_10px_rgba(20,32,31,.18)]',
-          className,
-        )}
+        className={cn(BASE, PRESS, SHAPE[b.shape], 'cursor-pointer', className)}
         style={style}
       >
         <BlockFace b={b} />

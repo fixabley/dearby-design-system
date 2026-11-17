@@ -30,10 +30,7 @@ function Cover({ className }: { className?: string }) {
     <div
       role="img"
       aria-label={`${d.title} 커버`}
-      className={cn(
-        'h-[260px] rounded-xl bg-cover bg-center shadow-[0_10px_30px_rgba(20,32,31,.14)]',
-        className,
-      )}
+      className={cn('h-[260px] rounded-xl bg-cover bg-center', className)}
       style={{ backgroundImage: `url(${d.cover})` }}
     />
   ) : null;

@@ -26,7 +26,7 @@ function Covers({ className }: { className?: string }) {
       {covers.map((c) => (
         <i
           key={c}
-          className="-ml-3 h-11 w-[34px] rounded-sm border-2 border-white bg-cover bg-center shadow-[0_1px_3px_rgba(0,0,0,.12)]"
+          className="-ml-3 h-11 w-[34px] rounded-sm border-2 border-white bg-cover bg-center"
           style={{ backgroundImage: `url(${c})` }}
         />
       ))}

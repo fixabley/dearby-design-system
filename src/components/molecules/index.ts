@@ -7,6 +7,7 @@ export * from './shared/SearchBar';
 export * from './shared/QueueCard';
 export * from './shared/GlassGroup';
 export * from './shared/Segmented';
+export * from './shared/ViewSwitch';
 export * from './shared/SocialLinks';
 export * from './shared/DateHeader';
 export * from './shared/DatePicker';

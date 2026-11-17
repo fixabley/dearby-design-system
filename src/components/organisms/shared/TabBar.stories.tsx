@@ -30,6 +30,11 @@ void D;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
+/** 줄어든 모양(아래로 스크롤하는 동안): 고른 탭 아이콘 하나의 작은 캡슐, 누르면 펴진다 */
+export const Minimized: Story = {
+  args: { minimized: true },
+};
+
 /** 컴파운드로 바꿔 조립: 탭 세 개만 */
 export const Composed: Story = {
   render: function Render(args) {
@@ -42,13 +47,13 @@ export const Composed: Story = {
           update({ active: k });
         }}
       >
-        <X.TabBar.Tab value="home" icon="home">
+        <X.TabBar.Tab value="home" icon="tabHomeFill">
           홈
         </X.TabBar.Tab>
-        <X.TabBar.Tab value="discover" icon="explore">
+        <X.TabBar.Tab value="discover" icon="tabSearchFill">
           발견
         </X.TabBar.Tab>
-        <X.TabBar.Tab value="profile" icon="profile">
+        <X.TabBar.Tab value="profile" icon="tabProfileFill">
           내 프로필
         </X.TabBar.Tab>
       </X.TabBar>

@@ -79,7 +79,7 @@ src/
 - Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 부품을 조합할 때만 한 층 올라갑니다.
   재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
 - **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기 · 굵기 · 줄 높이 · 자간 클래스를 쓰지 않고 `Text`로 그립니다. shadcn 원본은 예외입니다.
-  글자 토큰 9개(Foundations › Typography)는 `Text`의 역할 12가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine · HostedLine)만 씁니다.
+  글자 토큰 10개(Foundations › Typography)는 `Text`의 역할 13가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine · HostedLine)만 씁니다.
 - 분자 이상은 컴파운드 컴포넌트(루트 + 부품, children이 없으면 기본 조립)로 만듭니다.
 
 ```sh
@@ -170,6 +170,9 @@ import { ACTIVITIES } from '@dearby/design-system/data';
 - 예시 데이터의 이미지 경로(`img/…`)는 Storybook 정적 폴더 기준이라 패키지에 들어 있지 않습니다.
 - 활동 · 프로그램 행(`ActivityRow` · `ProgramRow`와 스켈레톤)은 왼쪽 썸네일과 오른쪽 글 열을 세로 가운데로 맞춥니다(2026-11-17 사용자 결정, 전에는 위에 붙었다). 왼쪽 열은 `ItemMedia variant="stack"`: 위 칸(종류 라벨) · 썸네일 · 아래 칸(상태)이고 위아래 칸이 늘 같은 높이라 썸네일이 열의 가운데에 옵니다. 글이 짧으면 글이 썸네일의 가운데에 맞습니다. 행을 직접 조립할 때는 행에 `items-center`, 왼쪽 열에 `variant="stack"`을 줍니다.
 - 앱 탭(`NAV` · `NavKey`, `TabBar` · `Sidebar`의 기본 조립)은 다섯 개입니다: 홈(`home`) · 발견(`discover`) · QR(`qr`, 아이콘 `qr`) · 연락처(`contacts`, 받은 명함이 모이는 탭이라 아이콘 `card`) · 내 프로필(`profile`). 2026-11-17 계약 "QR 교환"이 명함 탭을 QR과 연락처로 나눴습니다(전의 `cards` 키는 없습니다). QR은 다른 탭과 같은 모양입니다.
+  - 모바일 탭 막대(`TabBar`)는 iOS 26 시스템 탭 막대(`TabView`)와 같은 모양입니다(2026-11-17 사용자 결정, 값은 iOS 시뮬레이터 실측 · Android #186): 떠 있는 유리 캡슐 높이 63(좌우 · 아래 21은 받아 쓰는 쪽이 띄움), 안쪽 좌우 9, 다섯 칸 같은 폭. 면은 라이트 흰색 74% + 흐림 + 0.5 검정 14% 선, 다크 흰색 14% + 흐림 + 0.75 흰색 25% 선입니다. 고른 탭은 청록 글자(라이트 `#006B6C` · 다크 `#40C5C6`)와 칸보다 8 넓은 높이 52의 알약(라이트 검정 7% · 다크 검정 54%, 윤곽선 없음)이고, 안 고른 탭은 `#0F0F0F` · `#FDFEFF`입니다. 라벨은 10(판단 라벨 12 이상 규칙의 이 막대만 예외). 아이콘은 `NAV[].tabIcon`(`tabHomeFill` · `tabSearchFill` · `tabQr` · `tabContactsFill` · `tabProfileFill`): iOS가 SF Symbols `house` · `magnifyingglass` · `qrcode` · `person.2` · `person.crop.circle`을 모든 탭에 채움 꼴로 그리는 것과 같은 모양을 직접 그린 것이고(SF Symbols 원본은 Apple 플랫폼 밖에서 쓸 수 없어 복사하지 않았습니다, 글리프는 완전히 같지 않습니다) 크기는 집 27 × 24 · 돋보기 22 · QR 21 · 사람 둘 30 × 20 · 사람 원 23(pt)에 맞췄습니다. 사이드바(`Sidebar`)는 그대로 `NAV[].icon`을 씁니다.
+  - `minimized`를 주면 줄어든 모양(고른 탭 아이콘 하나의 64 × 52 캡슐, iOS `tabBarMinimizeBehavior(.onScrollDown)`)이고, 줄어든 막대를 누르면 `onExpand`가 불립니다. 아래로 스크롤하면 줄이고 위로 스크롤하면 펴는 것은 받아 쓰는 쪽(웹 `AppShell`)이 합니다. 숨기지 않습니다.
+
 - 불러오는 동안의 자리는 `Skeleton`으로 그립니다. 크기 · 모양은 className으로 정합니다(글자 줄 `h-4 w-48`, 원 `size-12 rounded-full`, 둥근 사각형은 기본 `rounded-md`). 깜빡임은 동작 줄이기 설정이면 꺼집니다.
 - 데이터 한 건을 그리는 항목 부품에는 같은 크기 · 간격의 `XxxSkeleton`을 옆에 둡니다: ProfileHeader(컴파운드) · FollowCard · TopicRow · TopicHeader(컴파운드) · SocialLinks · ActivityRow · ProgramRow · SubmissionRow · ReviewCard · QueueCard · Timeline · ScheduleCard · Notice, 행이 함께 쓰는 HostLine · MetaLine · KindLabel. 글자 줄은 `TextSkeleton`이 같은 역할의 줄 높이로 그리고, 있을 때만인 요소(상태 · 배지 · 소개 · 안내)는 뺍니다. 스토리마다 `Skeleton`에서 불러온 뒤와 나란히 비교합니다.
 - 스켈레톤은 화면 읽기에서 숨습니다. 화면 읽기 사용자에게는 불러오는 영역(목록 · 화면)마다 하나씩 알립니다: 그 영역에 불러오는 동안 `aria-busy="true"`를 달고, 바로 옆(aria-busy 영역 밖)의 화면에 안 보이는 `role="status"` 글자를 "불러오는 중"으로 채웁니다. 다 불러오면 aria-busy를 떼고 글자를 비웁니다. status 요소는 처음부터 두고 글자만 바꿉니다: 알림 영역은 바뀌기 전에 DOM에 있어야 읽힌다(MDN "ARIA live regions")라서, 글자가 든 채로 새로 붙이면 읽기 프로그램에 따라 읽히지 않습니다. 항목 스켈레톤마다 두면 여러 번 읽히니 영역에 하나만 둡니다. status를 busy 영역 안에 두면 읽기 프로그램이 바뀌는 중인 영역의 알림을 미룰 수 있어 밖에 둡니다. 따로 부품은 두지 않습니다(Tailwind `sr-only` 글자 하나).
@@ -809,7 +812,7 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
   - 시트 · 대화상자는 `--sheet`(라이트 흰색, 다크 바탕색)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
   - 입력 칸 · 묶음 · 고르는 칩 · 테두리 배지는 면을 올리지 않고 선(`border`)으로 구분합니다. 칩과 테두리 배지는 다크에서 바탕이 투명이라 카드 위에서도 구멍처럼 어둡게 보이지 않습니다.
   - 대비(다크): 본문 `#f2f4f5`는 카드 위 15.9:1 · 조작 면 위 14.4:1, 보조 `#9aa3a8`는 6.8:1 · 6.2:1, 청록 글자 `#2fb3b4`는 6.9:1 · 6.2:1입니다. 면끼리의 경계 대비는 카드/바탕 1.08:1 · 조작 면/바탕 1.19:1 · 조작 면/카드 1.10:1로 3:1에 못 미치고, 글자와 아이콘으로 식별합니다.
-- 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.
+- 글자 토큰은 10개(`text-display` … `text-micro`, 탭 막대 라벨 `text-tab` 10/500 포함), 화면에서는 `Text` 역할 13가지로 씁니다.
 - 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄 · 활동 · 프로그램 목록 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
   - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
   - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).

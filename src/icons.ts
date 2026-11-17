@@ -13,6 +13,26 @@ export const ICONS = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 4.5A1.5 1.5 0 0 1 8 3h8a1.5 1.5 0 0 1 1.5 1.5V20.5L12 16.6 6.5 20.5z"/></svg>',
   bookmarkFill:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="currentColor" d="M6.5 4.5A1.5 1.5 0 0 1 8 3h8a1.5 1.5 0 0 1 1.5 1.5V20.5L12 16.6 6.5 20.5z"/></svg>',
+  // 탭 막대 아이콘(iOS 시스템 탭 막대의 SF Symbols house · magnifyingglass · qrcode · person.2 · person.crop.circle과 같은 모양을 직접 그린 것).
+  // 고른 탭은 채운 꼴(house.fill · person.2.fill · person.crop.circle.fill), 돋보기와 QR은 같은 꼴을 두껍게 쓴다. SF Symbols 원본 글리프를 복사하지 않았다
+  tabHome:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.6 12 4l7.5 6.6V19a1.5 1.5 0 0 1-1.5 1.5h-3.2v-5.3a1 1 0 0 0-1-1h-3.6a1 1 0 0 0-1 1v5.3H6A1.5 1.5 0 0 1 4.5 19z"/><path d="M2.8 11.4 12 3.2l9.2 8.2"/></svg>',
+  tabHomeFill:
+    '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M12 3.4a1 1 0 0 1 .67.26l8.2 7.3a1 1 0 0 1-.67 1.74H19.5V19a1.5 1.5 0 0 1-1.5 1.5h-3.2v-5.3a1 1 0 0 0-1-1h-3.6a1 1 0 0 0-1 1v5.3H6A1.5 1.5 0 0 1 4.5 19v-6.3H3.8a1 1 0 0 1-.67-1.74l8.2-7.3A1 1 0 0 1 12 3.4z"/></svg>',
+  tabSearch:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.4 15.4 5 5"/></svg>',
+  tabSearchFill:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.4"/><path d="m15.4 15.4 5 5"/></svg>',
+  tabQr:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.4"/><g fill="currentColor" stroke="none"><rect x="5.7" y="5.7" width="2.1" height="2.1" rx=".5"/><rect x="16.2" y="5.7" width="2.1" height="2.1" rx=".5"/><rect x="5.7" y="16.2" width="2.1" height="2.1" rx=".5"/><rect x="14" y="14" width="2.4" height="2.4" rx=".6"/><rect x="18.1" y="14" width="2.4" height="2.4" rx=".6"/><rect x="14" y="18.1" width="2.4" height="2.4" rx=".6"/><rect x="18.1" y="18.1" width="2.4" height="2.4" rx=".6"/></g></svg>',
+  tabContacts:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.2" r="3.4"/><path d="M2.8 19.5c.3-3.4 2.8-5.6 6.2-5.6s5.9 2.2 6.2 5.6"/><path d="M15.6 5.3a3.2 3.2 0 0 1 0 5.9"/><path d="M17.2 14.3c2.2.5 3.8 2.3 4 5.2"/></svg>',
+  tabContactsFill:
+    '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g fill="currentColor"><circle cx="9" cy="8.2" r="3.9"/><path d="M1.9 19.9c.2-3.8 3-6.4 7.1-6.4s6.9 2.6 7.1 6.4c0 .3-.2.6-.6.6H2.5c-.4 0-.6-.3-.6-.6z"/><path d="M15.4 4.6a3.9 3.9 0 0 1 2.9 3.8 3.9 3.9 0 0 1-2.9 3.8 5.4 5.4 0 0 0 0-7.6zM17.5 13.8c2.6.5 4.3 2.5 4.4 5.4 0 .7-.2 1.3-.9 1.3h-2.3c.2-.4.3-.8.3-1.3 0-2.3-.6-4.2-1.5-5.4z"/></g></svg>',
+  tabProfile:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9.7" r="3"/><path d="M5.8 18.3c1.3-2.3 3.5-3.6 6.2-3.6s4.9 1.3 6.2 3.6"/></svg>',
+  tabProfileFill:
+    '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 3.9a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm0 8.3c-2.4 0-4.4 1-5.7 2.9A7.2 7.2 0 0 0 12 19.2c2.2 0 4.2-1 5.7-2.9-1.3-1.9-3.3-3.1-5.7-3.1z"/></svg>',
   home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1H15v-6H9v6H4.5a1 1 0 0 1-1-1z"/></svg>',
   explore:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4 13.5 13.5 8.4 15.6 10.5 10.5z"/></svg>',

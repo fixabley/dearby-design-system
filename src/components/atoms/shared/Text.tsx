@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 /**
  * 글자 아톰. 글자 크기·굵기·줄 높이를 정하는 유일한 곳(shadcn 키트 제외).
  * 분자 이상은 글자 스타일 클래스를 쓰지 않고 Text(또는 Text를 품은 아톰)로만 글자를 그린다.
- * variant는 역할(글자 계층 12가지), weight는 같은 크기 안에서 강조, tone은 글자 색.
+ * variant는 역할(글자 계층 13가지), weight는 같은 크기 안에서 강조, tone은 글자 색.
  * leading은 줄 높이만 줄인다. tight(1.25)는 아바타 옆 한 줄 메타(HostLine)만 쓴다.
  */
 export const textVariants = cva('', {
@@ -24,6 +24,7 @@ export const textVariants = cva('', {
       control: 'text-caption font-semibold leading-[1.2]', // 컨트롤 13/600
       badge: 'text-badge', // 배지 12/700
       micro: 'text-micro', // 마이크로 11/400
+      tab: 'text-tab', // 탭 막대 라벨 10/500(iOS 시스템 탭 막대)
     },
     tone: {
       default: 'text-foreground',
@@ -64,6 +65,7 @@ const TAG: Record<Variant, React.ElementType> = {
   control: 'span',
   badge: 'span',
   micro: 'span',
+  tab: 'span',
 };
 
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> &

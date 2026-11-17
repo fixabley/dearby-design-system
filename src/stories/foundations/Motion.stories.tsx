@@ -12,12 +12,12 @@ export const Motion: StoryObj = {
           ['duration-150', '눌림·색 바뀜'],
           ['duration-200~300 ease-spring', '스위치·라디오·분할 전환 미끄러짐'],
           [
-            'animate-in fade-in slide-in-from-bottom',
-            '칸 바뀜·모달·시트 떠오름',
+            '<ViewTransition enter exit>',
+            '시트·대화상자 열고 닫기: 브라우저 View Transitions 기본 전환(교차 페이드)',
           ],
           [
-            'data-[state=closed]:animate-out',
-            '닫힐 때 짧게 가라앉음(Radix가 끝날 때까지 기다림)',
+            'animate-in fade-in / animate-out',
+            '메뉴·팝오버 등 나머지 Radix 부품의 짧은 기본 모양',
           ],
           ['ds-pop / ds-eq', '찜 튀어 오름 · LIVE 막대'],
           ['animate-pulse', '스켈레톤 깜빡임(2초, 불투명도 1 ↔ 0.5)'],

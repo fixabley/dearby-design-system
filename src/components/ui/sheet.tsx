@@ -1,13 +1,15 @@
 import * as React from 'react';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
+import { TransitionPortal, TransitionRoot } from '@/lib/transition-open';
 import { Icon } from '@/components/foundations/Icon';
 import { buttonVariants } from './button';
 
 // shadcn Sheet(아래에서 올라오는 시트) + Dearby: 잡이 손잡이, 왼쪽 굵은 제목. 넓은 화면에선 아래 가운데 떠 있는 카드
 // 시안의 시트 머리는 오른쪽이 "닫기" 글자(.hsh · .tsheet .close)다. 2026-11-10 사용자 결정으로 바텀시트는 보이는 닫기를 없애 바깥 누르기 · Esc로 닫고,
 // 넓은 화면(떠 있는 카드 · 대화상자)은 X 버튼을 보인다(README 시트 머리)
-const Sheet = SheetPrimitive.Root;
+// 열고 닫기는 브라우저 View Transitions(React <ViewTransition>)의 기본 전환(교차 페이드)이다. 직접 만든 애니메이션은 없다
+const Sheet = TransitionRoot;
 const SheetTrigger = SheetPrimitive.Trigger;
 const SheetClose = SheetPrimitive.Close;
 /** 머리를 따로 그리는 시트 화면의 제목(Radix가 시트마다 제목을 요구한다) */
@@ -22,32 +24,38 @@ function SheetContent({
   floating?: boolean;
 }) {
   return (
-    <SheetPrimitive.Portal>
-      <SheetPrimitive.Overlay className="fixed inset-0 z-50 bg-black/20 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
-      <SheetPrimitive.Content
-        data-slot="sheet-content"
-        data-floating={floating || undefined}
-        className={cn(
-          // 그림자 없이 얇은 테두리(shadow-card). 면은 바탕색 그대로라 안의 카드 · 조작 면이 한 단계씩 밝다
-          // 최대 높이는 dvh: 휴대폰에서 주소창이 펼쳐져 있어도 보이는 화면의 15%가 위에 남아 바깥을 눌러 닫을 수 있다(vh는 주소창이 접힌 큰 화면 기준)
-          'fixed z-50 flex max-h-[85dvh] flex-col bg-background px-5 pt-2 shadow-card outline-none',
-          // 아래에 붙는 시트만 홈 인디케이터만큼 아래 여백을 더한다. env(safe-area-inset-bottom)은 받아 쓰는 쪽이 viewport-fit=cover일 때만 값이 있고 아니면 0
-          floating
-            ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px] pb-6'
-            : 'inset-x-0 bottom-0 rounded-t-[24px] pb-[calc(24px+env(safe-area-inset-bottom))]',
-          'duration-300 ease-spring data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-8 data-[state=open]:fade-in-0',
-          'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-8 data-[state=closed]:fade-out-0 data-[state=closed]:duration-150',
-          className,
-        )}
-        {...props}
-      >
-        <div
-          aria-hidden
-          className="mx-auto mb-2 h-[5px] w-9 shrink-0 rounded-full bg-[#D1D1D6] dark:bg-white/20"
+    <TransitionPortal
+      overlay={
+        <SheetPrimitive.Overlay
+          forceMount
+          className="fixed inset-0 z-50 bg-black/20"
         />
-        {children}
-      </SheetPrimitive.Content>
-    </SheetPrimitive.Portal>
+      }
+      content={
+        <SheetPrimitive.Content
+          forceMount
+          data-slot="sheet-content"
+          data-floating={floating || undefined}
+          className={cn(
+            // 그림자 없이 얇은 테두리(shadow-card). 면은 바탕색 그대로라 안의 카드 · 조작 면이 한 단계씩 밝다
+            // 최대 높이는 dvh: 휴대폰에서 주소창이 펼쳐져 있어도 보이는 화면의 15%가 위에 남아 바깥을 눌러 닫을 수 있다(vh는 주소창이 접힌 큰 화면 기준)
+            'fixed z-50 flex max-h-[85dvh] flex-col bg-background px-5 pt-2 shadow-card outline-none',
+            // 아래에 붙는 시트만 홈 인디케이터만큼 아래 여백을 더한다. env(safe-area-inset-bottom)은 받아 쓰는 쪽이 viewport-fit=cover일 때만 값이 있고 아니면 0
+            floating
+              ? 'bottom-6 left-1/2 w-[440px] -translate-x-1/2 rounded-[24px] pb-6'
+              : 'inset-x-0 bottom-0 rounded-t-[24px] pb-[calc(24px+env(safe-area-inset-bottom))]',
+            className,
+          )}
+          {...props}
+        >
+          <div
+            aria-hidden
+            className="mx-auto mb-2 h-[5px] w-9 shrink-0 rounded-full bg-[#D1D1D6] dark:bg-white/20"
+          />
+          {children}
+        </SheetPrimitive.Content>
+      }
+    />
   );
 }
 

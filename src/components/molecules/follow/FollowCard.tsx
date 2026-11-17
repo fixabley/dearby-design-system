@@ -339,7 +339,7 @@ function BrowseMedia({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        'grid size-11 shrink-0 place-items-center rounded-full bg-background text-accent-foreground [&_svg]:size-[22px]',
+        'grid size-11 shrink-0 place-items-center rounded-full bg-card text-accent-foreground dark:bg-background [&_svg]:size-[22px]',
         className,
       )}
     >

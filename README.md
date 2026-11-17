@@ -471,7 +471,7 @@ import { LockToggle } from '@dearby/design-system';
   - 교환 요청 알약은 `Button mint sm`이라 가로 여백이 14(시안 12)입니다. 글자색은 시안 청록 `#007F80` 대신 `mint-foreground`(`#007172`)입니다(민트 면 위 4.5:1). 수락 알약은 `Button default sm`이라 높이 32이고, 알림 행 안 수락 · 통과 버튼(시안 높이 34)도 같은 `Button sm`을 씁니다.
   - 행 안 버튼 줄(`action`)은 시안의 통과 · 탈락 · 아직 몰라요 · 수락 모양을 `Button`으로 짠 예일 뿐 부품에 넣지 않았습니다(선발 결과 묻기는 다른 화면 단위).
   - 종류 배지의 행사 아이콘은 시안의 점 찍힌 달력(`calendarDot`)이고 선발 깃발(`flag`)과 함께 시안 원문으로 더했습니다.
-  - 대비 기록: 흐린 글자 `muted-foreground`는 시안 `--sec`(#86868B, 흰 바탕 약 3.6:1) 대신 #6E6E73(약 5.1:1)이라 13px 글자(시각 · 핸들 · 소개 · 요청함)도 4.5:1을 넘깁니다(2026-11-13 체계 값 변경, 다크는 그대로).
+  - 대비 기록: 흐린 글자 `muted-foreground`는 시안 `--sec`(#86868B, 흰 바탕 약 3.6:1) 대신 #6E6E73(약 5.1:1)이라 13px 글자(시각 · 핸들 · 소개 · 요청함)도 4.5:1을 넘깁니다(2026-11-13 체계 값 변경, 다크는 그대로). 2026-11-17에 #636366(흰 바탕 6.0:1 · 회색 바탕 5.5:1 · 민트 면 5.2:1)으로 더 진하게.
   - 문장 · 상태 글자의 정확한 색은 토큰으로 맞췄습니다(시안 `--sec` → `muted-foreground`, 청록 → `accent-foreground`).
   - 눌러서 들어가는 행(`onClick` · `asChild`), 참여자 행 길게 누르기 · ⋯ 메뉴(㉘-d3), 교환 요청 30일 만료 표시는 시안 틀에 행 모양이 없어 만들지 않았습니다.
 - `Avatar`에 `row`(44, 글자 17), `Thumbnail`에 `xs`(52, 모서리 10)를 더했습니다(알림 · 참여자 행. Avatar는 shadcn 원본 수정).
@@ -792,13 +792,16 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
 
   | 면 | 토큰(클래스) | 라이트 | 다크 | 가장자리 |
   | --- | --- | --- | --- | --- |
-  | 바탕 | `--background`(`bg-background`) | `#ffffff` | `#0f1112` | 없음 |
+  | 바탕(페이지) | `--background`(`bg-background`) | `#f5f5f7`(옅은 회색) | `#0f1112` | 없음 |
   | 카드 | `--card`(`bg-card`) | `#ffffff` | `#171a1b` | `--shadow-card` = `0 0 0 1px var(--border)` |
   | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control` = 위와 같은 선 |
-  | 메뉴 · 팝오버 · 시트 · 대화상자 | `--popover`(`bg-popover`) · `bg-background` | `#ffffff` | `#1f2325` · `#0f1112` | `shadow-card`(불투명 면, 흐림 없음) |
+  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff` | `#1f2325` | `shadow-card`(불투명 면, 흐림 없음) |
+  | 시트 · 대화상자 | `--sheet`(`bg-sheet`) | `#ffffff` | `#0f1112` | `shadow-card`(불투명 면, 흐림 없음) |
   | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | 라이트는 검정 면 그대로 |
 
   - `shadow-card` · `shadow-control`은 이름만 남은 값입니다. 실제로는 번지는 그림자가 아니라 1px 선(`box-shadow` 링이라 크기가 변하지 않고 모서리를 따름)이고 `--shadow-primary`는 `none`입니다. `--glass` 토큰과 `bg-glass`는 없앴고, `Button` · `ButtonGroup` · `InputGroup`의 `glass`는 이름만 남은 별칭으로 평평한 조작 면(`bg-control shadow-control`)입니다.
+  - 누를 수 있음 신호(2026-11-17 UI/UX 평가 반영): 라이트 페이지 바탕은 옅은 회색(`#f5f5f7`)이고 카드 · 조작 면은 흰 면이라 면 대비가 보입니다(테두리는 남김). 다크는 바탕 `#0f1112` → 카드 `#171a1b`로 한 단계 밝습니다. 칩 · 배지 · 둥근 흰 면은 `bg-background`(회색)가 아니라 `bg-card`를 씁니다. 누르는 것은 모두 `pressable`(눌림 덧칠)과 3:1 이상의 `focus-visible` 링(`--ring`, Button은 페이지 바탕색의 간격)을 갖고, 카드 전체가 눌리면 `<Card interactive asChild>`로 같은 눌림 · 링을 줍니다.
+  - 누르는 대상 크기와 글자: 눈에 보이는 모양이 44보다 작아도 `touch-target`(`styles.css`, `relative`와 함께)이 누르는 자리를 44 × 44까지 넓힙니다(Button · Toggle · 체크 · 라디오 · 스위치 · 분할 전환 칸 · 달력 이동 · 알림 행동). 분할 전환 높이는 44이고 달력 날짜 칸은 44입니다. 판단에 쓰는 작은 라벨은 12px 이상이라 `text-micro`가 12px이고(Avatar 글자 포함), 달력 오늘은 `mint-foreground`(민트 면 5:1)입니다.
   - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`) · 청록 채움(`primary`) · 빨강 채움은 면 색이 이미 달라 선도 없습니다.
   - 카드처럼 누르지 않는 면(`Card` · `Alert` · `Popover` · `ContextMenu` · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`입니다.
   - 떠 있는 층(팝오버 · 메뉴 · 시트 · 대화상자 · 토스트)은 테두리와 면 색으로 구분합니다. 시트 · 대화상자는 바탕색(`bg-background`)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.

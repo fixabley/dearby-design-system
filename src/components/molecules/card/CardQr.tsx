@@ -58,7 +58,7 @@ function PillMenu({
         <button
           type="button"
           className={cn(
-            'inline-flex h-9 max-w-full items-center gap-1.5 rounded-full px-3.5 outline-none pressable focus-visible:ring-2 focus-visible:ring-ring [&_svg]:shrink-0',
+            'relative touch-target inline-flex h-9 max-w-full items-center gap-1.5 rounded-full px-3.5 outline-none pressable focus-visible:ring-2 focus-visible:ring-ring [&_svg]:shrink-0',
             triggerClassName,
           )}
         >

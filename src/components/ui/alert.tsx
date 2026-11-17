@@ -75,7 +75,7 @@ function AlertAction({
     <Comp
       data-slot="alert-action"
       className={cn(
-        'col-start-3 row-span-2 row-start-1 ml-3 whitespace-nowrap rounded-sm text-caption font-semibold text-accent-foreground outline-none transition-opacity active:opacity-60 focus-visible:ring-2 focus-visible:ring-ring',
+        'relative touch-target col-start-3 row-span-2 row-start-1 ml-3 whitespace-nowrap rounded-sm text-caption font-semibold text-accent-foreground outline-none transition-opacity active:opacity-60 focus-visible:ring-2 focus-visible:ring-ring',
         className,
       )}
       {...props}

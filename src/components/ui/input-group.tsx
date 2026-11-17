@@ -66,7 +66,7 @@ function InputGroupInput({
   return (
     <Input
       data-slot="input-group-control"
-      className={cn('flex-1 text-body', className)}
+      className={cn('flex-1 text-body focus-visible:ring-0', className)}
       {...props}
     />
   );
@@ -78,7 +78,7 @@ function InputGroupTextarea({
   return (
     <Textarea
       data-slot="input-group-control"
-      className={cn('flex-1 py-2', className)}
+      className={cn('flex-1 py-2 focus-visible:ring-0', className)}
       {...props}
     />
   );

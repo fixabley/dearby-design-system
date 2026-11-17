@@ -25,6 +25,7 @@ import {
 import { ProgressTrack } from '@/components/molecules/activity/ProgressTrack';
 import { TimetableButton } from '@/components/molecules/timetable/TimetableButton';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/components/foundations/Icon';
 
 type ActivityRowContextValue = {
   a: Activity;
@@ -157,6 +158,7 @@ function ActivityRowRoot({
             <>
               <Media />
               <Body />
+              <Chevron />
             </>
           )}
         </a>
@@ -170,9 +172,20 @@ function ActivityRowRoot({
  * 기본 조립은 `<ActivityRow a={a} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ActivityRow a={a}><ActivityRow.Media /><ActivityRow.Body><ActivityRow.Title /><ActivityRow.Track /></ActivityRow.Body></ActivityRow>`
  */
+/** 다른 화면으로 가는 줄의 끝 화살표(누를 수 있음 신호, 2026-11-17 UI/UX 평가 반영). 바꿔 조립할 때도 같은 모양으로 둔다 */
+function Chevron() {
+  return (
+    <Icon
+      name="chevronRight"
+      className="size-5 shrink-0 text-muted-foreground"
+    />
+  );
+}
+
 export const ActivityRow = Object.assign(ActivityRowRoot, {
   Media,
   Body,
+  Chevron,
   Host,
   Title,
   Metas,

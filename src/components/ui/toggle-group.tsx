@@ -41,7 +41,7 @@ function ToggleGroup({
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
       className={cn(
-        'relative isolate flex h-9 rounded-full border border-border p-[3px]',
+        'relative isolate flex h-11 rounded-full border border-border p-[3px]',
         className,
       )}
       style={{
@@ -67,7 +67,7 @@ function ToggleGroup({
 const ITEM: Record<Variant, string> = {
   segmented: '',
   circle:
-    'grid aspect-square place-items-center rounded-full border border-border text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:bg-primary data-[state=on]:text-white',
+    'relative touch-target grid aspect-square place-items-center rounded-full border border-border text-body font-semibold outline-none transition-[background-color,color,transform] duration-200 ease-spring active:scale-90 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:bg-primary data-[state=on]:text-white',
   plain: 'outline-none focus-visible:ring-2 focus-visible:ring-ring',
 };
 function ToggleGroupItem({
@@ -87,7 +87,7 @@ function ToggleGroupItem({
     <ToggleGroupPrimitive.Item
       data-slot="toggle-group-item"
       className={cn(
-        'flex-1 rounded-full text-caption font-semibold text-muted-foreground outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:text-foreground',
+        'relative touch-target flex-1 rounded-full text-caption font-semibold text-muted-foreground outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring pressable data-[state=on]:text-foreground',
         className,
       )}
       {...props}

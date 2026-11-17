@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/item';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/components/foundations/Icon';
 
 type ProgramRowContextValue = { p: Program };
 const ProgramRowContext = createContext<ProgramRowContextValue | null>(null);
@@ -133,6 +134,7 @@ function ProgramRowRoot({
             <>
               <Media />
               <Body />
+              <Chevron />
             </>
           )}
         </a>
@@ -146,9 +148,20 @@ function ProgramRowRoot({
  * 기본 조립은 `<ProgramRow p={p} />`. 바꿔 조립하려면 부품을 직접 놓는다:
  * `<ProgramRow p={p}><ProgramRow.Media /><ProgramRow.Body><ProgramRow.Title /><ProgramRow.Description /></ProgramRow.Body></ProgramRow>`
  */
+/** 다른 화면으로 가는 줄의 끝 화살표(누를 수 있음 신호, 2026-11-17 UI/UX 평가 반영). 바꿔 조립할 때도 같은 모양으로 둔다 */
+function Chevron() {
+  return (
+    <Icon
+      name="chevronRight"
+      className="size-5 shrink-0 text-muted-foreground"
+    />
+  );
+}
+
 export const ProgramRow = Object.assign(ProgramRowRoot, {
   Media,
   Body,
+  Chevron,
   Host,
   Title,
   Description,

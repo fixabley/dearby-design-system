@@ -100,7 +100,7 @@ function DateHeaderRoot({
         {pickable ? (
           <Popover open={isOpen} onOpenChange={setOpen}>
             <Text as="h2" variant="section" className="flex">
-              <PopoverTrigger className="group/date-header flex items-center gap-1.5 rounded-sm text-left outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <PopoverTrigger className="group/date-header relative touch-target flex items-center gap-1.5 rounded-sm text-left outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 {body}
               </PopoverTrigger>
             </Text>

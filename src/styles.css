@@ -11,10 +11,13 @@
 /* ── Dearby 토큰(시안 11월 3일 체계)을 shadcn 이름에 덮어씌움 ── */
 :root {
   color-scheme: light; /* 브라우저 기본 컨트롤·스크롤바 */
-  --background: #ffffff;
+  /* 페이지 바탕은 옅은 회색, 카드 · 조작 면 · 시트는 흰 면(2026-11-17 UI/UX 평가 반영): 그림자 없이 면 색 대비로 누를 수 있는 면을 알린다 */
+  --background: #f5f5f7;
   --foreground: #111113;
   --card: #ffffff;
   --card-foreground: #111113;
+  /* 시트 · 대화상자 면: 라이트는 흰색, 다크는 바탕색(안의 카드 · 조작 면이 한 단계씩 밝다) */
+  --sheet: #ffffff;
   --popover: #ffffff;
   --popover-foreground: #111113;
   /* 조작 면: 누를 수 있는 중립 면(Button outline · tile, Toggle tile, TimePicker). 라이트는 바탕 · 카드와 같은 흰색이고 얇은 테두리로 가장자리를 낸다.
@@ -33,10 +36,10 @@
   --mint-foreground: #007172;
   --secondary: #e2f1f0;
   --secondary-foreground: #007f80;
-  --muted: #ffffff; /* 채움 없음: 바탕과 같다(회색 바탕 채움 금지, 구분은 선 · 여백) */
+  --muted: #f5f5f7; /* 채움 없음: 바탕과 같다(회색 바탕 채움 금지, 구분은 선 · 여백) */
   --switch-off: #e5e5ea; /* 꺼진 스위치 바탕 */
   --segment-thumb: #e2f1f0; /* 분할 전환의 고른 면: 브랜드 옅은 채움 */
-  --muted-foreground: #6e6e73; /* 흰 바탕 5.1:1(시안 --sec #86868B는 3.6:1) */
+  --muted-foreground: #636366; /* 흰 바탕 6.0:1 · 회색 바탕 5.5:1 · 민트 면 5.2:1(시안 --sec #86868B는 3.6:1) */
   --border: #d8d8dc;
   --input: #ffffff;
   --ring: #007f80;
@@ -65,6 +68,7 @@
   /* 다크는 그림자가 보이지 않아 밝기로 높이를 나타낸다: 바탕 → 카드(한 단계) → 조작 면 · 떠 있는 면(두 단계). 외곽선은 쓰지 않는다 */
   --card: #171a1b;
   --card-foreground: #f2f4f5;
+  --sheet: #0f1112;
   --popover: #1f2325; /* 메뉴 · 팝오버: 카드 위에서도 떠 보이게 조작 면과 같은 밝기 */
   --popover-foreground: #f2f4f5;
   --control: #1f2325;
@@ -102,6 +106,7 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-sheet: var(--sheet);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-control: var(--control);
@@ -166,7 +171,7 @@
   --text-badge--line-height: 1;
   --text-badge--font-weight: 700;
   /* 마이크로 */
-  --text-micro: 11px;
+  --text-micro: 12px; /* 판단에 쓰는 작은 라벨은 12px 이상(2026-11-17) */
   --text-micro--line-height: 1.2;
   --ease-spring: var(--ease-spring);
   --ease-out-soft: var(--ease-out);
@@ -188,6 +193,22 @@
     background-image: linear-gradient(
       color-mix(in oklab, var(--foreground) 10%, transparent) 0 0
     );
+  }
+}
+
+/* 누르는 대상의 크기: 눈에 보이는 모양은 그대로 두고 누르는 자리만 44 x 44까지 넓힌다(Apple 44pt · Android 48dp 권장).
+   요소가 `relative`(position이 있는 요소)여야 한다. 이미 44 이상이면 아무 영향이 없다 */
+@utility touch-target {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    transform: translate(-50%, -50%);
   }
 }
 

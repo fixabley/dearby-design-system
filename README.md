@@ -79,7 +79,7 @@ src/
 - Foundations는 부품이 아니라 재료라서 조합으로 세지 않습니다. 부품을 조합할 때만 한 층 올라갑니다.
   재료만 쓰거나 shadcn 원본 하나를 감싸면 그 층에 머물고(Thumbnail은 Avatar를 감싼 아톰, Segmented는 ToggleGroup을 감싼 분자), 부품을 조합하면 한 층 위입니다(HostLine은 Avatar와 Text를 조합한 분자).
 - **글자는 `Text` 아톰으로.** 분자 이상은 글자 크기 · 굵기 · 줄 높이 · 자간 클래스를 쓰지 않고 `Text`로 그립니다. shadcn 원본은 예외입니다.
-  글자 토큰 9개(Foundations › Typography)는 `Text`의 역할 12가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine · HostedLine)만 씁니다.
+  글자 토큰 10개(Foundations › Typography)는 `Text`의 역할 13가지(Atoms › Shared › Text › Scale)로 씁니다. `leading="tight"`는 아바타 옆 한 줄 메타(HostLine · HostedLine)만 씁니다.
 - 분자 이상은 컴파운드 컴포넌트(루트 + 부품, children이 없으면 기본 조립)로 만듭니다.
 
 ```sh
@@ -812,7 +812,7 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
   - 시트 · 대화상자는 `--sheet`(라이트 흰색, 다크 바탕색)이고 뒤는 옅은 검은 딤(`bg-black/20`)만 깔립니다. 안에 놓이는 카드 · 조작 면이 바탕 → 카드 → 조작 면 순서를 그대로 씁니다.
   - 입력 칸 · 묶음 · 고르는 칩 · 테두리 배지는 면을 올리지 않고 선(`border`)으로 구분합니다. 칩과 테두리 배지는 다크에서 바탕이 투명이라 카드 위에서도 구멍처럼 어둡게 보이지 않습니다.
   - 대비(다크): 본문 `#f2f4f5`는 카드 위 15.9:1 · 조작 면 위 14.4:1, 보조 `#9aa3a8`는 6.8:1 · 6.2:1, 청록 글자 `#2fb3b4`는 6.9:1 · 6.2:1입니다. 면끼리의 경계 대비는 카드/바탕 1.08:1 · 조작 면/바탕 1.19:1 · 조작 면/카드 1.10:1로 3:1에 못 미치고, 글자와 아이콘으로 식별합니다.
-- 글자 토큰은 9개(`text-display` … `text-micro`), 화면에서는 `Text` 역할 12가지로 씁니다.
+- 글자 토큰은 10개(`text-display` … `text-micro`, 탭 막대 라벨 `text-tab` 10/500 포함), 화면에서는 `Text` 역할 13가지로 씁니다.
 - 누를 수 있는 것은 hover에 살짝, 누르면 한 단계 진하게 칠합니다(2026-11-09 사용자 결정). 바탕색은 그대로 두고 그 위에 글자색을 덧칠해(hover 5%, 누름 10%) 라이트는 어둡게 · 다크는 밝게 보이고, 채움 버튼도 같은 방향입니다. iOS 탭 하이라이트는 끕니다. `styles.css`의 `pressable` 클래스가 이것이고, Button · Toggle · 분할 전환 · 달력 · 닫기 버튼 · 눌리는 줄 · 활동 · 프로그램 목록 줄이 씁니다. 받아 쓰는 쪽이 누르는 요소를 직접 만들 때도 `pressable`을 줍니다.
   - 덧칠은 켜지고 꺼지는 것이 바로입니다(그라데이션은 전환되지 않음). ListRow는 액션 칸까지 줄 전체를 칠하려고 바탕색으로 같은 값을 칠합니다.
   - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).

@@ -15,6 +15,7 @@ const VARIANTS = [
   'control',
   'badge',
   'micro',
+  'tab',
 ] as const;
 const LABEL: Record<(typeof VARIANTS)[number], string> = {
   display: '배너 큰 이름 34/800',
@@ -29,6 +30,7 @@ const LABEL: Record<(typeof VARIANTS)[number], string> = {
   control: '컨트롤 13/600',
   badge: '배지 12/700',
   micro: '마이크로 11/400',
+  tab: '탭 막대 라벨 10/500',
 };
 /** 역할이 쓰는 글자 토큰(Foundations › Typography). Text의 variant 클래스에서 읽는다 */
 const token = (v: (typeof VARIANTS)[number]) =>
@@ -102,7 +104,7 @@ type Story = StoryObj<typeof meta>;
 /** Controls 패널에서 모든 값을 바꿔 볼 수 있다 */
 export const Playground: Story = {};
 
-/** 글자 계층 12가지: 역할 · 쓰는 토큰 */
+/** 글자 계층 13가지: 역할 · 쓰는 토큰 */
 export const Scale: Story = {
   parameters: { width: 760 },
   render: () => (

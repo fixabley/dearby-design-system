@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { ICONS, type IconName } from '@/icons';
 import { Svg } from '@/components/foundations/Icon';
+import { Text } from '@/components/atoms/shared/Text';
 import { cn } from '@/lib/utils';
 import { NAV, type NavKey } from '@/lib/nav';
 
@@ -78,14 +79,16 @@ function Tab({
       >
         <Svg src={ICONS[icon]} size={px} />
       </span>
-      <span
+      <Text
+        as="span"
+        variant="tab"
         className={cn(
-          'absolute inset-x-0 top-[39px] text-[10px] font-medium leading-3 transition-opacity duration-150',
+          'absolute inset-x-0 top-[39px] transition-opacity duration-150',
           minimized && 'opacity-0',
         )}
       >
         {children}
-      </span>
+      </Text>
     </button>
   );
 }

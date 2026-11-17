@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
 import { Icon } from '@/components/foundations/Icon';
+import { TransitionPortal, TransitionRoot } from '@/lib/transition-open';
 
-// shadcn Dialog + Dearby: 큰 모달(왼쪽 위 제목, 오른쪽 위 글래스 닫기). 열 때 살짝 떠오르고 닫을 때 가라앉는다
-const Dialog = DialogPrimitive.Root;
+// shadcn Dialog + Dearby: 큰 모달(왼쪽 위 제목, 오른쪽 위 글래스 닫기). 열고 닫기는 브라우저 View Transitions(React <ViewTransition>)의 기본 전환(교차 페이드)이다
+const Dialog = TransitionRoot;
 const DialogTrigger = DialogPrimitive.Trigger;
 const DialogClose = DialogPrimitive.Close;
 const DialogPortal = DialogPrimitive.Portal;
@@ -16,10 +17,7 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
-      className={cn(
-        'fixed inset-0 z-50 bg-black/30 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
-        className,
-      )}
+      className={cn('fixed inset-0 z-50 bg-black/30', className)}
       {...props}
     />
   );
@@ -34,28 +32,29 @@ function DialogContent({
   showClose?: boolean;
 }) {
   return (
-    <DialogPortal>
-      <DialogOverlay />
-      <DialogPrimitive.Content
-        data-slot="dialog-content"
-        className={cn(
-          'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-background shadow-card outline-none',
-          'duration-300 ease-spring data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[.97] data-[state=open]:slide-in-from-bottom-3',
-          'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[.98] data-[state=closed]:duration-150',
-          className,
-        )}
-        {...props}
-      >
-        {children}
-        {/* 닫기는 button-group의 glass와 같은 평평한 조작 면 */}
-        {showClose && (
-          <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full bg-control shadow-control transition-transform active:scale-95 pressable [&_svg]:size-5">
-            <Icon name="close" />
-            <span className="sr-only">닫기</span>
-          </DialogPrimitive.Close>
-        )}
-      </DialogPrimitive.Content>
-    </DialogPortal>
+    <TransitionPortal
+      overlay={<DialogOverlay forceMount />}
+      content={
+        <DialogPrimitive.Content
+          forceMount
+          data-slot="dialog-content"
+          className={cn(
+            'fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100vh-48px)] w-[calc(100vw-80px)] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-background shadow-card outline-none',
+            className,
+          )}
+          {...props}
+        >
+          {children}
+          {/* 닫기는 button-group의 glass와 같은 평평한 조작 면 */}
+          {showClose && (
+            <DialogPrimitive.Close className="absolute right-5 top-5 grid size-11 place-items-center rounded-full bg-control shadow-control transition-transform active:scale-95 pressable [&_svg]:size-5">
+              <Icon name="close" />
+              <span className="sr-only">닫기</span>
+            </DialogPrimitive.Close>
+          )}
+        </DialogPrimitive.Content>
+      }
+    />
   );
 }
 

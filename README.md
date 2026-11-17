@@ -553,7 +553,7 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 눌러서 여는 고르기 행에는 hover · 누름 덧칠(`pressable`)을 줬습니다(원칙은 Select 트리거에 넣지 않지만 이 행은 줄 전체가 누르는 요소라 눌리는 줄과 맞춤. 시안에는 없음).
   - 반복 행이 눌린 채 강조되는 시안 `.srow.on`(메뉴가 열린 동안 행 배경)은 따로 그리지 않았습니다.
 - 화면을 옮기면 메뉴가 닫히며 초점이 사라지니 `RepeatCustom` · `SkipDates`에 `autoFocus`를 줘 뒤로 버튼(이름 `뒤로, 반복`)으로 옮깁니다. 메뉴 · 목록은 키보드로 끝까지 됩니다(Tab, 화살표, Enter, Esc).
-- 움직임은 모두 기존 부품의 것(메뉴 0.2초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
+- 움직임은 모두 기존 부품의 것(메뉴 0.2초, 시트 기본 전환)이고 동작 줄이기에서 꺼집니다.
 
 ### 참여 조건 · 자격 부품
 
@@ -586,7 +586,7 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 꺾쇠는 16(`KeySearch` 행은 `CommandShortcut`의 14, 시안 13)이고 `자격 추가` · `새 자격 제안` 행에도 둡니다(시안 ㉙-c2 · l과 같음). 범위 칸 안쪽 여백은 `Field`의 10/16(시안 9/14), 칸 라벨은 `FieldLabel` 13(시안 12)입니다. 키 검색 목록은 cmdk가 첫 행을 옅은 민트로 강조해 두고 시작합니다(시안은 강조 없음, 기존 `Command`의 모양). 키 이름 · `새 자격 제안` 글자는 `CommandItem`이 정합니다(17).
   - 눌러서 여는 행의 hover · 누름 덧칠은 `ListRow`의 것입니다(시안에는 없음).
 - 접근성: 행은 누르는 `button`(이름은 `제목 요약`)입니다. 검색 입력은 cmdk의 combobox(이름 `자격 검색`)이고 결과 개수 알림은 따로 두지 않았습니다. 키보드로 끝까지 됩니다(Tab, Enter, 방향 · 문자 입력).
-- 움직임은 모두 기존 부품의 것(분할 전환 면 0.3초, 시트 0.3초)이고 동작 줄이기에서 꺼집니다.
+- 움직임은 모두 기존 부품의 것(분할 전환 면 0.3초, 시트 기본 전환)이고 동작 줄이기에서 꺼집니다.
 
 ### 참여 폼 부품
 
@@ -624,7 +624,7 @@ const [rule, setRule] = useState<RepeatRule | null>(null);
   - 답의 질문 글은 `rowTitle` 17/600(시안 16/600), 아래 여백 10 그대로, `필수`는 11/600 청록 글자입니다(시안과 같음, 라이트 청록 대비 계산은 하지 않음). 긴 답 칸은 최소 76, 글자는 `Textarea`의 15(시안 16)입니다.
   - 프로젝트 글자 원은 청록 그러데이션(시안 `.apic`)이고 `확인됨` 태그는 시안의 GitHub 로고 대신 `github` 아이콘(시안의 로고 원문)입니다. 플랫폼 · `출시` 태그는 `Badge` muted · mint입니다.
 - 접근성: 필수는 `필수` 글자, 경고는 글자 + ⓘ + 빨강으로 전해 색만으로 전하지 않습니다. 라디오 · 체크박스 줄은 label로 감싸 줄 어디를 눌러도 고르고, 묶음 이름은 보이는 글자에서 옵니다. 키보드로 끝까지 됩니다(Tab, Space, 방향키). 화면 읽기 실제 낭독은 확인하지 못했습니다.
-- 움직임은 모두 기존 부품의 것(시트 · 스위치 · 라디오 · 분할 전환 0.3초 이내)이고 동작 줄이기에서 꺼집니다.
+- 움직임은 모두 기존 부품의 것(시트 기본 전환 · 스위치 · 라디오 · 분할 전환 0.3초 이내)이고 동작 줄이기에서 꺼집니다.
 
 ### 직접 개설 표시 부품
 
@@ -810,7 +810,10 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
   - 넣지 않은 곳: 폼 컨트롤(Checkbox · Radio · Switch는 손잡이가 늘어남 · Select 트리거 · 입력), 메뉴 · 목록 항목의 `data-[highlighted]` 회색(DropdownMenu · ContextMenu · Select · Command · TimePicker, 키보드 강조와 겸함), 시간표 블록(축소), QueueCard(축소, 바탕이 그라데이션), Alert 행동(흐려짐), TeamColumn(끌기).
   - 활동 · 프로그램 목록 줄(ActivityRow · ProgramRow)은 덧칠 면을 글 자리 밖 좌우 12까지 넓힙니다(`-mx-3 px-3`, 고른 면도 같음). 스크롤 칸 안에 둘 때는 칸 안쪽에 12 이상 여백이 있어야 잘리지 않습니다(TwoPane 목록 칸 · TwoColumnList는 맞춰 둠).
 - 날짜는 `M월 d일 (요일)`(올해가 아니면 앞에 `yyyy년`), 실제 시각만 `HH:mm`. `오늘` 같은 상대 표기는 쓰지 않습니다. 표기 도우미는 `lib/date`에 있습니다.
-- 움직임은 Radix의 `data-state`에 Tailwind 애니메이션을 붙입니다. 동작 줄이기 설정이면 모두 꺼집니다.
+- 움직임은 플랫폼 기본 부품의 것을 살립니다(2026-11-17 사용자 결정). 직접 만든 긴 애니메이션은 없습니다.
+  - 시트 · 대화상자(`Sheet` · `Dialog`)의 열고 닫기는 React `<ViewTransition>`이 브라우저 View Transitions API로 하는 기본 전환(교차 페이드)입니다. `open`을 평범한 state로 넘겨도 되도록 `src/lib/transition-open.tsx`가 값을 `useDeferredValue`로 거쳐 Radix에 넘기고, 덮개 · 내용은 열린 동안만 같은 커밋에 그립니다(Radix Presence는 한 박자 늦어 전환이 안 켜져서 `forceMount`로 직접 여닫음). React 19.3 이상이 필요합니다.
+  - 화면 전환 · 목록 넣고 빼기 · 탭 전환은 받아 쓰는 앱이 `<ViewTransition>`(Next는 `Link transitionTypes` · `template`)으로 같은 방식을 씁니다. `styles.css`가 전환 중 포인터를 통과시키고(`::view-transition`) 동작 줄이기면 `::view-transition-*`의 시간을 0으로 만듭니다.
+  - 메뉴 · 팝오버 · 토스트 등 나머지는 Radix의 `data-state`에 Tailwind 애니메이션(`tw-animate-css`)을 붙인 짧은 기본 모양 그대로이고, 동작 줄이기 설정이면 모두 꺼집니다.
 - 코드 식별자는 영문, 화면 글자만 한국어.
 
 글꼴은 [Pretendard](https://github.com/orioncactus/pretendard)(SIL OFL 1.1, [글꼴](#글꼴))입니다. 예시에 나오는 기관 이름·로고는 시안 확인용이며 각 기관에 권리가 있습니다.

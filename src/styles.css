@@ -229,3 +229,17 @@
     transition: none !important;
   }
 }
+
+/* View Transitions(화면 전환 · 시트 · 대화상자 · 목록 넣고 빼기)는 브라우저 기본 교차 페이드를 쓴다. 직접 만든 긴 애니메이션은 없다(2026-11-17 사용자 결정).
+   전환 중에도 아래 화면이 눌리게 겹친 층은 포인터를 통과시키고, 동작 줄이기면 전환을 끈다(위 전역 규칙은 ::view-transition-*에 닿지 않는다) */
+::view-transition {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

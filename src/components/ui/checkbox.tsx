@@ -14,7 +14,7 @@ function Checkbox({
       className={cn(
         'peer grid size-[22px] shrink-0 place-items-center rounded-sm text-primary-foreground inset-ring-[1.5px] inset-ring-muted-foreground/50 outline-none transition-colors duration-150',
         'focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
-        'data-[state=checked]:bg-primary data-[state=checked]:inset-ring-0 dark:data-[state=checked]:shadow-card',
+        'data-[state=checked]:bg-primary data-[state=checked]:inset-ring-0',
         className,
       )}
       {...props}

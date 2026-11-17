@@ -21,7 +21,6 @@ const COLORS = [
     '조작 면(버튼 outline · 타일) · 다크는 두 단계 밝게 #1f2325 + 위쪽 밝은 선',
   ],
   ['popover', '메뉴 · 팝오버 면 · 다크는 조작 면과 같은 #1f2325'],
-  ['glass', '유리 면(backdrop-blur) · 라이트 흰색 74%, 다크 조작 면 72%'],
   ['destructive', '탈락·오류, 지우기 같은 동작의 빨간 글자'],
   [
     'destructive-fill',

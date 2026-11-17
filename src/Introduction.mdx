@@ -9,7 +9,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 **만든 순서**
 
 1. 화면 요소마다 바꿔 쓸 수 있는 shadcn·Radix 컴포넌트를 골랐습니다. 코드는 `components/ui/`(shadcn 기본 위치)에 두고, Storybook에서는 `shadcn` 태그를 달아 층마다 맨 앞 묶음(Atoms › shadcn, Molecules › shadcn)에 넣었습니다.
-2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 토큰 9개·모서리·그림자), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
+2. 그 위에 Dearby 디자인을 덧씌웠습니다: 토큰(청록·민트·글자 토큰 9개·모서리·테두리), iOS 모양(스위치·분할 전환·묶음 목록), 움직임.
 3. Radix를 직접 쓰는 곳은 `ui/` 안뿐이고, 나머지 컴포넌트는 모두 shadcn 컴포넌트를 조립합니다.
 4. 최대한 작게 쪼개 다시 쓰는 단위로 나눴습니다: Atoms → Molecules → Organisms → Templates. 컴포넌트 하나당 파일 하나, 스토리는 옆에 둡니다.
 
@@ -22,7 +22,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 <Markdown>{`
 | 층 | 참조할 수 있는 것 |
 | --- | --- |
-| Foundations | 토큰(색·글자·모서리·그림자·움직임), \`Icon\` |
+| Foundations | 토큰(색·글자·모서리·테두리·움직임), \`Icon\` |
 | Atoms | Foundations, Atoms 층 shadcn 원본 |
 | Molecules | 그 아래 전부, Molecules 층 shadcn 원본 |
 | Organisms | 그 아래 전부, 다른 Organism(순환 금지, 원래 Atomic Design 정의대로) |
@@ -78,7 +78,7 @@ import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 <Markdown>{`
 | 시안 요소 | shadcn / Radix | 사이드바 |
 | --- | --- | --- |
-| CTA·작은 버튼·글래스 원형 버튼 | Button(variant default·mint·outline·ghost·destructive·destructive-fill·glass, size lg·default·sm·icon) | Atoms › shadcn |
+| CTA·작은 버튼·원형 버튼(glass) | Button(variant default·mint·outline·ghost·destructive·destructive-fill·glass, size lg·default·sm·icon) | Atoms › shadcn |
 | D-day·모집 상태·추천 비율·태그 | Badge | Atoms › shadcn |
 | 알림 켜기 | Switch | Atoms › shadcn |
 | 서버 고르기 | RadioGroup | Molecules › shadcn |

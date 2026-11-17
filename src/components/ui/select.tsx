@@ -69,7 +69,7 @@ function SelectContent({
         position={position}
         sideOffset={6}
         className={cn(
-          'relative z-50 max-h-(--radix-select-content-available-height) min-w-[200px] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-[14px] bg-popover/95 text-popover-foreground shadow-[0_10px_40px_rgba(0,0,0,.18)] backdrop-blur-xl',
+          'relative z-50 max-h-(--radix-select-content-available-height) min-w-[200px] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-[14px] bg-popover text-popover-foreground shadow-card',
           position === 'popper' && 'min-w-(--radix-select-trigger-width)',
           'duration-200 ease-spring data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
           className,

@@ -16,7 +16,7 @@ const selectTriggerVariants = cva(
     variants: {
       variant: {
         default:
-          'h-11 w-full rounded-md border border-border px-4 text-body-lg [&_svg]:size-[18px]',
+          'h-11 w-full rounded-md border border-border bg-input px-4 dark:bg-transparent text-body-lg [&_svg]:size-[18px]',
         inline:
           'h-auto rounded-sm bg-transparent p-0 text-body text-muted-foreground [&_svg]:size-4', // 묶음 목록 행 오른쪽 값
       },
@@ -69,7 +69,7 @@ function SelectContent({
         position={position}
         sideOffset={6}
         className={cn(
-          'relative z-50 max-h-(--radix-select-content-available-height) min-w-[200px] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-[14px] bg-popover text-popover-foreground shadow-card',
+          'relative z-50 max-h-(--radix-select-content-available-height) min-w-[200px] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-[14px] bg-popover text-popover-foreground shadow-float',
           position === 'popper' && 'min-w-(--radix-select-trigger-width)',
           'duration-200 ease-spring data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
           className,

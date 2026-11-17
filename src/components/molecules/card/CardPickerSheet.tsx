@@ -47,7 +47,7 @@ function Options({ className }: { className?: string }) {
       value={value}
       onValueChange={setValue}
       className={cn(
-        'mt-3.5 overflow-hidden rounded-md border border-border',
+        'mt-3.5 overflow-hidden rounded-md bg-card dark:bg-transparent dark:border dark:border-border',
         className,
       )}
     >

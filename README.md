@@ -792,15 +792,16 @@ GitHub와 Invertocat 로고는 GitHub, Inc.의, X와 X 로고는 X Corp.의, Ins
 
   | 면 | 토큰(클래스) | 라이트 | 다크 | 가장자리 |
   | --- | --- | --- | --- | --- |
-  | 바탕(페이지) | `--background`(`bg-background`) | `#f5f5f7`(옅은 회색) | `#0f1112` | 없음 |
-  | 카드 | `--card`(`bg-card`) | `#ffffff` | `#171a1b` | `--shadow-card` = `0 0 0 1px var(--border)` |
-  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control` = 위와 같은 선 |
-  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff` | `#1f2325` | `shadow-card`(불투명 면, 흐림 없음) |
-  | 시트 · 대화상자 | `--sheet`(`bg-sheet`) | `#ffffff` | `#0f1112` | `shadow-card`(불투명 면, 흐림 없음) |
+  | 바탕(페이지) | `--background`(`bg-background`) | `#ffffff` | `#0f1112` | 없음 |
+  | 카드 · 줄 묶음 · 칩 | `--card`(`bg-card`) | `#f4f6f6`(청록 기운, 테두리 없음) | `#171a1b` | 라이트 없음 · 다크 `--shadow-card` = `0 0 0 1px var(--border)` |
+  | 조작 면 | `--control`(`bg-control`) | `#ffffff` | `#1f2325` | `--shadow-control` = `0 0 0 1px var(--border)` |
+  | 메뉴 · 팝오버 | `--popover`(`bg-popover`) | `#ffffff` | `#1f2325` | `--shadow-float`(1px 선, 불투명 면, 흐림 없음) |
+  | 시트 · 대화상자 | `--sheet`(`bg-sheet`) | `#ffffff` | `#0f1112` | `--shadow-float` |
+  | 입력 칸 | `--input`(`bg-input`) | `#ffffff` + 테두리 | 투명 + 테두리 | `border-border` |
   | 토스트 | `--toast`(`bg-toast`) | 검정 85% | `#1f2325` + 흰색 15% 테두리 | 라이트는 검정 면 그대로 |
 
-  - `shadow-card` · `shadow-control`은 이름만 남은 값입니다. 실제로는 번지는 그림자가 아니라 1px 선(`box-shadow` 링이라 크기가 변하지 않고 모서리를 따름)이고 `--shadow-primary`는 `none`입니다. `--glass` 토큰과 `bg-glass`는 없앴고, `Button` · `ButtonGroup` · `InputGroup`의 `glass`는 이름만 남은 별칭으로 평평한 조작 면(`bg-control shadow-control`)입니다.
-  - 누를 수 있음 신호(2026-11-17 UI/UX 평가 반영): 라이트 페이지 바탕은 옅은 회색(`#f5f5f7`)이고 카드 · 조작 면은 흰 면이라 면 대비가 보입니다(테두리는 남김). 다크는 바탕 `#0f1112` → 카드 `#171a1b`로 한 단계 밝습니다. 칩 · 배지 · 둥근 흰 면은 `bg-background`(회색)가 아니라 `bg-card`를 씁니다. 누르는 것은 모두 `pressable`(눌림 덧칠)과 3:1 이상의 `focus-visible` 링(`--ring`, Button은 페이지 바탕색의 간격)을 갖고, 카드 전체가 눌리면 `<Card interactive asChild>`로 같은 눌림 · 링을 줍니다.
+  - `shadow-control` · `shadow-float`(다크는 `shadow-card`도)는 이름만 남은 값입니다. 실제로는 번지는 그림자가 아니라 1px 선(`box-shadow` 링이라 크기가 변하지 않고 모서리를 따름)이고 `--shadow-primary`는 `none`입니다. `--glass` 토큰과 `bg-glass`는 없앴고, `Button` · `ButtonGroup` · `InputGroup`의 `glass`는 이름만 남은 별칭으로 평평한 조작 면(`bg-control shadow-control`)입니다.
+  - 면 대비(2026-11-17 사용자 결정, 회색 페이지 바탕을 되돌림): 라이트는 흰 페이지 바탕 위에 카드 · 줄 묶음(`ItemGroup` · `Field` 묶음 · 선택 행) · 칩 · 배지 · 분할 전환을 테두리 없는 옅은 면 `#f4f6f6`으로 그립니다(흰 바탕과 1.085:1이라 구분은 면 색과 모양이 합니다). 떠 있는 층(시트 · 팝오버 · 메뉴 · 대화상자)과 입력 칸은 흰 면 + 테두리입니다. 다크는 그대로입니다. 눌림(`pressable`)과 3:1 포커스 링, chevron, 44 대상은 유지합니다. 청록 글자 `accent-foreground`는 옅은 카드 면 위 4.5:1을 위해 `#007a7b`(카드 4.76 · 흰 바탕 5.16)로 조금 진하게 했고 채움 면 `primary`는 `#007f80` 그대로입니다. 받아 쓰는 쪽이 면을 직접 만들 때 카드면은 `bg-card`, 떠 있는 층은 `bg-popover shadow-float`입니다.
   - 누르는 대상 크기와 글자: 눈에 보이는 모양이 44보다 작아도 `touch-target`(`styles.css`, `relative`와 함께)이 누르는 자리를 44 × 44까지 넓힙니다(Button · Toggle · 체크 · 라디오 · 스위치 · 분할 전환 칸 · 달력 이동 · 알림 행동). 분할 전환 높이는 44이고 달력 날짜 칸은 44입니다. 판단에 쓰는 작은 라벨은 12px 이상이라 `text-micro`가 12px이고(Avatar 글자 포함), 달력 오늘은 `mint-foreground`(민트 면 5:1)입니다.
   - 조작 면은 누를 수 있는 중립 면입니다: `Button` outline · tile, `Toggle` tile, `TimePicker`. 민트 면(`mint`) · 청록 채움(`primary`) · 빨강 채움은 면 색이 이미 달라 선도 없습니다.
   - 카드처럼 누르지 않는 면(`Card` · `Alert` · `Popover` · `ContextMenu` · `FollowCard` · 시간표 쉬는 시간 띠)은 `shadow-card`를 씁니다. 받아 쓰는 쪽이 면을 직접 만들 때도 누르는 면은 `bg-control shadow-control`, 누르지 않는 면은 `bg-card shadow-card`입니다.

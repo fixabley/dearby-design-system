@@ -11,7 +11,8 @@ const inputGroupVariants = cva(
       variant: {
         // glass는 이름만 남은 별칭: button-group의 glass와 같은 평평한 조작 면
         glass: 'h-11 rounded-full bg-control px-4 shadow-control',
-        filled: 'min-h-11 rounded-md border border-border px-4',
+        filled:
+          'min-h-11 rounded-md border border-border bg-input px-4 dark:bg-transparent',
       },
     },
     defaultVariants: { variant: 'filled' },

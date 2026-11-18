@@ -89,7 +89,7 @@ function Tab({
         }
       }}
       className={cn(
-        'relative flex-1 rounded-full outline-none transition-opacity duration-200 [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-ring',
+        'relative flex-1 rounded-full text-center outline-none transition-opacity duration-200 [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-ring',
         selected
           ? 'text-[#006b6c] dark:text-[#40c5c6]'
           : 'text-[#0f0f0f] dark:text-[#fdfeff]',

@@ -3,6 +3,8 @@ import {
   createContext,
   isValidElement,
   useContext,
+  type ElementType,
+  type MouseEvent,
   type ReactNode,
 } from 'react';
 import { ICONS, type IconName } from '@/icons';
@@ -14,8 +16,12 @@ import { NAV, type NavKey } from '@/lib/nav';
 type TabBarContextValue = {
   active: NavKey;
   minimized: boolean;
-  onNavigate?: (k: NavKey) => void;
+  onNavigate?: (k: NavKey, event: MouseEvent<HTMLElement>) => void;
   onExpand?: () => void;
+  /** 기본 조립이 아닌 Tab이 href를 따로 받지 않았을 때 쓰는 주소 */
+  hrefs?: Partial<Record<NavKey, string>>;
+  /** 링크로 그릴 컴포넌트(Next의 Link 등, 기본 a) */
+  linkAs?: ElementType;
 };
 const TabBarContext = createContext<TabBarContextValue | null>(null);
 
@@ -39,30 +45,49 @@ const ICON_PX: Partial<Record<IconName, number>> = {
 
 /**
  * 탭 하나: 아이콘 + 라벨 10. value가 active와 같으면 청록 글자(고른 면은 TabBar가 하나로 그린다).
+ * 주소(href, 또는 TabBar의 hrefs)가 있으면 링크로 그려서 새 탭에서 열기 · 링크 목록(화면 읽기)이 된다. 그 링크를 Next의 Link로 그리려면 `as={Link}`(또는 TabBar의 linkAs).
+ * 눌렀을 때 TabBar의 onNavigate(value, event)가 불리고, 화면 안에서 직접 이동하려면(로그인이 필요한 탭 등) 거기서 event.preventDefault()를 부른다.
+ * Cmd · Ctrl · Shift 클릭과 가운데 클릭은 브라우저에 맡기려고 onNavigate를 부르지 않는다. 줄어든 막대에서는 이동하지 않고 펴기만 한다.
  * iOS 시스템 탭 막대(iOS 26 TabView)에서 잰 값(Android #186): 안 고른 글자 라이트 #0F0F0F · 다크 #FDFEFF, 고른 글자 라이트 #006B6C · 다크 #40C5C6
  */
 function Tab({
   value,
   icon,
+  href: hrefProp,
+  as: As,
   className,
   children,
 }: {
   value: NavKey;
   icon: IconName;
+  /** 이 탭의 주소. 없으면 TabBar의 hrefs[value], 그것도 없으면 단추 */
+  href?: string;
+  /** 링크로 그릴 컴포넌트(기본은 TabBar의 linkAs, 없으면 a) */
+  as?: ElementType;
   className?: string;
   children: ReactNode;
 }) {
-  const { active, minimized, onNavigate, onExpand } = useTabBar('Tab');
+  const { active, minimized, onNavigate, onExpand, hrefs, linkAs } =
+    useTabBar('Tab');
   const selected = value === active;
   const px = ICON_PX[icon] ?? 30;
+  const href = hrefProp ?? hrefs?.[value];
+  const Root: ElementType = href ? (As ?? linkAs ?? 'a') : 'button';
   return (
-    <button
-      type="button"
+    <Root
+      {...(href ? { href } : { type: 'button' })}
       aria-current={selected ? 'page' : undefined}
       // 줄어든 막대는 고른 탭만 보이고, 누르면 막대가 펴진다
       tabIndex={minimized && !selected ? -1 : undefined}
       aria-hidden={minimized && !selected ? true : undefined}
-      onClick={() => (minimized ? onExpand?.() : onNavigate?.(value))}
+      onClick={(e: MouseEvent<HTMLElement>) => {
+        if (minimized) {
+          e.preventDefault();
+          onExpand?.();
+        } else if (!(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
+          onNavigate?.(value, e);
+        }
+      }}
       className={cn(
         'relative flex-1 rounded-full outline-none transition-opacity duration-200 [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-ring',
         selected
@@ -89,7 +114,7 @@ function Tab({
       >
         {children}
       </Text>
-    </button>
+    </Root>
   );
 }
 
@@ -98,11 +123,18 @@ function TabBarRoot({
   onNavigate,
   minimized = false,
   onExpand,
+  hrefs,
+  linkAs,
   className,
   children,
 }: {
   active: NavKey;
-  onNavigate?: (k: NavKey) => void;
+  /** 탭을 눌렀을 때. 링크 탭이면 event.preventDefault()로 브라우저 이동을 막고 직접 이동할 수 있다(로그인이 필요한 탭) */
+  onNavigate?: (k: NavKey, event: MouseEvent<HTMLElement>) => void;
+  /** 탭마다의 주소(기본 조립에서 탭을 링크로 그린다) */
+  hrefs?: Partial<Record<NavKey, string>>;
+  /** 링크로 그릴 컴포넌트(Next의 Link 등, 기본 a) */
+  linkAs?: ElementType;
   /** 줄어든 모양(아래로 스크롤하는 동안, iOS tabBarMinimizeBehavior onScrollDown): 고른 탭 아이콘 하나의 작은 캡슐 */
   minimized?: boolean;
   /** 줄어든 막대를 눌렀을 때(펴라는 요청) */
@@ -123,7 +155,9 @@ function TabBarRoot({
     (t) => isValidElement<{ value?: NavKey }>(t) && t.props.value === active,
   );
   return (
-    <TabBarContext.Provider value={{ active, minimized, onNavigate, onExpand }}>
+    <TabBarContext.Provider
+      value={{ active, minimized, onNavigate, onExpand, hrefs, linkAs }}
+    >
       <div
         role="group"
         aria-label="탭 막대"

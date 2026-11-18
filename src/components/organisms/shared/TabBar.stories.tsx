@@ -60,3 +60,30 @@ export const Composed: Story = {
     );
   },
 };
+
+/** 주소를 주면 탭이 링크가 된다(새 탭에서 열기 · 링크 목록). 로그인이 필요한 탭 등은 onNavigate에서 event.preventDefault()로 직접 이동한다. Next에서는 linkAs={Link} */
+export const Links: Story = {
+  args: {
+    hrefs: {
+      home: '#home',
+      discover: '#discover',
+      qr: '#qr',
+      contacts: '#contacts',
+      profile: '#profile',
+    },
+  },
+  render: function Render(args) {
+    const [, update] = useArgs();
+    return (
+      <X.TabBar
+        active={args.active}
+        hrefs={args.hrefs}
+        onNavigate={(k, e) => {
+          e.preventDefault();
+          args.onNavigate?.(k, e);
+          update({ active: k });
+        }}
+      />
+    );
+  },
+};

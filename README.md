@@ -691,16 +691,6 @@ gh api repos/orioncactus/pretendard/contents/LICENSE --jq .content | base64 -d >
 - `bellFill` · `bellOff` · `more` · `layers` · `sparkle`은 시안(⑧-0g2 팔로우 카드와 ⑧-0g 섹션 머리)의 SVG 원문 그대로입니다(꽉 찬 종 · 사선 종 · ⋯ · 프로그램 · 분야). 팔로우 대상 종류와 알림 수준의 이름 · 아이콘 표는 `icons.ts`의 `FOLLOW_KINDS` · `FOLLOW_LEVELS`입니다.
 - `info`(ⓘ)는 새로 그리지 않았습니다. 시안의 원문 그대로입니다(추천 카드의 `자세히` 버튼, 원 반지름 9.5에 안쪽 획만 선 2.4).
 
-### Live 아이콘 Lottie(`static/lottie/live.json`)
-
-2026-11-23 iOS · Android 홈 "오늘" 카드의 Live 아이콘 단추를 위해 만든 Lottie입니다(계약 02 "잠금 화면의 진행 중 표시", 사용자 결정 "프로그램 로고 아래에 Live 로띠 아이콘 버튼"). 남의 자산 없이 자물쇠 토글(`LockToggle`의 `lockAnimation`)과 같은 방식으로 직접 짰습니다: 24 격자, 선 1.8, 둥근 끝 · 이음, 색은 검정으로 두고 쓰는 쪽이 런타임에 칠합니다. 웹에는 이 단추가 없어 웹 부품은 만들지 않았고 패키지(`files`)에도 넣지 않습니다. 이 파일이 원본이고 두 앱은 같은 내용을 자기 리소스로 복사해 씁니다(iOS `Dearby/shared/assets/lottie/live.json`, Android `app/src/main/res/raw/live.json`). 고칠 때는 이 파일을 먼저 고치고 두 앱에 그대로 옮깁니다.
-
-- 그림: 가운데 점(지름 3.6, 채움 `Fill 1`) + 양쪽 호 둘씩(가운데 (12, 12)에서 반지름 4.5 · 8.5, 가로선 위아래 45°씩 90° 호, 선 `Stroke 1`). 층은 `Dot` · `Inner` · `Outer` 셋이고 모두 가운데를 축으로 커지고 작아집니다.
-- 움직임: 60fps 84프레임(1.4초) 고리. 0 → 10프레임에 호 둘이 25%로 흐려지며 가운데로 모이고(안쪽 80% · 바깥 86%) 점이 78%로 줄었다가, 점이 110%로 튀고(22) 안쪽 호(16 → 32) · 바깥 호(26 → 44)가 차례로 퍼지며 다시 켜집니다. 44프레임부터 끝까지는 정지 아이콘 그대로 쉽니다. 곡선은 모두 ease-out(0.33, 0 → 0.2, 1)입니다.
-- **첫 프레임 = 끝 프레임 = 정지 아이콘**이라 꺼진 모양은 0프레임에 세워 두고, 켜지면 0프레임부터 고리로 돌리면 이음매가 없습니다. 동작 줄이기에서는 0프레임에 세운 채 색만 바꿉니다.
-- 색 바꾸기: 모양마다 이름(`nm`)이 있어 keypath로 칠합니다. iOS(lottie-ios)는 `AnimationKeypath(keypath: "**.Color")`에 `ColorValueProvider`, Android(lottie-compose)는 `KeyPath("**")`에 `LottieProperty.STROKE_COLOR` · `LottieProperty.COLOR`. lottie-web이라면 자물쇠 토글처럼 CSS `stroke` · `fill`을 `currentColor`로 덮습니다.
-- 확인: lottie-web 5.13.0 light(SVG)로 0 · 5 · 10 · … · 83프레임을 그려 눈으로 봤습니다. 앱 재생기(lottie-ios · lottie-compose)로 그린 모양은 실기기에서 아직 보지 못했습니다.
-
 ## 서비스 로고
 
 아이콘은 시안에서 가져오지만, 서비스 로고는 시안에 있더라도 그 회사가 직접 공개한 자료를 우선합니다(2026-11-09 · 11-10에 받음). 공식 자료를 받을 수 없거나 허락 없이 쓸 수 없는 Instagram · Threads · Facebook · TikTok · Notion · Behance 여섯은 사용자 결정(2026-11-10 "무료 SVG 쓰자" · "노션도" · "Behance도")으로 출처가 분명한 무료 모음 simple-icons에서 판을 고정해 경로를 그대로 가져옵니다([공식 자료 대신 무료 SVG를 쓴 로고](#공식-자료-대신-무료-svg를-쓴-로고)). 상표권은 각 회사에 있고 모음의 라이선스는 그림에만 해당하므로, 회사가 요청하면 그 로고를 내립니다. 출처가 불분명한 아이콘 모음에서 베끼지 않고, 우리가 다시 그리지 않습니다. LINE · WhatsApp 둘은 이 공식 자료 우선 규칙과 달리 사용자 지시(2026-11-10)로 처음부터 Bootstrap Icons의 그림을 씁니다([Bootstrap Icons에서 가져온 로고](#bootstrap-icons에서-가져온-로고)).
